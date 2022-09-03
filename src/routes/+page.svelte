@@ -3,7 +3,7 @@
 	let { eventos } = data;
 </script>
 
-<div>
+<div class="container">
 	<h1>Titulo</h1>
 	<ul>
 		{#each eventos as evento}
