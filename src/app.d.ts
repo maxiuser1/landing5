@@ -2,7 +2,22 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-	// interface Locals {}
+	interface Locals {
+		eventosRepo;
+	}
 	// interface PageData {}
 	// interface Platform {}
+
+	type Evento = {
+		id: string;
+		nombre: string;
+		artista: string;
+		banner: string;
+		lugar: string;
+		slug: string;
+	};
+
+	interface EventosRepoInterface {
+		getEventosDestacados(): Promise<Array<Evento> | undefined>;
+	}
 }

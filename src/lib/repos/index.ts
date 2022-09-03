@@ -1,0 +1,1 @@
+export { EventosRepo } from './eventosRepo';
