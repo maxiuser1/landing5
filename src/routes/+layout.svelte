@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Header, Footer } from '$lib/components/Layout';
+	import { Header, Footer } from '../lib/components/Layout';
 	let categories: Array<string> = [
 		'Conciertos',
 		'Teatro',

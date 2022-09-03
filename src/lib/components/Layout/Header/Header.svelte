@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import { User } from '$lib/icons';
+	import { User } from '../../../icons';
+
 	import Nav from './Nav.svelte';
 	import Logo from './Logo.svelte';
 	import Socials from './Socials.svelte';

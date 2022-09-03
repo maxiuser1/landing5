@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Close, Menu, User } from '$lib/icons';
+	import { Close, Menu, User } from '../../../icons';
 	import { createEventDispatcher } from 'svelte';
 	export let closable = false;
 	const dispatch = createEventDispatcher();
