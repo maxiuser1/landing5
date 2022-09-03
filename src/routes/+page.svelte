@@ -11,3 +11,12 @@
 		{/each}
 	</ul>
 </div>
+
+<style lang="scss">
+	div {
+		color: red;
+		li {
+			color: yellow;
+		}
+	}
+</style>
