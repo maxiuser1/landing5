@@ -12,6 +12,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@azure/cosmos": "^3.16.4",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"prettier": "^2.6.2",
@@ -23,5 +24,8 @@
 		"typescript": "^4.7.4",
 		"vite": "^3.1.0-beta.1"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"dotenv": "^16.0.2"
+	}
 }
