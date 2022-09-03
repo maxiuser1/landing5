@@ -1,1 +1,0 @@
-export { EventosRepo } from './eventos';

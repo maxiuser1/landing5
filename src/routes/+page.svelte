@@ -1,15 +1,2 @@
-<script lang="ts">
-	import type { PageData, Errors } from './$types';
-
-	export let data: PageData;
-	let { eventos } = data;
-	console.log('data', data);
-</script>
-
-<div>
-	<ul>
-		{#each eventos as evento}
-			<li>{evento.nombre}</li>
-		{/each}
-	</ul>
-</div>
+<h1>Welcome to SvelteKit demo</h1>
+<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
