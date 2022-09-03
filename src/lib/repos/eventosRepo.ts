@@ -1,3 +1,4 @@
+import { CosmosClient, type SqlQuerySpec } from '@azure/cosmos';
 export class EventosRepo implements App.EventosRepoInterface {
 	cn: string;
 
@@ -7,6 +8,16 @@ export class EventosRepo implements App.EventosRepoInterface {
 	}
 
 	getEventosDestacados = async (): Promise<Array<App.Evento> | undefined> => {
-		return undefined;
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('eventos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar FROM c WHERE c.destacado'
+		};
+
+		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
+
+		return items;
 	};
 }
