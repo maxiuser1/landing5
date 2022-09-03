@@ -4,7 +4,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 	constructor(cn: string) {
 		this.cn = cn;
-		console.log('CNNNNNNNNNNNN', cn);
 	}
 
 	getEventosDestacados = async (): Promise<Array<App.Evento> | undefined> => {
