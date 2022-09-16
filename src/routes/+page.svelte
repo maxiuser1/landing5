@@ -1,22 +1,15 @@
-<script>
+<script lang="ts">
+	import Carousel from '$lib/components/Home/Carousel.svelte';
+
 	export let data;
 	let { eventos } = data;
 </script>
 
-<div class="container">
-	<h1>Titulo 2022</h1>
-	<ul>
-		{#each eventos as evento}
-			<li>{evento.nombre}</li>
-		{/each}
-	</ul>
-</div>
+<Carousel {eventos} />
+<div class="divider" />
 
 <style lang="scss">
-	div {
-		color: red;
-		li {
-			color: yellow;
-		}
+	.divider {
+		display: none;
 	}
 </style>

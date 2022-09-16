@@ -13,7 +13,7 @@
 	};
 </script>
 
-<header class="main">
+<header class="header">
 	<nav class="container">
 		<Socials on:togglemenu={toggle} closable={visible} />
 		<Logo />
@@ -42,7 +42,7 @@
 		color: #fff;
 	}
 
-	.main {
+	.header {
 		width: 100%;
 		position: fixed;
 		z-index: 2;
