@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Header } from '$lib/components/Layout';
+	import { Footer, Header } from '$lib/components/Layout';
 	let categories: Array<string> = [
 		'Conciertos',
 		'Teatro',
@@ -11,8 +11,10 @@
 </script>
 
 <Header {categories} />
-
-<slot />
+<main>
+	<slot />
+</main>
+<Footer />
 
 <style lang="scss">
 </style>
