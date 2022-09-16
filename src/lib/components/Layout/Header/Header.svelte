@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
+	import Logo from './Logo.svelte';
+	import Nav from './Nav.svelte';
 	import Socials from './Socials.svelte';
 
 	export let categories: Array<string>;
 
 	let visible = false;
-	const animate = (node: any, args: any) => (args.cond ? slide(node, args) : slide(node, args));
 
 	const toggle = () => {
 		visible = !visible;
@@ -15,8 +16,26 @@
 <header class="main">
 	<nav class="container">
 		<Socials on:togglemenu={toggle} closable={visible} />
+		<Logo />
+		<Nav on:togglemenu={toggle} closable={visible} />
 	</nav>
 </header>
+{#if visible}
+	<header class="categories" transition:slide>
+		<nav class="container">
+			<ul class="ingresa">
+				<li>
+					<a class="anchormenu" href="../login"> Ingresa</a>
+				</li>
+			</ul>
+			<ul class="menu">
+				{#each categories as category}
+					<li>{category}</li>
+				{/each}
+			</ul>
+		</nav>
+	</header>
+{/if}
 
 <style lang="scss">
 	.anchormenu {
