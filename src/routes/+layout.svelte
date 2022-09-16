@@ -13,3 +13,6 @@
 <Header {categories} />
 
 <slot />
+
+<style lang="scss">
+</style>

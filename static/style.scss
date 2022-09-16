@@ -12,9 +12,15 @@ $xl: 1600px;
 
 
 :global {
+    :root {
+        --header-height: 4.75rem;
+        --red: #ff0036;
+        --pink: #d30ed1;
+    }
+
+    
     .container {
         margin: 0 auto;
-        background-color: pink;
         width: 100%;
         padding-right: 24px;
         padding-left: 24px;
@@ -50,6 +56,12 @@ $xl: 1600px;
 
     h4 {
         font-size: 24px;
+        font-weight: 600;
+        line-height: 32px;
+    }
+
+    h5 {
+        font-size: 20px;
         font-weight: 600;
         line-height: 32px;
     }
