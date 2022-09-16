@@ -4,7 +4,7 @@
 </script>
 
 <div class="container">
-	<h1>Titulo 2</h1>
+	<h1>Titulo 2022</h1>
 	<ul>
 		{#each eventos as evento}
 			<li>{evento.nombre}</li>
