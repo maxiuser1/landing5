@@ -18,10 +18,7 @@ $xl: 1600px;
         --pink: #d30ed1;
     }
 
-    @font-face {
-        font-family: 'Gotham';
-        src: url('./fonts/Gotham-Book.otf') format('opentype');
-    }
+   
 
     html {
         scroll-behavior: smooth;
