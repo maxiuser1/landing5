@@ -2,7 +2,7 @@
 	import { invalidateAll, goto } from '$app/navigation';
 	import { applyAction, enhance } from '$app/forms';
 	/** @type {import('./$types').ActionData} */
-	export let form;
+	export let form: any;
 	$: console.log('form', form);
 </script>
 
