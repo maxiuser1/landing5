@@ -10,10 +10,7 @@
 <Carousel {eventos} />
 <Searchbox />
 <Sections {eventos} />
-<div class="divider" />
+b
 
 <style lang="scss">
-	.divider {
-		display: none;
-	}
 </style>
