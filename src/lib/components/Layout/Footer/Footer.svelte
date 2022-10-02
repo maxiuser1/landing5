@@ -32,6 +32,7 @@
 	}
 	.footer {
 		padding-top: 80px;
+		z-index: 3;
 		padding-bottom: 80px;
 		color: white;
 		background-color: #80057f;

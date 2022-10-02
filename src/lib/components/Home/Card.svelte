@@ -37,6 +37,9 @@
 </a>
 
 <style lang="scss">
+	a {
+		z-index: 2;
+	}
 	.card {
 		width: 342px;
 		background: #ffffff;
