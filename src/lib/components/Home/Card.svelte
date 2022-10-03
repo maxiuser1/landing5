@@ -4,7 +4,11 @@
 
 <a href="/{evento.slug}">
 	<div class="card">
-		<div class="imagen" style="background-image: url('{evento.banner}')" />
+		<div
+			class="imagen"
+			style="background: linear-gradient(to right, rgba(255,255,255,0) 20%,
+		rgba(255,255,255,1)), url('{evento.banner}');"
+		/>
 		<div class="content">
 			<div class="info">
 				<h2>
@@ -75,8 +79,7 @@
 				font-size: 18px;
 				line-height: 22px;
 				color: #fff;
-				text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #bc13fe, 0 0 82px #bc13fe,
-					0 0 92px #bc13fe, 0 0 102px #bc13fe, 0 0 151px #bc13fe;
+
 				span {
 					font-weight: 500;
 					font-size: 12px;

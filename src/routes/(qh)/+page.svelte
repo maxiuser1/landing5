@@ -469,7 +469,7 @@
 				particles: {
 					enable: true,
 					frequency: 0.1,
-					opacity: 1,
+					opacity: 0.5,
 					color: {
 						value: '#e4e665'
 					}
@@ -560,12 +560,4 @@
 <Sections {eventos} />
 
 <style lang="scss">
-	#tsparticles {
-		opacity: 0.6;
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		z-index: 0;
-	}
 </style>
