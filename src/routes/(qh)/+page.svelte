@@ -22,12 +22,12 @@
 			opacity: 1
 		},
 		backgroundMask: {
-			composite: 'destination-out',
+			composite: 'source-in',
 			cover: {
 				color: {
 					value: '#fff'
 				},
-				opacity: 1
+				opacity: 0.24
 			},
 			enable: false
 		},
@@ -43,7 +43,7 @@
 			events: {
 				onClick: {
 					enable: false,
-					mode: []
+					mode: 'repulse'
 				},
 				onDiv: {
 					selectors: [],
@@ -148,9 +148,9 @@
 					},
 					shadow: {
 						color: {
-							value: '#17163e'
+							value: '#ffee00'
 						},
-						length: 2000
+						length: 1000
 					}
 				}
 			}
@@ -205,7 +205,7 @@
 				}
 			},
 			color: {
-				value: '#e600c7',
+				value: '#e4b407',
 				animation: {
 					h: {
 						count: 0,
@@ -308,7 +308,7 @@
 					factor: 1000
 				},
 				limit: 0,
-				value: 30
+				value: 2
 			},
 			opacity: {
 				random: {
@@ -340,17 +340,14 @@
 			},
 			shape: {
 				options: {},
-				type: 'star'
+				type: 'circle'
 			},
 			size: {
 				random: {
-					enable: true,
-					minimumValue: 15
+					enable: false,
+					minimumValue: 90
 				},
-				value: {
-					min: 15,
-					max: 30
-				},
+				value: 86,
 				animation: {
 					count: 0,
 					enable: false,
@@ -362,7 +359,8 @@
 				}
 			},
 			stroke: {
-				width: 0
+				width: 0,
+				opacity: 0.03
 			},
 			zIndex: {
 				random: {
@@ -437,39 +435,30 @@
 			roll: {
 				darken: {
 					enable: false,
-					value: 30
+					value: 0
 				},
-				enable: true,
+				enable: false,
 				enlighten: {
-					enable: true,
-					value: 30
+					enable: false,
+					value: 0
 				},
 				mode: 'vertical',
-				speed: {
-					min: 15,
-					max: 25
-				},
-				backColor: {
-					value: '#fa00e5'
-				}
+				speed: 25
 			},
 			tilt: {
 				random: {
 					enable: false,
 					minimumValue: 0
 				},
-				value: {
-					min: 0,
-					max: 360
-				},
+				value: 0,
 				animation: {
-					enable: true,
-					speed: 60,
+					enable: false,
+					speed: 0,
 					decay: 0,
 					sync: false
 				},
-				direction: 'random',
-				enable: true
+				direction: 'clockwise',
+				enable: false
 			},
 			twinkle: {
 				lines: {
@@ -478,19 +467,19 @@
 					opacity: 1
 				},
 				particles: {
-					enable: false,
-					frequency: 0.05,
-					opacity: 1
+					enable: true,
+					frequency: 0.1,
+					opacity: 1,
+					color: {
+						value: '#e4e665'
+					}
 				}
 			},
 			wobble: {
 				distance: 5,
-				enable: true,
+				enable: false,
 				speed: {
-					angle: {
-						min: -15,
-						max: 15
-					},
+					angle: 50,
 					move: 10
 				}
 			},
@@ -573,7 +562,7 @@
 
 <style lang="scss">
 	#tsparticles {
-		opacity: 0.1;
+		opacity: 0.6;
 		position: fixed;
 		width: 100%;
 		height: 100%;
