@@ -29,7 +29,6 @@
 			margin-top: -28px;
 			display: flex;
 			justify-content: center;
-
 			.box {
 				width: 100%;
 				height: 48px;
@@ -40,6 +39,7 @@
 				background-color: white;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
 				border-radius: 4px;
+				background-color: #3a3b3c;
 
 				@include breakpoint($md) {
 					height: 56px;
@@ -53,6 +53,8 @@
 				width: 100%;
 				border-color: transparent;
 				outline-offset: -2px;
+				background-color: #3a3b3c;
+
 				font-size: 16px;
 				&:focus {
 					outline: none;

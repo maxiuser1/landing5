@@ -4,9 +4,7 @@
 
 <a href="/{evento.slug}">
 	<div class="card">
-		<div class="imagen">
-			<img src={evento.banner} width="100%" alt="x" />
-		</div>
+		<div class="imagen" style="background-image: url('{evento.banner}')" />
 		<div class="content">
 			<div class="info">
 				<h2>
@@ -42,14 +40,27 @@
 	}
 	.card {
 		width: 342px;
-		background: #ffffff;
-		border-width: 0px 1px 1px 1px;
-		border-style: solid;
-		border-color: #bdbdbd;
-		border-radius: 0px 0px 8px 8px;
+		background-color: #242526;
+
+		animation: pulsate 1.5s infinite alternate;
+		border-radius: 2rem;
+		box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
+			0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 
 		@include breakpoint($md) {
 			width: 352px;
+		}
+	}
+
+	@keyframes pulsate {
+		100% {
+			text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #bc13fe, 0 0 80px #bc13fe,
+				0 0 90px #bc13fe, 0 0 100px #bc13fe, 0 0 150px #bc13fe;
+		}
+
+		0% {
+			text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 10px #bc13fe, 0 0 45px #bc13fe,
+				0 0 55px #bc13fe, 0 0 70px #bc13fe, 0 0 80px #bc13fe;
 		}
 	}
 
@@ -63,22 +74,24 @@
 				font-weight: 900;
 				font-size: 18px;
 				line-height: 22px;
-				color: #1b1b1b;
-
+				color: #fff;
+				text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #bc13fe, 0 0 82px #bc13fe,
+					0 0 92px #bc13fe, 0 0 102px #bc13fe, 0 0 151px #bc13fe;
 				span {
 					font-weight: 500;
 					font-size: 12px;
 					line-height: 14px;
-					color: #5e5e5e;
+					color: #e4e6eb;
 				}
 			}
 
 			h3 {
+				line-height: initial;
 				span {
 					color: red;
 					font-weight: 400;
 					font-size: 12px;
-					color: #5e5e5e;
+					color: #e4e6eb;
 				}
 			}
 		}
@@ -92,24 +105,22 @@
 				font-weight: 500;
 				font-size: 12px;
 				line-height: 18px;
-				color: #3b3b3b;
+				color: #e4e6eb;
 			}
 
 			h5 {
 				font-weight: 700;
 				font-size: 16px;
 				line-height: 19px;
-				color: #3b3b3b;
+				color: #e4e6eb;
 			}
 		}
 	}
 
 	.imagen {
-		img {
-			vertical-align: middle;
-			border-style: none;
-			border-top-left-radius: 8px;
-			border-top-right-radius: 8px;
-		}
+		height: 100px;
+		background-size: cover;
+		border-top-left-radius: 2rem;
+		border-top-right-radius: 2rem;
 	}
 </style>

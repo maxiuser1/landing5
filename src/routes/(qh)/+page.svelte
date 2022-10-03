@@ -13,7 +13,7 @@
 		autoPlay: true,
 		background: {
 			color: {
-				value: '#17163e'
+				value: '#18191A'
 			},
 			image: '',
 			position: '',
@@ -285,7 +285,7 @@
 				},
 				random: false,
 				size: false,
-				speed: 6,
+				speed: 2,
 				spin: {
 					acceleration: 0,
 					enable: false
@@ -308,14 +308,14 @@
 					factor: 1000
 				},
 				limit: 0,
-				value: 2
+				value: 20
 			},
 			opacity: {
 				random: {
 					enable: false,
 					minimumValue: 0.1
 				},
-				value: 1,
+				value: 0.1,
 				animation: {
 					count: 0,
 					enable: false,
@@ -555,7 +555,6 @@
 	});
 </script>
 
-<div id="tsparticles" />
 <Carousel {eventos} />
 <Searchbox />
 <Sections {eventos} />
