@@ -586,16 +586,16 @@
 		emitters: []
 	};
 
-	// onMount(async () => {
-	// 	await loadFull(tsParticles);
-	// 	await tsParticles.load('tsparticles', particlesConfig);
-	// });
+	onMount(async () => {
+		await loadFull(tsParticles);
+		await tsParticles.load('tsparticles', particlesConfig);
+	});
 </script>
 
 <svelte:head>
 	<style>
 		body {
-			background: #18191a;
+			background: #18191a !important;
 		}
 	</style>
 </svelte:head>
@@ -603,6 +603,7 @@
 <Carousel {eventos} />
 <Searchbox />
 <Sections {eventos} />
+<div id="tsparticles" />
 
 <style lang="scss">
 </style>
