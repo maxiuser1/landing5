@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Breadcrumbs, Counter, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
-	import { Box, Ticket } from '$lib/icons';
+	import { Box, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
 	export let data;
 	let { evento } = data;
@@ -53,6 +53,25 @@
 		oePrecio = otrasEntradas.reduce<number>((acu, obj) => {
 			return acu + obj.cantidad * (obj.base ? obj.base : 0);
 		}, 0);
+	};
+
+	const continuarClick = async () => {
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas
+				? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0))
+				: otrasEntradas.filter((t) => t.cantidad > 0)
+		}));
+
+		const resp = await fetch('/api/miturno', {
+			method: 'POST',
+			body: JSON.stringify({ ...$compraData }),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const total = await resp.json();
+		console.log('resp', total);
 	};
 </script>
 
@@ -128,6 +147,8 @@
 					</div>
 				</div>
 			{/if}
+
+			<button on:click={continuarClick} class="btn">Continuar <Tarjeta /> </button>
 		</div>
 		<div class="detalle">
 			<h1>Detalle</h1>
