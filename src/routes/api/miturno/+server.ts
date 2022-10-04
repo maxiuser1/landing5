@@ -1,4 +1,5 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
 	const intencion = (await request.json()) as App.Compra;
@@ -8,7 +9,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 	console.log('evento', evento);
 
-	const merchantId = import.meta.env.VITE_NIUBIZ_URL ?? 'nohay';
+	const merchantId = env.VITE_NIUBIZ_URL ?? 'nohay';
 	const credentials = 'Basic aW50ZWdyYWNpb25lc0BuaXViaXouY29tLnBlOl83ejNAOGZG';
 	const niubizapi = 'https://apitestenv.vnforapps.com';
 	const niubizlib = 'https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true';
