@@ -39,4 +39,30 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		return results[0];
 	};
+
+	getEventoConLocacion = async (slug: string): Promise<App.Evento> => {
+		const evento = await this.getEvento(slug);
+
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('seccionamientos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where c.id = @id',
+			parameters: [
+				{
+					name: '@id',
+					value: evento.ubicacion!.seccionamiento
+				}
+			]
+		};
+
+		const { resources: items } = await container.items
+			.query(querySpec, { partitionKey: evento.lugar })
+			.fetchAll();
+
+		const resultado = { ...evento, locacion: items[0].general.mapa };
+
+		return resultado;
+	};
 }

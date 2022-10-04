@@ -8,6 +8,23 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 
+	type Fila = {
+		id: number;
+		sits: Array<Asiento>;
+	};
+
+	type Precio = {
+		tipo: string;
+		color?: string;
+		nombre?: string;
+		base: number;
+		tope?: number;
+		promo?: string;
+		numerado: boolean;
+		filas: Array<Fila>;
+		total: number;
+	};
+
 	type Evento = {
 		id: string;
 		nombre: string;
@@ -16,13 +33,40 @@ declare namespace App {
 		lugar: string;
 		slug: string;
 		fechas?: any;
+		precios: Array<Precio>;
 		ubicacion?: {
 			nombre?: string;
+			seccionamiento?: any;
 		};
+	};
+
+	type Sentado = {
+		base?: number;
+		tipo?: string;
+		fila: number;
+		asiento: number;
+		cantidad: number;
+		numerado?: boolean;
+	};
+
+	type Compra = {
+		evento: {
+			id?: string;
+			slug?: string;
+			artista?: string;
+		};
+		zona?: {
+			tipo: string;
+			base: number;
+			numerado?: boolean;
+		};
+		user?: any;
+		entradas?: Array<Sentado>;
 	};
 
 	interface EventosRepoInterface {
 		getEventosDestacados(): Promise<Array<Evento> | undefined>;
 		getEvento(slug): Promise<Evento>;
+		getEventoConLocacion(slug): Promise<Evento>;
 	}
 }

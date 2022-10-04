@@ -1,8 +1,27 @@
 <script lang="ts">
-	import { Info } from '$lib/components/Evento';
+	import { goto } from '$app/navigation';
+	import { Entradas, Info } from '$lib/components/Evento';
+	import { compraData } from '$lib/components/Evento/store';
 
 	export let data;
 	let { evento } = data;
+
+	const comprarClick = () => {
+		const compra: App.Compra = {
+			evento: {
+				id: evento.id,
+				slug: evento.general?.slug,
+				artista: evento.general?.artista
+			}
+		};
+		compraData.set(compra);
+
+		// if ($isLoggedIn) {
+		goto(`${evento.general?.slug}/entradas`);
+		// } else {
+		// 	goto('./login');
+		// }
+	};
 </script>
 
 <svelte:head>
@@ -17,6 +36,10 @@
 	</div>
 </section>
 <Info {evento} />
+<Entradas {evento} />
+<section class="container cta">
+	<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
+</section>
 
 <style lang="scss">
 	.cta {
