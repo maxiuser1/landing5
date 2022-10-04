@@ -70,10 +70,31 @@
 				'content-type': 'application/json'
 			}
 		});
-		const total = await resp.json();
-		console.log('resp', total);
+		const datapago = await resp.json();
+		VisanetCheckout.configure({
+			sessiontoken: datapago.sessiontoken,
+			channel: 'web',
+			merchantid: datapago.merchantid,
+			purchasenumber: datapago.purchasenumber,
+			amount: datapago.amount,
+			expirationminutes: '20',
+			timeouturl: 'about:blank',
+			merchantlogo: 'https://www.quehay.pe/img/logo.png',
+			formbuttoncolor: '#000000',
+			action: `compra/${datapago.id}`,
+			complete: function (params: any) {
+				console.log(params);
+			}
+		});
+		VisanetCheckout.open();
 	};
 </script>
+
+<svelte:head>
+	<script
+		type="text/javascript"
+		src="https://static-content-qas.vnforapps.com/v2/js/checkout.js"></script>
+</svelte:head>
 
 <Breadcrumbs {evento} />
 <Steps paso={4} />

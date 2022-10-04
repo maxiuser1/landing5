@@ -65,4 +65,13 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		return resultado;
 	};
+
+	postTurno = async (turno: any): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('turnos');
+
+		const { resource: createdItem } = await container.items.create(turno);
+		console.log('created', createdItem);
+	};
 }

@@ -77,5 +77,6 @@ declare namespace App {
 		getEventosDestacados(): Promise<Array<Evento> | undefined>;
 		getEvento(slug): Promise<Evento>;
 		getEventoConLocacion(slug): Promise<Evento>;
+		postTurno(turno): Promise<void>;
 	}
 }
