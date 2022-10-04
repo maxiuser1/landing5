@@ -586,10 +586,10 @@
 		emitters: []
 	};
 
-	onMount(async () => {
-		await loadFull(tsParticles);
-		await tsParticles.load('tsparticles', particlesConfig);
-	});
+	// onMount(async () => {
+	// 	await loadFull(tsParticles);
+	// 	await tsParticles.load('tsparticles', particlesConfig);
+	// });
 </script>
 
 <svelte:head>

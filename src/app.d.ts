@@ -15,6 +15,10 @@ declare namespace App {
 		banner: string;
 		lugar: string;
 		slug: string;
+		fechas?: any;
+		ubicacion?: {
+			nombre?: string;
+		};
 	};
 
 	interface EventosRepoInterface {
