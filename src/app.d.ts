@@ -34,9 +34,18 @@ declare namespace App {
 		slug: string;
 		fechas?: any;
 		precios: Array<Precio>;
+		mapa?: string;
+		locacion?: string;
 		ubicacion?: {
 			nombre?: string;
 			seccionamiento?: any;
+		};
+		general?: {
+			categoria: string;
+			nombre: string;
+			artista: string;
+			slug: string;
+			destacado: boolean;
 		};
 	};
 

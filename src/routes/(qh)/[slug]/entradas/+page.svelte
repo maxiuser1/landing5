@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { json } from '@sveltejs/kit';
+	import { Breadcrumbs, Steps } from '$lib/components/Evento';
+	import Zonas from '$lib/components/Evento/Zonas.svelte';
 
 	export let data;
 	let { evento } = data;
 </script>
 
-<div>
-	{JSON.stringify(evento)}
-</div>
+<Breadcrumbs {evento} />
+<Steps paso={1} />
+<Zonas {evento} />
