@@ -13,7 +13,7 @@
 		autoPlay: true,
 		background: {
 			color: {
-				value: '#18191A'
+				value: '#000'
 			},
 			image: '',
 			position: '',
@@ -22,12 +22,12 @@
 			opacity: 1
 		},
 		backgroundMask: {
-			composite: 'source-in',
+			composite: 'destination-out',
 			cover: {
 				color: {
 					value: '#fff'
 				},
-				opacity: 0.24
+				opacity: 1
 			},
 			enable: false
 		},
@@ -43,7 +43,7 @@
 			events: {
 				onClick: {
 					enable: false,
-					mode: 'repulse'
+					mode: []
 				},
 				onDiv: {
 					selectors: [],
@@ -53,7 +53,7 @@
 				},
 				onHover: {
 					enable: true,
-					mode: 'repulse',
+					mode: 'trail',
 					parallax: {
 						enable: false,
 						force: 2,
@@ -130,27 +130,60 @@
 					radius: 200
 				},
 				trail: {
-					delay: 1,
-					pauseOnStop: false,
-					quantity: 1
+					delay: 0.005,
+					pauseOnStop: true,
+					quantity: 5,
+					particles: {
+						color: {
+							value: '#ff0000',
+							animation: {
+								enable: true,
+								speed: 400,
+								sync: true
+							}
+						},
+						collisions: {
+							enable: false
+						},
+						links: {
+							enable: false
+						},
+						move: {
+							outModes: {
+								default: 'destroy'
+							},
+							speed: 2
+						},
+						size: {
+							value: 5,
+							animation: {
+								enable: true,
+								speed: 5,
+								minimumValue: 1,
+								sync: true,
+								startValue: 'min',
+								destroy: 'max'
+							}
+						}
+					}
 				},
 				light: {
 					area: {
 						gradient: {
 							start: {
-								value: '3b5e98'
+								value: '#ffffff'
 							},
 							stop: {
-								value: '#17163e'
+								value: '#000000'
 							}
 						},
 						radius: 1000
 					},
 					shadow: {
 						color: {
-							value: '#ffee00'
+							value: '#000000'
 						},
-						length: 1000
+						length: 2000
 					}
 				}
 			}
@@ -197,7 +230,7 @@
 						value: 1
 					}
 				},
-				enable: false,
+				enable: true,
 				mode: 'bounce',
 				overlap: {
 					enable: true,
@@ -205,15 +238,15 @@
 				}
 			},
 			color: {
-				value: '#e4b407',
+				value: '#ff0000',
 				animation: {
 					h: {
 						count: 0,
 						enable: true,
 						offset: 0,
-						speed: 20,
+						speed: 50,
 						decay: 0,
-						sync: true
+						sync: false
 					},
 					s: {
 						count: 0,
@@ -308,22 +341,26 @@
 					factor: 1000
 				},
 				limit: 0,
-				value: 20
+				value: 100
 			},
 			opacity: {
 				random: {
-					enable: false,
-					minimumValue: 0.1
+					enable: true,
+					minimumValue: 0.3
 				},
-				value: 0.1,
+				value: {
+					min: 0.3,
+					max: 0.8
+				},
 				animation: {
 					count: 0,
-					enable: false,
-					speed: 2,
+					enable: true,
+					speed: 0.5,
 					decay: 0,
 					sync: false,
 					destroy: 'none',
-					startValue: 'random'
+					startValue: 'random',
+					minimumValue: 0.3
 				}
 			},
 			reduceDuplicates: false,
@@ -344,23 +381,26 @@
 			},
 			size: {
 				random: {
-					enable: false,
-					minimumValue: 90
+					enable: true,
+					minimumValue: 1
 				},
-				value: 86,
+				value: {
+					min: 1,
+					max: 3
+				},
 				animation: {
 					count: 0,
-					enable: false,
-					speed: 5,
+					enable: true,
+					speed: 3,
 					decay: 0,
 					sync: false,
 					destroy: 'none',
-					startValue: 'random'
+					startValue: 'random',
+					minimumValue: 1
 				}
 			},
 			stroke: {
-				width: 0,
-				opacity: 0.03
+				width: 0
 			},
 			zIndex: {
 				random: {
@@ -398,8 +438,8 @@
 				},
 				value: 0,
 				animation: {
-					enable: true,
-					speed: 5,
+					enable: false,
+					speed: 0,
 					decay: 0,
 					sync: false
 				},
@@ -467,12 +507,9 @@
 					opacity: 1
 				},
 				particles: {
-					enable: true,
-					frequency: 0.1,
-					opacity: 0.5,
-					color: {
-						value: '#e4e665'
-					}
+					enable: false,
+					frequency: 0.05,
+					opacity: 1
 				}
 			},
 			wobble: {
@@ -505,11 +542,11 @@
 			links: {
 				blink: false,
 				color: {
-					value: '#fff'
+					value: 'random'
 				},
 				consent: false,
 				distance: 100,
-				enable: false,
+				enable: true,
 				frequency: 1,
 				opacity: 1,
 				shadow: {
