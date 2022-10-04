@@ -592,6 +592,14 @@
 	});
 </script>
 
+<svelte:head>
+	<style>
+		body {
+			background: #18191a;
+		}
+	</style>
+</svelte:head>
+
 <Carousel {eventos} />
 <Searchbox />
 <Sections {eventos} />

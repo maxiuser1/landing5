@@ -19,5 +19,6 @@ declare namespace App {
 
 	interface EventosRepoInterface {
 		getEventosDestacados(): Promise<Array<Evento> | undefined>;
+		getEvento(slug): Promise<Evento>;
 	}
 }

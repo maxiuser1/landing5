@@ -19,4 +19,24 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		return items;
 	};
+
+	getEvento = async (slug: string): Promise<App.Evento> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('ensallos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where c.general.slug = @slug',
+			parameters: [
+				{
+					name: '@slug',
+					value: slug
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
+
+		return results[0];
+	};
 }
