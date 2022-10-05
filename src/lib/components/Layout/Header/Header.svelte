@@ -15,7 +15,6 @@
 
 <header class="header">
 	<nav class="container">
-		<Socials on:togglemenu={toggle} closable={visible} />
 		<Logo />
 		<Nav on:togglemenu={toggle} closable={visible} />
 	</nav>

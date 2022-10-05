@@ -25,6 +25,8 @@
 <style lang="scss">
 	.ingresa {
 		color: white;
+		display: flex;
+		align-items: center;
 	}
 	.socials {
 		display: flex;
