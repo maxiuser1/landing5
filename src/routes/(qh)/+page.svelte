@@ -13,7 +13,7 @@
 		autoPlay: true,
 		background: {
 			color: {
-				value: '#000'
+				value: '#180018'
 			},
 			image: '',
 			position: '',
@@ -53,7 +53,7 @@
 				},
 				onHover: {
 					enable: true,
-					mode: 'trail',
+					mode: 'repulse',
 					parallax: {
 						enable: false,
 						force: 2,
@@ -109,10 +109,10 @@
 					quantity: 2
 				},
 				repulse: {
-					distance: 200,
-					duration: 0.4,
+					distance: 80,
+					duration: 1,
 					factor: 100,
-					speed: 1,
+					speed: 0.1,
 					maxSpeed: 50,
 					easing: 'ease-out-quad',
 					divs: {
@@ -266,7 +266,40 @@
 					}
 				}
 			},
-			groups: {},
+			groups: {
+				z5000: {
+					number: {
+						value: 70
+					},
+					zIndex: {
+						value: 50
+					}
+				},
+				z7500: {
+					number: {
+						value: 30
+					},
+					zIndex: {
+						value: 75
+					}
+				},
+				z2500: {
+					number: {
+						value: 50
+					},
+					zIndex: {
+						value: 25
+					}
+				},
+				z1000: {
+					number: {
+						value: 40
+					},
+					zIndex: {
+						value: 10
+					}
+				}
+			},
 			move: {
 				angle: {
 					offset: 0,
@@ -548,7 +581,7 @@
 				distance: 100,
 				enable: true,
 				frequency: 1,
-				opacity: 1,
+				opacity: 0.4,
 				shadow: {
 					blur: 5,
 					color: {
