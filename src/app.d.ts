@@ -78,5 +78,9 @@ declare namespace App {
 		getEvento(slug): Promise<Evento>;
 		getEventoConLocacion(slug): Promise<Evento>;
 		postTurno(turno): Promise<void>;
+		getTurno(id): Promise<any>;
+		findEvento(id): Promoise<Evento>;
+		confirmarEntrada(evento, compra): Promise<void>;
+		guardarEntrada(entrada): Promise<void>;
 	}
 }

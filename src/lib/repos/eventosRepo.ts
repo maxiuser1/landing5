@@ -1,4 +1,4 @@
-import { CosmosClient, type SqlQuerySpec } from '@azure/cosmos';
+import { CosmosClient, type PatchOperation, type SqlQuerySpec } from '@azure/cosmos';
 export class EventosRepo implements App.EventosRepoInterface {
 	cn: string;
 
@@ -18,6 +18,65 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
 
 		return items;
+	};
+
+	guardarEntrada = async (entrada: any): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		const { resource: createdItem } = await container.items.create(entrada);
+		console.log('entrada guardada ', createdItem);
+	};
+
+	findEvento = async (id: string): Promise<App.Evento> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('ensallos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where c.id = @id',
+			parameters: [
+				{
+					name: '@id',
+					value: id
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
+
+		return results[0];
+	};
+
+	confirmarEntrada = async (compra: any, evento: any): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('ensallos');
+
+		const replaceOperation: PatchOperation[] = [];
+		compra.entradas.forEach((entrada: any) => {
+			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);
+
+			if (entrada.numerado) {
+				const ubicacion = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+				const indexFila = ubicacion!.filas.findIndex((t: any) => t.id == entrada.fila);
+
+				const fila = ubicacion!.filas.find((t: any) => t.id == entrada.fila);
+				const indexAsiento = fila!.sits.findIndex((t: any) => t.id == entrada.asiento);
+
+				console.log('indexasiento', indexAsiento);
+
+				replaceOperation.push({
+					op: 'replace',
+					path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
+					value: 2
+				});
+			}
+		});
+
+		if (replaceOperation.length > 0)
+			await container.item(compra.evento.id, 'quehay').patch(replaceOperation);
 	};
 
 	getEvento = async (slug: string): Promise<App.Evento> => {
@@ -66,12 +125,31 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return resultado;
 	};
 
-	postTurno = async (turno: any): Promise<void> => {
+	postTurno = async (turno: any): Promise<any> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('turnos');
 
 		const { resource: createdItem } = await container.items.create(turno);
-		console.log('created', createdItem);
+	};
+
+	getTurno = async (id: string): Promise<any> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('turnos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where c.id = @id',
+			parameters: [
+				{
+					name: '@id',
+					value: id
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
+		console.log('turno get', results);
+		return results[0];
 	};
 }

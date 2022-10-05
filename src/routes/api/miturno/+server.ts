@@ -30,8 +30,6 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		}
 	});
 
-	console.log('token', precioReal);
-
 	const { data: session } = await axios.post(
 		`${niubizapi}/api.ecommerce/v2/ecommerce/token/session/${merchantId}`,
 		{

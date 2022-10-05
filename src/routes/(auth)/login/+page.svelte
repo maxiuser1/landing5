@@ -11,14 +11,12 @@
 	import { json } from '@sveltejs/kit';
 	/** @type {import('./$types').ActionData} */
 	export let form: any;
-	$: console.log('form', form);
 
 	async function handleGoogleClick() {
 		const data = new FormData();
 		const provider = new GoogleAuthProvider();
 		const res = await signInWithPopup(auth, provider);
 		const guser = res.user;
-		console.log('user', guser);
 		data.append('provider', 'google');
 		data.append('token', 'asd');
 		const response = await fetch('/login', {

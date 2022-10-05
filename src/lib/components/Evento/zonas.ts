@@ -6,8 +6,6 @@ export const zonas = (node: any, props: any) => {
 		const pseudoId = each.id.split('-')[0];
 		props.forEach((cadaPrecio: any) => {
 			if (cadaPrecio.tipo.toLowerCase() == pseudoId.toLowerCase()) {
-				console.log('each', each);
-
 				let tooltipComp: SvelteComponent;
 				const prevcolor = each.getAttribute('fill');
 

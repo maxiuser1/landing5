@@ -11,7 +11,6 @@ export const actions = {
 		// }
 
         
-        console.log('ajson',data);
         return { success: true };
     }
   };
