@@ -628,7 +628,7 @@
 <svelte:head>
 	<style>
 		body {
-			background: #18191a !important;
+			background: #18191a;
 		}
 	</style>
 </svelte:head>
