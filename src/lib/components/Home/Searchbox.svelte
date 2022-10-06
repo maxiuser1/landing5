@@ -1,7 +1,7 @@
 <section class="bind container">
 	<div class="searchbox">
 		<div class="box">
-			<input type="search" class="input" placeholder="Ejm: Enanitos Verdes" />
+			<input type="search" class="input" placeholder="Encuentra tu evento" />
 			<div class="boton">
 				<svg
 					width="18"
@@ -25,6 +25,8 @@
 		position: relative;
 
 		.searchbox {
+			padding-left: 24px;
+			padding-right: 24px;
 			text-align: center;
 			margin-top: -28px;
 			display: flex;

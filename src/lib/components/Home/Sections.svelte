@@ -5,22 +5,21 @@
 
 <section class="destacados">
 	<div class="container">
-		<a href="/" class="titulo">Destacados</a>
 		<Cards {eventos} />
-		<div class="botonera">
-			<button class="vermas"> Ver más destacados</button>
-		</div>
 	</div>
 </section>
 
 <section class="final">
 	<div class="container">
-		<a href="/" class="titulo">Nuevos</a>
 		<Cards {eventos} />
 	</div>
 </section>
 
 <style lang="scss">
+	section {
+		padding-left: 24px;
+		padding-right: 24px;
+	}
 	.final {
 		margin-bottom: 80px;
 	}

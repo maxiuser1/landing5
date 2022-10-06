@@ -21,6 +21,11 @@
 </section>
 
 <style lang="scss">
+	section {
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+
 	.infrafooter {
 		padding: 24px 0;
 		background-color: #5b025a;
@@ -31,9 +36,9 @@
 		}
 	}
 	.footer {
-		padding-top: 80px;
+		padding-top: 20px;
 		z-index: 3;
-		padding-bottom: 80px;
+		padding-bottom: 20px;
 		color: white;
 		background-color: #80057f;
 	}

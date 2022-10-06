@@ -43,8 +43,7 @@ $xl: 1600px;
     .container {
         margin: 0 auto;
         width: 100%;
-        padding-right: 24px;
-        padding-left: 24px;
+      
 
         @include breakpoint($sm) {
             padding-left: initial;

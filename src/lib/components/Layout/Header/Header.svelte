@@ -6,7 +6,7 @@
 
 	export let categories: Array<string>;
 
-	let visible = false;
+	let visible = true;
 
 	const toggle = () => {
 		visible = !visible;
@@ -37,6 +37,10 @@
 {/if}
 
 <style lang="scss">
+	.container {
+		padding-left: 24px;
+		padding-right: 24px;
+	}
 	.anchormenu {
 		color: #fff;
 	}
@@ -44,7 +48,7 @@
 	.header {
 		width: 100%;
 		position: fixed;
-		z-index: 2;
+		z-index: 20;
 		top: 0;
 		left: 0;
 		background: linear-gradient(270deg, var(--red) 0%, var(--pink) 100%);

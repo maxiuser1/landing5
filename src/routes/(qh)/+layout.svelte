@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Footer, Header } from '$lib/components/Layout';
 	let categories: Array<string> = [
+		'Destacados',
 		'Conciertos',
 		'Teatro',
 		'Deportes',
