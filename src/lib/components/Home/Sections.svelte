@@ -3,13 +3,13 @@
 	export let eventos: Array<App.Evento>;
 </script>
 
-<section class="destacados">
+<section class="destacados" id="destacados">
 	<div class="container">
 		<Cards {eventos} />
 	</div>
 </section>
 
-<section class="final">
+<section class="final" id="conciertos">
 	<div class="container">
 		<Cards {eventos} />
 	</div>

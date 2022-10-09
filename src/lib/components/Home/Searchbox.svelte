@@ -41,7 +41,7 @@
 				background-color: white;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
 				border-radius: 4px;
-				background-color: #3a3b3c;
+				background-color: #000;
 
 				@include breakpoint($md) {
 					height: 56px;
@@ -53,9 +53,10 @@
 				font-family: 'Gotham';
 				line-height: 20px;
 				width: 100%;
+				color: white;
 				border-color: transparent;
 				outline-offset: -2px;
-				background-color: #3a3b3c;
+				background-color: #000;
 
 				font-size: 16px;
 				&:focus {

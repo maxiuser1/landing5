@@ -45,6 +45,7 @@
 
 	.last {
 		display: none;
+
 		@include breakpoint($md) {
 			display: initial;
 			cursor: pointer;

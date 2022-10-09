@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
 	import Logo from './Logo.svelte';
 	import Nav from './Nav.svelte';
@@ -6,8 +7,9 @@
 
 	export let categories: Array<string>;
 
-	let visible = true;
+	let visible = false;
 
+	$: console.log('a', $page.url);
 	const toggle = () => {
 		visible = !visible;
 	};
@@ -15,6 +17,7 @@
 
 <header class="header">
 	<nav class="container">
+		<Socials on:togglemenu={toggle} closable={visible} />
 		<Logo />
 		<Nav on:togglemenu={toggle} closable={visible} />
 	</nav>
@@ -24,23 +27,22 @@
 		<nav class="container">
 			<ul class="ingresa">
 				<li>
-					<a class="anchormenu" href="../login"> Ingresa</a>
+					<a class="anchormenu" href="./login"> Ingresa</a>
 				</li>
 			</ul>
 			<ul class="menu">
-				{#each categories as category}
-					<li>{category}</li>
-				{/each}
+				<li class:active={$page.url.hash.includes('destacados')}>
+					<a href="#destacados">Destacados</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos"> Conciertos</a>
+				</li>
 			</ul>
 		</nav>
 	</header>
 {/if}
 
 <style lang="scss">
-	.container {
-		padding-left: 24px;
-		padding-right: 24px;
-	}
 	.anchormenu {
 		color: #fff;
 	}
@@ -55,6 +57,7 @@
 
 		nav {
 			margin: 0 auto;
+
 			height: var(--header-height);
 			display: flex;
 			align-items: center;
@@ -66,7 +69,7 @@
 		width: 304px;
 		position: fixed;
 		height: 100vh;
-		z-index: 2;
+		z-index: 3;
 		top: var(--header-height);
 		left: 0;
 		background-color: #5b025a;
@@ -109,6 +112,7 @@
 				margin-top: 32px;
 				display: flex;
 				flex-direction: column;
+				align-items: center;
 				gap: 32px;
 
 				@include breakpoint($md) {
@@ -117,10 +121,19 @@
 				}
 
 				li {
-					color: white;
-					font-weight: 500;
-					font-size: 14px;
-					line-height: 18px;
+					a {
+						color: white;
+						font-weight: 500;
+						font-size: 14px;
+						line-height: 18px;
+					}
+
+					&.active {
+						@include breakpoint($md) {
+							padding: 20px;
+							background-color: #80057f;
+						}
+					}
 				}
 			}
 		}
