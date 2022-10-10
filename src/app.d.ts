@@ -31,6 +31,7 @@ declare namespace App {
 		artista: string;
 		banner: string;
 		lugar: string;
+		ciudad: string;
 		slug: string;
 		fechas?: any;
 		precios: Array<Precio>;

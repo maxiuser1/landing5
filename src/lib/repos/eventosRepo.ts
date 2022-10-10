@@ -12,7 +12,8 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const container = await database.container('eventos');
 
 		const querySpec: SqlQuerySpec = {
-			query: 'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar FROM c WHERE c.destacado'
+			query:
+				'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.ciudad FROM c WHERE c.destacado'
 		};
 
 		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();

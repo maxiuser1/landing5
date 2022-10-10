@@ -27,12 +27,13 @@
 							fill="#777777"
 						/>
 					</svg>
-					<span> {evento.lugar} </span>
+					<span> {evento.lugar} <strong>, {evento.ciudad}</strong> </span>
 				</h3>
 			</div>
 			<div class="fechas">
-				<h4>Ago</h4>
-				<h5>29-30</h5>
+				{#each evento.fechas as fecha}
+					<h4>{fecha}</h4>
+				{/each}
 			</div>
 		</div>
 	</div>
