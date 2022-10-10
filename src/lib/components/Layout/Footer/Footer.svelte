@@ -6,6 +6,10 @@
 	<div class="container">
 		<div>
 			<h1>¡Que Hay!</h1>
+			<ul class="links">
+				<li><a href="contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
+				<li><a href="contenido/terminos_y_condiciones">Términos y condiciones</a></li>
+			</ul>
 		</div>
 		<div />
 		<div>
@@ -53,6 +57,22 @@
 			font-size: 18px;
 			line-height: 22px;
 			margin-bottom: 24px;
+		}
+
+		ul.links {
+			padding-inline-start: 0px;
+
+			li {
+				font-weight: 400;
+				padding-bottom: 20px;
+				font-size: 16px;
+				line-height: 19px;
+
+				a {
+					color: #ffebff;
+					font-size: 16px;
+				}
+			}
 		}
 	}
 </style>

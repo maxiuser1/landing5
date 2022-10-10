@@ -2,3 +2,7 @@
     font-family: 'Gotham';
     src: url('./fonts/Gotham-Book.otf') format('opentype');
 }
+
+ul {
+	list-style: none;
+}
