@@ -2,8 +2,18 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
+	type User = {
+		id: string;
+		nombre: string;
+		dni: string;
+		correo: string;
+		telefono: string;
+	};
+
 	interface Locals {
 		eventosRepo;
+		usuariosRepo;
+		user: User;
 	}
 	// interface PageData {}
 	// interface Platform {}
@@ -83,5 +93,9 @@ declare namespace App {
 		findEvento(id): Promoise<Evento>;
 		confirmarEntrada(evento, compra): Promise<void>;
 		guardarEntrada(entrada): Promise<void>;
+	}
+
+	interface UsuariosRepoInterface {
+		findUsuario(id): Promise<User>;
 	}
 }

@@ -1,8 +1,21 @@
-import { EventosRepo } from '$lib/repos';
+import { EventosRepo, UsuariosRepo } from '$lib/repos';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.eventosRepo = new EventosRepo(import.meta.env.VITE_DATABASE_URL);
-	const response = await resolve(event);
-	return response;
+	event.locals.usuariosRepo = new UsuariosRepo(import.meta.env.VITE_DATABASE_URL);
+
+	const session = event.cookies.get('session');
+
+	if (!session) {
+		return await resolve(event);
+	}
+
+	const user = await event.locals.usuariosRepo.findUsuario(session);
+
+	if (user) {
+		event.locals.user = user;
+	}
+
+	return await resolve(event);
 };

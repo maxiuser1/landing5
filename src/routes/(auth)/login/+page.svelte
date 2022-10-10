@@ -42,3 +42,80 @@
 		<button class="btn-social" type="button" on:click={handleFacebookClick}> Facebook </button>
 	</div>
 </div>
+
+<style lang="scss">
+	.error {
+		margin-top: 10px;
+		color: red;
+	}
+	.socials {
+		margin-top: 24px;
+		margin-bottom: 24px;
+		display: flex;
+		gap: 10px;
+		.btn-social {
+			background: #ffffff;
+			/* White/White_80 */
+			border: 1px solid #c6c6c6;
+			border-radius: 4px;
+			padding: 10px 0px;
+			width: 100%;
+		}
+	}
+
+	.texto {
+		width: 100%;
+		text-align: center;
+		p {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 24px;
+		}
+
+		.link {
+			color: #d30ed1;
+		}
+	}
+
+	.titulo {
+		color: #d30ed1;
+		font-weight: 700;
+		font-size: 30px;
+		line-height: 36px;
+		border-bottom: 2px solid #d30ed1;
+	}
+
+	.recordar {
+		label {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 20px;
+		}
+	}
+
+	.form {
+		margin-top: 212px;
+
+		.btn {
+			width: 100%;
+		}
+	}
+
+	.controls {
+		margin-top: 32px;
+		margin-bottom: 32px;
+
+		.usuario {
+			margin-bottom: 20px;
+		}
+
+		input {
+			width: 100%;
+			padding: 6px 12px;
+			border: 1px solid #c6c6c6;
+			border-radius: 4px;
+			background: #ffffff;
+			height: 42px;
+		}
+	}
+</style>
