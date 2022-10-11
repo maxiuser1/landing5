@@ -3,11 +3,12 @@
 // and what to do when importing types
 declare namespace App {
 	type User = {
-		id: string;
+		id?: string;
 		nombre: string;
-		dni: string;
+		fbtoken: string;
+		dni?: string;
 		correo: string;
-		telefono: string;
+		telefono?: string;
 	};
 
 	interface Locals {
@@ -97,5 +98,7 @@ declare namespace App {
 
 	interface UsuariosRepoInterface {
 		findUsuario(id): Promise<User>;
+		findByFb(id): Promise<User | null>;
+		create(user: User): Promise<string>;
 	}
 }

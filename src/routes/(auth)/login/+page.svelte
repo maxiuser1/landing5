@@ -2,14 +2,14 @@
 	import {
 		signInWithPopup,
 		GoogleAuthProvider,
-		signInWithEmailAndPassword,
 		type User,
 		FacebookAuthProvider
 	} from 'firebase/auth';
-	import { enhance } from '$app/forms';
+	import { applyAction, enhance } from '$app/forms';
 	import { auth } from '../../../firebase';
-	import { json } from '@sveltejs/kit';
-	/** @type {import('./$types').ActionData} */
+	import { invalidateAll } from '$app/navigation';
+	import { Facebook, Google } from '$lib/icons';
+
 	export let form: any;
 
 	async function handleGoogleClick() {
@@ -17,29 +17,42 @@
 		const provider = new GoogleAuthProvider();
 		const res = await signInWithPopup(auth, provider);
 		const guser = res.user;
+
 		data.append('provider', 'google');
-		data.append('token', 'asd');
+		data.append('token', guser.uid);
+		data.append('displayName', guser.displayName ?? '');
+		data.append('email', guser.email ?? '');
+		data.append('photoURL', guser.photoURL ?? '');
+
 		const response = await fetch('/login', {
 			method: 'POST',
 			body: data
 		});
+		const result = await response.json();
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+
+		applyAction(result);
 	}
 
 	async function handleFacebookClick() {}
 </script>
 
 <div class="form">
-	<form method="POST" use:enhance>
-		<input name="email" type="email" required />
-		<!-- {#if form?.missing}<p class="error">The email field is required</p>{/if}
-		{#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if} -->
-		<input name="password" type="password" required />
-		<button>Log in</button>
-	</form>
+	<a href="/login" class="titulo">Bienvenido</a>
+	<p>Puedes ingresar con tus cuentas de redes sociales.</p>
 
 	<div class="socials">
-		<button class="btn-social" type="button" on:click={handleGoogleClick}> Google </button>
-		<button class="btn-social" type="button" on:click={handleFacebookClick}> Facebook </button>
+		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
+			<button class="btn-social" type="submit"> <Google /> </button>
+		</form>
+
+		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
+			<button class="btn-social" type="button" on:click={handleFacebookClick}>
+				<Facebook />
+			</button>
+		</form>
 	</div>
 </div>
 
@@ -53,13 +66,17 @@
 		margin-bottom: 24px;
 		display: flex;
 		gap: 10px;
-		.btn-social {
-			background: #ffffff;
-			/* White/White_80 */
-			border: 1px solid #c6c6c6;
-			border-radius: 4px;
-			padding: 10px 0px;
+
+		form {
 			width: 100%;
+			.btn-social {
+				background: #ffffff;
+				/* White/White_80 */
+				border: 1px solid #c6c6c6;
+				border-radius: 4px;
+				padding: 10px 0px;
+				width: 100%;
+			}
 		}
 	}
 

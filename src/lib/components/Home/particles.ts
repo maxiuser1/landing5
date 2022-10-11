@@ -4,7 +4,7 @@ export const particlesConfig: ISourceOptions = {
 	autoPlay: true,
 	background: {
 		color: {
-			value: '#0C0017'
+			value: ''
 		},
 		image: '',
 		position: '',
@@ -24,7 +24,7 @@ export const particlesConfig: ISourceOptions = {
 	},
 	fullScreen: {
 		enable: true,
-		zIndex: -1
+		zIndex: 0
 	},
 	detectRetina: true,
 	duration: 0,
@@ -43,8 +43,8 @@ export const particlesConfig: ISourceOptions = {
 				type: 'circle'
 			},
 			onHover: {
-				enable: true,
-				mode: 'repulse',
+				enable: false,
+				mode: [],
 				parallax: {
 					enable: false,
 					force: 2,
@@ -100,10 +100,10 @@ export const particlesConfig: ISourceOptions = {
 				quantity: 2
 			},
 			repulse: {
-				distance: 80,
-				duration: 1,
+				distance: 200,
+				duration: 0.4,
 				factor: 100,
-				speed: 0.1,
+				speed: 1,
 				maxSpeed: 50,
 				easing: 'ease-out-quad',
 				divs: {
@@ -121,42 +121,9 @@ export const particlesConfig: ISourceOptions = {
 				radius: 200
 			},
 			trail: {
-				delay: 0.005,
-				pauseOnStop: true,
-				quantity: 5,
-				particles: {
-					color: {
-						value: '#ff0000',
-						animation: {
-							enable: true,
-							speed: 400,
-							sync: true
-						}
-					},
-					collisions: {
-						enable: false
-					},
-					links: {
-						enable: false
-					},
-					move: {
-						outModes: {
-							default: 'destroy'
-						},
-						speed: 2
-					},
-					size: {
-						value: 5,
-						animation: {
-							enable: true,
-							speed: 5,
-							minimumValue: 1,
-							sync: true,
-							startValue: 'min',
-							destroy: 'max'
-						}
-					}
-				}
+				delay: 1,
+				pauseOnStop: false,
+				quantity: 1
 			},
 			light: {
 				area: {
@@ -194,14 +161,14 @@ export const particlesConfig: ISourceOptions = {
 					enable: false,
 					minimumValue: 0.1
 				},
-				value: 1
+				value: 0
 			},
 			vertical: {
 				random: {
 					enable: false,
 					minimumValue: 0.1
 				},
-				value: 1
+				value: 0
 			}
 		},
 		collisions: {
@@ -221,7 +188,7 @@ export const particlesConfig: ISourceOptions = {
 					value: 1
 				}
 			},
-			enable: true,
+			enable: false,
 			mode: 'bounce',
 			overlap: {
 				enable: true,
@@ -229,15 +196,15 @@ export const particlesConfig: ISourceOptions = {
 			}
 		},
 		color: {
-			value: '#ff0000',
+			value: '#d507e4',
 			animation: {
 				h: {
 					count: 0,
 					enable: true,
 					offset: 0,
-					speed: 50,
+					speed: 30,
 					decay: 0,
-					sync: false
+					sync: true
 				},
 				s: {
 					count: 0,
@@ -257,40 +224,7 @@ export const particlesConfig: ISourceOptions = {
 				}
 			}
 		},
-		groups: {
-			z5000: {
-				number: {
-					value: 70
-				},
-				zIndex: {
-					value: 50
-				}
-			},
-			z7500: {
-				number: {
-					value: 30
-				},
-				zIndex: {
-					value: 75
-				}
-			},
-			z2500: {
-				number: {
-					value: 50
-				},
-				zIndex: {
-					value: 25
-				}
-			},
-			z1000: {
-				number: {
-					value: 40
-				},
-				zIndex: {
-					value: 10
-				}
-			}
-		},
+		groups: {},
 		move: {
 			angle: {
 				offset: 0,
@@ -310,16 +244,16 @@ export const particlesConfig: ISourceOptions = {
 				mode: 'percent',
 				radius: 0
 			},
-			decay: 0,
+			decay: 0.1,
 			distance: {},
-			direction: 'none',
+			direction: 'top',
 			drift: 0,
 			enable: true,
 			gravity: {
 				acceleration: 9.81,
-				enable: false,
+				enable: true,
 				inverse: false,
-				maxSpeed: 50
+				maxSpeed: 200
 			},
 			path: {
 				clamp: true,
@@ -334,15 +268,18 @@ export const particlesConfig: ISourceOptions = {
 				options: {}
 			},
 			outModes: {
-				default: 'out',
-				bottom: 'out',
-				left: 'out',
-				right: 'out',
-				top: 'out'
+				default: 'destroy',
+				bottom: 'destroy',
+				left: 'destroy',
+				right: 'destroy',
+				top: 'none'
 			},
 			random: false,
 			size: false,
-			speed: 2,
+			speed: {
+				min: 50,
+				max: 150
+			},
 			spin: {
 				acceleration: 0,
 				enable: false
@@ -360,31 +297,27 @@ export const particlesConfig: ISourceOptions = {
 		},
 		number: {
 			density: {
-				enable: true,
+				enable: false,
 				area: 800,
 				factor: 1000
 			},
-			limit: 0,
-			value: 100
+			limit: 300,
+			value: 0
 		},
 		opacity: {
 			random: {
-				enable: true,
-				minimumValue: 0.3
+				enable: false,
+				minimumValue: 0.1
 			},
-			value: {
-				min: 0.3,
-				max: 0.8
-			},
+			value: 1,
 			animation: {
 				count: 0,
-				enable: true,
-				speed: 0.5,
+				enable: false,
+				speed: 0.3,
 				decay: 0,
-				sync: false,
-				destroy: 'none',
-				startValue: 'random',
-				minimumValue: 0.3
+				sync: true,
+				destroy: 'min',
+				startValue: 'max'
 			}
 		},
 		reduceDuplicates: false,
@@ -405,22 +338,18 @@ export const particlesConfig: ISourceOptions = {
 		},
 		size: {
 			random: {
-				enable: true,
+				enable: false,
 				minimumValue: 1
 			},
-			value: {
-				min: 1,
-				max: 3
-			},
+			value: 3,
 			animation: {
 				count: 0,
-				enable: true,
-				speed: 3,
+				enable: false,
+				speed: 5,
 				decay: 0,
 				sync: false,
 				destroy: 'none',
-				startValue: 'random',
-				minimumValue: 1
+				startValue: 'random'
 			}
 		},
 		stroke: {
@@ -460,14 +389,17 @@ export const particlesConfig: ISourceOptions = {
 				enable: false,
 				minimumValue: 0
 			},
-			value: 0,
+			value: {
+				min: 0,
+				max: 360
+			},
 			animation: {
-				enable: false,
-				speed: 0,
+				enable: true,
+				speed: 60,
 				decay: 0,
 				sync: false
 			},
-			direction: 'clockwise',
+			direction: 'random',
 			path: false
 		},
 		destroy: {
@@ -498,31 +430,37 @@ export const particlesConfig: ISourceOptions = {
 		},
 		roll: {
 			darken: {
-				enable: false,
-				value: 0
+				enable: true,
+				value: 30
 			},
-			enable: false,
+			enable: true,
 			enlighten: {
-				enable: false,
-				value: 0
+				enable: true,
+				value: 30
 			},
 			mode: 'vertical',
-			speed: 25
+			speed: {
+				min: 15,
+				max: 25
+			}
 		},
 		tilt: {
 			random: {
 				enable: false,
 				minimumValue: 0
 			},
-			value: 0,
+			value: {
+				min: 0,
+				max: 360
+			},
 			animation: {
-				enable: false,
-				speed: 0,
+				enable: true,
+				speed: 60,
 				decay: 0,
 				sync: false
 			},
-			direction: 'clockwise',
-			enable: false
+			direction: 'random',
+			enable: true
 		},
 		twinkle: {
 			lines: {
@@ -537,10 +475,13 @@ export const particlesConfig: ISourceOptions = {
 			}
 		},
 		wobble: {
-			distance: 5,
-			enable: false,
+			distance: 30,
+			enable: true,
 			speed: {
-				angle: 50,
+				angle: {
+					min: -15,
+					max: 15
+				},
 				move: 10
 			}
 		},
@@ -566,13 +507,13 @@ export const particlesConfig: ISourceOptions = {
 		links: {
 			blink: false,
 			color: {
-				value: 'random'
+				value: '#fff'
 			},
 			consent: false,
 			distance: 100,
-			enable: true,
+			enable: false,
 			frequency: 1,
-			opacity: 0.4,
+			opacity: 1,
 			shadow: {
 				blur: 5,
 				color: {
@@ -607,5 +548,34 @@ export const particlesConfig: ISourceOptions = {
 	style: {},
 	themes: [],
 	zLayers: 100,
-	emitters: []
+	emitters: {
+		autoPlay: true,
+		fill: true,
+		life: {
+			wait: false
+		},
+		rate: {
+			quantity: 10,
+			delay: 0.1
+		},
+		shape: 'square',
+		startCount: 0,
+		size: {
+			mode: 'percent',
+			height: 0,
+			width: 0
+		},
+		particles: {
+			links: {
+				enable: false
+			},
+			shape: {
+				type: 'circle'
+			}
+		},
+		position: {
+			x: 50,
+			y: 50
+		}
+	}
 };
