@@ -23,7 +23,7 @@
 <style lang="scss">
 	.bind {
 		position: relative;
-
+		z-index: 4;
 		.searchbox {
 			padding-left: 24px;
 			padding-right: 24px;

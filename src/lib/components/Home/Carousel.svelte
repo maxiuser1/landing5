@@ -69,6 +69,7 @@
 
 <style lang="scss">
 	.carousel {
+		z-index: 3;
 		width: 100%;
 		overflow: hidden;
 		position: relative;
