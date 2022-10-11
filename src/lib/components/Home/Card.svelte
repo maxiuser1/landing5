@@ -39,8 +39,8 @@
 		background-color: #000;
 
 		border-radius: 2rem;
-		box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe,
-			0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+		box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #f9f9f9, 0 0 0.8rem #f9f9f9,
+			0 0 2.8rem #f9f9f9, inset 0 0 1.3rem #f9f9f9;
 
 		@include breakpoint($md) {
 			width: 352px;

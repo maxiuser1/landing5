@@ -196,7 +196,7 @@ export const particlesConfig: ISourceOptions = {
 			}
 		},
 		color: {
-			value: '#eb01ef',
+			value: '#BF0026',
 			animation: {
 				h: {
 					count: 0,
