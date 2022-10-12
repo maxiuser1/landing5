@@ -57,7 +57,6 @@
 
 		nav {
 			margin: 0 auto;
-
 			height: var(--header-height);
 			display: flex;
 			align-items: center;

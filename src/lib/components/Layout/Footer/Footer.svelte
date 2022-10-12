@@ -6,7 +6,9 @@
 	<div class="container">
 		<div>
 			<h1>¡Que Hay!</h1>
+
 			<ul class="links">
+				<li><a href="/contenido/contacto">Contacto</a></li>
 				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
 				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
 			</ul>
@@ -15,6 +17,14 @@
 		<div>
 			<h1>Sigue a Que Hay</h1>
 			<Socials />
+			<div class="libro">
+				<a href="/contenido/libro-de-reclamaciones">
+					<img
+						src="https://res.cloudinary.com/maxitech/image/upload/v1665546173/ticketera/assets/libro_mlxv6e.png"
+						alt="libro"
+					/>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>
@@ -74,5 +84,9 @@
 				}
 			}
 		}
+	}
+
+	.libro {
+		text-align: center;
 	}
 </style>
