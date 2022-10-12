@@ -1,4 +1,5 @@
 <script>
+	import { enhance } from '$app/forms';
 	import Arrow from '$lib/icons/Arrow.svelte';
 </script>
 
@@ -20,7 +21,15 @@
 </section>
 
 <section class="container">
-	<form>
+	<form
+		method="POST"
+		use:enhance={({ form, data, action, cancel }) => {
+			return async ({ result, update }) => {
+				form.reset();
+				alert('Su formulario de reclamación ha sido enviado, muchas gracias.');
+			};
+		}}
+	>
 		<div>
 			<h1>Libro de Reclamaciones</h1>
 			<p>
@@ -73,10 +82,10 @@
 
 		<div class="row">
 			<div class="input-group">
-				<label for="nombres">Tipo de reclamación </label>
-				<select>
-					<option value="dni">Queja</option>
-					<option value="ce">Reclamo</option>
+				<label for="motivo">Tipo de reclamación </label>
+				<select name="motivo">
+					<option value="queja">Queja</option>
+					<option value="reclamo">Reclamo</option>
 				</select>
 			</div>
 			<div class="input-group">

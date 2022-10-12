@@ -1,8 +1,6 @@
 <script lang="ts">
 	export let data: any;
-	console.log('data', data);
 	export let form: any;
-	console.log('form', form);
 </script>
 
 <section class="container exitoso">

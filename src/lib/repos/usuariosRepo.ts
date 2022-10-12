@@ -42,7 +42,6 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		const container = await database.container('personas');
 
 		const { resource: createdItem } = await container.items.create(user);
-		console.log('entrada guardada ', createdItem);
 		return createdItem?.id ?? '';
 	};
 }

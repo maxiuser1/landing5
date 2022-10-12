@@ -27,7 +27,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const container = await database.container('entradas');
 
 		const { resource: createdItem } = await container.items.create(entrada);
-		console.log('entrada guardada ', createdItem);
 	};
 
 	findEvento = async (id: string): Promise<App.Evento> => {
@@ -65,8 +64,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 				const fila = ubicacion!.filas.find((t: any) => t.id == entrada.fila);
 				const indexAsiento = fila!.sits.findIndex((t: any) => t.id == entrada.asiento);
-
-				console.log('indexasiento', indexAsiento);
 
 				replaceOperation.push({
 					op: 'replace',
@@ -150,7 +147,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 		};
 
 		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
-		console.log('turno get', results);
 		return results[0];
 	};
 }

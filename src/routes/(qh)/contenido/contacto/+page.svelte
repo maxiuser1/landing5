@@ -1,4 +1,5 @@
 <script>
+	import { enhance } from '$app/forms';
 	import Arrow from '$lib/icons/Arrow.svelte';
 </script>
 
@@ -20,7 +21,16 @@
 </section>
 
 <section class="container">
-	<form>
+	<form
+		method="POST"
+		use:enhance={({ form, data, action, cancel }) => {
+			return async ({ result, update }) => {
+				console.log('resu', result);
+				form.reset();
+				alert('Su formulario de contacto ha sido enviado, muchas gracias.');
+			};
+		}}
+	>
 		<div>
 			<h1>Contacto</h1>
 		</div>
@@ -46,8 +56,8 @@
 				</select>
 			</div>
 			<div class="input-group">
-				<label for="apellidos">Número de documento</label>
-				<input name="apellidos" required />
+				<label for="dni">Número de documento</label>
+				<input name="dni" required />
 			</div>
 		</div>
 

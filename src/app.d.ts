@@ -14,6 +14,7 @@ declare namespace App {
 	interface Locals {
 		eventosRepo;
 		usuariosRepo;
+		contactosRepo;
 		user: User;
 	}
 	// interface PageData {}
@@ -100,5 +101,9 @@ declare namespace App {
 		findUsuario(id): Promise<User>;
 		findByFb(id): Promise<User | null>;
 		create(user: User): Promise<string>;
+	}
+
+	interface ContactosRepoInterface {
+		create(contacto): Promise<void>;
 	}
 }

@@ -9,7 +9,6 @@
 
 	let visible = false;
 
-	$: console.log('a', $page.url);
 	const toggle = () => {
 		visible = !visible;
 	};

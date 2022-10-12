@@ -18,7 +18,6 @@ export const actions = {
 		});
 
 		try {
-			console.log('token', token);
 			const resultado = await axios.post(
 				`${niubizapi}/api.authorization/v3/authorization/ecommerce/${merchantId}`,
 				{
@@ -68,7 +67,6 @@ export const actions = {
 				TRANSACTION_DATE: exito.dataMap.TRANSACTION_DATE
 			};
 		} catch (err: any) {
-			console.log('err', err);
 			const fracaso = err.response.data;
 			return {
 				ok: false,
