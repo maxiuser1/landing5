@@ -7,8 +7,8 @@
 		<div>
 			<h1>¡Que Hay!</h1>
 			<ul class="links">
-				<li><a href="contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
-				<li><a href="contenido/terminos_y_condiciones">Términos y condiciones</a></li>
+				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
+				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
 			</ul>
 		</div>
 		<div />
