@@ -212,7 +212,7 @@
 	}
 
 	.form {
-		margin-top: 212px;
+		margin-top: 42px;
 
 		.btn {
 			width: 100%;
