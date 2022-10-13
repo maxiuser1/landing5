@@ -13,30 +13,6 @@
 
 	export let form: any;
 
-	async function handleGoogleClick() {
-		const data = new FormData();
-		const provider = new GoogleAuthProvider();
-		const res = await signInWithPopup(auth, provider);
-		const guser = res.user;
-
-		data.append('provider', 'google');
-		data.append('token', guser.uid);
-		data.append('displayName', guser.displayName ?? '');
-		data.append('email', guser.email ?? '');
-		data.append('photoURL', guser.photoURL ?? '');
-
-		const response = await fetch('/login', {
-			method: 'POST',
-			body: data
-		});
-		const result = await response.json();
-		if (result.type === 'success') {
-			await invalidateAll();
-		}
-
-		applyAction(result);
-	}
-
 	async function handleFormSubmit() {
 		const fdata = new FormData(this);
 		const username = fdata.get('username')?.toString() ?? '';
@@ -70,48 +46,55 @@
 			alert(error.message);
 		}
 	}
-
-	async function handleFacebookClick() {}
 </script>
 
 <div class="form">
-	<a href="/login" class="titulo">Bienvenido</a>
+	<a href="/login" class="titulo">Registro</a>
 	<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
 		<div>
 			<div class="usuario">
-				<label for="username">Usuario</label>
-				<input type="text" name="username" required />
+				<label for="nombres">Nombres</label>
+				<input type="text" name="nombres" required />
+			</div>
+
+			<div class="usuario">
+				<label for="apellidos">Apellidos</label>
+				<input type="text" name="apellidos" required />
+			</div>
+
+			<div class="usuario">
+				<label for="dni">DNI</label>
+				<input type="text" name="dni" required />
+			</div>
+
+			<div class="usuario">
+				<label for="correo">Correo</label>
+				<input type="email" name="correo" required />
+			</div>
+
+			<div class="usuario">
+				<label for="telefono">Teléfono</label>
+				<input type="text" name="telefono" required />
 			</div>
 
 			<div class="contrasena">
 				<label for="password">Contraseña</label>
 				<input type="password" name="password" required />
 			</div>
+
+			<div class="contrasena">
+				<label for="password">Confirmar Contraseña</label>
+				<input type="password" name="password" required />
+			</div>
 		</div>
 		<div>
-			<button class="btn" type="submit"><span>Ingresar</span></button>
+			<button class="btn" type="submit"><span>Enviar</span></button>
 		</div>
 	</form>
 
 	<div class="texto">
-		<p>Tambien puedes ingresar con:</p>
-	</div>
-
-	<div class="socials">
-		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
-			<button class="btn-social" type="submit"> <Google /> </button>
-		</form>
-
-		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
-			<button class="btn-social" type="button" on:click={handleFacebookClick}>
-				<Facebook />
-			</button>
-		</form>
-	</div>
-
-	<div class="texto">
 		<p>
-			Si no tienes una cuenta <a href="registro" class="link">Regístrate</a>
+			<a href="/login" class="link">Volver</a>
 		</p>
 	</div>
 </div>
@@ -212,7 +195,7 @@
 	}
 
 	.form {
-		margin-top: 212px;
+		margin-top: 22px;
 
 		.btn {
 			width: 100%;

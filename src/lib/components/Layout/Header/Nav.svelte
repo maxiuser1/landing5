@@ -4,15 +4,26 @@
 	import { page } from '$app/stores';
 	import { dataset_dev } from 'svelte/internal';
 	import { user } from '$lib/stores/userstore';
+	import type { TooltipConifg } from '$lib/components/Shared/ui/Tooltip/types';
+	import Popover from '$lib/components/Shared/ui/Popover';
 	export let closable = false;
 	const dispatch = createEventDispatcher();
 	const toggleMenu = () => dispatch('togglemenu');
+
+	let config: TooltipConifg = {
+		body: 'MiniMenu',
+		bodyAsHTML: true,
+		effect: 'float',
+		place: 'bottom',
+		type: 'dark',
+		style: ''
+	};
 </script>
 
 <ul class="socials">
 	<li class="item">
 		{#if $page.data.user}
-			<div>hola {$page.data.user.nombre}</div>
+			<div use:Popover={config}><User /> {$page.data.user.nombre}</div>
 		{:else}
 			<a class="ingresa" href="../login">
 				<User />
