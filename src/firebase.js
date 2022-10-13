@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBs1fhoVnsZaMn_COV_SfJMFEIX4Kck1tI",
-    authDomain: "quehay.pe",
+    authDomain: "non-prod-ticketera.firebaseapp.com",
     projectId: "non-prod-ticketera",
     storageBucket: "non-prod-ticketera.appspot.com",
     messagingSenderId: "721036293198",
