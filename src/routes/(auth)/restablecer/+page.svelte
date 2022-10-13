@@ -75,20 +75,12 @@
 </script>
 
 <div class="form">
-	<a href="/login" class="titulo">Bienvenido</a>
+	<a href="/login" class="titulo">Restablecer Contraseña</a>
 	<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
 		<div>
 			<div class="usuario">
-				<label for="username">Usuario</label>
-				<input type="text" name="username" required />
-			</div>
-
-			<div class="contrasena">
-				<label for="password">Contraseña</label>
+				<label for="password">Contraseña nueva</label>
 				<input type="password" name="password" required />
-			</div>
-			<div class="olvidaste">
-				<a href="/recuperar" class="link">¿Olvidaste tu contraseña?</a>
 			</div>
 		</div>
 		<div>
@@ -97,31 +89,24 @@
 	</form>
 
 	<div class="texto">
-		<p>Tambien puedes ingresar con:</p>
-	</div>
-
-	<div class="socials">
-		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
-			<button class="btn-social" type="submit"> <Google /> </button>
-		</form>
-
-		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
-			<button class="btn-social" type="button" on:click={handleFacebookClick}>
-				<Facebook />
-			</button>
-		</form>
-	</div>
-
-	<div class="texto">
 		<p>
-			Si no tienes una cuenta <a href="registro" class="link">Regístrate</a>
+			<a href="/login" class="link">Volver</a>
 		</p>
 	</div>
 </div>
 
 <style lang="scss">
+	input[type='number'] {
+		-moz-appearance: textfield;
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+
 	input {
-		width: 92%;
+		width: 100%;
 		padding: 0 12px;
 		border: 1px solid #c6c6c6;
 		border-radius: 4px;
@@ -184,15 +169,6 @@
 			line-height: 24px;
 		}
 
-		.link {
-			color: #d30ed1;
-		}
-	}
-
-	.olvidaste {
-		margin-top: 10px;
-		width: 100%;
-		text-align: right;
 		.link {
 			color: #d30ed1;
 		}
