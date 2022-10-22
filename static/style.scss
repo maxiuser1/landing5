@@ -106,4 +106,18 @@ $xl: 1600px;
         background: linear-gradient(270deg, #cd002b 0%, #b70fb5 100%);
     }
 
+    a.btn-outline{
+        border: 1px solid #D30ED1;
+        border-radius: 4px;
+        padding: 8px 16px;
+        align-items: center;
+        padding: 8px 16px;
+        gap: 8px;
+
+        color: #D30ED1;
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
 }

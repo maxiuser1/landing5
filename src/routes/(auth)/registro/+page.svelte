@@ -10,6 +10,7 @@
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
 	import { Facebook, Google } from '$lib/icons';
+	import Arrow from '$lib/icons/Arrow.svelte';
 
 	export let form: any;
 
@@ -48,175 +49,491 @@
 	}
 </script>
 
-<div class="form">
-	<a href="/login" class="titulo">Registro</a>
-	<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
-		<div>
-			<div class="usuario">
-				<label for="nombres">Nombres</label>
-				<input type="text" name="nombres" required />
+<div class="registro">
+	<a href="/login" class="btn-outline">
+		<Arrow color="#D30ED1" left={true} />
+		Volver al login
+	</a>
+	<div class="form">
+		<div class="titulo">Registro</div>
+		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
 
-			<div class="usuario">
-				<label for="apellidos">Apellidos</label>
-				<input type="text" name="apellidos" required />
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
 
-			<div class="usuario">
-				<label for="dni">DNI</label>
-				<input type="text" name="dni" required />
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
 
-			<div class="usuario">
-				<label for="correo">Correo</label>
-				<input type="email" name="correo" required />
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
 
-			<div class="usuario">
-				<label for="telefono">Teléfono</label>
-				<input type="text" name="telefono" required />
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
 
-			<div class="contrasena">
-				<label for="password">Contraseña</label>
-				<input type="password" name="password" required />
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
 
-			<div class="contrasena">
-				<label for="password">Confirmar Contraseña</label>
-				<input type="password" name="password" required />
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
 			</div>
+
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+			</div>
+
+			<div>
+				<div class="usuario">
+					<label for="nombres">Nombres</label>
+					<input type="text" name="nombres" required />
+				</div>
+
+				<div class="usuario">
+					<label for="apellidos">Apellidos</label>
+					<input type="text" name="apellidos" required />
+				</div>
+
+				<div class="usuario">
+					<label for="dni">DNI</label>
+					<input type="text" name="dni" required />
+				</div>
+
+				<div class="usuario">
+					<label for="correo">Correo</label>
+					<input type="email" name="correo" required />
+				</div>
+
+				<div class="usuario">
+					<label for="telefono">Teléfono</label>
+					<input type="text" name="telefono" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+
+				<div class="contrasena">
+					<label for="password">Confirmar Contraseña</label>
+					<input type="password" name="password" required />
+				</div>
+			</div>
+			<div>
+				<button class="btn" type="submit"><span>Enviar</span></button>
+			</div>
+		</form>
+
+		<div class="texto">
+			<p />
 		</div>
-		<div>
-			<button class="btn" type="submit"><span>Enviar</span></button>
-		</div>
-	</form>
-
-	<div class="texto">
-		<p>
-			<a href="/login" class="link">Volver</a>
-		</p>
 	</div>
 </div>
 
 <style lang="scss">
-	input[type='number'] {
-		-moz-appearance: textfield;
-	}
-
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-	}
-
-	input {
-		width: 100%;
-		padding: 0 12px;
-		border: 1px solid #c6c6c6;
-		border-radius: 4px;
-		background: #ffffff;
-		height: 42px;
-	}
-	input:focus {
-		outline: none;
-	}
-
-	label {
-		font-weight: 600;
-		font-size: 14px;
-		line-height: 24px;
-	}
-
-	.usuario {
-		margin-top: 24px;
-	}
-
-	.contrasena {
-		margin-top: 32px;
-	}
-
-	.btn {
-		margin-top: 34px;
-		margin-bottom: 24px;
-		width: 100%;
-	}
-
-	.error {
-		margin-top: 10px;
-		color: red;
-	}
-	.socials {
-		margin-top: 24px;
-		margin-bottom: 24px;
-		display: flex;
-		gap: 10px;
-
-		form {
-			width: 100%;
-			.btn-social {
-				background: #ffffff;
-				/* White/White_80 */
-				border: 1px solid #c6c6c6;
-				border-radius: 4px;
-				padding: 10px 0px;
-				width: 100%;
-			}
-		}
-	}
-
-	.texto {
-		width: 100%;
-		text-align: center;
-		p {
-			font-weight: 400;
-			font-size: 14px;
-			line-height: 24px;
-		}
-
-		.link {
-			color: #d30ed1;
-		}
-	}
-
-	.titulo {
-		color: #d30ed1;
-		font-weight: 700;
-		font-size: 30px;
-		line-height: 36px;
-		border-bottom: 2px solid #d30ed1;
-	}
-
-	.recordar {
-		label {
-			font-weight: 400;
-			font-size: 14px;
-			line-height: 20px;
-		}
+	.registro {
+		background-color: pink;
+		padding: 30px;
 	}
 
 	.form {
-		margin-top: 22px;
+		margin-top: 24px;
 
-		.btn {
-			width: 100%;
-		}
-	}
-
-	.controls {
-		margin-top: 32px;
-		margin-bottom: 32px;
-
-		.usuario {
-			margin-bottom: 20px;
+		.titulo {
+			font-weight: 900;
+			font-size: 24px;
+			line-height: 29px;
+			margin-bottom: 24px;
 		}
 
 		input {
 			width: 100%;
-			padding: 6px 12px;
+			padding: 0 12px;
 			border: 1px solid #c6c6c6;
 			border-radius: 4px;
 			background: #ffffff;
 			height: 42px;
 		}
 	}
+	// input[type='number'] {
+	// 	-moz-appearance: textfield;
+	// }
+
+	// input::-webkit-outer-spin-button,
+	// input::-webkit-inner-spin-button {
+	// 	-webkit-appearance: none;
+	// }
+
+	// input:focus {
+	// 	outline: none;
+	// }
+
+	// label {
+	// 	font-weight: 600;
+	// 	font-size: 14px;
+	// 	line-height: 24px;
+	// }
+
+	// .usuario {
+	// 	margin-top: 24px;
+	// }
+
+	// .contrasena {
+	// 	margin-top: 32px;
+	// }
+
+	// .btn {
+	// 	margin-top: 34px;
+	// 	margin-bottom: 24px;
+	// 	width: 100%;
+	// }
+
+	// .error {
+	// 	margin-top: 10px;
+	// 	color: red;
+	// }
+	// .socials {
+	// 	margin-top: 24px;
+	// 	margin-bottom: 24px;
+	// 	display: flex;
+	// 	gap: 10px;
+
+	// 	form {
+	// 		width: 100%;
+	// 		.btn-social {
+	// 			background: #ffffff;
+	// 			/* White/White_80 */
+	// 			border: 1px solid #c6c6c6;
+	// 			border-radius: 4px;
+	// 			padding: 10px 0px;
+	// 			width: 100%;
+	// 		}
+	// 	}
+	// }
+
+	// .texto {
+	// 	width: 100%;
+	// 	text-align: center;
+	// 	p {
+	// 		font-weight: 400;
+	// 		font-size: 14px;
+	// 		line-height: 24px;
+	// 	}
+
+	// 	.link {
+	// 		color: #d30ed1;
+	// 	}
+	// }
+
+	// .titulo {
+	// 	color: #d30ed1;
+	// 	font-weight: 700;
+	// 	font-size: 30px;
+	// 	line-height: 36px;
+	// 	border-bottom: 2px solid #d30ed1;
+	// }
+
+	// .recordar {
+	// 	label {
+	// 		font-weight: 400;
+	// 		font-size: 14px;
+	// 		line-height: 20px;
+	// 	}
+	// }
+
+	// .form {
+	// 	margin-top: 22px;
+
+	// 	.btn {
+	// 		width: 100%;
+	// 	}
+	// }
+
+	// .controls {
+	// 	margin-top: 32px;
+	// 	margin-bottom: 32px;
+
+	// 	.usuario {
+	// 		margin-bottom: 20px;
+	// 	}
+
+	// 	input {
+	// 		width: 100%;
+	// 		padding: 6px 12px;
+	// 		border: 1px solid #c6c6c6;
+	// 		border-radius: 4px;
+	// 		background: #ffffff;
+	// 		height: 42px;
+	// 	}
+	// }
 </style>

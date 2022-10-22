@@ -14,26 +14,43 @@
 	<div class="banner">
 		<div class="overlay" />
 	</div>
-	<div class="login">
+	<div class="forms">
 		<div class="header">
 			<nav>
 				<Logo />
 			</nav>
 		</div>
-		<slot />
+		<div class="contenido">
+			<slot />
+		</div>
 	</div>
 </div>
 
 <style lang="scss">
 	.principal {
 		background-color: #ffffff !important;
-
-		margin: 0 auto;
 		display: flex;
 		flex: 1 1 100%;
 		align-items: stretch;
 		justify-content: space-between;
-		box-shadow: 0 0 20px 6px #ffb4c2;
+	}
+
+	.banner {
+		display: none;
+		min-width: 50%;
+		height: 100vh;
+		background: linear-gradient(180deg, #ff0030 0%, #ff00ad 53.12%, #9023fe 100%);
+		@include breakpoint($sm) {
+			display: initial;
+		}
+	}
+
+	.overlay {
+		width: 100%;
+		height: 100vh;
+
+		background: url('https://res.cloudinary.com/maxitech/image/upload/v1658348860/ticketera/assets/people-in-festival_1_w8qpie.png');
+		background-size: cover;
 	}
 
 	.header {
@@ -56,34 +73,17 @@
 		}
 	}
 
-	.banner {
-		display: none;
-		min-width: 50%;
-		height: 100vh;
-		background: linear-gradient(180deg, #ff0030 0%, #ff00ad 53.12%, #9023fe 100%);
+	.forms {
 		@include breakpoint($sm) {
-			display: initial;
+			margin-top: initial;
 		}
-	}
 
-	.overlay {
-		width: 100%;
-		height: 100vh;
-
-		background: url('https://res.cloudinary.com/maxitech/image/upload/v1658348860/ticketera/assets/people-in-festival_1_w8qpie.png');
-		background-size: cover;
-	}
-
-	.login {
-		min-height: 100vh;
-		margin: 0 auto;
-
-		min-width: 380px;
-		max-width: 380px;
-		padding: 0 20px;
-
-		@include breakpoint($sm) {
-			padding: initial;
+		.contenido {
+			margin-top: 102px;
+			@include breakpoint($sm) {
+				max-height: 100vh;
+				overflow-x: auto;
+			}
 		}
 	}
 </style>
