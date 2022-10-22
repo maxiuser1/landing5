@@ -74,6 +74,12 @@
 	}
 
 	.forms {
+		width: 100%;
+		padding-right: 24px;
+		padding-left: 24px;
+		margin-right: auto;
+		margin-left: auto;
+
 		@include breakpoint($sm) {
 			margin-top: initial;
 		}
@@ -81,6 +87,10 @@
 		.contenido {
 			margin-top: 102px;
 			@include breakpoint($sm) {
+				margin-top: initial;
+				// padding-top: 42px;
+				// margin-top: 42px;
+
 				max-height: 100vh;
 				overflow-x: auto;
 			}
