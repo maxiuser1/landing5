@@ -74,169 +74,244 @@
 	async function handleFacebookClick() {}
 </script>
 
-<div class="form">
-	<a href="/login" class="titulo">Bienvenido</a>
-	<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
-		<div>
-			<div class="usuario">
+<div class="login">
+	<div class="form">
+		<a href="/login" class="titulo">Bienvenido</a>
+		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
+			<div class="form-group">
 				<label for="username">Usuario</label>
 				<input type="text" name="username" required />
 			</div>
 
-			<div class="contrasena">
+			<div class="form-group">
 				<label for="password">Contraseña</label>
 				<input type="password" name="password" required />
+				<div class="olvidaste">
+					<a href="/recuperar" class="link">¿Olvidaste tu contraseña?</a>
+				</div>
 			</div>
-			<div class="olvidaste">
-				<a href="/recuperar" class="link">¿Olvidaste tu contraseña?</a>
+
+			<div>
+				<button class="btn" type="submit"><span>Ingresar</span></button>
 			</div>
-		</div>
-		<div>
-			<button class="btn" type="submit"><span>Ingresar</span></button>
-		</div>
-	</form>
-
-	<div class="texto">
-		<p>Tambien puedes ingresar con:</p>
-	</div>
-
-	<div class="socials">
-		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
-			<button class="btn-social" type="submit"> <Google /> </button>
 		</form>
 
-		<form method="POST" on:submit|preventDefault={handleGoogleClick}>
-			<button class="btn-social" type="button" on:click={handleFacebookClick}>
-				<Facebook />
-			</button>
-		</form>
-	</div>
+		<div class="texto">
+			<p>Tambien puedes ingresar con:</p>
+		</div>
 
-	<div class="texto">
-		<p>
-			Si no tienes una cuenta <a href="registro" class="link">Regístrate</a>
-		</p>
+		<div class="socials">
+			<form method="POST" on:submit|preventDefault={handleGoogleClick}>
+				<button class="btn-social" type="submit"> <Google /> </button>
+			</form>
+
+			<form method="POST" on:submit|preventDefault={handleGoogleClick}>
+				<button class="btn-social" type="button" on:click={handleFacebookClick}>
+					<Facebook />
+				</button>
+			</form>
+		</div>
+
+		<div class="texto">
+			<p>
+				Si no tienes una cuenta <a href="registro" class="link">Regístrate</a>
+			</p>
+		</div>
 	</div>
 </div>
 
 <style lang="scss">
-	input {
-		width: 92%;
-		padding: 0 12px;
-		border: 1px solid #c6c6c6;
-		border-radius: 4px;
-		background: #ffffff;
-		height: 42px;
+	.login {
+		margin: 0 auto;
+		max-width: 380px;
+		padding-top: 42px;
 	}
-	input:focus {
-		outline: none;
-	}
-
-	label {
-		font-weight: 600;
-		font-size: 14px;
-		line-height: 24px;
-	}
-
-	.usuario {
+	.form {
 		margin-top: 24px;
-	}
 
-	.contrasena {
-		margin-top: 32px;
-	}
+		.titulo {
+			text-decoration: none;
+			position: relative;
+			font-weight: 900;
+			font-size: 32px;
+			line-height: 38px;
+			color: #d30ed1;
+			&:after {
+				position: absolute;
+				content: '';
+				bottom: -4px;
 
-	.btn {
-		margin-top: 34px;
-		margin-bottom: 24px;
-		width: 100%;
-	}
+				margin: 0 auto;
+				right: 0;
+				width: 3px;
+				height: 3px;
+				border: 1px solid #d30ed1;
+			}
 
-	.error {
-		margin-top: 10px;
-		color: red;
-	}
-	.socials {
-		margin-top: 24px;
-		margin-bottom: 24px;
-		display: flex;
-		gap: 10px;
+			&:before {
+				position: absolute;
+				content: '';
+				height: 5px;
+				bottom: -4px;
 
-		form {
-			width: 100%;
-			.btn-social {
-				background: #ffffff;
-				/* White/White_80 */
-				border: 1px solid #c6c6c6;
-				border-radius: 4px;
-				padding: 10px 0px;
-				width: 100%;
+				margin-right: auto;
+				margin-left: 2px;
+				left: 0;
+				width: -webkit-calc(100% - 8px);
+				width: -moz-calc(100% - 8px);
+				width: calc(100% - 8px);
+				background: #d30ed1;
 			}
 		}
-	}
 
-	.texto {
-		width: 100%;
-		text-align: center;
-		p {
-			font-weight: 400;
+		label {
+			font-weight: 600;
 			font-size: 14px;
 			line-height: 24px;
 		}
 
-		.link {
-			color: #d30ed1;
-		}
-	}
-
-	.olvidaste {
-		margin-top: 10px;
-		width: 100%;
-		text-align: right;
-		.link {
-			color: #d30ed1;
-		}
-	}
-
-	.titulo {
-		color: #d30ed1;
-		font-weight: 700;
-		font-size: 30px;
-		line-height: 36px;
-		border-bottom: 2px solid #d30ed1;
-	}
-
-	.recordar {
-		label {
-			font-weight: 400;
-			font-size: 14px;
-			line-height: 20px;
-		}
-	}
-
-	.form {
-		margin-top: 42px;
-
-		.btn {
-			width: 100%;
-		}
-	}
-
-	.controls {
-		margin-top: 32px;
-		margin-bottom: 32px;
-
-		.usuario {
-			margin-bottom: 20px;
-		}
-
 		input {
-			width: 100%;
-			padding: 6px 12px;
+			min-width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+			padding: 0 12px;
 			border: 1px solid #c6c6c6;
 			border-radius: 4px;
 			background: #ffffff;
 			height: 42px;
 		}
+
+		.form-group {
+			&:first-child {
+				margin-top: 32px;
+			}
+			margin-bottom: 32px;
+		}
+
+		.btn {
+			width: 100%;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 24px;
+		}
+
+		.olvidaste {
+			margin-top: 10px;
+			width: 100%;
+			text-align: right;
+			.link {
+				color: #d30ed1;
+			}
+		}
 	}
+	// input {
+	// 	width: 92%;
+	// 	padding: 0 12px;
+	// 	border: 1px solid #c6c6c6;
+	// 	border-radius: 4px;
+	// 	background: #ffffff;
+	// 	height: 42px;
+	// }
+	// input:focus {
+	// 	outline: none;
+	// }
+
+	// label {
+	// 	font-weight: 600;
+	// 	font-size: 14px;
+	// 	line-height: 24px;
+	// }
+
+	// .usuario {
+	// 	margin-top: 24px;
+	// }
+
+	// .contrasena {
+	// 	margin-top: 32px;
+	// }
+
+	// .btn {
+	// 	margin-top: 34px;
+	// 	margin-bottom: 24px;
+	// 	width: 100%;
+	// }
+
+	// .error {
+	// 	margin-top: 10px;
+	// 	color: red;
+	// }
+	// .socials {
+	// 	margin-top: 24px;
+	// 	margin-bottom: 24px;
+	// 	display: flex;
+	// 	gap: 10px;
+
+	// 	form {
+	// 		width: 100%;
+	// 		.btn-social {
+	// 			background: #ffffff;
+	// 			/* White/White_80 */
+	// 			border: 1px solid #c6c6c6;
+	// 			border-radius: 4px;
+	// 			padding: 10px 0px;
+	// 			width: 100%;
+	// 		}
+	// 	}
+	// }
+
+	// .texto {
+	// 	width: 100%;
+	// 	text-align: center;
+	// 	p {
+	// 		font-weight: 400;
+	// 		font-size: 14px;
+	// 		line-height: 24px;
+	// 	}
+
+	// 	.link {
+	// 		color: #d30ed1;
+	// 	}
+	// }
+
+	// .titulo {
+	// 	color: #d30ed1;
+	// 	font-weight: 700;
+	// 	font-size: 30px;
+	// 	line-height: 36px;
+	// 	border-bottom: 2px solid #d30ed1;
+	// }
+
+	// .recordar {
+	// 	label {
+	// 		font-weight: 400;
+	// 		font-size: 14px;
+	// 		line-height: 20px;
+	// 	}
+	// }
+
+	// .form {
+	// 	margin-top: 42px;
+
+	// 	.btn {
+	// 		width: 100%;
+	// 	}
+	// }
+
+	// .controls {
+	// 	margin-top: 32px;
+	// 	margin-bottom: 32px;
+
+	// 	.usuario {
+	// 		margin-bottom: 20px;
+	// 	}
+
+	// 	input {
+	// 		width: 100%;
+	// 		padding: 6px 12px;
+	// 		border: 1px solid #c6c6c6;
+	// 		border-radius: 4px;
+	// 		background: #ffffff;
+	// 		height: 42px;
+	// 	}
+	// }
 </style>
