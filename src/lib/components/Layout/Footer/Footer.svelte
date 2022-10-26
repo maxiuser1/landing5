@@ -8,6 +8,7 @@
 			<h1>¡Que Hay!</h1>
 
 			<ul class="links">
+				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
 				<li><a href="/contenido/contacto">Contacto</a></li>
 				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
 				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
