@@ -37,6 +37,12 @@
 		margin-top: 30px;
 	}
 
+	.container {
+		ul {
+			list-style: initial;
+		}
+	}
+
 	.breacrumbs {
 		background: white;
 		ul {
