@@ -86,12 +86,12 @@
 	<div class="info ">
 		<div>
 			<h1>Valores:</h1>
-			<ul>
-				<li>1. Innovación</li>
-				<li>2. Eficiencia</li>
-				<li>3. Transparencia</li>
-				<li>4. Enfoque de Servicio</li>
-			</ul>
+			<ol>
+				<li>Innovación</li>
+				<li>Eficiencia</li>
+				<li>Transparencia</li>
+				<li>Enfoque de Servicio</li>
+			</ol>
 		</div>
 	</div>
 </section>
