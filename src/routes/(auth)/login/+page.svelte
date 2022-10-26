@@ -41,56 +41,56 @@
 	async function handleFormSubmit() {
 		const fdata = new FormData(this);
 
-		const formData = Object.fromEntries(fdata);
+		// const formData = Object.fromEntries(fdata);
 
-		const loginSchema = z.object({
-			username: z
-				.string({ required_error: 'Es necesario completar este campo' })
-				.min(1, { message: 'Es necesario completar este campo' }),
-			password: z
-				.string({ required_error: 'Es necesario completar este campo' })
-				.min(1, { message: 'Es necesario completar este campo' })
-		});
-
-		try {
-			const result = loginSchema.parse(formData);
-			console.log('success', result);
-		} catch (err: any) {
-			const { fieldErrors: errors } = err.flatten();
-			console.log(errors);
-			form = { ...form, errors };
-		}
-
-		// const username = fdata.get('username')?.toString() ?? '';
-		// const password = fdata.get('password')?.toString() ?? '';
+		// const loginSchema = z.object({
+		// 	username: z
+		// 		.string({ required_error: 'Es necesario completar este campo' })
+		// 		.min(1, { message: 'Es necesario completar este campo' }),
+		// 	password: z
+		// 		.string({ required_error: 'Es necesario completar este campo' })
+		// 		.min(1, { message: 'Es necesario completar este campo' })
+		// });
 
 		// try {
-		// 	const res = await signInWithEmailAndPassword(auth, username, password);
-		// 	const guser = res.user;
-
-		// 	console.log('guser', guser);
-
-		// 	const data = new FormData();
-
-		// 	data.append('provider', 'google');
-		// 	data.append('token', guser.uid);
-		// 	data.append('displayName', guser.displayName ?? '');
-		// 	data.append('email', guser.email ?? '');
-		// 	data.append('photoURL', guser.photoURL ?? '');
-
-		// 	const response = await fetch('/login', {
-		// 		method: 'POST',
-		// 		body: data
-		// 	});
-		// 	const result = await response.json();
-		// 	if (result.type === 'success') {
-		// 		await invalidateAll();
-		// 	}
-
-		// 	applyAction(result);
-		// } catch (error: any) {
-		// 	alert(error.message);
+		// 	const result = loginSchema.parse(formData);
+		// 	console.log('success', result);
+		// } catch (err: any) {
+		// 	const { fieldErrors: errors } = err.flatten();
+		// 	console.log(errors);
+		// 	form = { ...form, errors };
 		// }
+
+		const username = fdata.get('username')?.toString() ?? '';
+		const password = fdata.get('password')?.toString() ?? '';
+
+		try {
+			const res = await signInWithEmailAndPassword(auth, username, password);
+			const guser = res.user;
+
+			console.log('guser', guser);
+
+			const data = new FormData();
+
+			data.append('provider', 'google');
+			data.append('token', guser.uid);
+			data.append('displayName', guser.displayName ?? '');
+			data.append('email', guser.email ?? '');
+			data.append('photoURL', guser.photoURL ?? '');
+
+			const response = await fetch('/login', {
+				method: 'POST',
+				body: data
+			});
+			const result = await response.json();
+			if (result.type === 'success') {
+				await invalidateAll();
+			}
+
+			applyAction(result);
+		} catch (error: any) {
+			alert(error.message);
+		}
 	}
 
 	async function handleFacebookClick() {}
@@ -99,7 +99,7 @@
 <div class="login">
 	<div class="form">
 		<a href="/login" class="titulo">Bienvenido</a>
-		<form autocomplete="off" novalidate on:submit|preventDefault={handleFormSubmit}>
+		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
 			<div class="form-group">
 				<label for="username">Usuario</label>
 				<input type="text" name="username" />
