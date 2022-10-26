@@ -13,6 +13,7 @@
 	import { z } from 'zod';
 
 	export let form: any;
+	let mensaje = '';
 
 	async function handleGoogleClick() {
 		const data = new FormData();
@@ -89,7 +90,22 @@
 
 			applyAction(result);
 		} catch (error: any) {
-			alert(error.message);
+			mensaje = error.message;
+			if (error.code == 'auth/wrong-password') {
+				mensaje = 'Credenciales no válidas';
+			}
+
+			if (error.code == 'auth/user-not-found') {
+				mensaje = 'La cuenta ingresada no existe';
+			}
+
+			if (error.code == 'auth/user-disabled') {
+				mensaje = 'La cuenta no está habilitada';
+			}
+
+			if (error.code == 'auth/invalid-email') {
+				mensaje = 'Cuenta no vàlida';
+			}
 		}
 	}
 
@@ -99,6 +115,10 @@
 <div class="login">
 	<div class="form">
 		<a href="/login" class="titulo">Bienvenido</a>
+		{#if mensaje}
+			<div class="error">{mensaje}</div>
+		{/if}
+
 		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
 			<div class="form-group">
 				<label for="username">Usuario</label>
@@ -143,6 +163,10 @@
 </div>
 
 <style lang="scss">
+	.error {
+		margin-top: 10px;
+		color: red;
+	}
 	.login {
 		margin: 0 auto;
 		max-width: 380px;
