@@ -2,7 +2,7 @@ import type { SvelteComponent } from 'svelte';
 import { Tooltip } from '../Shared/ui/Tooltip';
 
 export const zonas = (node: any, props: any) => {
-	const mapa = node.querySelectorAll('g').forEach((each: any) => {
+	const mapa = node.querySelectorAll('path').forEach((each: any) => {
 		const pseudoId = each.id.split('-')[0];
 		props.forEach((cadaPrecio: any) => {
 			if (cadaPrecio.tipo.toLowerCase() == pseudoId.toLowerCase()) {

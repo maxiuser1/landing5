@@ -10,6 +10,7 @@
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
 	import { Facebook, Google } from '$lib/icons';
+	import { z } from 'zod';
 
 	export let form: any;
 
@@ -39,36 +40,57 @@
 
 	async function handleFormSubmit() {
 		const fdata = new FormData(this);
-		const username = fdata.get('username')?.toString() ?? '';
-		const password = fdata.get('password')?.toString() ?? '';
+
+		const formData = Object.fromEntries(fdata);
+
+		const loginSchema = z.object({
+			username: z
+				.string({ required_error: 'Es necesario completar este campo' })
+				.min(1, { message: 'Es necesario completar este campo' }),
+			password: z
+				.string({ required_error: 'Es necesario completar este campo' })
+				.min(1, { message: 'Es necesario completar este campo' })
+		});
 
 		try {
-			const res = await signInWithEmailAndPassword(auth, username, password);
-			const guser = res.user;
-
-			console.log('guser', guser);
-
-			const data = new FormData();
-
-			data.append('provider', 'google');
-			data.append('token', guser.uid);
-			data.append('displayName', guser.displayName ?? '');
-			data.append('email', guser.email ?? '');
-			data.append('photoURL', guser.photoURL ?? '');
-
-			const response = await fetch('/login', {
-				method: 'POST',
-				body: data
-			});
-			const result = await response.json();
-			if (result.type === 'success') {
-				await invalidateAll();
-			}
-
-			applyAction(result);
-		} catch (error: any) {
-			alert(error.message);
+			const result = loginSchema.parse(formData);
+			console.log('success', result);
+		} catch (err: any) {
+			const { fieldErrors: errors } = err.flatten();
+			console.log(errors);
+			form = { ...form, errors };
 		}
+
+		// const username = fdata.get('username')?.toString() ?? '';
+		// const password = fdata.get('password')?.toString() ?? '';
+
+		// try {
+		// 	const res = await signInWithEmailAndPassword(auth, username, password);
+		// 	const guser = res.user;
+
+		// 	console.log('guser', guser);
+
+		// 	const data = new FormData();
+
+		// 	data.append('provider', 'google');
+		// 	data.append('token', guser.uid);
+		// 	data.append('displayName', guser.displayName ?? '');
+		// 	data.append('email', guser.email ?? '');
+		// 	data.append('photoURL', guser.photoURL ?? '');
+
+		// 	const response = await fetch('/login', {
+		// 		method: 'POST',
+		// 		body: data
+		// 	});
+		// 	const result = await response.json();
+		// 	if (result.type === 'success') {
+		// 		await invalidateAll();
+		// 	}
+
+		// 	applyAction(result);
+		// } catch (error: any) {
+		// 	alert(error.message);
+		// }
 	}
 
 	async function handleFacebookClick() {}
@@ -77,15 +99,15 @@
 <div class="login">
 	<div class="form">
 		<a href="/login" class="titulo">Bienvenido</a>
-		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
+		<form autocomplete="off" novalidate on:submit|preventDefault={handleFormSubmit}>
 			<div class="form-group">
 				<label for="username">Usuario</label>
-				<input type="text" name="username" required />
+				<input type="text" name="username" />
 			</div>
 
 			<div class="form-group">
 				<label for="password">Contraseña</label>
-				<input type="password" name="password" required />
+				<input type="password" name="password" />
 				<div class="olvidaste">
 					<a href="/recuperar" class="link">¿Olvidaste tu contraseña?</a>
 				</div>
@@ -203,6 +225,39 @@
 				color: #d30ed1;
 			}
 		}
+
+		.socials {
+			margin-top: 24px;
+			margin-bottom: 24px;
+			display: flex;
+			gap: 10px;
+
+			form {
+				width: 100%;
+				.btn-social {
+					background: #ffffff;
+					/* White/White_80 */
+					border: 1px solid #c6c6c6;
+					border-radius: 4px;
+					padding: 10px 0px;
+					width: 100%;
+				}
+			}
+		}
+
+		.texto {
+			width: 100%;
+			text-align: center;
+			p {
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 24px;
+			}
+
+			.link {
+				color: #d30ed1;
+			}
+		}
 	}
 	// input {
 	// 	width: 92%;
@@ -239,38 +294,6 @@
 	// .error {
 	// 	margin-top: 10px;
 	// 	color: red;
-	// }
-	// .socials {
-	// 	margin-top: 24px;
-	// 	margin-bottom: 24px;
-	// 	display: flex;
-	// 	gap: 10px;
-
-	// 	form {
-	// 		width: 100%;
-	// 		.btn-social {
-	// 			background: #ffffff;
-	// 			/* White/White_80 */
-	// 			border: 1px solid #c6c6c6;
-	// 			border-radius: 4px;
-	// 			padding: 10px 0px;
-	// 			width: 100%;
-	// 		}
-	// 	}
-	// }
-
-	// .texto {
-	// 	width: 100%;
-	// 	text-align: center;
-	// 	p {
-	// 		font-weight: 400;
-	// 		font-size: 14px;
-	// 		line-height: 24px;
-	// 	}
-
-	// 	.link {
-	// 		color: #d30ed1;
-	// 	}
 	// }
 
 	// .titulo {
