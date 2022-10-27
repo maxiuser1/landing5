@@ -38,7 +38,7 @@
 			}
 
 			if (error.code == 'auth/invalid-email') {
-				mensaje = 'Cuenta no vàlida';
+				mensaje = 'Cuenta no válida';
 			}
 		}
 	}
