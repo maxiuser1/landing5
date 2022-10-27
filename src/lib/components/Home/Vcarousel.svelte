@@ -3,6 +3,8 @@
 
 	import { onMount } from 'svelte';
 
+	export let eventos: Array<App.Baneable>;
+
 	let cantidad = 0;
 	let ancho = 0;
 	let mini = 0;
@@ -15,7 +17,7 @@
 	};
 
 	onMount(async () => {
-		cantidad = 3;
+		cantidad = eventos.length;
 		ancho = 100 * cantidad;
 		mini = 100 / cantidad;
 		translate = 0;
@@ -29,10 +31,10 @@
 			setIntervalImmediate(() => {
 				handleClick(current);
 				current++;
-				if (current == 3) {
+				if (current == eventos.length) {
 					current = 0;
 				}
-			}, 10000);
+			}, 3000);
 		});
 	};
 
@@ -40,59 +42,19 @@
 		fn();
 		return setInterval(fn, ms);
 	};
-
-	const redirigir = (slug: string) => {
-		goto(`/${slug}`);
-	};
 </script>
 
 <section class="carousel" aria-label="carousel">
 	<div class="grande" style:width="{ancho}%" style:transform="translateX({translate}%)">
-		<div class="slide">
-			<div style="width: {mini}%">
-				<iframe
-					width="560"
-					height="315"
-					src="https://www.youtube.com/embed/hviKUJzcxLA"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				/>
-			</div>
-		</div>
-		<div class="slide">
-			<div style="width: {mini}%">
-				<iframe
-					width="560"
-					height="315"
-					src="https://www.youtube.com/embed/hviKUJzcxLA"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				/>
-			</div>
-		</div>
-		<div class="slide">
-			<div style="width: {mini}%">
-				<iframe
-					width="560"
-					height="315"
-					src="https://www.youtube.com/embed/hviKUJzcxLA"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				/>
-			</div>
-		</div>
+		{#each eventos as evento}
+			<div class="slide" style="background-image: url('{evento.banner}');width: {mini}%;" />
+		{/each}
 	</div>
 	<div class="botonera">
 		<ul class="puntos">
-			<li class="punto" on:click={() => handleClick(0)} class:selected={selectedidx === 0} />
-			<li class="punto" on:click={() => handleClick(1)} class:selected={selectedidx === 1} />
-			<li class="punto" on:click={() => handleClick(2)} class:selected={selectedidx === 2} />
+			{#each eventos as item, idx}
+				<li class="punto" on:click={() => handleClick(idx)} class:selected={selectedidx === idx} />
+			{/each}
 		</ul>
 	</div>
 </section>
@@ -119,7 +81,15 @@
 			background-size: 100% 100%;
 			background-repeat: no-repeat;
 			background-position: center center;
-			height: 315px;
+			height: 149px;
+
+			@include breakpoint($sm) {
+				height: 318px;
+			}
+
+			@include breakpoint($md) {
+				height: 440px;
+			}
 		}
 
 		.botonera {
@@ -154,13 +124,6 @@
 			background: #d30ed1;
 			border: 1px solid #ffffff;
 			border-radius: 8px;
-		}
-
-		.slide-content {
-			background-color: red;
-			width: 560px;
-			height: 315px;
-			text-align: center;
 		}
 	}
 </style>

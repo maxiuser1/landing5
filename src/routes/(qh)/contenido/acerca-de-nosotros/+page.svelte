@@ -1,40 +1,26 @@
 <script lang="ts">
 	import Vcarousel from '$lib/components/Home/Vcarousel.svelte';
+
+	const banners: Array<App.Baneable> = [
+		{
+			banner:
+				'https://res.cloudinary.com/maxitech/image/upload/v1666757182/ticketera/banners/a17ff271-51d4-4a82-b086-f556353eb97b.jpg'
+		},
+		{
+			banner:
+				'https://res.cloudinary.com/maxitech/image/upload/v1665596050/ticketera/banners/bzrpp_puqztv.jpg'
+		}
+	];
 </script>
 
 <section class="banner">
 	<div class="content-banner">
-		<iframe
-			width="560"
-			height="315"
-			src="https://www.youtube.com/embed/hviKUJzcxLA"
-			title="YouTube video player"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen
-		/>
-	</div>
-	<div class="content-banner">
-		<iframe
-			width="560"
-			height="315"
-			src="https://www.youtube.com/embed/n7MV7fck4YQ"
-			title="YouTube video player"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen
-		/>
-	</div>
-	<div class="content-banner">
-		<iframe
-			width="560"
-			height="315"
-			src="https://www.youtube.com/embed/k_UkpgNdHMY"
-			title="YouTube video player"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen
-		/>
+		<video playsinline autoplay muted loop id="video">
+			<source
+				src="https://res.cloudinary.com/maxitech/video/upload/v1666841100/ticketera/banners/nosotros_video-converter.com_ujtyyu.webm"
+				type="video/webm"
+			/>
+		</video>
 	</div>
 </section>
 
@@ -68,9 +54,9 @@
 		<div>
 			<h1>Nosotros</h1>
 			<p>
-				Quehay.pe nace con la iniciativa de difundir el arte y cultura en todas sus formas de
-				expresión, consolidando en una ventana, variadas alternativas de entretenimiento para todo
-				público.
+				<span style="color:#d30ed1">Quehay.pe</span> nace con la iniciativa de difundir el arte y cultura
+				en todas sus formas de expresión, consolidando en una ventana, variadas alternativas de entretenimiento
+				para todo público.
 			</p>
 			<p>
 				Estamos muy comprometidos con la calidad del servicio, que parte con la atención
@@ -85,16 +71,11 @@
 <section class="container">
 	<div class="info ">
 		<div>
-			<h1>Valores:</h1>
-			<ol>
-				<li>Innovación</li>
-				<li>Eficiencia</li>
-				<li>Transparencia</li>
-				<li>Enfoque de Servicio</li>
-			</ol>
+			<h1>Valores</h1>
 		</div>
 	</div>
 </section>
+<Vcarousel eventos={banners} />
 
 <section class="container">
 	<div class="info ">
@@ -103,6 +84,14 @@
 </section>
 
 <style lang="scss">
+	#video {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
 	.breacrumbs {
 		background: white;
 		ul {
@@ -126,7 +115,7 @@
 	.info {
 		display: flex;
 		justify-content: space-between;
-		margin-top: 80px;
+		margin-top: 30px;
 
 		flex-direction: column;
 		gap: 20px;
@@ -172,7 +161,17 @@
 		}
 	}
 	.content-banner {
-		background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+		height: 250px;
+		width: 100%;
+		position: relative;
+
+		@include breakpoint($sm) {
+			height: 450px;
+		}
+
+		@include breakpoint($md) {
+			height: 550px;
+		}
 	}
 	.banner {
 		background-size: 100% 100%; /* <------ */

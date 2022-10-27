@@ -37,6 +37,10 @@ declare namespace App {
 		total: number;
 	};
 
+	type Baneable = {
+		banner: string;
+	};
+
 	type Evento = {
 		id: string;
 		nombre: string;
