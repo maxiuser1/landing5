@@ -17,7 +17,7 @@
 	<div class="content-banner">
 		<video playsinline autoplay muted loop id="video">
 			<source
-				src="https://res.cloudinary.com/maxitech/video/upload/v1666841100/ticketera/banners/nosotros_video-converter.com_ujtyyu.webm"
+				src="https://res.cloudinary.com/maxitech/video/upload/v1666842884/ticketera/banners/nosotros2_tvxtwx.webm"
 				type="video/webm"
 			/>
 		</video>
