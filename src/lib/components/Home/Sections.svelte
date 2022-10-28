@@ -8,7 +8,8 @@
 		<Cards {eventos} />
 	</div>
 </section>
-
+<br />
+<br />
 <section class="final" id="conciertos">
 	<div class="container">
 		<Cards {eventos} />
@@ -19,6 +20,7 @@
 	section {
 		padding-left: 24px;
 		padding-right: 24px;
+
 	}
 	.final {
 		margin-bottom: 80px;

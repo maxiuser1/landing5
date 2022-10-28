@@ -8,18 +8,21 @@
 	<div class="card">
 		<div
 			class="imagen"
-			style="background:  linear-gradient(to right, rgba(255,255,255,0) 20%,
-			black), url('{evento.banner}') no-repeat center"
+			style="background:  url('{evento.banner.replaceAll('maxitech/image/upload','maxitech/image/upload/w_352,c_scale')}') no-repeat center"
 		/>
 		<div class="content">
 			<div class="info">
-				<h2>
+				<div class="h2">
 					{evento.artista} <span class="tour">{evento.nombre}</span>
-				</h2>
-				<h3>
+				</div>
+				<div class="h3">
 					<Pin />
 					<span> {evento.lugar} <strong>, {evento.ciudad}</strong> </span>
-				</h3>
+				</div>
+				<div class="h3">
+					<Pin />
+					<span>Desde <strong>S/. 10 </strong> </span>
+				</div>
 			</div>
 			<div class="fechas">
 				{#each evento.fechas as fecha}
@@ -53,7 +56,7 @@
 		justify-content: space-between;
 
 		.info {
-			h2 {
+			.h2 {
 				font-weight: 900;
 				font-size: 18px;
 				line-height: 22px;
@@ -67,8 +70,9 @@
 				}
 			}
 
-			h3 {
+			.h3 {
 				line-height: initial;
+				padding-top:10px;
 				span {
 					color: red;
 					font-weight: 400;
