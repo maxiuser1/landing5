@@ -109,7 +109,31 @@
 		}
 	}
 
-	async function handleFacebookClick() {}
+	async function handleFacebookClick() {
+		const data = new FormData();
+		const provider = new FacebookAuthProvider();
+		const res = await signInWithPopup(auth, provider);
+		const guser = res.user;
+		console.log('res', res);
+
+		data.append('provider', 'facebook');
+		data.append('token', guser.uid);
+		data.append('displayName', guser.displayName ?? '');
+		data.append('email', guser.email ?? '');
+		data.append('photoURL', guser.photoURL ?? '');
+
+		const response = await fetch('/login', {
+				method: 'POST',
+				body: data
+		});
+
+		const result = await response.json();
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+
+		applyAction(result);
+	}
 </script>
 
 <div class="login">
