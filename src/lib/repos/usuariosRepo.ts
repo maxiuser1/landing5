@@ -1,4 +1,4 @@
-import { CosmosClient, type SqlQuerySpec } from '@azure/cosmos';
+import { CosmosClient, Item, type SqlQuerySpec } from '@azure/cosmos';
 
 export class UsuariosRepo implements App.UsuariosRepoInterface {
 	cn: string;
@@ -44,4 +44,18 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		const { resource: createdItem } = await container.items.create(user);
 		return createdItem?.id ?? '';
 	};
+
+	complete = async (id:string, user: App.User) : Promise<string> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('personas');
+
+		const userItem =  await container.item(id, id);
+		const { resource: currentUser } = await userItem.read<App.User>();
+
+		const updatedUser =  {...currentUser, dni: user.dni, nombre: user.nombre, apellido: user.apellido, telefono: user.telefono};
+		
+		await userItem.replace(updatedUser);
+		return userItem.id;
+	}
 }

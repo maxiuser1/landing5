@@ -5,8 +5,10 @@ declare namespace App {
 	type User = {
 		id?: string;
 		nombre: string;
+		apellido?:string;
 		fbtoken: string;
 		dni?: string;
+		avatar?:string;
 		correo: string;
 		telefono?: string;
 	};
@@ -105,6 +107,7 @@ declare namespace App {
 		findUsuario(id): Promise<User>;
 		findByFb(id): Promise<User | null>;
 		create(user: User): Promise<string>;
+		complete(id:string,user: User): Promise<string>;
 	}
 
 	interface ContactosRepoInterface {

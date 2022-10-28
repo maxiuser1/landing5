@@ -23,7 +23,7 @@
 <ul class="socials">
 	<li class="item">
 		{#if $page.data.user}
-			<div use:Popover={config}><User /> {$page.data.user.nombre}</div>
+			<div class="circle" use:Popover={config}> {$page.data.user.nombre[0]}</div>
 		{:else}
 			<a class="ingresa" href="../login">
 				<User />
@@ -41,6 +41,17 @@
 </ul>
 
 <style lang="scss">
+	  .circle {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        background: #5b025a;
+        color: white;
+		text-transform: uppercase;
+        text-align: center;
+        font-size: 16px;
+      }
 	.ingresa {
 		color: white;
 		display: flex;
@@ -49,7 +60,7 @@
 	.socials {
 		display: flex;
 		align-items: center;
-		gap: 24px;
+		gap: 14px;
 		color: white;
 	}
 
