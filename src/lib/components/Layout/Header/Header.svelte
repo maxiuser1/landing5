@@ -34,7 +34,7 @@
 					<a href="#destacados">Destacados</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos"> Conciertos</a>
+					<a href="#conciertos"> Festivales</a>
 				</li>
 			</ul>
 		</nav>
