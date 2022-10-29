@@ -69,17 +69,47 @@
 </section>
 
 <section class="container">
-	<div class="info ">
+	<div class="valores ">
 		<div>
 			<h1>Valores</h1>
 		</div>
 	</div>
 </section>
-<Vcarousel eventos={banners} />
 
 <section class="container">
-	<div class="info ">
-		<div />
+	<div class="valores ">
+		<div>
+			<video playsinline autoplay muted loop class="exvideo">
+				<source
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667059181/ticketera/banners/innovacion_vnhj11.webm"
+					type="video/webm"
+				/>
+			</video>
+		</div>
+		<div>
+			<video playsinline autoplay muted loop class="exvideo">
+				<source
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667059164/ticketera/banners/enfoque_rbitxs.webm"
+					type="video/webm"
+				/>
+			</video>
+		</div>
+		<div>
+			<video playsinline autoplay muted loop class="exvideo">
+				<source
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667059154/ticketera/banners/transparencia_lokpuy.webm"
+					type="video/webm"
+				/>
+			</video>
+		</div>
+		<div>
+			<video playsinline autoplay muted loop class="exvideo">
+				<source
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667059433/ticketera/banners/eficiencia_gjppde.webm"
+					type="video/webm"
+				/>
+			</video>
+		</div>
 	</div>
 </section>
 
@@ -87,12 +117,21 @@
 	#video {
 		object-fit: cover;
 		width: 100%;
-		height: 100%;
+		height: auto;
 		position: absolute;
 		top: 0;
 		left: 0;
 	}
+
+	.exvideo {
+		object-fit: cover;
+		width: 100%;
+		height: auto;
+	}
+
 	.breacrumbs {
+		padding-left: 24px;
+		padding-right: 24px;
 		background: white;
 		ul {
 			padding: 24px 0px;
@@ -115,53 +154,43 @@
 	.info {
 		display: flex;
 		justify-content: space-between;
-		margin-top: 30px;
+		margin-top: 10px;
 
+		padding-left: 24px;
+		padding-right: 24px;
 		flex-direction: column;
 		gap: 20px;
 		@include breakpoint($md) {
 			flex-direction: row;
+			margin-top: 110px;
 		}
 
-		.map {
-			width: 312px;
-
-			@include breakpoint($md) {
-				width: 446px;
-			}
-
-			iframe {
-				width: 312px;
-				height: 258;
-				@include breakpoint($md) {
-					width: 446px;
-				}
-			}
-		}
-
-		h4 {
-			margin-bottom: 16px;
-		}
-
-		p.fechas {
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 16px;
-		}
-		p.lastp {
-			margin-top: 8px;
-			margin-bottom: 60px;
-		}
-
-		.luagar {
-			font-weight: 400;
-			font-size: 14px;
-			line-height: 16px;
-			color: #1b1b1b;
+		p {
+			text-align: justify;
 		}
 	}
+
+	.valores {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 10px;
+
+		padding-left: 24px;
+		padding-right: 24px;
+		flex-direction: column;
+		gap: 20px;
+		@include breakpoint($md) {
+			flex-direction: row;
+			margin-top: 30px;
+		}
+
+		p {
+			text-align: justify;
+		}
+	}
+
 	.content-banner {
-		height: 250px;
+		height: 100px;
 		width: 100%;
 		position: relative;
 
