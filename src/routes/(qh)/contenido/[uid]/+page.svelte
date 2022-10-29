@@ -28,7 +28,7 @@
 	</div>
 </section>
 
-<section class="container">
+<section class="container prismic-content">
 	{@html prismicH.asHTML(data.document.data.contenido)}
 </section>
 
@@ -38,8 +38,8 @@
 	}
 
 	.container {
-		ul {
-			list-style: initial;
+		p {
+			color: red;
 		}
 	}
 

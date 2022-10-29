@@ -164,6 +164,13 @@
 			flex-direction: row;
 			margin-top: 110px;
 		}
+		h1 {
+			margin-top: 20px;
+
+			@include breakpoint($md) {
+				margin-top: 80px;
+			}
+		}
 
 		p {
 			text-align: justify;
