@@ -3,14 +3,7 @@
 </script>
 
 <a href="/">
-	<svg
-		style:height={size}
-		width="285"
-		height="81"
-		viewBox="0 0 285 81"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg style:height={size} viewBox="0 0 285 81" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="M75.8843 54.4709C75.8843 62.1094 70.2616 65.9347 59.0189 65.9543C47.8033 65.9543 42.1955 62.1265 42.1955 54.4709V10.5112H53.9227V54.4709C53.9227 56.9357 55.6206 58.1693 59.0189 58.1693C62.4172 58.1693 64.1571 56.9357 64.1571 54.4709V10.5112H75.8843V54.4709Z"
 			fill="white"
