@@ -12,7 +12,6 @@
 	import { Facebook, Google } from '$lib/icons';
 	import { z } from 'zod';
 
-	export let form: any;
 	let mensaje = '';
 
 	async function handleGoogleClick() {
@@ -123,8 +122,8 @@
 		data.append('photoURL', guser.photoURL ?? '');
 
 		const response = await fetch('/login', {
-				method: 'POST',
-				body: data
+			method: 'POST',
+			body: data
 		});
 
 		const result = await response.json();
@@ -138,7 +137,7 @@
 
 <div class="login">
 	<div class="form">
-		<a href="/login" class="titulo">Bienvenido</a>
+		<a href="/login" class="titulo--subrayado">Bienvenido</a>
 		{#if mensaje}
 			<div class="error">{mensaje}</div>
 		{/if}
@@ -198,41 +197,6 @@
 	}
 	.form {
 		margin-top: 24px;
-
-		.titulo {
-			text-decoration: none;
-			position: relative;
-			font-weight: 900;
-			font-size: 32px;
-			line-height: 38px;
-			color: #d30ed1;
-			&:after {
-				position: absolute;
-				content: '';
-				bottom: -4px;
-
-				margin: 0 auto;
-				right: 0;
-				width: 3px;
-				height: 3px;
-				border: 1px solid #d30ed1;
-			}
-
-			&:before {
-				position: absolute;
-				content: '';
-				height: 5px;
-				bottom: -4px;
-
-				margin-right: auto;
-				margin-left: 2px;
-				left: 0;
-				width: -webkit-calc(100% - 8px);
-				width: -moz-calc(100% - 8px);
-				width: calc(100% - 8px);
-				background: #d30ed1;
-			}
-		}
 
 		label {
 			font-weight: 600;

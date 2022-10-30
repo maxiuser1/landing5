@@ -67,7 +67,7 @@
 		width: 304px;
 		position: fixed;
 		height: 100vh;
-		z-index: 4;
+		z-index: 5;
 		top: var(--header-height);
 		left: 0;
 		background-color: #5b025a;

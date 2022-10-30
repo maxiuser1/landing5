@@ -17,11 +17,6 @@
 </section>
 
 <style lang="scss">
-	section {
-		padding-left: 24px;
-		padding-right: 24px;
-
-	}
 	.final {
 		margin-bottom: 80px;
 	}

@@ -1,4 +1,5 @@
 <script>
+	import Socials from '$lib/components/Layout/Footer/Socials.svelte';
 	import Logo from '$lib/components/Layout/Header/Logo.svelte';
 </script>
 
@@ -12,7 +13,16 @@
 
 <div class="principal">
 	<div class="banner">
-		<div class="overlay" />
+		<div class="overlay">
+			<div />
+			<div class="logos">
+				<Logo size={'80px'} />
+			</div>
+			<div class="socials">
+				<div class="visita">Visita nuestras redes sociales</div>
+				<div class="icons"><Socials /></div>
+			</div>
+		</div>
 	</div>
 	<div class="forms">
 		<div class="header">
@@ -27,6 +37,9 @@
 </div>
 
 <style lang="scss">
+	.logo--nav {
+		height: 20px;
+	}
 	.principal {
 		background-color: #ffffff !important;
 		display: flex;
@@ -51,6 +64,30 @@
 
 		background: url('https://res.cloudinary.com/maxitech/image/upload/v1658348860/ticketera/assets/people-in-festival_1_w8qpie.png');
 		background-size: cover;
+		display: flex;
+		flex-direction: column;
+		align-self: flex-end;
+		justify-content: space-between;
+		.logos {
+			margin: 0 auto;
+		}
+
+		.socials {
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 42px;
+			gap: 12px;
+			.visita {
+				width: 100%;
+				text-align: center;
+				color: white;
+			}
+
+			.icons {
+				margin: 0 auto;
+			}
+		}
 	}
 
 	.header {
@@ -69,7 +106,7 @@
 			margin: 0 auto;
 			height: var(--header-height);
 			text-align: center;
-			padding-top: 20px;
+			padding-top: 10px;
 		}
 	}
 
@@ -88,9 +125,6 @@
 			margin-top: 102px;
 			@include breakpoint($sm) {
 				margin-top: initial;
-				// padding-top: 42px;
-				// margin-top: 42px;
-
 				max-height: 100vh;
 				overflow-x: auto;
 			}

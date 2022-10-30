@@ -37,11 +37,6 @@
 </section>
 
 <style lang="scss">
-	section {
-		padding-left: 24px;
-		padding-right: 24px;
-	}
-
 	.infrafooter {
 		padding: 24px 0;
 		background-color: #5b025a;
