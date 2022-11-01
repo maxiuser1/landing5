@@ -81,7 +81,7 @@
 		<div>
 			<video playsinline autoplay muted loop class="exvideo">
 				<source
-					src="https://res.cloudinary.com/maxitech/video/upload/v1667059181/ticketera/banners/innovacion_vnhj11.webm"
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667263152/ticketera/banners/Innovacion_xzpkic.webm"
 					type="video/webm"
 				/>
 			</video>
@@ -89,7 +89,7 @@
 		<div>
 			<video playsinline autoplay muted loop class="exvideo">
 				<source
-					src="https://res.cloudinary.com/maxitech/video/upload/v1667059164/ticketera/banners/enfoque_rbitxs.webm"
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667263152/ticketera/banners/Servicio_d7is7n.webm"
 					type="video/webm"
 				/>
 			</video>
@@ -97,7 +97,7 @@
 		<div>
 			<video playsinline autoplay muted loop class="exvideo">
 				<source
-					src="https://res.cloudinary.com/maxitech/video/upload/v1667059154/ticketera/banners/transparencia_lokpuy.webm"
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667263152/ticketera/banners/Transparencia_j9him2.webm"
 					type="video/webm"
 				/>
 			</video>
@@ -105,7 +105,7 @@
 		<div>
 			<video playsinline autoplay muted loop class="exvideo">
 				<source
-					src="https://res.cloudinary.com/maxitech/video/upload/v1667059433/ticketera/banners/eficiencia_gjppde.webm"
+					src="https://res.cloudinary.com/maxitech/video/upload/v1667263152/ticketera/banners/Eficiencia_xkeq2k.webm"
 					type="video/webm"
 				/>
 			</video>
