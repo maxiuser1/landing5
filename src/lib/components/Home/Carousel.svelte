@@ -51,11 +51,15 @@
 <section class="carousel" aria-label="carousel">
 	<div class="grande" style:width="{ancho}%" style:transform="translateX({translate}%)">
 		{#each eventos as evento}
+		<div class="slide-container" style="width: {mini}%">
 			<div
 				class="slide"
 				on:click={() => redirigir(evento.slug)}
-				style="background-image: url('{evento.banner}');width: {mini}%;"
-			/>
+				style="background-image: url('{evento.banner}');background-size: cover; background-position: center;"
+			>
+				<div class="gradiente"></div>	
+			</div>
+		</div>
 		{/each}
 	</div>
 	<div class="botonera">
@@ -83,21 +87,30 @@
 		}
 
 		.slide {
-			color: yellow;
-			cursor: pointer;
-			font-size: 20px;
-			background-size: 100% 100%;
-			background-repeat: no-repeat;
-			background-position: center center;
-			height: 149px;
+			position: relative;
+    		background-repeat: no-repeat;
+			min-height: 149px;
+			max-height: 149px;
 
 			@include breakpoint($sm) {
-				height: 318px;
+				min-height: 318px;
+				max-height: 318px;
 			}
 
 			@include breakpoint($md) {
-				height: 440px;
+				min-height: 440px;
+				max-height: 440px;
 			}
+		}
+
+		.gradiente {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			height: 100%;
+			left: 0;
+			background: #000;
+			background: linear-gradient(90deg,rgba(0,0,0,.8) 12%,rgba(252,252,252,0) 53%);
 		}
 
 		.botonera {
