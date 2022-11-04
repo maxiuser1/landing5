@@ -44,7 +44,7 @@ export const zonas = (node: any, props: any) => {
 
 					setInterval(() => {
 						tooltipComp.$destroy();
-					}, 2000);
+					}, 5000);
 				});
 
 				each.addEventListener('mousemove', (event: MouseEvent) => {
