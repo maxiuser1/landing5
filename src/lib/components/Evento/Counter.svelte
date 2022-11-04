@@ -33,7 +33,7 @@
 		>
 			-
 		</button>
-		<div class="numero">
+		<div class="counter-viewport">
 			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
 				<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
 				<strong>{Math.floor($displayed_count)}</strong>
@@ -70,7 +70,7 @@
 	.counter button {
 		padding: 0;
 		display: flex;
-		align-items: center;
+		align-items: bottom;
 		justify-content: center;
 		border: 1px solid #f9f9f9;
 		background-color: #f9f9f9;

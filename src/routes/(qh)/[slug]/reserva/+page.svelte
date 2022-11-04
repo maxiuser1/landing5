@@ -130,7 +130,7 @@
 					{/if}
 
 					{#each otrasEntradas as zona, i}
-						<div class="compra odd" class:odd={i % 2 == 0}>
+						<div class="compra odd">
 							<div class="asiento">
 								<div>
 									<Ticket />
