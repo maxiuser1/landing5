@@ -122,7 +122,7 @@
 								</div>
 								<div>
 									<h4>
-										S/ {entrada.base}
+										S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 									</h4>
 								</div>
 							</div>
@@ -130,7 +130,7 @@
 					{/if}
 
 					{#each otrasEntradas as zona, i}
-						<div class="compra" class:odd={i % 2 == 0}>
+						<div class="compra odd" class:odd={i % 2 == 0}>
 							<div class="asiento">
 								<div>
 									<Ticket />
@@ -162,7 +162,7 @@
 						</div>
 						<div>
 							<h1>
-								S/ {totalPrecios + oePrecio}
+								S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 							</h1>
 						</div>
 					</div>
@@ -222,9 +222,11 @@
 		}
 
 		.compras {
+
 			margin-top: 60px;
 
 			.compra {
+				min-width: 300px;
 				padding: 32px;
 				border-radius: 8px;
 				display: flex;

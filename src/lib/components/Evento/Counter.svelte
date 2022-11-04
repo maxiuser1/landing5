@@ -33,7 +33,7 @@
 		>
 			-
 		</button>
-		<div class="counter-viewport">
+		<div class="numero">
 			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
 				<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
 				<strong>{Math.floor($displayed_count)}</strong>
@@ -51,7 +51,7 @@
 	</div>
 	<div>
 		<h4>
-			S/ {total}
+			S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 		</h4>
 	</div>
 </div>
@@ -88,6 +88,7 @@
 		height: 1em;
 		overflow: hidden;
 		text-align: center;
+		vertical-align: middle;
 		position: relative;
 	}
 

@@ -1,23 +1,9 @@
-<script lang="ts">
-	import Vcarousel from '$lib/components/Home/Vcarousel.svelte';
 
-	const banners: Array<App.Baneable> = [
-		{
-			banner:
-				'https://res.cloudinary.com/maxitech/image/upload/v1666757182/ticketera/banners/a17ff271-51d4-4a82-b086-f556353eb97b.jpg'
-		},
-		{
-			banner:
-				'https://res.cloudinary.com/maxitech/image/upload/v1665596050/ticketera/banners/bzrpp_puqztv.jpg'
-		}
-	];
-</script>
-
-<section class="banner">
+<section class="banner2">
 	<div class="content-banner">
 		<video playsinline autoplay muted loop id="video">
 			<source
-				src="https://res.cloudinary.com/maxitech/video/upload/v1666842884/ticketera/banners/nosotros2_tvxtwx.webm"
+				src="https://res.cloudinary.com/maxitech/video/upload/v1667602919/ticketera/banners/Nosotros-6_sn6qod.webm"
 				type="video/webm"
 			/>
 		</video>
@@ -162,13 +148,13 @@
 		gap: 20px;
 		@include breakpoint($md) {
 			flex-direction: row;
-			margin-top: 110px;
+			margin-top: 20px;
 		}
 		h1 {
 			margin-top: 20px;
-
+			margin-bottom:20px;
 			@include breakpoint($md) {
-				margin-top: 80px;
+				margin-top: 10px;
 			}
 		}
 
@@ -202,11 +188,11 @@
 		position: relative;
 
 		@include breakpoint($sm) {
-			height: 450px;
+			height: 250px;
 		}
 
 		@include breakpoint($md) {
-			height: 550px;
+			height: 350px;
 		}
 	}
 	.banner {

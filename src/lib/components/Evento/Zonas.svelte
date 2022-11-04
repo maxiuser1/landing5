@@ -45,15 +45,26 @@
 			<div class="leyenda">
 				<div>
 					{#if evento.precios}
-						<ul>
-							{#each evento.precios as precio, idx}
-								<li>
-									<Radio color={precio.color ? precio.color : ''} />
-									{precio.nombre}
-									<Soles number={precio.base} />
-								</li>
-							{/each}
-						</ul>
+					<table>
+					
+						<tbody>
+							{#if evento.precios}
+								{#each evento.precios as precio, idx}
+									<tr class:white={idx % 2 == 0}>
+										<td class="radio">
+											<div class="radio">
+												<Radio color={precio.color ? precio.color : ''} />
+											</div>
+										</td>
+										<td class="tdnombre">{precio.nombre}
+										</td>
+										<td class="tdprecio"><Soles number={precio.base} /></td>
+										
+									</tr>
+								{/each}
+							{/if}
+						</tbody>
+					</table>
 					{/if}
 				</div>
 			</div>
@@ -81,6 +92,15 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.tdnombre {
+		min-width: 100px;
+	}
+
+	.tdprecio {
+		min-width: 100px;
+		text-align: right;
+	}
+
 	.container {
 		padding-right: 0px;
 		padding-left: 0px;
