@@ -21,7 +21,7 @@
 				</div>
 				<div class="h3">
 					<Pin />
-					<span>Desde <strong>S/. 10 </strong> </span>
+					<span>Desde <strong>S/. 100 </strong> </span>
 				</div>
 			</div>
 			<div class="fechas">
