@@ -86,6 +86,7 @@ declare namespace App {
 		zona?: {
 			tipo: string;
 			base: number;
+			nombre?: string;
 			numerado?: boolean;
 		};
 		user?: any;

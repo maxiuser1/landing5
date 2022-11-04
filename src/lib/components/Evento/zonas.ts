@@ -17,6 +17,7 @@ export const zonas = (node: any, props: any) => {
 						detail: {
 							tipo: cadaPrecio.tipo,
 							base: cadaPrecio.base,
+							nombre: cadaPrecio.nombre,
 							numerado: cadaPrecio.numerado
 						}
 					});

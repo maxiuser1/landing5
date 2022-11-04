@@ -12,6 +12,7 @@
 			...current,
 			zona: {
 				tipo: zonaSeleccionada.tipo,
+				nombre: zonaSeleccionada.nombre,
 				base: zonaSeleccionada.base,
 				numerado: zonaSeleccionada.numerado
 			}

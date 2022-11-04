@@ -20,7 +20,7 @@
 		<Step
 			numero="1"
 			titulo="Entrada"
-			subtitulo={$compraData.zona?.tipo ?? 'Elige el tipo de entrada'}
+			subtitulo={$compraData.zona?.nombre ?? 'Elige el tipo de entrada'}
 			seleccionado={true}
 		/>
 
