@@ -2,6 +2,8 @@ import type { SvelteComponent } from 'svelte';
 import { Tooltip } from '../Shared/ui/Tooltip';
 
 export const zonas = (node: any, props: any) => {
+	let tooltipsComps : SvelteComponent[] = [];
+
 	const mapa = node.querySelectorAll('path').forEach((each: any) => {
 		const pseudoId = each.id.split('-')[0];
 		props.forEach((cadaPrecio: any) => {
@@ -39,6 +41,10 @@ export const zonas = (node: any, props: any) => {
 						target: document.body
 					});
 					each.setAttribute('fill', '#FF0036');
+
+					setInterval(() => {
+						tooltipComp.$destroy();
+					}, 2000);
 				});
 
 				each.addEventListener('mousemove', (event: MouseEvent) => {
