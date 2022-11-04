@@ -56,7 +56,6 @@
 	}
 	.content-banner {
 		width: 100%;
-		background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
 	}
 	.banner {
 		background-size: 100% 100%; /* <------ */
