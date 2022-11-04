@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { Entradas, Info } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
+	import { page } from '$app/stores';
 
 	export let data;
 	let { evento } = data;
@@ -16,11 +17,11 @@
 		};
 		compraData.set(compra);
 
-		// if ($isLoggedIn) {
-		goto(`${evento.general?.slug}/entradas`);
-		// } else {
-		// 	goto('./login');
-		// }
+		if ($page.data?.user?.nombre?.length > 0) {
+			goto(`${evento.general?.slug}/entradas`);
+		} else {
+			goto('./login');
+		}
 	};
 </script>
 

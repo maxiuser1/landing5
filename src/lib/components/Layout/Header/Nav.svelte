@@ -42,10 +42,11 @@
 
 <style lang="scss">
 	  .circle {
+		cursor:pointer;
         border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        padding: 5px;
+        width: 22px;
+        height: 22px;
+        padding: 3px;
         background: #5b025a;
         color: white;
 		text-transform: uppercase;
