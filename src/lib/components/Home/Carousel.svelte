@@ -55,7 +55,7 @@
 			<div
 				class="slide"
 				on:click={() => redirigir(evento.slug)}
-				style="background-image: url('{evento.banner}');background-size: cover; background-position: center;"
+				style="background-image: url('{evento.banner}');background-size: contain; background-position: center;"
 			>
 				<div class="gradiente"></div>	
 			</div>
