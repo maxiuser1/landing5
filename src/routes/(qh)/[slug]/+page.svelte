@@ -32,7 +32,6 @@
 <section class="banner" style:background-image="url('{evento.caratula?.banner}')">
 	<div class="content-banner">
 		<div class="titulos">
-			<h2>{evento.general?.artista}</h2>
 		</div>
 	</div>
 </section>
@@ -58,7 +57,8 @@
 		width: 100%;
 	}
 	.banner {
-		background-size: 100% 100%; /* <------ */
+		background: #000;
+		background-size:contain; /* <------ */
 		background-repeat: no-repeat;
 		background-position: center center;
 		height: 160px;

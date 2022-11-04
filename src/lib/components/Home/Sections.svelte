@@ -10,11 +10,11 @@
 </section>
 <br />
 <br />
-<section class="final" id="conciertos">
+<!-- <section class="final" id="conciertos">
 	<div class="container">
 		<Cards {eventos} />
 	</div>
-</section>
+</section> -->
 
 <style lang="scss">
 	.final {
