@@ -29,17 +29,27 @@
 	<title>{evento.general?.slug}</title>
 </svelte:head>
 
-<section class="banner" style:background-image="url('{evento.caratula?.banner}')">
-	<div class="content-banner">
-		<div class="titulos">
+{#if evento.caratula.portada}
+	<section style="cursor:pointer" class="container" on:click|once={comprarClick}>
+		<img src={evento.caratula.portada} alt="portada" />
+	</section>
+	<section class="container cta">
+		<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
+	</section>
+{:else}
+	<section class="banner" style:background-image="url('{evento.caratula?.banner}')">
+		<div class="content-banner">
+			<div class="titulos">
+			</div>
 		</div>
-	</div>
-</section>
-<Info {evento} />
-<Entradas {evento} />
-<section class="container cta">
-	<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
-</section>
+	</section>
+	<Info {evento} />
+	<Entradas {evento} />
+	<section class="container cta">
+		<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
+	</section>
+{/if}
+
 
 <style lang="scss">
 	.cta {
@@ -47,11 +57,12 @@
 		margin-bottom: 60px;
 	}
 	.comprar {
-		padding: 12px 16px;
+		padding: 22px 16px;
 		background: linear-gradient(270deg, #ff0036 0%, #d30ed1 100%);
 		border-radius: 4px;
 		border: none;
 		color: white;
+		width: 100%;
 	}
 	.content-banner {
 		width: 100%;

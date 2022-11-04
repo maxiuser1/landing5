@@ -28,7 +28,7 @@
 			padding-left: 24px;
 			padding-right: 24px;
 			text-align: center;
-			margin-top: -28px;
+			margin-top: -12px;
 			display: flex;
 			justify-content: center;
 			.box {

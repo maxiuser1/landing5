@@ -87,6 +87,7 @@
 		}
 
 		.slide {
+			background-color: #000;
 			position: relative;
     		background-repeat: no-repeat;
 			min-height: 149px;
@@ -98,8 +99,8 @@
 			}
 
 			@include breakpoint($md) {
-				min-height: 440px;
-				max-height: 440px;
+				min-height: 340px;
+				max-height: 340px;
 			}
 		}
 
