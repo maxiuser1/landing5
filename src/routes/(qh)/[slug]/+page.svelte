@@ -30,8 +30,8 @@
 </svelte:head>
 
 {#if evento.caratula.portada}
-	<section style="cursor:pointer" class="container" on:click|once={comprarClick}>
-		<img src={evento.caratula.portada} alt="portada" />
+	<section  class="container">
+		<img src={evento.caratula.portada} alt="portada"  on:click|once={comprarClick} />
 	</section>
 	<section class="container cta">
 		<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
@@ -52,6 +52,9 @@
 
 
 <style lang="scss">
+
+	
+
 	.cta {
 		margin-top: 52px;
 		margin-bottom: 60px;
