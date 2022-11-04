@@ -110,7 +110,6 @@
 			height: 100%;
 			left: 0;
 			background: #000;
-			background: linear-gradient(90deg,rgba(0,0,0,.8) 12%,rgba(252,252,252,0) 53%);
 		}
 
 		.botonera {
