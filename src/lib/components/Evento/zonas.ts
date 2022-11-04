@@ -30,7 +30,7 @@ export const zonas = (node: any, props: any) => {
 							mouseX: event.pageX,
 							mouseY: event.pageY,
 							config: {
-								body: `${cadaPrecio.nombre}: S/ ${cadaPrecio.base.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`,
+								body: `${cadaPrecio.nombre}: S/ ${cadaPrecio.base.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
 								bodyAsHTML: false,
 								place: 'top',
 								effect: 'solid',
