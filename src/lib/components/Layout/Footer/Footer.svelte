@@ -5,7 +5,7 @@
 <section class="footer">
 	<div class="container">
 		<div>
-			<h1>¡Que Hay!</h1>
+			<h1>¡Qué Hay!</h1>
 
 			<ul class="links">
 				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
@@ -17,6 +17,8 @@
 		</div>
 		<div />
 		<div>
+			<h1>&nbsp;</h1>
+
 			<h1>Sigue a Que Hay</h1>
 			<Socials />
 			<div class="libro">
@@ -32,11 +34,14 @@
 </section>
 <section class="infrafooter">
 	<div class="container">
-		<div>Derechos reservados © 2022, Que Hay</div>
+		<div class="derechos">Derechos reservados © 2022, Que Hay</div>
 	</div>
 </section>
 
 <style lang="scss">
+	.derechos{
+		font-size: 12px;
+	}
 	.infrafooter {
 		padding: 24px 0;
 		background-color: #5b025a;
@@ -61,7 +66,7 @@
 
 		h1 {
 			font-weight: 700;
-			font-size: 18px;
+			font-size: 14px;
 			line-height: 22px;
 			margin-bottom: 24px;
 		}
@@ -71,13 +76,13 @@
 
 			li {
 				font-weight: 400;
-				padding-bottom: 20px;
+				padding-bottom: 10px;
 				font-size: 16px;
 				line-height: 19px;
 
 				a {
 					color: #ffebff;
-					font-size: 16px;
+					font-size: 12px;
 				}
 			}
 		}
