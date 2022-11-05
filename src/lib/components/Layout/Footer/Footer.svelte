@@ -1,11 +1,12 @@
 <script>
-	import Socials from './Socials.svelte';
+	import Logo from '../Header/Logo.svelte';
+import Socials from './Socials.svelte';
 </script>
 
 <section class="footer">
 	<div class="container">
 		<div>
-			<h1>¡Qué Hay!</h1>
+			<Logo size={'25px'}></Logo>
 
 			<ul class="links">
 				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
@@ -72,6 +73,7 @@
 		}
 
 		ul.links {
+			margin-top: 20px;
 			padding-inline-start: 0px;
 
 			li {
@@ -89,6 +91,6 @@
 	}
 
 	.libro {
-		text-align: center;
+		text-align: left;
 	}
 </style>
