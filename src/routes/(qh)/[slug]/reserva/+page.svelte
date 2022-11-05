@@ -24,6 +24,7 @@
 				otrasEntradas.push({
 					fila: 0,
 					asiento: 0,
+					nombre:t.nombre,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
 					base: t.base
@@ -113,7 +114,7 @@
 										<Box width={30} color="red" disabled={false} />
 									</div>
 									<div class="etiquetas">
-										<h2>{entrada.tipo}</h2>
+										<h2>{entrada.nombre}</h2>
 										{#if entrada.numerado}
 											<h5>Fila: {entrada.fila + 1}</h5>
 											<h6>Mesa: {entrada.asiento + 1}</h6>
@@ -136,7 +137,7 @@
 									<Ticket />
 								</div>
 								<div class="etiquetas">
-									<h2>{zona.tipo}</h2>
+									<h2>{zona.nombre}</h2>
 								</div>
 							</div>
 							<div>
@@ -175,6 +176,14 @@
 			<h1>Detalle</h1>
 			<h3>{evento.general?.artista}</h3>
 			<h4>{evento.general?.nombre}</h4>
+			<br />
+			<ul>
+				<li>* BOX GOLD: Venta de box completo, máximo 10 personas; incluye: 10 brazaletes, 01 Botella JW Gold Label +02 Red Bull, 02 Aguas y Hielo.</li>
+				<li>* BOX BLACK: Ventas de box completo, máximo 10 personas; incluye: 10 brazaletes, 01 Botella JW Black Label + 02 Red Bull, 02 Aguas y Hielo.</li>
+				<li>* SECTORES STAND UP: Vip y General; cada entrada incluye una (01) cerveza.</li>
+			</ul>
+	
+			<img src="https://res.cloudinary.com/maxitech/image/upload/v1667607838/ticketera/banners/newlatin2_qzmcd9.png" alt="logo" />
 		</div>
 	</div>
 </section>
@@ -217,7 +226,7 @@
 		h2 {
 			margin-top: 8px;
 			font-weight: 400;
-			font-size: 16px;
+			font-size: 12px;
 			line-height: 16px;
 		}
 
@@ -233,6 +242,14 @@
 				justify-content: space-between;
 				align-items: center;
 				gap: 10px;
+
+				@include breakpoint($sm) {
+					min-width: 400px;
+				}
+
+				@include breakpoint($md) {
+					min-width: 500px;
+				}
 			}
 
 			.asiento {

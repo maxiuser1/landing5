@@ -71,6 +71,7 @@ declare namespace App {
 	type Sentado = {
 		base?: number;
 		tipo?: string;
+		nombre?:string;
 		fila: number;
 		asiento: number;
 		cantidad: number;

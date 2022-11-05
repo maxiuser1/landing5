@@ -20,6 +20,7 @@
 				if (a.s == 1) {
 					asientos.push({
 						tipo: $compraData.zona?.tipo,
+						nombre: $compraData.zona?.nombre,
 						base: $compraData.zona?.base,
 						numerado: $compraData.zona?.numerado,
 						fila: fila.id,
