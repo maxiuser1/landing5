@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Breadcrumbs, Counter, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { Box, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
@@ -100,134 +100,123 @@
 <Breadcrumbs {evento} />
 <Steps paso={4} />
 
-<section class="container">
-	<div class="grid">
-		<div class="principal">
-			<h1>Resumen</h1>
-			{#if $compraData.zona && $compraData.zona.base}
-				<div class="compras">
-					{#if $compraData.entradas}
-						{#each $compraData.entradas.filter((t) => t.numerado) as entrada, i}
-							<div class="compra" class:odd={i % 2 == 0}>
-								<div class="asiento">
-									<div>
-										<Box width={30} color="red" disabled={false} />
-									</div>
-									<div class="etiquetas">
-										<h2>{entrada.nombre}</h2>
-										{#if entrada.numerado}
-											<h5>Fila: {entrada.fila + 1}</h5>
-											<h6>Mesa: {entrada.asiento + 1}</h6>
-										{/if}
-									</div>
-								</div>
-								<div>
-									<h4>
-										S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-									</h4>
-								</div>
-							</div>
-						{/each}
-					{/if}
 
-					{#each otrasEntradas as zona, i}
-						<div class="compra odd">
+<section class="container">
+	<div class="principal">
+		<div class="prota">
+			<div class="titulos">
+				<h4>Resumen</h4>
+				
+			</div>
+			{#if $compraData.zona && $compraData.zona.base}
+			<div class="compras">
+				{#if $compraData.entradas}
+					{#each $compraData.entradas.filter((t) => t.numerado) as entrada, i}
+						<div class="compra" class:odd={i % 2 == 0}>
 							<div class="asiento">
 								<div>
-									<Ticket />
+									<Box width={30} color="red" disabled={false} />
 								</div>
 								<div class="etiquetas">
-									<h2>{zona.nombre}</h2>
+									<h2>{entrada.nombre}</h2>
+									{#if entrada.numerado}
+										<h5>Fila: {entrada.fila + 1}</h5>
+										<h6>Mesa: {entrada.asiento + 1}</h6>
+									{/if}
 								</div>
 							</div>
 							<div>
-								<Counter
-									precio={zona.base ? zona.base : 0}
-									count={zona.cantidad}
-									on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)}
-								/>
+								<h4>
+									S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+								</h4>
 							</div>
 						</div>
 					{/each}
+				{/if}
 
-					<div class="compra totales">
+				{#each otrasEntradas as zona, i}
+					<div class="compra odd">
 						<div class="asiento">
 							<div>
 								<Ticket />
 							</div>
 							<div class="etiquetas">
-								<h2>
-									Total: {totalEntradas + oeCantidad}
-								</h2>
+								<h2>{zona.nombre}</h2>
 							</div>
 						</div>
 						<div>
-							<h1>
-								S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-							</h1>
+							<Counter
+								precio={zona.base ? zona.base : 0}
+								count={zona.cantidad}
+								on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)}
+							/>
 						</div>
 					</div>
-				</div>
-			{/if}
+				{/each}
 
-			<button on:click={continuarClick} class="btn">Continuar <Tarjeta /> </button>
+				<div class="compra totales">
+					<div class="asiento">
+						<div>
+							<Ticket />
+						</div>
+						<div class="etiquetas">
+							<h2>
+								Total: {totalEntradas + oeCantidad}
+							</h2>
+						</div>
+					</div>
+					<div>
+						<h1>
+							S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+						</h1>
+					</div>
+				</div>
+			</div>
+		{/if}
+			<div class="cta">
+				<button on:click={continuarClick} class="btn">Continuar <Tarjeta /> </button>
+			</div>
 		</div>
-		<div class="detalle">
-			<h1>Detalle</h1>
-			<h3>{evento.general?.artista}</h3>
-			<h4>{evento.general?.nombre}</h4>
-			<br />
-			<ul>
-				<li>* BOX GOLD: Venta de box completo, máximo 10 personas; incluye: 10 brazaletes, 01 Botella JW Gold Label +02 Red Bull, 02 Aguas y Hielo.</li>
-				<li>* BOX BLACK: Ventas de box completo, máximo 10 personas; incluye: 10 brazaletes, 01 Botella JW Black Label + 02 Red Bull, 02 Aguas y Hielo.</li>
-				<li>* SECTORES STAND UP: Vip y General; cada entrada incluye una (01) cerveza.</li>
-			</ul>
-	
-			<img src="https://res.cloudinary.com/maxitech/image/upload/v1667607838/ticketera/banners/newlatin2_qzmcd9.png" alt="logo" />
-		</div>
+		<Resumen {evento} />
 	</div>
 </section>
 
+
 <style lang="scss">
-	.form-group {
-		padding: 10px;
-		text-align: left;
+	.container{
+		padding-right: initial;
+		padding-left: initial;
 	}
 
 	.cta {
-		width: 100%;
 		text-align: center;
+		margin-top: 52px;
+		margin-bottom: 60px;
 		.btn {
 			padding: 12px 16px;
 		}
 	}
+	
 
-	.grid {
+	.principal{
 		display: flex;
-		gap: 12px;
-		flex-direction: column;
+		gap:8px;
+		margin-bottom: 80px;
+  		flex-direction: column;
 		@include breakpoint($md) {
 			flex-direction: row;
+			gap:24px;
 		}
 	}
 
-	.principal {
-		margin-bottom: 80px;
-		background-color: white;
-		flex-grow: 2;
-		padding: 40px 48px;
-
-		h1 {
-			font-weight: 700;
-			font-size: 24px;
-			line-height: 29px;
-		}
-
-		h2 {
-			margin-top: 8px;
-			font-weight: 400;
-			font-size: 12px;
-			line-height: 16px;
+	.prota {
+		border-radius: 8px;
+		background: white;
+		.titulos {
+			padding:20px 20px 0px;
+			@include breakpoint($md) {
+				padding:initial;
+			}
 		}
 
 		.compras {
@@ -262,18 +251,18 @@
 				}
 			}
 
-			.odd {
-				background-color: #f9f9f9;
-			}
+		.odd {
+			background-color: #f9f9f9;
+		}
 
-			.totales {
-				background-color: #f9f9f97f;
-			}
+		.totales {
+			background-color: #f9f9f97f;
 		}
 	}
-	.detalle {
-		padding: 40px 48px;
-		background-color: white;
-		flex-grow: 1;
+
+		@include breakpoint($md) {
+			width: 60%;
+			padding:24px 48px;
+		}
 	}
 </style>

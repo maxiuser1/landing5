@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Breadcrumbs, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { Arrow, Box } from '$lib/icons';
 
@@ -48,11 +48,14 @@
 <Breadcrumbs {evento} />
 <Steps paso={2} />
 
-<section class="container entrada">
-	<div class="grid">
-		<div class="main">
-			<h2>Entradas</h2>
-			<h3>Seleccione el asiento</h3>
+
+<section class="container">
+	<div class="principal">
+		<div class="prota">
+			<div class="titulos">
+				<h4>Entradas</h4>
+				<p>Selecciona tus lugares</p>
+			</div>
 			<div class="mapa">
 				<div class="asientos" style:width="{filaWidth} px">
 					{#each filas as fila}
@@ -86,16 +89,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="summary">
-			<div class="headings">
-				<h2>Detalle</h2>
-				<h1>{evento.general?.artista}</h1>
-				<h3>{evento.general?.nombre}</h3>
-			</div>
-
-			<!-- <h4>{evento.fechas?.map((t) => t)}</h4> -->
-			<h5>{evento.ubicacion?.nombre}</h5>
-		</div>
+		<Resumen {evento} />
 	</div>
 </section>
 
@@ -120,89 +114,36 @@
 			padding: 12px 16px;
 		}
 	}
-	.entrada {
-		margin-bottom: 50px;
+	
+	.container{
+		padding-right: initial;
+		padding-left: initial;
+	}
 
-		.mapa {
-			margin: 20px 0px;
-			width: 100%;
-		}
-
-		.grid {
-			display: grid;
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			width: 100%;
-			gap: 2rem;
-
-			h2 {
-				font-weight: 700;
-				font-size: 24px;
-				line-height: 29px;
-				color: #000000;
-				margin-bottom: 8px;
-			}
-
-			h3 {
-				font-weight: 400;
-				font-size: 16px;
-				line-height: 16px;
-				color: #1b1b1b;
-			}
-
-			.main {
-				padding: 40px;
-				grid-column: span 2 / span 2;
-				background-color: white;
-				border-radius: 8px;
-			}
-
-			.summary {
-				padding: 40px;
-				background-color: white;
-				border-radius: 8px;
-			}
+	.principal{
+		display: flex;
+		gap:8px;
+		margin-bottom: 80px;
+  		flex-direction: column;
+		@include breakpoint($md) {
+			flex-direction: row;
+			gap:24px;
 		}
 	}
 
-	.summary {
-		.headings {
-			padding-bottom: 16px;
-			margin-bottom: 16px;
-			border-bottom: 1px solid #e2e2e2;
+	.prota {
+		border-radius: 8px;
+		background: white;
+		.titulos {
+			padding:20px 20px 0px;
+			@include breakpoint($md) {
+				padding:initial;
+			}
 		}
 
-		h5 {
-			font-weight: 400;
-			font-size: 14px;
-			line-height: 17px;
-			color: #1b1b1b;
-		}
-
-		h4 {
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 16px;
-			color: #1b1b1b;
-			margin-bottom: 8px;
-		}
-		h1 {
-			font-weight: 700;
-			font-size: 32px;
-			line-height: 38px;
-			color: #262626;
-		}
-		h2 {
-			font-weight: 700;
-			font-size: 24px;
-			line-height: 29px;
-			color: #000000;
-		}
-
-		h3 {
-			font-weight: 400;
-			font-size: 20px;
-			line-height: 24px;
-			color: #262626;
+		@include breakpoint($md) {
+			width: 60%;
+			padding:24px 48px;
 		}
 	}
 </style>
