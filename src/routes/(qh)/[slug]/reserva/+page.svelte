@@ -106,6 +106,7 @@
 		<div class="prota">
 			<div class="titulos">
 				<h4>Resumen</h4>
+				<p>Lugar reservado</p>
 				
 			</div>
 			{#if $compraData.zona && $compraData.zona.base}
@@ -118,17 +119,19 @@
 									<Box width={30} color="red" disabled={false} />
 								</div>
 								<div class="etiquetas">
-									<h2>{entrada.nombre}</h2>
+									<h6><strong>{entrada.nombre}</strong></h6>
 									{#if entrada.numerado}
-										<h5>Fila: {entrada.fila + 1}</h5>
+										<h6>Fila: {entrada.fila + 1}</h6>
 										<h6>Mesa: {entrada.asiento + 1}</h6>
 									{/if}
 								</div>
 							</div>
 							<div>
-								<h4>
+								<h6>
+									<strong>
 									S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-								</h4>
+									</strong>
+								</h6>
 							</div>
 						</div>
 					{/each}
@@ -141,7 +144,7 @@
 								<Ticket />
 							</div>
 							<div class="etiquetas">
-								<h2>{zona.nombre}</h2>
+								<h6>{zona.nombre}</h6>
 							</div>
 						</div>
 						<div>
@@ -166,9 +169,11 @@
 						</div>
 					</div>
 					<div>
-						<h1>
+						<h5>
+							<strong>
 							S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-						</h1>
+							</strong>
+						</h5>
 					</div>
 				</div>
 			</div>
@@ -219,6 +224,7 @@
 			}
 		}
 
+
 		.compras {
 
 			margin-top: 60px;
@@ -248,6 +254,9 @@
 
 				.etiquetas {
 					padding-left: 24px;
+					h6{
+						margin-bottom: 6px;
+					}
 				}
 			}
 

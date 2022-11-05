@@ -6,9 +6,7 @@
 	let total: number;
 	export let count: number = 0;
 
-	const displayed_count = spring();
-	$: displayed_count.set(count);
-	$: offset = modulo($displayed_count, 1);
+	
 	$: total = count * precio;
 	function modulo(n: number, m: number) {
 		// handle negative numbers
@@ -29,14 +27,13 @@
 				count -= 1;
 				handleClick();
 			}}
-			aria-label="Decrease the counter by one"
+			aria-label="Disminiuir"
 		>
 			-
 		</button>
 		<div class="counter-viewport">
-			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-				<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-				<strong>{Math.floor($displayed_count)}</strong>
+			<div class="counter-digits" >
+				 {count}
 			</div>
 		</div>
 		<button
@@ -44,15 +41,15 @@
 				count += 1;
 				handleClick();
 			}}
-			aria-label="Increase the counter by one"
+			aria-label="Aumentar"
 		>
 			+
 		</button>
 	</div>
 	<div>
-		<h4>
+		<h6>
 			S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-		</h4>
+		</h6>
 	</div>
 </div>
 
@@ -92,26 +89,10 @@
 		position: relative;
 	}
 
-	.counter-viewport strong {
-		position: absolute;
-		display: flex;
-		width: 100%;
-		height: 100%;
-		font-weight: 400;
-		color: var(--accent-color);
-		font-size: 1rem;
-		align-items: center;
-		justify-content: center;
-	}
-
 	.counter-digits {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 	}
 
-	.hidden {
-		top: -100%;
-		user-select: none;
-	}
 </style>
