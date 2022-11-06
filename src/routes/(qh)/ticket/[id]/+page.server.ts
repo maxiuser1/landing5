@@ -21,24 +21,24 @@ export const load = async ({ locals, params }) => {
 
 	ticket.qrcode = await generateQR('1');
 
-	const sgMail: MailService = new MailService();
-	sgMail.setApiKey('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');
+	// const sgMail: MailService = new MailService();
+	// sgMail.setApiKey('SG.XXXXXXgD-zkMcpTImdpCOVqguRkA.q7ULcUPR5w9TX0XUB4KgNdEuxiDj3OUNJ5VrF4XTjto');
 
-	const msg = {
-		to: 'pe.jose.calderon@gmail.com',
-		from: 'contacto@quehay.com.pe',
-		templateId: 'd-97bfcfaccd104cbebef4467256671975',
-		dynamic_template_data: {
-			subject: 'Testing Templates',
-			artista: ticket.evento.artista,
-			nombre: ticket.evento.nombre,
-			ubicacion: ticket.evento.lugar,
-			numero: ticket.numero.toString(),
-			monto: ticket.monto.toString(),
-			entradas: ticket.entradas,
-			codigo: ticket.qrcode
-		}
-	};
+	// const msg = {
+	// 	to: 'nocompila@hotmail.com',
+	// 	from: 'contacto@quehay.com.pe',
+	// 	templateId: 'd-97bfcfaccd104cbebef4467256671975',
+	// 	dynamic_template_data: {
+	// 		subject: 'Testing Templates',
+	// 		artista: ticket.evento.artista,
+	// 		nombre: ticket.evento.nombre,
+	// 		ubicacion: ticket.evento.lugar,
+	// 		numero: ticket.numero.toString(),
+	// 		monto: ticket.monto.toString(),
+	// 		entradas: ticket.entradas,
+	// 		codigo: ticket.qrcode
+	// 	}
+	// };
 
 	// try {
 	// 	sgMail
