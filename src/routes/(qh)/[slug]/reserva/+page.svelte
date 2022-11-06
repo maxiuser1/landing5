@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
+	import { Dialog } from '$lib/components/Shared/ui/Dialog';
+	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
 	export let data;
+	let dialog : any;
 	let { evento } = data;
 
 	let totalEntradas: number = 0;
@@ -57,6 +60,7 @@
 	};
 
 	const continuarClick = async () => {
+		dialog.showModal();
 		compraData.update((current) => ({
 			...current,
 			entradas: current.entradas
@@ -87,6 +91,7 @@
 				console.log(params);
 			}
 		});
+		dialog.close();
 		VisanetCheckout.open();
 	};
 </script>
@@ -97,6 +102,12 @@
 		src="https://static-content-qas.vnforapps.com/v2/js/checkout.js"></script>
 </svelte:head>
 
+<dialog bind:this={dialog} class="modal" id="modal">
+	<div class="content-modal">
+		<Spinner size="60" color="#D30ED1" unit="px"  />
+	</div>
+</dialog>
+
 <Breadcrumbs {evento} />
 <Steps paso={4} />
 
@@ -104,6 +115,9 @@
 <section class="container">
 	<div class="principal">
 		<div class="prota">
+		
+
+
 			<div class="titulos">
 				<h4>Resumen</h4>
 				<p>Lugar reservado</p>
@@ -187,7 +201,22 @@
 </section>
 
 
+
 <style lang="scss">
+	.content-modal{
+		padding: 24px;
+	}
+	.modal {
+		background: transparent;
+		border: none;
+		margin:0 auto;
+		margin-top: 24px;
+	}
+
+	.modal::backdrop {
+	background: rgb(0 0 0 / 0.4);
+	}
+
 	.container{
 		padding-right: initial;
 		padding-left: initial;
