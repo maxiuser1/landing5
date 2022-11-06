@@ -11,12 +11,13 @@
 <section class="container main no-print">
 	<Greatcheck />
 	<h1>Esta listo tu ticket!</h1>
-
-	<div class="qrcode">a</div>
 </section>
 
 <section class="container">
 	<div class="tarjeta">
+		<div class="qrcode">
+			<img src={ticket.qrcode} alt="qrcode" />
+		</div>
 		<div class="headings">
 			<h1>{ticket.evento.nombre}</h1>
 			<h4>{ticket.evento.artista}</h4>
