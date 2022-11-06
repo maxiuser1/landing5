@@ -39,6 +39,22 @@ declare namespace App {
 		total: number;
 	};
 
+	type Entrada = {
+		id:string,
+		entradas: Array<Sentado>,
+		user: User,
+		monto: number,
+		numero: number,
+		pago?: {
+			dataMap?:{
+				AUTHORIZATION_CODE:string,
+				ACTION_DESCRIPTION: string,
+				CARD: string,
+				TRANSACTION_DATE:string,
+			}
+		}
+	}
+
 	type Baneable = {
 		banner: string;
 	};
@@ -103,6 +119,7 @@ declare namespace App {
 		findEvento(id): Promoise<Evento>;
 		confirmarEntrada(evento, compra): Promise<void>;
 		guardarEntrada(entrada): Promise<void>;
+		getEntrada(id): Promise<Entrada>;
 	}
 
 	interface UsuariosRepoInterface {

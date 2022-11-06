@@ -4,7 +4,7 @@ export const actions = {
 	default: async ({ locals, request, params }) => {
 		const merchantId = '522591303';
 		const credentials = 'Basic aW50ZWdyYWNpb25lc0BuaXViaXouY29tLnBlOl83ejNAOGZG';
-		const niubizapi = 'https://apitestenv.vnforapps.com';
+		const niubizapi = 'https://apisandbox.vnforappstest.com';
 		const niubizlib = 'https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true';
 
 		const parameters = decodeURIComponent(await request.text());
@@ -16,7 +16,8 @@ export const actions = {
 		const { data: token } = await axios.get(`${niubizapi}/api.security/v1/security`, {
 			headers: { Authorization: credentials }
 		});
-
+		console.log('token',transaction);
+		console.log('turno',turno);
 		try {
 			const resultado = await axios.post(
 				`${niubizapi}/api.authorization/v3/authorization/ecommerce/${merchantId}`,
@@ -38,6 +39,7 @@ export const actions = {
 					}
 				}
 			);
+			console.log('res', resultado);
 
 			const exito = resultado.data;
 			const compra = turno.info as App.Compra;
