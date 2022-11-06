@@ -40,3 +40,10 @@ a {
     text-decoration: none;
     color:#000;
 }
+
+@media print {
+	.no-print,
+	.no-print * {
+		display: none !important;
+	}
+}

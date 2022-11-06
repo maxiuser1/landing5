@@ -6,7 +6,8 @@
 	import { Box, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
 	export let data;
-	let dialog : any;
+	let dialog: any;
+	let posting = false;
 	let { evento } = data;
 
 	let totalEntradas: number = 0;
@@ -27,7 +28,7 @@
 				otrasEntradas.push({
 					fila: 0,
 					asiento: 0,
-					nombre:t.nombre,
+					nombre: t.nombre,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
 					base: t.base
@@ -60,6 +61,7 @@
 	};
 
 	const continuarClick = async () => {
+		posting = true;
 		dialog.showModal();
 		compraData.update((current) => ({
 			...current,
@@ -88,7 +90,8 @@
 			formbuttoncolor: '#000000',
 			action: `compra/${datapago.id}`,
 			complete: function (params: any) {
-				console.log(params);
+				console.log('tt', params);
+				dialog.showModal();
 			}
 		});
 		dialog.close();
@@ -104,120 +107,123 @@
 
 <dialog bind:this={dialog} class="modal" id="modal">
 	<div class="content-modal">
-		<Spinner size="60" color="#D30ED1" unit="px"  />
+		<Spinner size="60" color="#D30ED1" unit="px" />
 	</div>
 </dialog>
 
 <Breadcrumbs {evento} />
 <Steps paso={4} />
 
-
 <section class="container">
 	<div class="principal">
 		<div class="prota">
-		
-
-
 			<div class="titulos">
 				<h4>Resumen</h4>
 				<p>Lugar reservado</p>
-				
 			</div>
 			{#if $compraData.zona && $compraData.zona.base}
-			<div class="compras">
-				{#if $compraData.entradas}
-					{#each $compraData.entradas.filter((t) => t.numerado) as entrada, i}
-						<div class="compra" class:odd={i % 2 == 0}>
+				<div class="compras">
+					{#if $compraData.entradas}
+						{#each $compraData.entradas.filter((t) => t.numerado) as entrada, i}
+							<div class="compra" class:odd={i % 2 == 0}>
+								<div class="asiento">
+									<div>
+										<Box width={30} color="red" disabled={false} />
+									</div>
+									<div class="etiquetas">
+										<h6><strong>{entrada.nombre}</strong></h6>
+										{#if entrada.numerado}
+											<h6>Fila: {entrada.fila + 1}</h6>
+											<h6>Mesa: {entrada.asiento + 1}</h6>
+										{/if}
+									</div>
+								</div>
+								<div>
+									<h6>
+										<strong>
+											S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+										</strong>
+									</h6>
+								</div>
+							</div>
+						{/each}
+					{/if}
+
+					{#each otrasEntradas as zona, i}
+						<div class="compra odd">
 							<div class="asiento">
 								<div>
-									<Box width={30} color="red" disabled={false} />
+									<Ticket />
 								</div>
 								<div class="etiquetas">
-									<h6><strong>{entrada.nombre}</strong></h6>
-									{#if entrada.numerado}
-										<h6>Fila: {entrada.fila + 1}</h6>
-										<h6>Mesa: {entrada.asiento + 1}</h6>
-									{/if}
+									<h6>{zona.nombre}</h6>
 								</div>
 							</div>
 							<div>
-								<h6>
-									<strong>
-									S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-									</strong>
-								</h6>
+								<Counter
+									precio={zona.base ? zona.base : 0}
+									count={zona.cantidad}
+									on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)}
+								/>
 							</div>
 						</div>
 					{/each}
-				{/if}
 
-				{#each otrasEntradas as zona, i}
-					<div class="compra odd">
+					<div class="compra totales">
 						<div class="asiento">
 							<div>
 								<Ticket />
 							</div>
 							<div class="etiquetas">
-								<h6>{zona.nombre}</h6>
+								<h2>
+									Total: {totalEntradas + oeCantidad}
+								</h2>
 							</div>
 						</div>
 						<div>
-							<Counter
-								precio={zona.base ? zona.base : 0}
-								count={zona.cantidad}
-								on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)}
-							/>
+							<h5>
+								<strong>
+									S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								</strong>
+							</h5>
 						</div>
-					</div>
-				{/each}
-
-				<div class="compra totales">
-					<div class="asiento">
-						<div>
-							<Ticket />
-						</div>
-						<div class="etiquetas">
-							<h2>
-								Total: {totalEntradas + oeCantidad}
-							</h2>
-						</div>
-					</div>
-					<div>
-						<h5>
-							<strong>
-							S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-							</strong>
-						</h5>
 					</div>
 				</div>
-			</div>
-		{/if}
+			{/if}
 			<div class="cta">
-				<button on:click={continuarClick} class="btn">Continuar <Tarjeta /> </button>
+				<button on:click={continuarClick} class="btn" disabled={posting}>
+					{#if posting}
+						<Spinner size="20" color="#D30ED1" unit="px" />
+					{:else}
+						Continuar <Tarjeta />
+					{/if}
+				</button>
 			</div>
 		</div>
 		<Resumen {evento} />
 	</div>
 </section>
 
-
-
 <style lang="scss">
-	.content-modal{
+	button[disabled='disabled'],
+	button:disabled {
+		background: #d30ed038 !important;
+	}
+	.content-modal {
 		padding: 24px;
 	}
 	.modal {
 		background: transparent;
 		border: none;
-		margin:0 auto;
+		margin: 0 auto;
 		margin-top: 24px;
 	}
 
 	.modal::backdrop {
-	background: rgb(0 0 0 / 0.4);
+		background: rgb(0 0 0 / 0.4);
 	}
 
-	.container{
+	.container {
 		padding-right: initial;
 		padding-left: initial;
 	}
@@ -228,18 +234,18 @@
 		margin-bottom: 60px;
 		.btn {
 			padding: 12px 16px;
+			min-width: 200px;
 		}
 	}
-	
 
-	.principal{
+	.principal {
 		display: flex;
-		gap:8px;
+		gap: 8px;
 		margin-bottom: 80px;
-  		flex-direction: column;
+		flex-direction: column;
 		@include breakpoint($md) {
 			flex-direction: row;
-			gap:24px;
+			gap: 24px;
 		}
 	}
 
@@ -247,15 +253,13 @@
 		border-radius: 8px;
 		background: white;
 		.titulos {
-			padding:20px 20px 0px;
+			padding: 20px 20px 0px;
 			@include breakpoint($md) {
-				padding:initial;
+				padding: initial;
 			}
 		}
 
-
 		.compras {
-
 			margin-top: 60px;
 
 			.compra {
@@ -283,24 +287,24 @@
 
 				.etiquetas {
 					padding-left: 24px;
-					h6{
+					h6 {
 						margin-bottom: 6px;
 					}
 				}
 			}
 
-		.odd {
-			background-color: #f9f9f9;
-		}
+			.odd {
+				background-color: #f9f9f9;
+			}
 
-		.totales {
-			background-color: #f9f9f97f;
+			.totales {
+				background-color: #f9f9f97f;
+			}
 		}
-	}
 
 		@include breakpoint($md) {
 			width: 60%;
-			padding:24px 48px;
+			padding: 24px 48px;
 		}
 	}
 </style>

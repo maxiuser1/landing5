@@ -12,7 +12,10 @@
 			evento: {
 				id: evento.id,
 				slug: evento.general?.slug,
-				artista: evento.general?.artista
+				artista: evento.general?.artista,
+				nombre: evento.general?.nombre,
+				lugar: `${evento.ubicacion?.ciudad} ${evento.ubicacion?.nombre}`,
+				fecha: evento.fechas[0].dia
 			}
 		};
 		compraData.set(compra);
@@ -30,8 +33,8 @@
 </svelte:head>
 
 {#if evento.caratula.portada}
-	<section  class="container portada">
-		<img src={evento.caratula.portada} alt="portada"  on:click|once={comprarClick} />
+	<section class="container portada">
+		<img src={evento.caratula.portada} alt="portada" on:click|once={comprarClick} />
 	</section>
 	<section class="container cta">
 		<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
@@ -39,8 +42,7 @@
 {:else}
 	<section class="banner" style:background-image="url('{evento.caratula?.banner}')">
 		<div class="content-banner">
-			<div class="titulos">
-			</div>
+			<div class="titulos" />
 		</div>
 	</section>
 	<Info {evento} />
@@ -50,14 +52,12 @@
 	</section>
 {/if}
 
-
 <style lang="scss">
-
 	.portada {
 		img {
-			width:100%;
+			width: 100%;
 			height: auto;
-		}	
+		}
 	}
 	.cta {
 		margin-top: 52px;
@@ -76,7 +76,7 @@
 	}
 	.banner {
 		background: #000;
-		background-size:contain; /* <------ */
+		background-size: contain; /* <------ */
 		background-repeat: no-repeat;
 		background-position: center center;
 		height: 160px;

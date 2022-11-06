@@ -5,10 +5,10 @@ declare namespace App {
 	type User = {
 		id?: string;
 		nombre: string;
-		apellido?:string;
+		apellido?: string;
 		fbtoken: string;
 		dni?: string;
-		avatar?:string;
+		avatar?: string;
 		correo: string;
 		telefono?: string;
 	};
@@ -40,20 +40,27 @@ declare namespace App {
 	};
 
 	type Entrada = {
-		id:string,
-		entradas: Array<Sentado>,
-		user: User,
-		monto: number,
-		numero: number,
+		id: string;
+		entradas: Array<Sentado>;
+		evento: {
+			nombre: string;
+			lugar: string;
+			fecha: Date;
+			artista: string;
+		};
+		qrcode?: string;
+		user: User;
+		monto: number;
+		numero: number;
 		pago?: {
-			dataMap?:{
-				AUTHORIZATION_CODE:string,
-				ACTION_DESCRIPTION: string,
-				CARD: string,
-				TRANSACTION_DATE:string,
-			}
-		}
-	}
+			dataMap?: {
+				AUTHORIZATION_CODE: string;
+				ACTION_DESCRIPTION: string;
+				CARD: string;
+				TRANSACTION_DATE: string;
+			};
+		};
+	};
 
 	type Baneable = {
 		banner: string;
@@ -87,7 +94,7 @@ declare namespace App {
 	type Sentado = {
 		base?: number;
 		tipo?: string;
-		nombre?:string;
+		nombre?: string;
 		fila: number;
 		asiento: number;
 		cantidad: number;
@@ -99,6 +106,9 @@ declare namespace App {
 			id?: string;
 			slug?: string;
 			artista?: string;
+			nombre?: string;
+			fecha?: string;
+			lugar?: string;
 		};
 		zona?: {
 			tipo: string;
@@ -126,7 +136,7 @@ declare namespace App {
 		findUsuario(id): Promise<User>;
 		findByFb(id): Promise<User | null>;
 		create(user: User): Promise<string>;
-		complete(id:string,user: User): Promise<string>;
+		complete(id: string, user: User): Promise<string>;
 	}
 
 	interface ContactosRepoInterface {

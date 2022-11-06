@@ -1,3 +1,4 @@
+import { redirect } from '@sveltejs/kit';
 import axios from 'axios';
 
 export const actions = {
@@ -16,8 +17,8 @@ export const actions = {
 		const { data: token } = await axios.get(`${niubizapi}/api.security/v1/security`, {
 			headers: { Authorization: credentials }
 		});
-		console.log('token',transaction);
-		console.log('turno',turno);
+		console.log('token', transaction);
+		console.log('turno', turno);
 		try {
 			const resultado = await axios.post(
 				`${niubizapi}/api.authorization/v3/authorization/ecommerce/${merchantId}`,
@@ -50,24 +51,23 @@ export const actions = {
 
 			const entrada = {
 				tenant: 'quehay',
-				evento: compra.evento.id,
+				evento: compra.evento,
 				slug: compra.evento.slug,
 				entradas: compra.entradas,
 				pago: exito,
 				monto: turno.monto,
 				numero: turno.compra,
+				id: turno.id,
+				user: {
+					nombre: locals.user.nombre,
+					correo: locals.user.correo,
+					apellido: locals.user.apellido,
+					dni: locals.user.dni,
+					id: locals.user.id
+				},
 				turno: turno.id
 			};
-
 			await locals.eventosRepo.guardarEntrada(entrada);
-
-			return {
-				ok: true,
-				purchaseNumber: exito.order.purchaseNumber,
-				CARD: exito.dataMap.CARD,
-				ACTION_DESCRIPTION: exito.dataMap.ACTION_DESCRIPTION,
-				TRANSACTION_DATE: exito.dataMap.TRANSACTION_DATE
-			};
 		} catch (err: any) {
 			const fracaso = err.response.data;
 			return {
@@ -76,5 +76,7 @@ export const actions = {
 				ACTION_DESCRIPTION: fracaso.data.ACTION_DESCRIPTION
 			};
 		}
+
+		throw redirect(303, `/ticket/${turno.id}`);
 	}
 };

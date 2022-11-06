@@ -35,31 +35,10 @@
 			flex-direction: row;
 		}
 
-		.map {
-			width: 312px;
-
-			@include breakpoint($md) {
-				width: 446px;
-			}
-
-			iframe {
-				width: 312px;
-				height: 258;
-				@include breakpoint($md) {
-					width: 446px;
-				}
-			}
-		}
-
 		h4 {
 			margin-bottom: 16px;
 		}
 
-		p.fechas {
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 16px;
-		}
 		p.lastp {
 			margin-top: 8px;
 			margin-bottom: 60px;

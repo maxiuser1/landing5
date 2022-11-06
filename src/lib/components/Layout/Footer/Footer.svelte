@@ -1,12 +1,12 @@
 <script>
 	import Logo from '../Header/Logo.svelte';
-import Socials from './Socials.svelte';
+	import Socials from './Socials.svelte';
 </script>
 
-<section class="footer">
+<section class="footer no-print">
 	<div class="container">
 		<div>
-			<Logo size={'25px'}></Logo>
+			<Logo size={'25px'} />
 
 			<ul class="links">
 				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
@@ -40,7 +40,7 @@ import Socials from './Socials.svelte';
 </section>
 
 <style lang="scss">
-	.derechos{
+	.derechos {
 		font-size: 12px;
 	}
 	.infrafooter {

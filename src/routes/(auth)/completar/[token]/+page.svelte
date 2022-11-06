@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { applyAction, enhance } from "$app/forms";
-	import Spinner from "$lib/components/Shared/ui/Spinner/Spinner.svelte";
-	import { Arrow } from "$lib/icons";
+	import { applyAction, enhance } from '$app/forms';
+	import Spinner from '$lib/components/Shared/ui/Spinner/Spinner.svelte';
+	import { Arrow } from '$lib/icons';
 
-
-
-    export let form: any;
-    export let data;
-    let { user } = data;
-    let posting = false;
+	export let form: any;
+	export let data;
+	let { user } = data;
+	let posting = false;
 </script>
 
 <div class="registro">
@@ -17,21 +15,22 @@
 		Volver al inicio
 	</a>
 	<div class="form">
-		<div class="titulo">Completa el registro </div>
-		<form autocomplete="off"   use:enhance={({ form, data, action, cancel }) => {
-            posting = true;
-            return async ({ result }) => {
-                applyAction(result);
-            };
-          }}
-        >
+		<div class="titulo">Completa el registro</div>
+		<form
+			autocomplete="off"
+			use:enhance={({ form, data, action, cancel }) => {
+				posting = true;
+				return async ({ result }) => {
+					applyAction(result);
+				};
+			}}
+		>
 			<div>
-
-                <div class="form-group">
+				<div class="form-group">
 					<label for="correo">Correo</label>
-					<input   name="correo" value={user.correo} disabled />
+					<input name="correo" value={user.correo} disabled />
 				</div>
-             
+
 				<div class="form-group">
 					<label for="nombres">Nombre</label>
 					<input type="text" name="nombre" required />
@@ -42,7 +41,7 @@
 					<input type="text" name="apellido" required />
 				</div>
 
-                <div class="form-group">
+				<div class="form-group">
 					<label for="dni">DNI</label>
 					<input type="text" name="dni" required />
 				</div>
@@ -51,16 +50,15 @@
 					<label for="telefono">Teléfono</label>
 					<input type="text" name="telefono" required />
 				</div>
-
 			</div>
 			<div>
 				<button class="btn" type="submit" disabled={posting}>
-                    {#if posting}
-                        <Spinner size="20" color="#D30ED1" unit="px"  />
-                    {:else}
-                        Confirmar <Arrow color="white" />
-                    {/if}
-                </button>
+					{#if posting}
+						<Spinner size="20" color="#D30ED1" unit="px" />
+					{:else}
+						Confirmar <Arrow color="white" />
+					{/if}
+				</button>
 			</div>
 		</form>
 
@@ -71,10 +69,10 @@
 </div>
 
 <style lang="scss">
-
-    button[disabled=disabled], button:disabled {
-        background: #d30ed038 !important;
-    }
+	button[disabled='disabled'],
+	button:disabled {
+		background: #d30ed038 !important;
+	}
 
 	.registro {
 		margin: 0 auto;
