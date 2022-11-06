@@ -10,7 +10,7 @@
 
 <section class="container main no-print">
 	<Greatcheck />
-	<h1>Esta listo tu ticket!</h1>
+	<h1>Listo!</h1>
 </section>
 
 <section class="container">
