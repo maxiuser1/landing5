@@ -40,18 +40,18 @@ export const load = async ({ locals, params }) => {
 		}
 	};
 
-	try {
-		sgMail
-			.send(msg)
-			.then(() => {
-				console.log('Email sent');
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	} catch (err: any) {
-		console.log('err', err);
-	}
+	// try {
+	// 	sgMail
+	// 		.send(msg)
+	// 		.then(() => {
+	// 			console.log('Email sent');
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error(error);
+	// 		});
+	// } catch (err: any) {
+	// 	console.log('err', err);
+	// }
 
 	return { ticket };
 };

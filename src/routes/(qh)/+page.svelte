@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_FIREBASE_PROJECTID } from '$env/static/public';
 	import Carousel from '$lib/components/Home/Carousel.svelte';
 	import Searchbox from '$lib/components/Home/Searchbox.svelte';
 	import Sections from '$lib/components/Home/Sections.svelte';
@@ -11,6 +12,7 @@
 	let { eventos } = data;
 
 	onMount(async () => {
+		console.log('a', PUBLIC_FIREBASE_PROJECTID);
 		await loadFull(tsParticles);
 		await tsParticles.load('tsparticles', particlesConfig);
 	});
