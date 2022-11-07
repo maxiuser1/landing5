@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
-	console.log('request', getClientAddress());
+	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
 
 	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
@@ -69,7 +69,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		compra: pago.purchasenumber,
 		monto: precioReal,
 		info: intencion,
-		clientadd: getClientAddress()
+		clientIp: 'a' + clientIpAddress
 	};
 
 	await locals.eventosRepo.postTurno(turno);

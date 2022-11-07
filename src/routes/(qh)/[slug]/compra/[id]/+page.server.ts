@@ -1,27 +1,28 @@
 import { redirect } from '@sveltejs/kit';
+import {
+	SECRET_NIUBIZ_MERCHANTID,
+	SECRET_NIUBIZ_CREDENTIALS,
+	SECRET_NIUBIZ_NIUBIZAPI
+} from '$env/static/private';
+
 import axios from 'axios';
 
 export const actions = {
 	default: async ({ locals, request, params }) => {
-		const merchantId = '522591303';
-		const credentials = 'Basic aW50ZWdyYWNpb25lc0BuaXViaXouY29tLnBlOl83ejNAOGZG';
-		const niubizapi = 'https://apisandbox.vnforappstest.com';
-		const niubizlib = 'https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true';
-
 		const parameters = decodeURIComponent(await request.text());
 
 		const transaction = Object.fromEntries(new URLSearchParams(parameters));
 
 		const turno = await locals.eventosRepo.getTurno(params.id);
 
-		const { data: token } = await axios.get(`${niubizapi}/api.security/v1/security`, {
-			headers: { Authorization: credentials }
+		const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
+			headers: { Authorization: SECRET_NIUBIZ_CREDENTIALS }
 		});
 		console.log('token', transaction);
 		console.log('turno', turno);
 		try {
 			const resultado = await axios.post(
-				`${niubizapi}/api.authorization/v3/authorization/ecommerce/${merchantId}`,
+				`${SECRET_NIUBIZ_NIUBIZAPI}/api.authorization/v3/authorization/ecommerce/${SECRET_NIUBIZ_MERCHANTID}`,
 				{
 					channel: 'web',
 					captureType: 'manual',
