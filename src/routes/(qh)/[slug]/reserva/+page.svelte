@@ -101,7 +101,7 @@
 <svelte:head>
 	<script
 		type="text/javascript"
-		src="https://static-content-qas.vnforapps.com/v2/js/checkout.js"></script>
+		src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
 </svelte:head>
 
 <dialog bind:this={dialog} class="modal" id="modal">
