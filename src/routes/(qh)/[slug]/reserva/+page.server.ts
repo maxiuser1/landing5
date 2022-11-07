@@ -1,5 +1,4 @@
-export const load = async ({ locals, params, getClientAddress }) => {
-	const clientAddress = getClientAddress();
+export const load = async ({ locals, params }) => {
 	const evento = await locals.eventosRepo.getEvento(params.slug);
-	return { evento, clientAddress };
+	return { evento };
 };

@@ -8,7 +8,8 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
-export const POST: RequestHandler = async ({ locals, request }) => {
+export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
+	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
 
 	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
@@ -35,11 +36,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			channel: 'web',
 			amount: precioReal,
 			antifraud: {
-				clientIp: '38.25.15.249',
+				clientIp: clientIpAddress,
 				merchantDefineData: {
-					MDD4: 'pe.jose.calderon@gmail.com', //cambiar al correo del usuario
+					MDD4: locals.user.correo, //cambiar al correo del usuario
 					MDD21: '0',
-					MDD32: '980850735', //DNI , ID o telefono
+					MDD32: locals.user.dni?.toString(), //DNI , ID o telefono
 					MDD75: 'Invitado',
 					MDD77: '1' //si el 75 es registrado es: Registro del cliente - hoy
 				}
@@ -67,7 +68,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		id: newId,
 		compra: pago.purchasenumber,
 		monto: precioReal,
-		info: intencion
+		info: intencion,
+		clientIpAddress: clientIpAddress
 	};
 
 	await locals.eventosRepo.postTurno(turno);

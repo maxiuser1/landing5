@@ -117,7 +117,6 @@ declare namespace App {
 			numerado?: boolean;
 		};
 		user?: any;
-		clientAddress?: string;
 		entradas?: Array<Sentado>;
 	};
 
