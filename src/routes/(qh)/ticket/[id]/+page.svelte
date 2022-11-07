@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { Box, Greatcheck, Ticket } from '$lib/icons';
+	import { page } from '$app/stores';
 	import Pin from '$lib/icons/Pin.svelte';
+	import { applyAction, enhance } from '$app/forms';
 
 	export let data;
 	let { ticket } = data;
+	let dialog: any;
 
 	const options: any = { weekday: 'short', month: 'long', day: 'numeric' };
 </script>
@@ -95,11 +98,79 @@
 		>
 			Imprimir constancia
 		</button>
-		<button class="btn"> Enviar al correo </button>
+		<button
+			type="button"
+			class="btn"
+			on:click={() => {
+				dialog.showModal();
+			}}
+		>
+			Enviar al correo
+		</button>
 	</div>
 </section>
 
+<dialog bind:this={dialog} class="modal" id="modal">
+	<div class="content-modal">
+		<form
+			method="POST"
+			use:enhance={({ form }) => {
+				return async ({ result, update }) => {
+					dialog.close();
+					if (result.type === 'success') {
+						form.reset();
+					}
+					if (result.type === 'invalid') {
+						await applyAction(result);
+					}
+					update();
+				};
+			}}
+		>
+			<div class="form-group">
+				<input type="email" name="email" value={$page.data.user.correo} />
+			</div>
+			<button type="submit" class="btn"> Enviar </button>
+		</form>
+	</div>
+</dialog>
+
 <style lang="scss">
+	.content-modal {
+		padding: 12px;
+	}
+	.modal {
+		background: white;
+		border: none;
+		margin: 0 auto;
+		margin-top: 24px;
+
+		input {
+			min-width: 250px;
+			max-width: 100%;
+			box-sizing: border-box;
+			padding: 0 12px;
+			border: 1px solid #c6c6c6;
+			border-radius: 4px;
+			background: #ffffff;
+			height: 42px;
+		}
+
+		.form-group {
+			margin-bottom: 32px;
+		}
+
+		.btn {
+			width: 100%;
+			font-weight: 600;
+			font-size: 16px;
+			line-height: 24px;
+		}
+	}
+
+	.modal::backdrop {
+		background: rgb(0 0 0 / 0.4);
+	}
 	.tarjeta {
 		text-align: center;
 		border-radius: 8px;
@@ -168,11 +239,6 @@
 		margin-top: 100px;
 		margin-bottom: 78px;
 		text-align: center;
-
-		.qrcode {
-			width: 200px;
-			margin: 0 auto;
-		}
 
 		h1 {
 			margin-top: 42px;

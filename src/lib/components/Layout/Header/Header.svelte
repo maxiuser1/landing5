@@ -5,8 +5,6 @@
 	import Nav from './Nav.svelte';
 	import Socials from './Socials.svelte';
 
-	export let categories: Array<string>;
-
 	let visible = false;
 
 	const toggle = () => {

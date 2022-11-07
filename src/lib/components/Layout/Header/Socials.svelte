@@ -72,11 +72,5 @@
 				display: none;
 			}
 		}
-		li.rs {
-			display: none;
-			@include breakpoint($md) {
-				display: initial;
-			}
-		}
 	}
 </style>

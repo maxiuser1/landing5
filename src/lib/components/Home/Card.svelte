@@ -8,7 +8,10 @@
 	<div class="card">
 		<div
 			class="imagen"
-			style="background:  url('{evento.banner.replaceAll('maxitech/image/upload','maxitech/image/upload/w_352,c_scale')}') no-repeat center"
+			style="background:  url('{evento.banner.replaceAll(
+				'maxitech/image/upload',
+				'maxitech/image/upload/w_352,c_scale'
+			)}') no-repeat center"
 		/>
 		<div class="content">
 			<div class="info">
@@ -72,7 +75,7 @@
 
 			.h3 {
 				line-height: initial;
-				padding-top:10px;
+				padding-top: 10px;
 				span {
 					color: red;
 					font-weight: 400;
@@ -91,13 +94,6 @@
 				font-weight: 500;
 				font-size: 12px;
 				line-height: 18px;
-				color: #e4e6eb;
-			}
-
-			h5 {
-				font-weight: 700;
-				font-size: 16px;
-				line-height: 19px;
 				color: #e4e6eb;
 			}
 		}

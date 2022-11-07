@@ -96,28 +96,6 @@
 			@include breakpoint($md) {
 				padding: 0 0 32px 88px;
 			}
-
-			h1 {
-				font-weight: 700;
-				font-size: 32px;
-				line-height: 38px;
-
-				@include breakpoint($md) {
-					font-size: 42px;
-					line-height: 50px;
-				}
-			}
-
-			h2 {
-				font-weight: 400;
-				font-size: 24px;
-				line-height: 29px;
-
-				@include breakpoint($md) {
-					font-size: 32px;
-					line-height: 38px;
-				}
-			}
 		}
 	}
 </style>

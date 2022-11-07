@@ -50,10 +50,6 @@
 
 <style lang="scss">
 	.entradas {
-		h1 {
-			margin-bottom: 16px;
-		}
-
 		table {
 			border-spacing: 0px;
 			width: 100%;

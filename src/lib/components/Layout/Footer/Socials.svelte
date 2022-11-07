@@ -36,13 +36,6 @@
 		a {
 			text-align: center;
 			vertical-align: middle;
-
-			svg {
-				min-width: 40px;
-				padding: 10px;
-				border: 0.5px solid #ffffff;
-				border-radius: 8px;
-			}
 		}
 	}
 </style>

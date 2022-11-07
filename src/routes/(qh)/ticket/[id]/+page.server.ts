@@ -1,5 +1,8 @@
+import { SECRET_SENDGRID_KEY, SECRET_SENDGRID_TICKET } from '$env/static/private';
+
 import QRCode from 'qrcode';
 import { MailService } from '@sendgrid/mail';
+import type { Action, Actions } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }) => {
 	let ticket = await locals.eventosRepo.getEntrada(params.id);
@@ -19,39 +22,64 @@ export const load = async ({ locals, params }) => {
 		return await QRCode.toDataURL(text, opts);
 	};
 
-	ticket.qrcode = await generateQR('1');
-
-	// const sgMail: MailService = new MailService();
-	// sgMail.setApiKey('SG.XXXXXXgD-zkMcpTImdpCOVqguRkA.q7ULcUPR5w9TX0XUB4KgNdEuxiDj3OUNJ5VrF4XTjto');
-
-	// const msg = {
-	// 	to: 'nocompila@hotmail.com',
-	// 	from: 'contacto@quehay.com.pe',
-	// 	templateId: 'd-97bfcfaccd104cbebef4467256671975',
-	// 	dynamic_template_data: {
-	// 		subject: 'Testing Templates',
-	// 		artista: ticket.evento.artista,
-	// 		nombre: ticket.evento.nombre,
-	// 		ubicacion: ticket.evento.lugar,
-	// 		numero: ticket.numero.toString(),
-	// 		monto: ticket.monto.toString(),
-	// 		entradas: ticket.entradas,
-	// 		codigo: ticket.qrcode
-	// 	}
-	// };
-
-	// try {
-	// 	sgMail
-	// 		.send(msg)
-	// 		.then(() => {
-	// 			console.log('Email sent');
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error);
-	// 		});
-	// } catch (err: any) {
-	// 	console.log('err', err);
-	// }
+	ticket.qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
 
 	return { ticket };
 };
+
+const enviar: Action = async ({ cookies, request, locals, params }) => {
+	let ticket = await locals.eventosRepo.getEntrada(params.id);
+
+	const formData = Object.fromEntries(await request.formData());
+
+	var opts: any = {
+		errorCorrectionLevel: 'H',
+		type: 'image/jpeg',
+		quality: 0.3,
+		margin: 1,
+		color: {
+			dark: '#80057F',
+			light: '#FFFFFF'
+		}
+	};
+
+	const generateQR = async (text: any) => {
+		return await QRCode.toDataURL(text, opts);
+	};
+
+	ticket.qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+
+	const sgMail: MailService = new MailService();
+	sgMail.setApiKey(SECRET_SENDGRID_KEY);
+
+	const msg: any = {
+		to: formData.email,
+		from: 'contacto@quehay.com.pe',
+		templateId: SECRET_SENDGRID_TICKET,
+		dynamic_template_data: {
+			subject: 'Quehay',
+			artista: ticket.evento.artista,
+			nombre: ticket.evento.nombre,
+			ubicacion: ticket.evento.lugar,
+			numero: ticket.numero.toString(),
+			monto: ticket.monto.toString(),
+			entradas: ticket.entradas,
+			codigo: ticket.qrcode
+		}
+	};
+
+	try {
+		sgMail
+			.send(msg)
+			.then(() => {
+				console.log('Email sent');
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	} catch (err: any) {
+		console.log('err', err);
+	}
+};
+
+export const actions: Actions = { default: enviar };
