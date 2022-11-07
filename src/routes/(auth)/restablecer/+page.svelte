@@ -46,8 +46,6 @@
 			const res = await signInWithEmailAndPassword(auth, username, password);
 			const guser = res.user;
 
-			console.log('guser', guser);
-
 			const data = new FormData();
 
 			data.append('provider', 'google');

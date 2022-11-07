@@ -18,8 +18,7 @@ export const actions = {
 		const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 			headers: { Authorization: SECRET_NIUBIZ_CREDENTIALS }
 		});
-		console.log('token', transaction);
-		console.log('turno', turno);
+
 		try {
 			const resultado = await axios.post(
 				`${SECRET_NIUBIZ_NIUBIZAPI}/api.authorization/v3/authorization/ecommerce/${SECRET_NIUBIZ_MERCHANTID}`,
@@ -41,7 +40,6 @@ export const actions = {
 					}
 				}
 			);
-			console.log('res', resultado);
 
 			const exito = resultado.data;
 			const compra = turno.info as App.Compra;

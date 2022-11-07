@@ -9,7 +9,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 const login: Action = async ({ cookies, request, locals }) => {
-	console.log('llamo al login');
 	const data = await request.formData();
 	const fbtoken: string = data.get('token')?.toString() ?? '';
 	const displayName: string = data.get('displayName')?.toString() ?? '';
@@ -17,12 +16,10 @@ const login: Action = async ({ cookies, request, locals }) => {
 	const photoURL: string = data.get('photoURL')?.toString() ?? '';
 
 	const user = await locals.usuariosRepo.findByFb(fbtoken);
-	console.log('user',user);
 	let userToken = '';
 
 	if (user) {
-		if(user.dni && user.dni.length > 0){
-			console.log('paso');
+		if (user.dni && user.dni.length > 0) {
 			cookies.set('session', user.id, {
 				path: '/',
 				httpOnly: true,
@@ -32,10 +29,7 @@ const login: Action = async ({ cookies, request, locals }) => {
 			});
 
 			throw redirect(302, '/');
-		}
-		else{
-			console.log('completar');
-
+		} else {
 			throw redirect(302, `/completar/${user.id}`);
 		}
 	} else {
@@ -45,9 +39,8 @@ const login: Action = async ({ cookies, request, locals }) => {
 			correo: email
 		};
 		userToken = await locals.usuariosRepo.create(newUser);
-		console.log('creado completar');
 
-		throw redirect(302,  `/completar/${userToken}`);
+		throw redirect(302, `/completar/${userToken}`);
 	}
 };
 

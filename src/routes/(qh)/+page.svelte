@@ -12,7 +12,6 @@
 	let { eventos } = data;
 
 	onMount(async () => {
-		console.log('ab', PUBLIC_FIREBASE_PROJECTID);
 		await loadFull(tsParticles);
 		await tsParticles.load('tsparticles', particlesConfig);
 	});

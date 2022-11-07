@@ -8,7 +8,7 @@
 	export let data;
 	let dialog: any;
 	let posting = false;
-	let { evento } = data;
+	let { evento, clientAddress } = data;
 
 	let totalEntradas: number = 0;
 	let totalPrecios: number = 0;
@@ -65,6 +65,7 @@
 		dialog.showModal();
 		compraData.update((current) => ({
 			...current,
+			clientAddress: clientAddress,
 			entradas: current.entradas
 				? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0))
 				: otrasEntradas.filter((t) => t.cantidad > 0)
@@ -90,7 +91,6 @@
 			formbuttoncolor: '#000000',
 			action: `compra/${datapago.id}`,
 			complete: function (params: any) {
-				console.log('tt', params);
 				dialog.showModal();
 			}
 		});

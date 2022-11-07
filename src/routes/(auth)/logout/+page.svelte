@@ -4,7 +4,6 @@
 	import { onMount } from 'svelte';
 
 	onMount(async () => {
-		console.log('rp');
 		signOut(auth).then(() => {
 			document.location.href = '/';
 		});

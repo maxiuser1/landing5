@@ -19,7 +19,6 @@
 		const provider = new GoogleAuthProvider();
 		const res = await signInWithPopup(auth, provider);
 		const guser = res.user;
-		console.log('gs', guser);
 		data.append('provider', 'google');
 		data.append('token', guser.uid);
 		data.append('displayName', guser.displayName ?? '');
@@ -68,8 +67,6 @@
 			const res = await signInWithEmailAndPassword(auth, username, password);
 			const guser = res.user;
 
-			console.log('guser', guser);
-
 			const data = new FormData();
 
 			data.append('provider', 'google');
@@ -113,7 +110,6 @@
 		const provider = new FacebookAuthProvider();
 		const res = await signInWithPopup(auth, provider);
 		const guser = res.user;
-		console.log('res', res);
 
 		data.append('provider', 'facebook');
 		data.append('token', guser.uid);
