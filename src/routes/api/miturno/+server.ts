@@ -1,18 +1,18 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private';
+import {
+	SECRET_NIUBIZ_MERCHANTID,
+	SECRET_NIUBIZ_CREDENTIALS,
+	SECRET_NIUBIZ_NIUBIZAPI,
+	SECRET_NIUBIZ_NIUBIZLIB
+} from '$env/static/private';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
-export const POST: RequestHandler = async ({ locals, request }) => {
+export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
+	console.log('request', getClientAddress());
 	const intencion = (await request.json()) as App.Compra;
 
 	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
-
-	// const merchantId = env.VITE_NIUBIZ_URL;
-	const merchantId = '522591303';
-	const credentials = 'Basic aW50ZWdyYWNpb25lc0BuaXViaXouY29tLnBlOl83ejNAOGZG';
-	const niubizapi = 'https://apitestenv.vnforapps.com';
-	const niubizlib = 'https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true';
 
 	let precioReal: number = 0;
 
@@ -24,14 +24,14 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		}
 	}
 
-	const { data: token } = await axios.get(`${niubizapi}/api.security/v1/security`, {
+	const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 		headers: {
-			Authorization: credentials
+			Authorization: SECRET_NIUBIZ_CREDENTIALS
 		}
 	});
 
 	const { data: session } = await axios.post(
-		`${niubizapi}/api.ecommerce/v2/ecommerce/token/session/${merchantId}`,
+		`${SECRET_NIUBIZ_NIUBIZAPI}/api.ecommerce/v2/ecommerce/token/session/${SECRET_NIUBIZ_MERCHANTID}`,
 		{
 			channel: 'web',
 			amount: precioReal,
@@ -58,7 +58,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 	const pago = {
 		sessiontoken: session.sessionKey,
-		merchantid: merchantId,
+		merchantid: SECRET_NIUBIZ_MERCHANTID,
 		purchasenumber: Math.floor(new Date().getTime() / 10),
 		amount: precioReal
 	};
@@ -68,10 +68,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		id: newId,
 		compra: pago.purchasenumber,
 		monto: precioReal,
-		info: intencion
+		info: intencion,
+		clientadd: getClientAddress()
 	};
 
 	await locals.eventosRepo.postTurno(turno);
 
-	return json({ ...pago, id: newId, niubizlib });
+	return json({ ...pago, id: newId, niubizlib: SECRET_NIUBIZ_NIUBIZLIB });
 };
