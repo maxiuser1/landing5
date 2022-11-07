@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Dolar from '$lib/icons/Dolar.svelte';
 	import Pin from '$lib/icons/Pin.svelte';
 
 	export let evento: App.Evento;
@@ -23,8 +24,10 @@
 					<span> {evento.lugar} <strong>, {evento.ciudad}</strong> </span>
 				</div>
 				<div class="h3">
-					<Pin />
-					<span>Desde <strong>S/. 106 </strong> </span>
+					<Dolar />
+					Desde
+					<span class="desde"> S/. {evento.desde} </span>
+					<span class="descontado"> S/. {evento.descontado} </span>
 				</div>
 			</div>
 			<div class="fechas">
@@ -74,13 +77,17 @@
 			}
 
 			.h3 {
+				color: #e4e6eb;
 				line-height: initial;
+				font-weight: 400;
+				font-size: 12px;
 				padding-top: 10px;
-				span {
-					color: red;
-					font-weight: 400;
-					font-size: 12px;
-					color: #e4e6eb;
+				.desde {
+					text-decoration: line-through;
+				}
+
+				.descontado {
+					font-size: 14px;
 				}
 			}
 		}

@@ -13,7 +13,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const querySpec: SqlQuerySpec = {
 			query:
-				'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.ciudad FROM c WHERE c.destacado'
+				'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad FROM c WHERE c.destacado'
 		};
 
 		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
@@ -49,14 +49,14 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return results[0];
 	};
 
-	getEntrada = async (id: string) : Promise<App.Entrada> => {
+	getEntrada = async (id: string): Promise<App.Entrada> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('entradas');
 
 		const { resource: entrada } = await container.item(id, 'quehay').read();
 		return entrada;
-	}
+	};
 
 	confirmarEntrada = async (compra: any, evento: any): Promise<void> => {
 		const client = new CosmosClient(this.cn);

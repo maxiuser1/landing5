@@ -52,6 +52,8 @@ const enviar: Action = async ({ cookies, request, locals, params }) => {
 	const sgMail: MailService = new MailService();
 	sgMail.setApiKey(SECRET_SENDGRID_KEY);
 
+	console.log('aaaa', ticket.qrcode);
+
 	const msg: any = {
 		to: formData.email,
 		from: 'contacto@quehay.com.pe',

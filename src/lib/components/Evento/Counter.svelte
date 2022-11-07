@@ -6,7 +6,6 @@
 	let total: number;
 	export let count: number = 0;
 
-	
 	$: total = count * precio;
 	function modulo(n: number, m: number) {
 		// handle negative numbers
@@ -32,8 +31,8 @@
 			-
 		</button>
 		<div class="counter-viewport">
-			<div class="counter-digits" >
-				 {count}
+			<div class="counter-digits">
+				{count}
 			</div>
 		</div>
 		<button
@@ -48,7 +47,7 @@
 	</div>
 	<div>
 		<h6>
-			S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+			S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 		</h6>
 	</div>
 </div>
@@ -94,5 +93,4 @@
 		width: 100%;
 		height: 100%;
 	}
-
 </style>

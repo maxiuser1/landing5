@@ -12,6 +12,8 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
 
+	console.log('indencnion', intencion);
+
 	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
 
 	let precioReal: number = 0;
@@ -19,7 +21,11 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	for (let entrada of intencion.entradas!) {
 		const entradaDb = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 		if (entradaDb && entrada.base && entrada.cantidad) {
-			const precio = Number(entradaDb.base) * entrada.cantidad;
+			const precioFinal = entradaDb.descuentos
+				? entradaDb.descuentos[0].descontado
+				: entradaDb.base;
+			const precio = Number(precioFinal) * entrada.cantidad;
+
 			precioReal += precio;
 		}
 	}

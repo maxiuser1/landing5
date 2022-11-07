@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
+	import { zonas } from '$lib/components/Evento/zonas';
 	import { Dialog } from '$lib/components/Shared/ui/Dialog';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
-	import { Box, Tarjeta, Ticket } from '$lib/icons';
+	import { Box, Descuento, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
 	export let data;
 	let dialog: any;
@@ -15,6 +16,8 @@
 	let otrasEntradas: Array<App.Sentado> = new Array<App.Sentado>();
 	let oeCantidad: number = 0;
 	let oePrecio: number = 0;
+	let oePreciobase: number = 0;
+	let oeDescuento: number = 0;
 	let modal: any;
 
 	onMount(() => {
@@ -23,7 +26,7 @@
 			totalPrecios = totalEntradas * $compraData.zona.base;
 		}
 
-		evento.precios?.forEach((t) => {
+		evento.precios?.forEach((t: App.Precio) => {
 			if (!t.numerado) {
 				otrasEntradas.push({
 					fila: 0,
@@ -31,7 +34,8 @@
 					nombre: t.nombre,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
-					base: t.base
+					base: t.base,
+					final: t.descuentos ? t.descuentos![0].descontado : t.base
 				});
 			}
 		});
@@ -55,9 +59,15 @@
 			return acu + obj.cantidad;
 		}, 0);
 
-		oePrecio = otrasEntradas.reduce<number>((acu, obj) => {
+		oePreciobase = otrasEntradas.reduce<number>((acu, obj) => {
 			return acu + obj.cantidad * (obj.base ? obj.base : 0);
 		}, 0);
+
+		oePrecio = otrasEntradas.reduce<number>((acu, obj) => {
+			return acu + obj.cantidad * (obj.final ? obj.final : 0);
+		}, 0);
+
+		oeDescuento = oePreciobase - oePrecio;
 	};
 
 	const continuarClick = async () => {
@@ -168,6 +178,26 @@
 						</div>
 					{/each}
 
+					{#if oeDescuento > 0}
+						<div class="compra ">
+							<div class="asiento">
+								<div>
+									<Descuento />
+								</div>
+								<div class="etiquetas">
+									<h5>Pre-Venta</h5>
+								</div>
+							</div>
+							<div>
+								<h5>
+									<strong>
+										-S/ {oeDescuento}
+									</strong>
+								</h5>
+							</div>
+						</div>
+					{/if}
+
 					<div class="compra totales">
 						<div class="asiento">
 							<div>
@@ -180,11 +210,19 @@
 							</div>
 						</div>
 						<div>
-							<h5>
+							{#if oeDescuento > 0}
+								<h6 style="text-decoration: line-through;">
+									S/ {(totalPrecios + oePreciobase)
+										.toString()
+										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								</h6>
+							{/if}
+
+							<h4>
 								<strong>
 									S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 								</strong>
-							</h5>
+							</h4>
 						</div>
 					</div>
 				</div>

@@ -15,3 +15,5 @@ export { default as Twitter } from './Twitter.svelte';
 export { default as Instagram } from './Instagram.svelte';
 export { default as Face } from './Face.svelte';
 export { default as Greatcheck } from './Greatcheck.svelte';
+export { default as Dolar } from './Dolar.svelte';
+export { default as Descuento } from './Descuento.svelte';

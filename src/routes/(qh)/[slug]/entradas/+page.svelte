@@ -1,16 +1,30 @@
 <script lang="ts">
 	import { Breadcrumbs, Steps } from '$lib/components/Evento';
 	import Resumen from '$lib/components/Evento/Resumen.svelte';
+	import { compraData } from '$lib/components/Evento/store';
 	import Zonas from '$lib/components/Evento/Zonas.svelte';
 	import Pin from '$lib/icons/Pin.svelte';
-
+	import { onMount } from 'svelte';
 	export let data;
 	let { evento } = data;
+
+	onMount(async () => {
+		const compra: App.Compra = {
+			evento: {
+				id: evento.id,
+				slug: evento.general?.slug,
+				artista: evento.general?.artista,
+				nombre: evento.general?.nombre,
+				lugar: `${evento.ubicacion?.ciudad} ${evento.ubicacion?.nombre}`,
+				fecha: evento.fechas[0].dia
+			}
+		};
+		compraData.set(compra);
+	});
 </script>
 
 <Breadcrumbs {evento} />
 <Steps paso={1} />
-
 
 <section class="container">
 	<div class="principal">
@@ -26,19 +40,19 @@
 </section>
 
 <style lang="scss">
-	.container{
+	.container {
 		padding-right: initial;
 		padding-left: initial;
 	}
 
-	.principal{
+	.principal {
 		display: flex;
-		gap:8px;
+		gap: 8px;
 		margin-bottom: 80px;
-  		flex-direction: column;
+		flex-direction: column;
 		@include breakpoint($md) {
 			flex-direction: row;
-			gap:24px;
+			gap: 24px;
 		}
 	}
 
@@ -46,15 +60,15 @@
 		border-radius: 8px;
 		background: white;
 		.titulos {
-			padding:20px 20px 0px;
+			padding: 20px 20px 0px;
 			@include breakpoint($md) {
-				padding:initial;
+				padding: initial;
 			}
 		}
 
 		@include breakpoint($md) {
 			width: 60%;
-			padding:24px 48px;
+			padding: 24px 48px;
 		}
 	}
 </style>

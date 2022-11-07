@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import Pin from '$lib/icons/Pin.svelte';
 	import { applyAction, enhance } from '$app/forms';
+	import Entradas from '$lib/components/Evento/Entradas.svelte';
 
 	export let data;
 	let { ticket } = data;
@@ -51,6 +52,10 @@
 										Lugar: {entrada.fila}
 										{entrada.asiento}
 									</p>
+								{:else}
+									<p>
+										cantidad: <strong> {entrada.cantidad} </strong>
+									</p>
 								{/if}
 							</p>
 						</div>
@@ -58,7 +63,11 @@
 					<div>
 						<h6>
 							<strong>
-								S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								{#if entrada.final != undefined && entrada.final > 0}
+									S/ {entrada.final?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								{:else}
+									S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								{/if}
 							</strong>
 						</h6>
 					</div>

@@ -37,6 +37,13 @@ declare namespace App {
 		numerado: boolean;
 		filas: Array<Fila>;
 		total: number;
+		descuentos?: Array<Descuento>;
+	};
+
+	type Descuento = {
+		nombre: string;
+		descuento: number;
+		descontado: number;
 	};
 
 	type Entrada = {
@@ -73,6 +80,9 @@ declare namespace App {
 		banner: string;
 		lugar: string;
 		ciudad: string;
+		desde?: number;
+		descuento?: number;
+		descontado?: number;
 		slug: string;
 		fechas?: any;
 		precios: Array<Precio>;
@@ -93,6 +103,8 @@ declare namespace App {
 
 	type Sentado = {
 		base?: number;
+		final?: number;
+		descuento?: number;
 		tipo?: string;
 		nombre?: string;
 		fila: number;
