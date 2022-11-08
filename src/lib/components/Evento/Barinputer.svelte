@@ -23,7 +23,7 @@
 			{ facingMode: 'environment' },
 			{
 				fps: 10,
-				qrbox: { width: 250, height: 250 }
+				qrbox: { width: 380, height: 380 }
 			},
 			onScanSuccess,
 			onScanFailure
