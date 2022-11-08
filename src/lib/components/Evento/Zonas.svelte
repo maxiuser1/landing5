@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { Radio } from '$lib/icons';
 	import { Soles } from '$lib/utils/formats';
+	import { page } from '$app/stores';
 
 	export let evento: App.Evento;
 
@@ -18,57 +19,56 @@
 			}
 		}));
 
+		console.log('a', $page.data.user.rol);
+
+		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+
 		if (zonaSeleccionada.numerado) {
 			goto(`../${evento.general?.slug}/lugar`);
 		} else {
-			goto(`../${evento.general?.slug}/reserva`);
+			esPromotor
+				? goto(`../${evento.general?.slug}/venta`)
+				: goto(`../${evento.general?.slug}/reserva`);
 		}
 	};
 </script>
 
-
-			
-			<div
-				class="mapa"
-				use:zonas={evento.precios}
-				on:zonned={({ detail }) => {
-					seleccionar(detail);
-				}}
-			>
-				{@html evento.locacion}
-			</div>
-			<div class="leyenda">
-				<div>
+<div
+	class="mapa"
+	use:zonas={evento.precios}
+	on:zonned={({ detail }) => {
+		seleccionar(detail);
+	}}
+>
+	{@html evento.locacion}
+</div>
+<div class="leyenda">
+	<div>
+		{#if evento.precios}
+			<table>
+				<tbody>
 					{#if evento.precios}
-					<table>
-					
-						<tbody>
-							{#if evento.precios}
-								{#each evento.precios as precio, idx}
-									<tr class:white={idx % 2 == 0}>
-										<td class="radio">
-											<div class="radio">
-												<Radio color={precio.color ? precio.color : ''} />
-											</div>
-										</td>
-										<td class="tdnombre">{precio.nombre}
-										</td>
-										<td class="tdprecio"><Soles number={precio.base} /></td>
-										
-									</tr>
-								{/each}
-							{/if}
-						</tbody>
-					</table>
+						{#each evento.precios as precio, idx}
+							<tr class:white={idx % 2 == 0}>
+								<td class="radio">
+									<div class="radio">
+										<Radio color={precio.color ? precio.color : ''} />
+									</div>
+								</td>
+								<td class="tdnombre">{precio.nombre} </td>
+								<td class="tdprecio"><Soles number={precio.base} /></td>
+							</tr>
+						{/each}
 					{/if}
-				</div>
-			</div>
-		
+				</tbody>
+			</table>
+		{/if}
+	</div>
+</div>
 
 <style lang="scss">
-
-	.leyenda{
-		padding:20px 20px 0px;
+	.leyenda {
+		padding: 20px 20px 0px;
 	}
 
 	.tdnombre {
