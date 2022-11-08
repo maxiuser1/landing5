@@ -12,7 +12,7 @@
 			style="background:  url('{evento.banner.replaceAll(
 				'maxitech/image/upload',
 				'maxitech/image/upload/w_352,c_scale'
-			)}') no-repeat center"
+			)}') no-repeat center top"
 		/>
 		<div class="content">
 			<div class="info">
@@ -45,11 +45,9 @@
 	}
 	.card {
 		width: 342px;
-		background-color: #000;
+		background-color: #0f0f0f;
 
 		border-radius: 2rem;
-		box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #f9f9f9, 0 0 0.8rem #f9f9f9,
-			0 0 2.8rem #f9f9f9, inset 0 0 1.3rem #f9f9f9;
 
 		@include breakpoint($md) {
 			width: 352px;

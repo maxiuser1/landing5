@@ -87,20 +87,20 @@
 		}
 
 		.slide {
-			background-color: #000;
+			background-color: #181818;
 			position: relative;
 			background-repeat: no-repeat;
-			min-height: 129px;
-			max-height: 129px;
+			min-height: 109px;
+			max-height: 109px;
 
 			@include breakpoint($sm) {
-				min-height: 318px;
-				max-height: 318px;
+				min-height: 200px;
+				max-height: 200px;
 			}
 
 			@include breakpoint($md) {
-				min-height: 340px;
-				max-height: 340px;
+				min-height: 280px;
+				max-height: 280px;
 			}
 		}
 
@@ -110,8 +110,6 @@
 			top: 0;
 			height: 100%;
 			left: 0;
-			background: #000;
-			background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 1%, rgba(252, 252, 252, 0) 1%);
 		}
 
 		.botonera {
