@@ -144,7 +144,7 @@
 			{ facingMode: 'environment' },
 			{
 				fps: 10,
-				qrbox: { width: 280, height: 30 }
+				qrbox: { width: 250, height: 30 }
 			},
 			(decodedText: any, decodedResult: any) => {
 				otrasEntradas = otrasEntradas.map((t) => {
