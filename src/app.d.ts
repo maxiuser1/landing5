@@ -111,6 +111,10 @@ declare namespace App {
 		asiento: number;
 		cantidad: number;
 		numerado?: boolean;
+		tickets?: Array<{
+			c?: string;
+			v?: string;
+		}>;
 	};
 
 	type Compra = {
