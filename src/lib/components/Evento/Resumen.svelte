@@ -21,13 +21,11 @@
 	</p>
 
 	<br />
-	<ul>
-		<li>* BOX GOLD: Venta de box completo, máximo 10 personas; incluye: 10 brazaletes, 01 Botella JW Gold Label +02 Red Bull, 02 Aguas y Hielo.</li>
-		<li>* BOX BLACK: Ventas de box completo, máximo 10 personas; incluye: 10 brazaletes, 01 Botella JW Black Label + 02 Red Bull, 02 Aguas y Hielo.</li>
-		<li>* SECTORES STAND UP: Vip y General; cada entrada incluye una (01) cerveza.</li>
-	</ul>
+	<div>
+		{evento.caratula?.detalles}
+	</div>
 
-	<img src="https://res.cloudinary.com/maxitech/image/upload/v1667607838/ticketera/banners/newlatin2_qzmcd9.png" alt="logo" />
+	<img src={evento.caratula?.thumb} alt="logo" />
 </div>
 
 <style lang="scss">

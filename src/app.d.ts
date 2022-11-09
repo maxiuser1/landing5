@@ -95,6 +95,10 @@ declare namespace App {
 			nombre?: string;
 			seccionamiento?: any;
 		};
+		caratula?: {
+			thumb?: string;
+			detalles?: string;
+		};
 		general?: {
 			categoria: string;
 			nombre: string;
