@@ -121,6 +121,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 			monto: precioReal,
 			numero: purchasenumber,
 			user: vendedor,
+			cliente: compra.cliente,
 			turno: ''
 		};
 
