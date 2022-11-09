@@ -3,12 +3,11 @@
 	import { Breadcrumbs, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { Arrow, Box } from '$lib/icons';
+	import { page } from '$app/stores';
 
 	export let data;
 	let { evento } = data;
-	let filas: Array<App.Fila> =
-		evento.precios?.find((t: any) => t.tipo == $compraData.zona?.tipo)?.filas ??
-		new Array<App.Fila>();
+	let filas: Array<App.Fila> = evento.precios?.find((t: any) => t.tipo == $compraData.zona?.tipo)?.filas ?? new Array<App.Fila>();
 	const sitWidth = 25;
 	const filaWidth = 100;
 
@@ -25,7 +24,8 @@
 						numerado: $compraData.zona?.numerado,
 						fila: fila.id,
 						asiento: a.id,
-						cantidad: 1
+						cantidad: 1,
+						tickets: [{ c: `${$compraData.zona?.tipo}_${fila.id}_${a.id}`, v: '' }]
 					});
 				}
 			});
@@ -41,13 +41,14 @@
 			entradas: asientos
 		}));
 
-		goto(`../${evento.general?.slug}/reserva`);
+		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+
+		esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`../${evento.general?.slug}/reserva`);
 	};
 </script>
 
 <Breadcrumbs {evento} />
 <Steps paso={2} />
-
 
 <section class="container">
 	<div class="principal">
@@ -81,12 +82,7 @@
 				</div>
 			</div>
 			<div class="cta">
-				<button on:click|once={continuarClick} class="btn"
-					>Continuar ({filas.reduce(
-						(count, current) => count + current.sits.filter((t) => t.s == 1).length,
-						0
-					)}) <Arrow />
-				</button>
+				<button on:click|once={continuarClick} class="btn">Continuar ({filas.reduce((count, current) => count + current.sits.filter((t) => t.s == 1).length, 0)}) <Arrow /> </button>
 			</div>
 		</div>
 		<Resumen {evento} />
@@ -114,20 +110,20 @@
 			padding: 12px 16px;
 		}
 	}
-	
-	.container{
+
+	.container {
 		padding-right: initial;
 		padding-left: initial;
 	}
 
-	.principal{
+	.principal {
 		display: flex;
-		gap:8px;
+		gap: 8px;
 		margin-bottom: 80px;
-  		flex-direction: column;
+		flex-direction: column;
 		@include breakpoint($md) {
 			flex-direction: row;
-			gap:24px;
+			gap: 24px;
 		}
 	}
 
@@ -135,15 +131,15 @@
 		border-radius: 8px;
 		background: white;
 		.titulos {
-			padding:20px 20px 0px;
+			padding: 20px 20px 0px;
 			@include breakpoint($md) {
-				padding:initial;
+				padding: initial;
 			}
 		}
 
 		@include breakpoint($md) {
 			width: 60%;
-			padding:24px 48px;
+			padding: 24px 48px;
 		}
 	}
 </style>

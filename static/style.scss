@@ -162,6 +162,22 @@ $xl: 1600px;
         line-height: 24px;
     }
 
+    .form-group{
+        padding-left: 24px;
+        padding-right: 24px;
+        margin-bottom: 4px;
+        input {
+			min-width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+			padding: 0 12px;
+			border: 1px solid #C6C6C6;
+            border-radius: 4px;
+			background: #ffffff;
+			height: 42px;
+		}
+    }
+
     .input-group {
 		position: relative;
 		display: flex;
@@ -181,22 +197,18 @@ $xl: 1600px;
 			position: relative;
 			z-index: 2;
 		}
-		&.form-control {
-			display: block;
-			width: 100%;
-			padding: 0.375rem 0.75rem;
-			font-size: 1rem;
-			font-weight: 400;
-			line-height: 1.5;
-			color: #212529;
-			background-color: #fff;
-			background-clip: padding-box;
-			border: 1px solid #ced4da;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-			border-radius: 0.375rem;
+
+        input {
+			min-width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+			padding: 0 12px;
+			border: 1px solid #C6C6C6;
+            border-radius: 4px;
+			background: #ffffff;
+			height: 42px;
 		}
+
 	}
 
 }

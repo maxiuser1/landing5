@@ -144,6 +144,7 @@ declare namespace App {
 		getTurno(id): Promise<any>;
 		findEvento(id): Promoise<Evento>;
 		confirmarEntrada(evento, compra): Promise<void>;
+		ventaManual(slug, compra, vendedor): Promise<void>;
 		guardarEntrada(entrada): Promise<void>;
 		getEntrada(id): Promise<Entrada>;
 	}

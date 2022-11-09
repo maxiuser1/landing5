@@ -22,6 +22,7 @@
 <div class="contenedor">
 	<div class="counter">
 		<button
+			type="button"
 			on:click={() => {
 				count -= 1;
 				handleClick();
@@ -36,6 +37,7 @@
 			</div>
 		</div>
 		<button
+			type="button"
 			on:click={() => {
 				count += 1;
 				handleClick();

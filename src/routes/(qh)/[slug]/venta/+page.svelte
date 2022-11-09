@@ -27,10 +27,14 @@
 	let oeDescuento: number = 0;
 
 	onMount(() => {
-		if ($compraData.entradas && $compraData.zona && $compraData.zona.base) {
-			totalEntradas = $compraData.entradas?.length;
-			totalPrecios = totalEntradas * $compraData.zona.base;
-		}
+		$compraData.entradas?.forEach((entrada) => {
+			if (entrada.numerado) {
+				totalEntradas++;
+				totalPrecios = totalPrecios + Number(entrada.base);
+			}
+		});
+
+		console.log('c', totalEntradas, totalPrecios);
 
 		evento.precios?.forEach((t: App.Precio) => {
 			if (!t.numerado) {
@@ -39,10 +43,10 @@
 					asiento: 0,
 					nombre: t.nombre,
 					tipo: t.tipo,
-					cantidad: 0,
+					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
 					base: t.base,
 					final: t.descuentos ? t.descuentos![0].descontado : t.base,
-					tickets: []
+					tickets: t.tipo == $compraData.zona?.tipo ? [{ c: `${t.nombre}_0`, v: '' }] : []
 				});
 			}
 		});
@@ -98,6 +102,11 @@
 	};
 
 	async function handleSubmit(event: any) {
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
+		}));
+
 		const data = new FormData(this);
 		data.append('payload', JSON.stringify({ ...$compraData }));
 		console.log('data', data);
@@ -123,21 +132,13 @@
 		camara = false;
 	}
 
-	function onScanSuccess(decodedText: any, decodedResult: any) {
-		// lista[currentIndex].valor = decodedText;
-	}
-
 	function onScanFailure(error: any) {
 		console.warn(`Code scan error = ${error}`);
 	}
 
 	const showDialogClick = (zona: any, ticket: any) => {
-		console.log('zona', zona);
-		console.log('ticket', ticket);
 		camara = true;
-
 		html5Qrcode = new Html5Qrcode('reader');
-
 		html5Qrcode.start(
 			{ facingMode: 'environment' },
 			{
@@ -178,13 +179,10 @@
 	<div class="principal">
 		<div class="prota">
 			<div class="titulos">
-				<h4>Resumen</h4>
-				<p>Lugar reservado</p>
+				<h4>Venta Directa</h4>
 			</div>
 
 			<form method="POST" on:submit|preventDefault={handleSubmit}>
-				<input type="text" name="nombres" />
-
 				{#if $compraData.zona && $compraData.zona.base}
 					<div class="compras">
 						{#if $compraData.entradas}
@@ -210,6 +208,18 @@
 										</h6>
 									</div>
 								</div>
+
+								{#if entrada.tickets}
+									<div class="tickets">
+										{#each entrada.tickets as ticket, j}
+											<div class="input-group">
+												<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" />
+												<button on:click={() => showDialogClick(entrada, ticket)} type="button" class="btn"><Qrcode /></button>
+											</div>
+										{/each}
+									</div>
+									<br />
+								{/if}
 							{/each}
 						{/if}
 
@@ -225,19 +235,20 @@
 								</div>
 								<div>
 									<Counter precio={zona.base ? zona.base : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
-
-									<div>
-										{#if zona.tickets}
-											{#each zona.tickets as ticket, j}
-												<div class="input-group">
-													<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" />
-													<button on:click={() => showDialogClick(zona, ticket)} type="button" class="btn"><Qrcode /></button>
-												</div>
-											{/each}
-										{/if}
-									</div>
 								</div>
 							</div>
+
+							{#if zona.tickets}
+								<div class="tickets">
+									{#each zona.tickets as ticket, j}
+										<div class="input-group">
+											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" />
+											<button on:click={() => showDialogClick(zona, ticket)} type="button" class="btn"><Qrcode /></button>
+										</div>
+									{/each}
+								</div>
+								<br />
+							{/if}
 						{/each}
 
 						{#if oeDescuento > 0}
@@ -287,7 +298,20 @@
 						</div>
 					</div>
 				{/if}
-
+				<br />
+				<div class="form-group">
+					<label for="nombres">Información del cliente</label>
+					<input type="text" name="nombres" class="form-control" placeholder="Nombres" />
+				</div>
+				<div class="form-group">
+					<input type="text" name="dni" class="form-control" placeholder="DNI" />
+				</div>
+				<div class="form-group">
+					<input type="email" name="email" class="form-control" placeholder="Correo" />
+				</div>
+				<div class="form-group">
+					<input type="text" name="formapago" class="form-control" placeholder="Forma de pago" />
+				</div>
 				<div class="cta">
 					<button type="submit" class="btn" disabled={posting}>
 						{#if posting}
@@ -303,6 +327,13 @@
 </section>
 
 <style lang="scss">
+	.tickets {
+		padding: 2px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
 	#reader {
 		width: 100%;
 		min-height: 80vh;
@@ -383,11 +414,11 @@
 		}
 
 		.compras {
-			margin-top: 60px;
+			margin-top: 20px;
 
 			.compra {
 				min-width: 300px;
-				padding: 32px;
+				padding: 12px 24px;
 				border-radius: 8px;
 				display: flex;
 				justify-content: space-between;
@@ -422,6 +453,10 @@
 
 			.totales {
 				background-color: #f9f9f97f;
+			}
+
+			@include breakpoint($md) {
+				margin-top: 60px;
 			}
 		}
 

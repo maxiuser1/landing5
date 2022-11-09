@@ -1,4 +1,4 @@
-import type { Actions } from '@sveltejs/kit';
+import { redirect, type Actions } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
 	const evento = await locals.eventosRepo.getEvento(params.slug);
@@ -6,10 +6,24 @@ export const load = async ({ locals, params }: { locals: App.Locals; params: Rec
 };
 
 export const actions: Actions = {
-	default: async ({ cookies, request }) => {
-		const formData = Object.fromEntries(await request.formData());
-		const wtt = JSON.parse(formData.payload.toString());
-		console.log('b', wtt);
-		return { success: true };
+	default: async ({ request, locals, params }) => {
+		const formulario = await request.formData();
+		const formData = Object.fromEntries(formulario);
+		const compra = JSON.parse(formData.payload.toString());
+
+		const formDataCliente = { ...formData, payload: '' };
+		const compraCliente = { ...compra, cliente: formDataCliente };
+
+		const vendedor = {
+			nombre: locals.user.nombre,
+			correo: locals.user.correo,
+			apellido: locals.user.apellido,
+			dni: locals.user.dni,
+			id: locals.user.id
+		};
+
+		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
+
+		throw redirect(303, `/ticket/${entrada.id}`);
 	}
 };
