@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Barinputer from '$lib/components/Evento/Barinputer.svelte';
+
+	let lista = [
+		{
+			id: 'demo1'
+		},
+		{
+			id: 'demo2'
+		}
+	];
 </script>
 
 <section class="container">
@@ -12,11 +21,14 @@
 				return async ({ result, update }) => {
 					console.log('resu', result);
 					form.reset();
-					alert('Su formulario de contacto ha sido enviado, muchas gracias.');
 				};
 			}}
 		>
-			<Barinputer name={'jose'} />
+			{#each lista as item}
+				<Barinputer name={item.id} />
+			{/each}
+
+			<button type="submit" class="btn"> Guardar </button>
 		</form>
 	</div>
 </section>

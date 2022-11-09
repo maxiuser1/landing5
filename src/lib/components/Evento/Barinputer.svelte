@@ -6,7 +6,8 @@
 	let scanning = false;
 	let camara = false;
 	let html5Qrcode: any;
-	let valor = '';
+	export let value: string | null | undefined = null;
+	export let name: string | null | undefined = null;
 	onMount(init);
 
 	function init() {
@@ -27,19 +28,20 @@
 	}
 
 	async function stop() {
-		await html5Qrcode.stop();
-		scanning = false;
+		if (scanning) {
+			await html5Qrcode.stop();
+			scanning = false;
+		}
 		camara = false;
 	}
 
-	function onScanSuccess(decodedText, decodedResult) {
-		valor = decodedText;
+	async function onScanSuccess(decodedText, decodedResult) {
+		value = decodedText;
 		camara = false;
+		await stop();
 	}
 
-	function onScanFailure(error) {
-		console.warn(`Code scan error = ${error}`);
-	}
+	function onScanFailure(error) {}
 
 	const showDialogClick = () => {
 		camara = true;
@@ -48,41 +50,38 @@
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
 	<reader id="reader" />
-	{#if scanning}
-		<button on:click={stop} type="button" class="btn">stop</button>
-	{:else}
-		<button on:click={start} type="button" class="btn">start</button>
-	{/if}
+	<div class="botones">
+		<button on:click={start} type="button" class="btn">Escanear</button>
+		<button on:click={stop} type="button" class="btn">Cancelar</button>
+	</div>
 </div>
 
-<div class="formulario">
-	<input type="text" bind:value={valor} />
-	<button on:click={() => showDialogClick()} type="button">Show dialog as modal</button>
+<div>
+	<input type="text" bind:value {name} on:change on:blur />
+	<button on:click={() => showDialogClick()} type="button">S</button>
 </div>
 
 <style>
-	.formulario {
-		padding-top: 40px;
-		margin-bottom: 80px;
+	.botones {
+		display: flex;
+		gap: 20px;
 	}
 
 	.modal {
-		width: 100%;
-		height: 90vh;
-		z-index: 9999;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
+		align-items: center;
+		background: white;
 		bottom: 0;
-		background: #4448;
 		display: flex;
-		align-items: center;
-
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 		gap: 20px;
+		height: 90vh;
+		justify-content: center;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		width: 100%;
+		z-index: 9999;
 	}
 
 	#reader {
