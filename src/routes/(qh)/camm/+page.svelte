@@ -87,7 +87,7 @@
 				</div>
 			{/each}
 
-			<button type="submit" class="btn"> Guardar </button>
+			<button type="submit" class="btn"> Continuar </button>
 		</form>
 	</div>
 </section>
