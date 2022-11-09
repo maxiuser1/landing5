@@ -111,6 +111,7 @@
 
 		const data = new FormData(this);
 		data.append('payload', JSON.stringify({ ...$compraData }));
+		console.log('data', data);
 		const response = await fetch(this.action, {
 			method: 'POST',
 			body: data
@@ -144,7 +145,7 @@
 			{ facingMode: 'environment' },
 			{
 				fps: 10,
-				qrbox: { width: 250, height: 40 }
+				qrbox: { width: 280, height: 50 }
 			},
 			(decodedText: any, decodedResult: any) => {
 				otrasEntradas = otrasEntradas.map((t) => {
@@ -337,7 +338,7 @@
 
 	#reader {
 		width: 100%;
-		min-height: 80vh;
+		min-height: 400px;
 		background-color: black;
 	}
 
