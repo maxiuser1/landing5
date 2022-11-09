@@ -338,7 +338,7 @@
 
 	#reader {
 		width: 100%;
-		min-height: 400px;
+		min-height: 350px;
 		background-color: black;
 	}
 
