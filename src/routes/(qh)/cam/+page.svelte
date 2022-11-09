@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Html5Qrcode } from 'html5-qrcode';
-	import { onMount } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 
 	let scanning = false;
 	let camara = false;
@@ -29,12 +28,11 @@
 	async function stop() {
 		await html5Qrcode.stop();
 		scanning = false;
-		camara = false;
 	}
 
 	function onScanSuccess(decodedText, decodedResult) {
-		valor = decodedText;
-		camara = false;
+		setContext('heropy', decodedText);
+		window.close();
 	}
 
 	function onScanFailure(error) {
@@ -46,39 +44,18 @@
 	};
 </script>
 
-<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
+<main>
 	<reader id="reader" />
 	{#if scanning}
 		<button on:click={stop} type="button" class="btn">stop</button>
 	{:else}
 		<button on:click={start} type="button" class="btn">start</button>
 	{/if}
-</div>
-
-<div class="formulario">
-	<input type="text" bind:value={valor} />
-	<button on:click={() => showDialogClick()} type="button">Show dialog as modal</button>
-</div>
+</main>
 
 <style>
-	.formulario {
-		padding-top: 40px;
-		margin-bottom: 80px;
-	}
-
-	.modal {
-		width: 100%;
-		height: 90vh;
-		z-index: 9999;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: #4448;
+	main {
 		display: flex;
-		align-items: center;
-
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
@@ -87,7 +64,7 @@
 
 	#reader {
 		width: 100%;
-		min-height: 70vh;
+		height: 70vh;
 		background-color: black;
 	}
 </style>
