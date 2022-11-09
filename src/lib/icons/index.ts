@@ -17,3 +17,4 @@ export { default as Face } from './Face.svelte';
 export { default as Greatcheck } from './Greatcheck.svelte';
 export { default as Dolar } from './Dolar.svelte';
 export { default as Descuento } from './Descuento.svelte';
+export { default as Qrcode } from './Qrcode.svelte';

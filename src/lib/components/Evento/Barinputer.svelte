@@ -1,18 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Html5Qrcode } from 'html5-qrcode';
 	import { onMount } from 'svelte';
 
 	let scanning = false;
 	let camara = false;
-	let html5Qrcode: any;
+	export let html5Qrcode: any;
 	export let value: string | null | undefined = null;
 	export let name: string | null | undefined = null;
-	onMount(init);
-
-	function init() {
-		html5Qrcode = new Html5Qrcode('reader');
-	}
 
 	function start() {
 		html5Qrcode.start(
@@ -35,10 +29,8 @@
 		camara = false;
 	}
 
-	async function onScanSuccess(decodedText, decodedResult) {
+	function onScanSuccess(decodedText, decodedResult) {
 		value = decodedText;
-		camara = false;
-		await stop();
 	}
 
 	function onScanFailure(error) {}
@@ -69,7 +61,7 @@
 
 	.modal {
 		align-items: center;
-		background: white;
+		background: #4448;
 		bottom: 0;
 		display: flex;
 		flex-direction: column;
