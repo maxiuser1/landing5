@@ -1,9 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import {
-	SECRET_NIUBIZ_MERCHANTID,
-	SECRET_NIUBIZ_CREDENTIALS,
-	SECRET_NIUBIZ_NIUBIZAPI
-} from '$env/static/private';
+import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUBIZAPI } from '$env/static/private';
 
 import axios from 'axios';
 
@@ -64,7 +60,8 @@ export const actions = {
 					dni: locals.user.dni,
 					id: locals.user.id
 				},
-				turno: turno.id
+				turno: turno.id,
+				fecha: new Date()
 			};
 			await locals.eventosRepo.guardarEntrada(entrada);
 		} catch (err: any) {

@@ -66,7 +66,15 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		compra: pago.purchasenumber,
 		monto: precioReal,
 		info: intencion,
-		clientIpAddress: clientIpAddress
+		clientIpAddress: clientIpAddress,
+		fecha: new Date(),
+		user: {
+			nombre: locals.user.nombre,
+			correo: locals.user.correo,
+			apellido: locals.user.apellido,
+			dni: locals.user.dni,
+			id: locals.user.id
+		}
 	};
 
 	await locals.eventosRepo.postTurno(turno);
