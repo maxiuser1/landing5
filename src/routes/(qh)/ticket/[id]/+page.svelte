@@ -63,11 +63,7 @@
 					<div>
 						<h6>
 							<strong>
-								{#if entrada.final != undefined && entrada.final > 0}
-									S/ {entrada.final?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								{:else}
-									S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								{/if}
+								S/ {entrada.final?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 							</strong>
 						</h6>
 					</div>

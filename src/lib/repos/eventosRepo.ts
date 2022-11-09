@@ -76,14 +76,12 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
 		const evento = results[0];
 
-		console.log('wwiii', evento);
-
 		let precioReal: number = 0;
 
 		for (let entrada of compra.entradas) {
 			const entradaDb = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 			if (entradaDb && entrada.base && entrada.cantidad) {
-				const costoFinal = entradaDb.descuentos ? entradaDb.descuentos[0].descontado : entradaDb.base;
+				const costoFinal = entradaDb.descuentos ? entradaDb.descuentos[0].promotor : entradaDb.promotor;
 
 				const precio = Number(costoFinal) * entrada.cantidad;
 				precioReal += precio;

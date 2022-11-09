@@ -2,7 +2,7 @@ import type { SvelteComponent } from 'svelte';
 import { Tooltip } from '../Shared/ui/Tooltip';
 
 export const zonas = (node: any, props: any) => {
-	let tooltipsComps : SvelteComponent[] = [];
+	let tooltipsComps: SvelteComponent[] = [];
 
 	const mapa = node.querySelectorAll('path').forEach((each: any) => {
 		const pseudoId = each.id.split('-')[0];
@@ -17,6 +17,8 @@ export const zonas = (node: any, props: any) => {
 						detail: {
 							tipo: cadaPrecio.tipo,
 							base: cadaPrecio.base,
+							online: cadaPrecio.online,
+							promotor: cadaPrecio.promotor,
 							nombre: cadaPrecio.nombre,
 							numerado: cadaPrecio.numerado
 						}
@@ -31,7 +33,7 @@ export const zonas = (node: any, props: any) => {
 							mouseX: event.pageX,
 							mouseY: event.pageY,
 							config: {
-								body: `${cadaPrecio.nombre}: S/ ${cadaPrecio.base.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+								body: `${cadaPrecio.nombre}: S/ ${cadaPrecio.online.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
 								bodyAsHTML: false,
 								place: 'top',
 								effect: 'solid',

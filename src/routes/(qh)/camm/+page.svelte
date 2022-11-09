@@ -48,9 +48,7 @@
 		lista[currentIndex].valor = decodedText;
 	}
 
-	function onScanFailure(error: any) {
-		console.warn(`Code scan error = ${error}`);
-	}
+	function onScanFailure(error: any) {}
 
 	const showDialogClick = (indice: number) => {
 		lista[indice].valor = '';
@@ -75,7 +73,6 @@
 			method="POST"
 			use:enhance={({ form, data, action, cancel }) => {
 				return async ({ result, update }) => {
-					console.log('resu', result);
 					form.reset();
 				};
 			}}

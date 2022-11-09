@@ -1,18 +1,11 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
-import {
-	SECRET_NIUBIZ_MERCHANTID,
-	SECRET_NIUBIZ_CREDENTIALS,
-	SECRET_NIUBIZ_NIUBIZAPI,
-	SECRET_NIUBIZ_NIUBIZLIB
-} from '$env/static/private';
+import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUBIZAPI, SECRET_NIUBIZ_NIUBIZLIB } from '$env/static/private';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
-
-	console.log('indencnion', intencion);
 
 	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
 
@@ -21,9 +14,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	for (let entrada of intencion.entradas!) {
 		const entradaDb = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 		if (entradaDb && entrada.base && entrada.cantidad) {
-			const precioFinal = entradaDb.descuentos
-				? entradaDb.descuentos[0].descontado
-				: entradaDb.base;
+			const precioFinal = entradaDb.descuentos ? entradaDb.descuentos[0].online : entradaDb.online;
 			const precio = Number(precioFinal) * entrada.cantidad;
 
 			precioReal += precio;

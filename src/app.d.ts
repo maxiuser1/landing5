@@ -32,6 +32,8 @@ declare namespace App {
 		color?: string;
 		nombre?: string;
 		base: number;
+		online: number;
+		promotor: number;
 		tope?: number;
 		promo?: string;
 		numerado: boolean;
@@ -43,7 +45,8 @@ declare namespace App {
 	type Descuento = {
 		nombre: string;
 		descuento: number;
-		descontado: number;
+		online: number;
+		promotor: number;
 	};
 
 	type Entrada = {
@@ -103,7 +106,9 @@ declare namespace App {
 
 	type Sentado = {
 		base?: number;
+		online?: number;
 		final?: number;
+		promotor?: number;
 		descuento?: number;
 		tipo?: string;
 		nombre?: string;
@@ -129,6 +134,8 @@ declare namespace App {
 		zona?: {
 			tipo: string;
 			base: number;
+			online: number;
+			promotor: number;
 			nombre?: string;
 			numerado?: boolean;
 		};

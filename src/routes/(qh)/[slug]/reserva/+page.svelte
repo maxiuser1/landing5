@@ -21,10 +21,15 @@
 	let modal: any;
 
 	onMount(() => {
-		if ($compraData.entradas && $compraData.zona && $compraData.zona.base) {
-			totalEntradas = $compraData.entradas?.length;
-			totalPrecios = totalEntradas * $compraData.zona.base;
-		}
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas?.map((t) => {
+				totalEntradas++;
+				t.final = t.online;
+				totalPrecios = totalPrecios + Number(t.online);
+				return t;
+			})
+		}));
 
 		evento.precios?.forEach((t: App.Precio) => {
 			if (!t.numerado) {
@@ -34,8 +39,8 @@
 					nombre: t.nombre,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
-					base: t.base,
-					final: t.descuentos ? t.descuentos![0].descontado : t.base
+					base: t.online,
+					final: t.descuentos ? t.descuentos![0].online : t.online
 				});
 			}
 		});
@@ -75,9 +80,7 @@
 		dialog.showModal();
 		compraData.update((current) => ({
 			...current,
-			entradas: current.entradas
-				? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0))
-				: otrasEntradas.filter((t) => t.cantidad > 0)
+			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
 		}));
 
 		const resp = await fetch('/api/miturno', {
@@ -109,9 +112,8 @@
 </script>
 
 <svelte:head>
-	<script
-		type="text/javascript"
-		src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
+	<script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
+	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
 </svelte:head>
 
 <dialog bind:this={dialog} class="modal" id="modal">
@@ -150,7 +152,7 @@
 								<div>
 									<h6>
 										<strong>
-											S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+											S/ {entrada.online?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 										</strong>
 									</h6>
 								</div>
@@ -169,11 +171,7 @@
 								</div>
 							</div>
 							<div>
-								<Counter
-									precio={zona.base ? zona.base : 0}
-									count={zona.cantidad}
-									on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)}
-								/>
+								<Counter precio={zona.final ? zona.final : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
 							</div>
 						</div>
 					{/each}
@@ -185,7 +183,7 @@
 									<Descuento />
 								</div>
 								<div class="etiquetas">
-									<h5>Pre-Venta</h5>
+									<h5>Pre-Venta -15%</h5>
 								</div>
 							</div>
 							<div>
@@ -212,9 +210,7 @@
 						<div>
 							{#if oeDescuento > 0}
 								<h6 style="text-decoration: line-through;">
-									S/ {(totalPrecios + oePreciobase)
-										.toString()
-										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+									S/ {(totalPrecios + oePreciobase).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 								</h6>
 							{/if}
 

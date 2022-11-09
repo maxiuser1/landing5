@@ -21,6 +21,8 @@
 						tipo: $compraData.zona?.tipo,
 						nombre: $compraData.zona?.nombre,
 						base: $compraData.zona?.base,
+						promotor: $compraData.zona?.promotor,
+						online: $compraData.zona?.online,
 						numerado: $compraData.zona?.numerado,
 						fila: fila.id,
 						asiento: a.id,

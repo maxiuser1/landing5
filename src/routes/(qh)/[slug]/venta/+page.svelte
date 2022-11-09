@@ -2,6 +2,7 @@
 	import { applyAction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
+	import Entradas from '$lib/components/Evento/Entradas.svelte';
 	import { compraData } from '$lib/components/Evento/store';
 	import { zonas } from '$lib/components/Evento/zonas';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
@@ -27,14 +28,15 @@
 	let oeDescuento: number = 0;
 
 	onMount(() => {
-		$compraData.entradas?.forEach((entrada) => {
-			if (entrada.numerado) {
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas?.map((t) => {
 				totalEntradas++;
-				totalPrecios = totalPrecios + Number(entrada.base);
-			}
-		});
-
-		console.log('c', totalEntradas, totalPrecios);
+				t.final = t.promotor;
+				totalPrecios = totalPrecios + Number(t.promotor);
+				return t;
+			})
+		}));
 
 		evento.precios?.forEach((t: App.Precio) => {
 			if (!t.numerado) {
@@ -45,7 +47,7 @@
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
 					base: t.base,
-					final: t.descuentos ? t.descuentos![0].descontado : t.base,
+					final: t.descuentos ? t.descuentos![0].promotor : t.promotor,
 					tickets: t.tipo == $compraData.zona?.tipo ? [{ c: `${t.nombre}_0`, v: '' }] : []
 				});
 			}
@@ -109,7 +111,6 @@
 
 		const data = new FormData(this);
 		data.append('payload', JSON.stringify({ ...$compraData }));
-		console.log('data', data);
 		const response = await fetch(this.action, {
 			method: 'POST',
 			body: data
@@ -203,7 +204,7 @@
 									<div>
 										<h6>
 											<strong>
-												S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+												S/ {entrada.promotor?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 											</strong>
 										</h6>
 									</div>
@@ -234,7 +235,7 @@
 									</div>
 								</div>
 								<div>
-									<Counter precio={zona.base ? zona.base : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
+									<Counter precio={zona.final ? zona.final : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
 								</div>
 							</div>
 
