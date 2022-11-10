@@ -92,6 +92,12 @@
 </section>
 
 <style lang="scss">
+	.mapa {
+		margin-left: 20px;
+		@include breakpoint($md) {
+			margin-left: initial;
+		}
+	}
 	.asientos {
 		padding-top: 30px;
 		width: 99%;

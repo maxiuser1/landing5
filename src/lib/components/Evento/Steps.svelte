@@ -8,7 +8,7 @@
 
 <section class="container wizard">
 	<div class="mpasos">
-		{#if paso == 1}
+		{#if paso == 1 || paso == 2}
 			<Step numero="1" titulo="Entrada" subtitulo="Elige el tipo de entrada" seleccionado={true} />
 			<Step numero="2" titulo="" subtitulo="" seleccionado={false} />
 		{:else if paso == 4}
@@ -17,12 +17,7 @@
 	</div>
 
 	<div class="pasos">
-		<Step
-			numero="1"
-			titulo="Entrada"
-			subtitulo={$compraData.zona?.nombre ?? 'Elige el tipo de entrada'}
-			seleccionado={true}
-		/>
+		<Step numero="1" titulo="Entrada" subtitulo={$compraData.zona?.nombre ?? 'Elige el tipo de entrada'} seleccionado={true} />
 
 		<Step numero="2" titulo="Lugar" subtitulo="¿Vas solo o acompañado?" seleccionado={paso >= 2} />
 

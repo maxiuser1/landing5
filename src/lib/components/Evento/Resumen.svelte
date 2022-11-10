@@ -22,7 +22,7 @@
 
 	<br />
 	<div>
-		{evento.caratula?.detalles}
+		{@html evento.caratula?.detalles}
 	</div>
 
 	<img src={evento.caratula?.thumb} alt="logo" />

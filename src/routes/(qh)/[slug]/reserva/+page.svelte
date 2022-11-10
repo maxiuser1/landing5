@@ -7,7 +7,6 @@
 	import { Box, Descuento, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
 	export let data;
-	let dialog: any;
 	let posting = false;
 	let { evento } = data;
 
@@ -77,7 +76,6 @@
 
 	const continuarClick = async () => {
 		posting = true;
-		dialog.showModal();
 		compraData.update((current) => ({
 			...current,
 			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
@@ -90,7 +88,9 @@
 				'content-type': 'application/json'
 			}
 		});
+		console.log('respondio api');
 		const datapago = await resp.json();
+		console.log('a', datapago);
 		VisanetCheckout.configure({
 			sessiontoken: datapago.sessiontoken,
 			channel: 'web',
@@ -103,10 +103,10 @@
 			formbuttoncolor: '#000000',
 			action: `compra/${datapago.id}`,
 			complete: function (params: any) {
-				dialog.showModal();
+				posting = true;
 			}
 		});
-		dialog.close();
+
 		VisanetCheckout.open();
 	};
 </script>
@@ -116,11 +116,11 @@
 	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
 </svelte:head>
 
-<dialog bind:this={dialog} class="modal" id="modal">
-	<div class="content-modal">
+{#if posting}
+	<div class="progreso">
 		<Spinner size="60" color="#D30ED1" unit="px" />
 	</div>
-</dialog>
+{/if}
 
 <Breadcrumbs {evento} />
 <Steps paso={4} />
@@ -238,6 +238,12 @@
 </section>
 
 <style lang="scss">
+	.progreso {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;
