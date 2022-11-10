@@ -7,13 +7,7 @@
 
 <a href="/{evento.slug}">
 	<div class="card">
-		<div
-			class="imagen"
-			style="background:  url('{evento.banner.replaceAll(
-				'maxitech/image/upload',
-				'maxitech/image/upload/w_352,c_scale'
-			)}') no-repeat center top"
-		/>
+		<div class="imagen" style="background:  url('{evento.banner.replaceAll('maxitech/image/upload', 'maxitech/image/upload/w_352,c_scale')}') no-repeat center top" />
 		<div class="content">
 			<div class="info">
 				<div class="h2">
@@ -45,7 +39,7 @@
 	}
 	.card {
 		width: 342px;
-		background-color: #0f0f0f;
+		background-color: #310b6b;
 
 		border-radius: 2rem;
 

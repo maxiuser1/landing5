@@ -52,11 +52,7 @@
 	<div class="grande" style:width="{ancho}%" style:transform="translateX({translate}%)">
 		{#each eventos as evento}
 			<div class="slide-container" style="width: {mini}%">
-				<div
-					class="slide"
-					on:click={() => redirigir(evento.slug)}
-					style="background-image: url('{evento.banner}');background-size: contain; background-position: center top;"
-				>
+				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}');background-size: contain; background-position: center top;">
 					<div class="gradiente" />
 				</div>
 			</div>
@@ -87,7 +83,7 @@
 		}
 
 		.slide {
-			background-color: #181818;
+			background-color: #1f0045;
 			position: relative;
 			background-repeat: no-repeat;
 			min-height: 109px;
