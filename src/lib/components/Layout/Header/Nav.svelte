@@ -2,8 +2,6 @@
 	import { Close, Menu, User } from '$lib/icons';
 	import { createEventDispatcher } from 'svelte';
 	import { page } from '$app/stores';
-	import { dataset_dev } from 'svelte/internal';
-	import { user } from '$lib/stores/userstore';
 	import type { TooltipConifg } from '$lib/components/Shared/ui/Tooltip/types';
 	import Popover from '$lib/components/Shared/ui/Popover';
 	export let closable = false;
@@ -23,7 +21,7 @@
 <ul class="socials">
 	<li class="item">
 		{#if $page.data.user}
-			<div class="circle" use:Popover={config}> {$page.data.user.nombre[0]}</div>
+			<div class="circle" use:Popover={config}>{$page.data.user.nombre[0]}</div>
 		{:else}
 			<a class="ingresa" href="../login">
 				<User />
@@ -41,18 +39,18 @@
 </ul>
 
 <style lang="scss">
-	  .circle {
-		cursor:pointer;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        padding: 3px;
-        background: #5b025a;
-        color: white;
+	.circle {
+		cursor: pointer;
+		border-radius: 50%;
+		width: 24px;
+		height: 24px;
+		padding: 5px;
+		background: #5b025a;
+		color: white;
 		text-transform: uppercase;
-        text-align: center;
-        font-size: 16px;
-      }
+		text-align: center;
+		font-size: 12px;
+	}
 	.ingresa {
 		color: white;
 		display: flex;

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { User } from '$lib/icons';
 	import { slide } from 'svelte/transition';
 	import Logo from './Logo.svelte';
 	import Nav from './Nav.svelte';
@@ -22,10 +23,19 @@
 {#if visible}
 	<header class="categories" transition:slide>
 		<nav class="container">
-			<ul class="ingresa">
+			<ul class="ingresa menu">
 				<li>
-					<a class="anchormenu" href="./login"> Ingresa</a>
+					{#if $page.data.user}
+						<div class="circle"><User /> <span class="anchormenu">{$page.data.user.nombre}</span></div>
+					{:else}
+						<a class="anchormenu" href="./login"> Ingresa</a>
+					{/if}
 				</li>
+				{#if $page.data.user}
+					<li>
+						<a class="anchormenu" href="./logout"> Salir</a>
+					</li>
+				{/if}
 			</ul>
 			<ul class="menu">
 				<li class:active={$page.url.hash.includes('destacados')}>
@@ -108,12 +118,13 @@
 				margin-top: 32px;
 				display: flex;
 				flex-direction: column;
-				align-items: center;
+				align-items: flex-start;
 				gap: 32px;
 
 				@include breakpoint($md) {
 					margin-top: initial;
 					flex-direction: row;
+					align-items: center;
 				}
 
 				li {
