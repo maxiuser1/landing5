@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
-	import { zonas } from '$lib/components/Evento/zonas';
-	import { Dialog } from '$lib/components/Shared/ui/Dialog';
+	import { navigating, page } from '$app/stores';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
@@ -46,7 +45,12 @@
 
 		otrasEntradas = [...otrasEntradas];
 		calcular();
+		window.handleSuccess = someFunction;
 	});
+
+	const someFunction = (params : any) => {
+		alert('a');
+	}
 
 	const handleOtrasEntrada = (tipo: any, cantidad: any) => {
 		otrasEntradas = otrasEntradas.map((t) => {
@@ -97,17 +101,20 @@
 			merchantid: datapago.merchantid,
 			purchasenumber: datapago.purchasenumber,
 			amount: datapago.amount,
+			cardholdername: $page.data.user.nombre,
+			cardholderlastname : $page.data.user.apellido,
+			cardholderemail : $page.data.user.correo,
+			usertoken : $page.data.user.id,
 			expirationminutes: '20',
 			timeouturl: 'about:blank',
 			merchantlogo: 'https://www.quehay.pe/img/logo.png',
 			formbuttoncolor: '#000000',
 			action: `compra/${datapago.id}`,
-			complete: function (params: any) {
-				posting = true;
-			}
+			complete: handleSuccess
 		});
 
 		VisanetCheckout.open();
+		posting = false;
 	};
 </script>
 
@@ -116,14 +123,16 @@
 	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
 </svelte:head>
 
-{#if posting}
+
+<Breadcrumbs {evento} />
+<Steps paso={4} />
+
+{#if posting || $navigating}
 	<div class="progreso">
 		<Spinner size="60" color="#D30ED1" unit="px" />
 	</div>
 {/if}
 
-<Breadcrumbs {evento} />
-<Steps paso={4} />
 
 <section class="container">
 	<div class="principal">
@@ -224,8 +233,8 @@
 				</div>
 			{/if}
 			<div class="cta">
-				<button on:click={continuarClick} class="btn" disabled={posting}>
-					{#if posting}
+				<button on:click={continuarClick} class="btn" disabled={posting || $navigating}>
+					{#if posting || $navigating}
 						<Spinner size="20" color="#D30ED1" unit="px" />
 					{:else}
 						Continuar <Tarjeta />
