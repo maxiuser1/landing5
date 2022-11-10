@@ -215,7 +215,7 @@
 									<div class="tickets">
 										{#each entrada.tickets as ticket, j}
 											<div class="input-group">
-												<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" />
+												<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
 												<button on:click={() => showDialogClick(entrada, ticket)} type="button" class="btn"><Qrcode /></button>
 											</div>
 										{/each}
@@ -303,16 +303,16 @@
 				<br />
 				<div class="form-group">
 					<label for="nombres">Información del cliente</label>
-					<input type="text" name="nombres" class="form-control" placeholder="Nombres" />
+					<input type="text" name="nombres" class="form-control" placeholder="Nombres" required />
 				</div>
 				<div class="form-group">
-					<input type="text" name="dni" class="form-control" placeholder="DNI" />
+					<input type="text" name="dni" class="form-control" placeholder="DNI" required />
 				</div>
 				<div class="form-group">
-					<input type="email" name="email" class="form-control" placeholder="Correo" />
+					<input type="email" name="email" class="form-control" placeholder="Correo" required />
 				</div>
 				<div class="form-group">
-					<input type="text" name="formapago" class="form-control" placeholder="Forma de pago" />
+					<input type="text" name="formapago" class="form-control" placeholder="Forma de pago" required />
 				</div>
 				<div class="cta">
 					<button type="submit" class="btn" disabled={posting}>
