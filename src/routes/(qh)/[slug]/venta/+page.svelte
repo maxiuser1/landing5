@@ -156,7 +156,7 @@
 				if (t.tipo == zona.tipo && t.tickets) {
 					t.tickets = t.tickets?.map((p) => {
 						if (p.c == ticket.c) {
-							p.v = codeResult.code;
+							p.v = JSON.stringify(codeResult);
 						}
 						return p;
 					});
@@ -165,6 +165,7 @@
 			});
 
 			camara = false;
+			Quagga.stop();
 		});
 	};
 </script>
