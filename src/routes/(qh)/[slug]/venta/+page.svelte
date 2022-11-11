@@ -2,9 +2,7 @@
 	import { applyAction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
-	import Entradas from '$lib/components/Evento/Entradas.svelte';
 	import { compraData } from '$lib/components/Evento/store';
-	import { zonas } from '$lib/components/Evento/zonas';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Qrcode, Tarjeta, Ticket } from '$lib/icons';
 	import type { ActionResult } from '@sveltejs/kit';
@@ -131,7 +129,6 @@
 	function start() {}
 
 	async function stop() {
-		await html5Qrcode.stop();
 		scanning = false;
 		camara = false;
 	}
@@ -167,9 +164,7 @@
 			},
 			decoder: {
 				readers: [
-					'ean_reader',
-					'code_39_reader',
-					'code_128_reader',
+					'code_39_reader'
 				],
 			},
 			locator: {
@@ -187,7 +182,6 @@
 
 		Quagga.onDetected((codeResult: any) => {
 
-				alert(JSON.stringify(codeResult));
 					otrasEntradas = otrasEntradas.map((t) => {
 					if (t.tipo == zona.tipo && t.tickets) {
 						t.tickets = t.tickets?.map((p) => {
@@ -233,8 +227,8 @@
 
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	<reader bind:this={reader} id="reader" />
 	<button on:click={stop} type="button" class="btn">Cerrar</button>
+	<reader bind:this={reader} id="reader" />
 </div>
 
 <Breadcrumbs {evento} />
