@@ -142,41 +142,7 @@
 
 	const showDialogClick = (zona: any, ticket: any) => {
 
-		scanning = true;
-
-		
-		const defaultConfig = {
-    frequency: 5,
-    numOfWorkers: 2,
-    locate: true,
-    inputStream: {
-        name: "Live",
-        type: "LiveStream",
-        constraints: {
-            width: 800,
-            height: 600,
-            deviceId: 0,
-            facingMode: "environment",
-        },
-        area: {
-            top: "0%",
-            right: "0%",
-            left: "0%",
-            bottom: "0%",
-        },
-    },
-    decoder: {
-        readers: [
-            'ean_reader',
-            'code_39_reader',
-            'code_128_reader',
-        ],
-    },
-    locator: {
-        halfSample: true,
-        patchSize: "medium",
-    },
-};
+		camara = true;
 
 		Quagga.init({
 			frequency: 5,
@@ -233,6 +199,7 @@
 					}
 					return t;
 				});
+				camara = false;
 				Quagga.stop();
 		});
 
