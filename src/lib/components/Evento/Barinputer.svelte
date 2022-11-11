@@ -73,6 +73,7 @@
 	}
 
 	onDestroy(() => {
+		console.log('DESTROYED');
 		Quagga.stop();
 	});
 

@@ -122,7 +122,6 @@
 	};
 
 	function scanCanceld(event: any) {
-		console.log('cancel', event.detail);
 		ticketc = undefined;
 		zonaTipo = undefined;
 		camara = false;
