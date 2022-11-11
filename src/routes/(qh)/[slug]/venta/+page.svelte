@@ -137,7 +137,7 @@
 					constraints: {
 						width: 800,
 						height: 600,
-						deviceId: '0',
+						deviceId: 0,
 						facingMode: 'environment'
 					},
 					area: {
