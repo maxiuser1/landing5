@@ -150,8 +150,8 @@
 				type: "LiveStream",
 				target:   '#reader',
 				constraints: {
-					width: 380,
-					height: 400,
+					width: 800,
+					height: 600,
 					deviceId: 0,
 					facingMode: "environment",
 				},
