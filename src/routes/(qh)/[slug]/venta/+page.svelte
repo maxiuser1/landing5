@@ -325,12 +325,6 @@
 		gap: 4px;
 	}
 
-	#reader {
-		width: 100%;
-		min-height: 350px;
-		background-color: black;
-	}
-
 	.modal {
 		width: 100%;
 		height: 90vh;

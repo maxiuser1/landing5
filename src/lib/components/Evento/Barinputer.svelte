@@ -48,12 +48,11 @@
 	Quagga.onDetected(errorCheck);
 
 	function errorCheck(result: any) {
+		alert(JSON.stringify(result));
 		const err = getMedianOfCodeErrors(result.codeResult.decodedCodes);
 
 		if (err < 0.25) {
 			const code = result?.codeResult?.code;
-			Quagga.offDetected(errorCheck);
-			Quagga.stop();
 			dispatch('detected', code);
 		}
 	}
@@ -74,7 +73,6 @@
 	}
 
 	onDestroy(() => {
-		console.log('BAR DESTROY');
 		Quagga.stop();
 	});
 
@@ -86,3 +84,11 @@
 
 <button on:click={stop} type="button" class="btn">Cerrar</button>
 <div class="overlay__content" />
+
+<style>
+	.overlay__content {
+		width: 100%;
+		min-height: 350px;
+		background-color: black;
+	}
+</style>
