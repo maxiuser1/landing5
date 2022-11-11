@@ -192,7 +192,7 @@
 					if (t.tipo == zona.tipo && t.tickets) {
 						t.tickets = t.tickets?.map((p) => {
 							if (p.c == ticket.c) {
-								p.v = codeResult?.code;
+								p.v = codeResult?.codeResult?.code;
 							}
 							return p;
 						});
