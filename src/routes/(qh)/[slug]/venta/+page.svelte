@@ -219,21 +219,21 @@
       Quagga.start();
   });
 
-		Quagga.onDetected((t: any) => {
+		Quagga.onDetected((codeResult: any) => {
 
-				alert(JSON.stringify(t));
+				alert(JSON.stringify(codeResult));
 					otrasEntradas = otrasEntradas.map((t) => {
 					if (t.tipo == zona.tipo && t.tickets) {
 						t.tickets = t.tickets?.map((p) => {
 							if (p.c == ticket.c) {
-								p.v = JSON.stringify(t);
+								p.v = codeResult?.code;
 							}
 							return p;
 						});
 					}
 					return t;
 				});
-
+				Quagga.stop();
 		});
 
 		// camara = true;
@@ -263,15 +263,11 @@
 	};
 </script>
 
-<reader bind:this={reader} id="reader" />
+
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	
-	{#if scanning}
-		<button on:click={stop} type="button" class="btn">Cerrar</button>
-	{:else}
-		<button on:click={start} type="button" class="btn">Escanear</button>
-	{/if}
+	<reader bind:this={reader} id="reader" />
+	<button on:click={stop} type="button" class="btn">Cerrar</button>
 </div>
 
 <Breadcrumbs {evento} />
