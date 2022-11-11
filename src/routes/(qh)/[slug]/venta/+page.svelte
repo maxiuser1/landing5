@@ -129,19 +129,18 @@
 	}
 
 	function scanned(event: any) {
-		if (zonaTipo && ticketc) {
-			otrasEntradas = otrasEntradas.map((t) => {
-				if (t.tipo == zonaTipo && t.tickets) {
-					t.tickets = t.tickets?.map((p) => {
-						if (p.c == ticketc) {
-							p.v = event.detail.code;
-						}
-						return p;
-					});
-				}
-				return t;
-			});
-		}
+		alert(JSON.stringify(event.detail));
+		otrasEntradas = otrasEntradas.map((t) => {
+			if (t.tipo == zonaTipo && t.tickets) {
+				t.tickets = t.tickets?.map((p) => {
+					if (p.c == ticketc) {
+						p.v = event.detail.text;
+					}
+					return p;
+				});
+			}
+			return t;
+		});
 	}
 </script>
 
