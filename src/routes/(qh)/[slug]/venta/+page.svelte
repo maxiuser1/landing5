@@ -135,10 +135,19 @@
 	const showDialogClick = (zona: any, ticket: any) => {
 		camara = true;
 		Quagga.init({
+			frequency: 5,
+			numOfWorkers: 2,
+			locate: true,
 			inputStream : {
-			name : "Live",
-			type : "LiveStream",
-			target:   '#reader'  // Or '#yourElement' (optional)
+				name : "Live",
+				type : "LiveStream",
+				constraints: {
+					width: 640,
+					height: 480,
+					facingMode: "environment",
+					deviceId: "7832475934759384534"
+				},
+				target:   '#reader'  // Or '#yourElement' (optional)
 			},
 			decoder : {
 				readers : ["code_39_reader"]
