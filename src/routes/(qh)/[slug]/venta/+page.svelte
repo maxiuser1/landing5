@@ -134,7 +134,7 @@
 				if (t.tipo == zonaTipo && t.tickets) {
 					t.tickets = t.tickets?.map((p) => {
 						if (p.c == ticketc) {
-							p.v = event;
+							p.v = JSON.stringify(event);
 						}
 						return p;
 					});
