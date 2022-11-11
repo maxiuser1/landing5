@@ -17,7 +17,7 @@
 	let scanning = false;
 	let camara = false;
 
-	let reader : any;
+	let reader: any;
 
 	let totalEntradas: number = 0;
 	let totalPrecios: number = 0;
@@ -87,23 +87,9 @@
 		oeDescuento = oePreciobase - oePrecio;
 	};
 
-	const continuarClick = async () => {
-		compraData.update((current) => ({
-			...current,
-			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
-		}));
-
-		const resp = await fetch('/api/miturno', {
-			method: 'POST',
-			body: JSON.stringify({ ...$compraData }),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		const datapago = await resp.json();
-	};
-
 	async function handleSubmit(event: any) {
+		posting = true;
+
 		compraData.update((current) => ({
 			...current,
 			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
@@ -111,7 +97,6 @@
 
 		const data = new FormData(this);
 		data.append('payload', JSON.stringify({ ...$compraData }));
-		console.log('data', data);
 		const response = await fetch(this.action, {
 			method: 'POST',
 			body: data
@@ -138,63 +123,62 @@
 	}
 
 	const showDialogClick = (zona: any, ticket: any) => {
-
 		camara = true;
 
-		Quagga.init({
-			frequency: 5,
-			numOfWorkers: 2,
-			locate: true,
-			inputStream: {
-				name: "Live",
-				type: "LiveStream",
-				target:   '#reader',
-				constraints: {
-					width: 800,
-					height: 600,
-					deviceId: 0,
-					facingMode: "environment",
+		Quagga.init(
+			{
+				frequency: 5,
+				numOfWorkers: 2,
+				locate: true,
+				inputStream: {
+					name: 'Live',
+					type: 'LiveStream',
+					target: '#reader',
+					constraints: {
+						width: 800,
+						height: 600,
+						deviceId: 0,
+						facingMode: 'environment'
+					},
+					area: {
+						top: '0%',
+						right: '0%',
+						left: '0%',
+						bottom: '0%'
+					}
 				},
-				area: {
-					top: "0%",
-					right: "0%",
-					left: "0%",
-					bottom: "0%",
+				decoder: {
+					readers: ['code_39_reader']
 				},
+				locator: {
+					halfSample: true,
+					patchSize: 'medium'
+				}
 			},
-			decoder: {
-				readers: [
-					'code_39_reader'
-				],
-			},
-			locator: {
-				halfSample: true,
-				patchSize: "medium",
-			},
-		}, function(err) {
-      if (err) {
-          console.log(err);
-          return
-      }
-      console.log("Initialization finished. Ready to start");
-      Quagga.start();
-  });
+			function (err) {
+				if (err) {
+					console.log(err);
+					return;
+				}
+				console.log('Initialization finished. Ready to start');
+				Quagga.start();
+			}
+		);
 
 		Quagga.onDetected((codeResult: any) => {
-
-					otrasEntradas = otrasEntradas.map((t) => {
-					if (t.tipo == zona.tipo && t.tickets) {
-						t.tickets = t.tickets?.map((p) => {
-							if (p.c == ticket.c) {
-								p.v = codeResult?.codeResult?.code;
-							}
-							return p;
-						});
-					}
-					return t;
-				});
-				camara = false;
-				Quagga.stop();
+			otrasEntradas = otrasEntradas.map((t) => {
+				if (t.tipo == zona.tipo && t.tickets) {
+					t.tickets = t.tickets?.map((p) => {
+						if (p.c == ticket.c) {
+							p.v = codeResult?.codeResult?.code;
+						}
+						return p;
+					});
+				}
+				return t;
+			});
+			camara = false;
+			Quagga.stop();
 		});
 
 		// camara = true;
@@ -220,11 +204,8 @@
 		// 	},
 		// 	onScanFailure
 		// );
-		
 	};
 </script>
-
-
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
 	<button on:click={stop} type="button" class="btn">Cerrar</button>
@@ -300,7 +281,7 @@
 								<div class="tickets">
 									{#each zona.tickets as ticket, j}
 										<div class="input-group">
-											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" />
+											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
 											<button on:click={() => showDialogClick(zona, ticket)} type="button" class="btn"><Qrcode /></button>
 										</div>
 									{/each}
@@ -359,16 +340,27 @@
 				<br />
 				<div class="form-group">
 					<label for="nombres">Información del cliente</label>
-					<input type="text" name="nombres" class="form-control" placeholder="Nombres" required />
+					<input type="text" name="nombre" class="form-control" placeholder="Nombre" required />
+				</div>
+				<div class="form-group">
+					<input type="text" name="apellido" class="form-control" placeholder="Apellido" required />
 				</div>
 				<div class="form-group">
 					<input type="text" name="dni" class="form-control" placeholder="DNI" required />
 				</div>
 				<div class="form-group">
-					<input type="email" name="email" class="form-control" placeholder="Correo" required />
+					<input type="email" name="correo" class="form-control" placeholder="Correo" required />
 				</div>
 				<div class="form-group">
-					<input type="text" name="formapago" class="form-control" placeholder="Forma de pago" required />
+					<select name="formaPago" class="form-control" required>
+						<option value="">Forma pago</option>
+						<option value="Efectivo">Efectivo</option>
+						<option value="Debido">Tarjeta débito</option>
+						<option value="Credito">Tarjeta crédito</option>
+						<option value="Foranea">Tarjeta fornánea</option>
+						<option value="Plin">Plin</option>
+						<option value="Yape">Yape</option>
+					</select>
 				</div>
 				<div class="cta">
 					<button type="submit" class="btn" disabled={posting}>

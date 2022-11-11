@@ -42,6 +42,8 @@ declare namespace App {
 		descuentos?: Array<Descuento>;
 	};
 
+	type TipoCanal = "WEB" | "PROMOTOR";
+
 	type Descuento = {
 		nombre: string;
 		descuento: number;
@@ -50,21 +52,39 @@ declare namespace App {
 	};
 
 	type Entrada = {
-		id: string;
-		entradas: Array<Sentado>;
+		tenant:string;
+		slug?:string;
+		id?: string;
+		entradas?: Array<Sentado>;
+		fecha:Date;
 		evento: {
-			nombre: string;
-			lugar: string;
-			fecha: Date;
-			artista: string;
+			id?: string;
+			slug?: string;
+			artista?: string;
+			nombre?: string;
+			fecha?: string;
+			lugar?: string;
 		};
 		qrcode?: string;
-		user: User;
+		user?: User;
 		monto: number;
+		cliente?:{
+			id:string;
+			nombre:string;
+			apellido:string;
+			correo:string;
+			dni:string;
+		},
+		montoBase?:number;
+		canal:TipoCanal;
+		formaPago?:string;
+		tipoDscto?:string;
+		codigoDescto?:string;
 		numero: number;
 		pago?: {
 			dataMap?: {
 				AUTHORIZATION_CODE: string;
+				TRACE_NUMBER: string;
 				ACTION_DESCRIPTION: string;
 				CARD: string;
 				TRANSACTION_DATE: string;

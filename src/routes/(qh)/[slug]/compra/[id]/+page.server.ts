@@ -44,26 +44,29 @@ export const actions = {
 
 			await locals.eventosRepo.confirmarEntrada(compra, evento);
 
-			const entrada = {
+			const entrada : App.Entrada= {
 				tenant: 'quehay',
 				evento: compra.evento,
 				slug: compra.evento.slug,
 				entradas: compra.entradas,
+				canal:"WEB",
+				formaPago:"Niubiz",
 				pago: exito,
 				monto: turno.monto,
 				numero: turno.compra,
 				id: turno.id,
-				user: {
+				cliente: {
 					nombre: locals.user.nombre,
 					correo: locals.user.correo,
 					apellido: locals.user.apellido,
 					dni: locals.user.dni,
 					id: locals.user.id
 				},
-				turno: turno.id,
 				fecha: new Date()
 			};
+
 			await locals.eventosRepo.guardarEntrada(entrada);
+			
 		} catch (err: any) {
 			const fracaso = err.response.data;
 			return {

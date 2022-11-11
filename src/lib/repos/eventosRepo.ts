@@ -111,7 +111,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const purchasenumber = Math.floor(new Date().getTime() / 10);
 
-		const entrada = {
+		const entrada : App.Entrada = {
 			tenant: 'quehay',
 			evento: compra.evento,
 			slug: compra.evento.slug,
@@ -120,7 +120,9 @@ export class EventosRepo implements App.EventosRepoInterface {
 			numero: purchasenumber,
 			user: vendedor,
 			cliente: compra.cliente,
-			turno: ''
+			formaPago: compra.formaPago,
+			fecha: new Date(),
+			canal: "PROMOTOR"
 		};
 
 		const { resource: createdItem } = await containerEntradas.items.create(entrada);

@@ -5,7 +5,7 @@ import { MailService } from '@sendgrid/mail';
 import type { Action, Actions } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }) => {
-	let ticket = await locals.eventosRepo.getEntrada(params.id);
+	let ticket : App.Entrada = await locals.eventosRepo.getEntrada(params.id);
 
 	var opts: any = {
 		errorCorrectionLevel: 'H',
