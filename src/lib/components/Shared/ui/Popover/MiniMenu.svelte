@@ -1,13 +1,10 @@
-<script>
-	function handleClick() {
-		alert('no more alerts');
-	}
+<script lang="ts">
 </script>
 
 <div class="menu">
 	<ul>
 		<li>
-			<a href="/logout"> Salir </a>
+			<a href="./logout"> Salir </a>
 		</li>
 	</ul>
 </div>
