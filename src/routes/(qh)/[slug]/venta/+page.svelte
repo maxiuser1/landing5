@@ -164,7 +164,22 @@
 			Quagga.start();
 		});
 
-		Quagga.onDetected((t: any) => console.log('t',t));
+		Quagga.onDetected((t: any) => {
+
+				alert(JSON.stringify(t));
+					otrasEntradas = otrasEntradas.map((t) => {
+					if (t.tipo == zona.tipo && t.tickets) {
+						t.tickets = t.tickets?.map((p) => {
+							if (p.c == ticket.c) {
+								p.v = JSON.stringify(t);
+							}
+							return p;
+						});
+					}
+					return t;
+				});
+
+		});
 
 		// camara = true;
 		// html5Qrcode = new Html5Qrcode('reader');
