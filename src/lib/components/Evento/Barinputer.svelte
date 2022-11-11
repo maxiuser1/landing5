@@ -48,7 +48,9 @@
 	Quagga.onDetected(errorCheck);
 
 	function errorCheck(result: any) {
-		dispatch('detected', result?.codeResult?.code);
+		if (result && result.codeResult && result.codeResult.code) {
+			dispatch('detected', result?.codeResult?.code);
+		}
 		// alert(JSON.stringify(result));
 		// const err = getMedianOfCodeErrors(result.codeResult.decodedCodes);
 		// if (err < 0.25) {
