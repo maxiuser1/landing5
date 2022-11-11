@@ -137,7 +137,9 @@
 		Quagga.init({
 			frequency: 5,
 			numOfWorkers: 2,
-			locate: true,
+			locator:{
+				patchSize: "medium"
+			},
 			inputStream : {
 				name : "Live",
 				type : "LiveStream",
@@ -145,13 +147,13 @@
 					width: 640,
 					height: 480,
 					facingMode: "environment",
-					deviceId: "7832475934759384534"
 				},
 				target:   '#reader'  // Or '#yourElement' (optional)
 			},
 			decoder : {
-				readers : ["code_39_reader"]
-			}
+				readers : ["code_39_reader","code_39_vin_reader","code_128_reader "]
+			},
+			multiple: false
 		}, function(err) {
 			if (err) {
 				console.log(err);
