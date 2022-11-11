@@ -48,13 +48,13 @@
 	Quagga.onDetected(errorCheck);
 
 	function errorCheck(result: any) {
-		alert(JSON.stringify(result));
-		const err = getMedianOfCodeErrors(result.codeResult.decodedCodes);
-
-		if (err < 0.25) {
-			const code = result?.codeResult?.code;
-			dispatch('detected', code);
-		}
+		dispatch('detected', result?.codeResult?.code);
+		// alert(JSON.stringify(result));
+		// const err = getMedianOfCodeErrors(result.codeResult.decodedCodes);
+		// if (err < 0.25) {
+		// 	const code = result?.codeResult?.code;
+		// 	dispatch('detected', code);
+		// }
 	}
 
 	function getMedianOfCodeErrors(decodedCodes: any) {
