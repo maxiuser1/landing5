@@ -77,7 +77,6 @@
 	});
 
 	function stop() {
-		Quagga.offDetected(errorCheck);
 		Quagga.stop();
 		dispatch('closed', { text: 'aa' });
 	}
