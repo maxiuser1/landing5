@@ -78,7 +78,7 @@
 
 	function stop() {
 		Quagga.stop();
-		dispatch('closed');
+		dispatch('closed', { text: 'aa' });
 	}
 </script>
 

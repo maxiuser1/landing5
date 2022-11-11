@@ -121,14 +121,15 @@
 		ticketc = ticket.c;
 	};
 
-	function scanCanceld() {
+	function scanCanceld(event: any) {
+		console.log('cancel', event.detail);
 		ticketc = undefined;
 		zonaTipo = undefined;
 		camara = false;
 	}
 
 	function scanned(event: any) {
-		alert('jpse ' + JSON.stringify(event));
+		alert('jpse ' + JSON.stringify(event.detail));
 		if (zonaTipo && ticketc) {
 			otrasEntradas = otrasEntradas.map((t) => {
 				if (t.tipo == zonaTipo && t.tickets) {
