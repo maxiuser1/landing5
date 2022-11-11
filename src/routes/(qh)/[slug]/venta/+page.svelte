@@ -129,13 +129,12 @@
 	}
 
 	function scanned(event: any) {
-		alert('jpse ' + JSON.stringify(event.detail));
 		if (zonaTipo && ticketc) {
 			otrasEntradas = otrasEntradas.map((t) => {
 				if (t.tipo == zonaTipo && t.tickets) {
 					t.tickets = t.tickets?.map((p) => {
 						if (p.c == ticketc) {
-							p.v = event;
+							p.v = event.detail.code;
 						}
 						return p;
 					});
