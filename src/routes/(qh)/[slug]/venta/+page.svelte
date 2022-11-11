@@ -128,7 +128,7 @@
 	}
 
 	function scanned(event: any) {
-		alert('jpse ' + event);
+		alert('jpse ' + JSON.stringify(event));
 		if (zonaTipo && ticketc) {
 			otrasEntradas = otrasEntradas.map((t) => {
 				if (t.tipo == zonaTipo && t.tickets) {
