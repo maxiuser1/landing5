@@ -141,7 +141,7 @@
 			target:   '#reader'  // Or '#yourElement' (optional)
 			},
 			decoder : {
-			readers : ["code_39_reader"]
+				readers : ["code_39_reader"]
 			}
 		}, function(err) {
 			if (err) {
@@ -152,6 +152,7 @@
 			Quagga.start();
 		});
 		Quagga.onDetected((codeResult: any) => {
+			alert(JSON.stringify(codeResult));
 			otrasEntradas = otrasEntradas.map((t) => {
 				if (t.tipo == zona.tipo && t.tickets) {
 					t.tickets = t.tickets?.map((p) => {
