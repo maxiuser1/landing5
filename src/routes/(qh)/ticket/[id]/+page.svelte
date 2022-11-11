@@ -40,9 +40,12 @@
 
 <section class="container summary">
 	<div class="tarjeta">
-		<div class="qrcode">
-			<img src={ticket.qrcode} alt="qrcode" />
-		</div>
+		{#if ticket.canal === 'WEB'}
+			<div class="qrcode">
+				<img src={ticket.qrcode} alt="qrcode" />
+			</div>
+		{/if}
+
 		<div class="headings">
 			<h2>{ticket.evento.nombre}</h2>
 			<h3>{ticket.evento.artista}</h3>
@@ -62,7 +65,7 @@
 			</div>
 		</div>
 		<div class="subheadings">
-			<p>{ticket.cliente?.nombre}</p>
+			<p>{ticket.cliente?.nombre} {ticket.cliente?.apellido}</p>
 			<p>{ticket.cliente?.correo}</p>
 		</div>
 

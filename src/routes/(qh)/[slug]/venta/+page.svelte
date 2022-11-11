@@ -357,7 +357,7 @@
 						<option value="Efectivo">Efectivo</option>
 						<option value="Debido">Tarjeta débito</option>
 						<option value="Credito">Tarjeta crédito</option>
-						<option value="Foranea">Tarjeta fornánea</option>
+						<option value="Foranea">Tarjeta foránea</option>
 						<option value="Plin">Plin</option>
 						<option value="Yape">Yape</option>
 					</select>
