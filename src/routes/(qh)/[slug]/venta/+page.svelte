@@ -164,7 +164,7 @@
 			Quagga.start();
 		});
 
-		Quagga.onDetected((t: any) => alert(t));
+		Quagga.onDetected((t: any) => console.log('t',t));
 
 		// camara = true;
 		// html5Qrcode = new Html5Qrcode('reader');
