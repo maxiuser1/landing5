@@ -48,9 +48,9 @@
 		window.handleSuccess = someFunction;
 	});
 
-	const someFunction = (params : any) => {
+	const someFunction = (params: any) => {
 		alert('a');
-	}
+	};
 
 	const handleOtrasEntrada = (tipo: any, cantidad: any) => {
 		otrasEntradas = otrasEntradas.map((t) => {
@@ -102,9 +102,9 @@
 			purchasenumber: datapago.purchasenumber,
 			amount: datapago.amount,
 			cardholdername: $page.data.user.nombre,
-			cardholderlastname : $page.data.user.apellido,
-			cardholderemail : $page.data.user.correo,
-			usertoken : $page.data.user.id,
+			cardholderlastname: $page.data.user.apellido,
+			cardholderemail: $page.data.user.correo,
+			usertoken: $page.data.user.id,
 			expirationminutes: '20',
 			timeouturl: 'about:blank',
 			merchantlogo: 'https://www.quehay.pe/img/logo.png',
@@ -119,10 +119,9 @@
 </script>
 
 <svelte:head>
-	<script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
-	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
+	<!-- <script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script> -->
+	<script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script>
 </svelte:head>
-
 
 <Breadcrumbs {evento} />
 <Steps paso={4} />
@@ -132,7 +131,6 @@
 		<Spinner size="60" color="#D30ED1" unit="px" />
 	</div>
 {/if}
-
 
 <section class="container">
 	<div class="principal">

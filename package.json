@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@ericblade/quagga2": "^1.7.7",
 		"@prismicio/client": "^6.7.1",
 		"@prismicio/helpers": "^2.3.5",
 		"@sendgrid/mail": "^7.7.0",
@@ -37,7 +38,6 @@
 		"dotenv": "^16.0.2",
 		"firebase": "^9.10.0",
 		"qrcode": "^1.5.1",
-		"quagga": "^0.12.1",
 		"tsparticles": "^2.3.4",
 		"zod": "^3.19.1"
 	}

@@ -6,7 +6,7 @@
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Qrcode, Tarjeta, Ticket } from '$lib/icons';
 	import type { ActionResult } from '@sveltejs/kit';
-	import Quagga from 'quagga';
+	import Quagga from '@ericblade/quagga2';
 
 	import { onMount } from 'svelte';
 
@@ -137,7 +137,7 @@
 					constraints: {
 						width: 800,
 						height: 600,
-						deviceId: 0,
+						deviceId: '0',
 						facingMode: 'environment'
 					},
 					area: {
