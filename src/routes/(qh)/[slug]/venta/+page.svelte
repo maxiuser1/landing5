@@ -128,7 +128,7 @@
 	}
 
 	function scanned(event: any) {
-		alert(JSON.stringify(event));
+		alert('jpse', JSON.stringify(event));
 		if (zonaTipo && ticketc) {
 			otrasEntradas = otrasEntradas.map((t) => {
 				if (t.tipo == zonaTipo && t.tickets) {
@@ -146,11 +146,9 @@
 </script>
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc != undefined}
-		{#key ticketc}
-			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
-		{/key}
-	{/if}
+	{#key ticketc}
+		<Barinputer on:detected={scanned} on:closed={scanCanceld} />
+	{/key}
 </div>
 
 <Breadcrumbs {evento} />
