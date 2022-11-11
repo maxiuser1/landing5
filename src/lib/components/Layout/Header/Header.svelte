@@ -33,13 +33,7 @@
 				</li>
 				{#if $page.data.user}
 					<li>
-						<a class="anchormenu" href="../logout"> Salir 1</a>
-					</li>
-					<li>
-						<a class="anchormenu" href="./logout"> Salir 2</a>
-					</li>
-					<li>
-						<a class="anchormenu" href="logout"> Salir 3</a>
+						<a class="anchormenu" href="../../logout"> Salir</a>
 					</li>
 				{/if}
 			</ul>
