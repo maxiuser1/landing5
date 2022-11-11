@@ -146,7 +146,7 @@
 </script>
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc}
+	{#if ticketc != undefined}
 		{#key ticketc}
 			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
 		{/key}
