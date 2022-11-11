@@ -145,9 +145,7 @@
 		scanning = true;
 
 		
-		
-
-		Quagga.init({
+		const defaultConfig = {
     frequency: 5,
     numOfWorkers: 2,
     locate: true,
@@ -178,7 +176,12 @@
         halfSample: true,
         patchSize: "medium",
     },
-});
+};
+
+		Quagga.config(defaultConfig).fromSource({
+			...defaultConfig.inputStream,
+			target: '#reader'
+		})
 
 		Quagga.onDetected((t: any) => {
 
