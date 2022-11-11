@@ -15,11 +15,7 @@
 	export let data;
 	let { evento } = data;
 	let posting = false;
-
-	let scanning = false;
 	let camara = false;
-
-	let reader : any;
 
 	let totalEntradas: number = 0;
 	let totalPrecios: number = 0;
@@ -131,21 +127,13 @@
 	function start() {}
 
 	async function stop() {
-		await html5Qrcode.stop();
-		scanning = false;
 		camara = false;
+		Quagga.stop();
 	}
 
-	function onScanFailure(error: any) {
-		console.warn(`Code scan error = ${error}`);
-	}
 
 	const showDialogClick = (zona: any, ticket: any) => {
-
-		scanning = true;
-
-		
-
+		camara = true;
 		Quagga.init({
 			inputStream : {
 			name : "Live",
@@ -163,60 +151,29 @@
 			console.log("Initialization finished. Ready to start");
 			Quagga.start();
 		});
+		Quagga.onDetected((codeResult: any) => {
+			otrasEntradas = otrasEntradas.map((t) => {
+				if (t.tipo == zona.tipo && t.tickets) {
+					t.tickets = t.tickets?.map((p) => {
+						if (p.c == ticket.c) {
+							p.v = codeResult.code;
+						}
+						return p;
+					});
+				}
+				return t;
+			});
 
-		Quagga.onDetected((t: any) => {
-
-				alert(JSON.stringify(t));
-					otrasEntradas = otrasEntradas.map((t) => {
-					if (t.tipo == zona.tipo && t.tickets) {
-						t.tickets = t.tickets?.map((p) => {
-							if (p.c == ticket.c) {
-								p.v = JSON.stringify(t);
-							}
-							return p;
-						});
-					}
-					return t;
-				});
-
+			camara = false;
 		});
-
-		// camara = true;
-		// html5Qrcode = new Html5Qrcode('reader');
-		// html5Qrcode.start(
-		// 	{ facingMode: 'environment' },
-		// 	{
-		// 		fps: 10,
-		// 		qrbox: { width: 280, height: 60 }
-		// 	},
-		// 	(decodedText: any, decodedResult: any) => {
-		// 		otrasEntradas = otrasEntradas.map((t) => {
-		// 			if (t.tipo == zona.tipo && t.tickets) {
-		// 				t.tickets = t.tickets?.map((p) => {
-		// 					if (p.c == ticket.c) {
-		// 						p.v = decodedText;
-		// 					}
-		// 					return p;
-		// 				});
-		// 			}
-		// 			return t;
-		// 		});
-		// 	},
-		// 	onScanFailure
-		// );
-		
 	};
 </script>
 
-<reader bind:this={reader} id="reader" />
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	
-	{#if scanning}
+	<div  id="reader" />
 		<button on:click={stop} type="button" class="btn">Cerrar</button>
-	{:else}
-		<button on:click={start} type="button" class="btn">Escanear</button>
-	{/if}
+	
 </div>
 
 <Breadcrumbs {evento} />
