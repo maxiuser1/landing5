@@ -136,7 +136,7 @@
 	<div class="principal">
 		<div class="prota">
 			<div class="titulos">
-				<h4>Resumen</h4>
+				<h4>Resumen.</h4>
 				<p>Lugar reservado</p>
 			</div>
 			{#if $compraData.zona && $compraData.zona.base}
