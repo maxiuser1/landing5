@@ -1,84 +1,88 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+	import Quagga from '@ericblade/quagga2';
+	const dispatch = createEventDispatcher();
 
-	let scanning = false;
-	let camara = false;
-	export let html5Qrcode: any;
-	export let value: string | null | undefined = null;
-	export let name: string | null | undefined = null;
-
-	function start() {
-		html5Qrcode.start(
-			{ facingMode: 'environment' },
+	onMount(async () => {
+		console.log('BAR ONOMUNT');
+		Quagga.init(
 			{
-				fps: 10,
-				qrbox: { width: 250, height: 250 }
+				frequency: 5,
+				numOfWorkers: 2,
+				locate: true,
+				inputStream: {
+					name: 'Live',
+					type: 'LiveStream',
+					target: '.overlay__content',
+					constraints: {
+						width: 800,
+						height: 600,
+						deviceId: 0,
+						facingMode: 'environment'
+					},
+					area: {
+						top: '0%',
+						right: '0%',
+						left: '0%',
+						bottom: '0%'
+					}
+				},
+				decoder: {
+					readers: ['code_39_reader']
+				},
+				locator: {
+					halfSample: true,
+					patchSize: 'medium'
+				}
 			},
-			onScanSuccess,
-			onScanFailure
+			function (err) {
+				if (err) {
+					console.log(err);
+					return;
+				}
+				Quagga.start();
+			}
 		);
-		scanning = true;
-	}
+	});
 
-	async function stop() {
-		if (scanning) {
-			await html5Qrcode.stop();
-			scanning = false;
+	Quagga.onDetected(errorCheck);
+
+	function errorCheck(result: any) {
+		const err = getMedianOfCodeErrors(result.codeResult.decodedCodes);
+
+		if (err < 0.25) {
+			const code = result?.codeResult?.code;
+			Quagga.offDetected(errorCheck);
+			Quagga.stop();
+			dispatch('detected', code);
 		}
-		camara = false;
 	}
 
-	function onScanSuccess(decodedText, decodedResult) {
-		value = decodedText;
+	function getMedianOfCodeErrors(decodedCodes: any) {
+		const errors = decodedCodes.filter((x: any) => x.error !== undefined).map((x) => x.error);
+		const medianOfErrors = getMedian(errors);
+		return medianOfErrors;
 	}
 
-	function onScanFailure(error) {}
+	function getMedian(arr: any) {
+		arr.sort((a: any, b: any) => a - b);
+		const half = Math.floor(arr.length / 2);
+		if (arr.length % 2 === 1) {
+			return arr[half];
+		}
+		return (arr[half - 1] + arr[half]) / 2;
+	}
 
-	const showDialogClick = () => {
-		camara = true;
-	};
+	onDestroy(() => {
+		console.log('BAR DESTROY');
+		Quagga.stop();
+	});
+
+	function stop() {
+		Quagga.stop();
+		dispatch('closed');
+	}
 </script>
 
-<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	<reader id="reader" />
-	<div class="botones">
-		<button on:click={start} type="button" class="btn">Escanear</button>
-		<button on:click={stop} type="button" class="btn">Cancelar</button>
-	</div>
-</div>
-
-<div>
-	<input type="text" bind:value {name} on:change on:blur />
-	<button on:click={() => showDialogClick()} type="button">S</button>
-</div>
-
-<style>
-	.botones {
-		display: flex;
-		gap: 20px;
-	}
-
-	.modal {
-		align-items: center;
-		background: #4448;
-		bottom: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-		height: 90vh;
-		justify-content: center;
-		left: 0;
-		position: fixed;
-		right: 0;
-		top: 0;
-		width: 100%;
-		z-index: 9999;
-	}
-
-	#reader {
-		width: 100%;
-		min-height: 70vh;
-		background-color: black;
-	}
-</style>
+<button on:click={stop} type="button" class="btn">Cerrar</button>
+<div class="overlay__content" />

@@ -6,9 +6,9 @@
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Qrcode, Tarjeta, Ticket } from '$lib/icons';
 	import type { ActionResult } from '@sveltejs/kit';
-	import Quagga from '@ericblade/quagga2';
 
-	import { onMount } from 'svelte';
+	import { onMount, SvelteComponent } from 'svelte';
+	import Barinputer from '$lib/components/Evento/Barinputer.svelte';
 
 	export let data;
 	let { evento } = data;
@@ -17,7 +17,11 @@
 	let scanning = false;
 	let camara = false;
 
+	let zonaTipo: string | undefined;
+	let ticketc: string | undefined;
+
 	let reader: any;
+	let barcodeinputter: SvelteComponent;
 
 	let totalEntradas: number = 0;
 	let totalPrecios: number = 0;
@@ -111,105 +115,42 @@
 		applyAction(result);
 	}
 
-	function start() {}
+	const showDialogClick = (zona: any, ticket: any) => {
+		camara = true;
+		zonaTipo = zona.tipo;
+		ticketc = ticket.c;
+	};
 
-	async function stop() {
-		scanning = false;
+	function scanCanceld() {
+		ticketc = undefined;
+		zonaTipo = undefined;
 		camara = false;
 	}
 
-	function onScanFailure(error: any) {
-		console.warn(`Code scan error = ${error}`);
-	}
-
-	const showDialogClick = (zona: any, ticket: any) => {
-		camara = true;
-
-		Quagga.init(
-			{
-				frequency: 5,
-				numOfWorkers: 2,
-				locate: true,
-				inputStream: {
-					name: 'Live',
-					type: 'LiveStream',
-					target: '#reader',
-					constraints: {
-						width: 800,
-						height: 600,
-						deviceId: 0,
-						facingMode: 'environment'
-					},
-					area: {
-						top: '0%',
-						right: '0%',
-						left: '0%',
-						bottom: '0%'
+	function scanned(event: any) {
+		alert(JSON.stringify(event));
+		if (zonaTipo && ticketc) {
+		}
+		otrasEntradas = otrasEntradas.map((t) => {
+			if (t.tipo == zonaTipo && t.tickets) {
+				t.tickets = t.tickets?.map((p) => {
+					if (p.c == ticketc) {
+						p.v = event;
 					}
-				},
-				decoder: {
-					readers: ['code_39_reader']
-				},
-				locator: {
-					halfSample: true,
-					patchSize: 'medium'
-				}
-			},
-			function (err) {
-				if (err) {
-					console.log(err);
-					return;
-				}
-				console.log('Initialization finished. Ready to start');
-				Quagga.start();
+					return p;
+				});
 			}
-		);
-
-		Quagga.onDetected((codeResult: any) => {
-			otrasEntradas = otrasEntradas.map((t) => {
-				if (t.tipo == zona.tipo && t.tickets) {
-					t.tickets = t.tickets?.map((p) => {
-						if (p.c == ticket.c) {
-							p.v = codeResult?.codeResult?.code;
-						}
-						return p;
-					});
-				}
-				return t;
-			});
-			camara = false;
-			Quagga.stop();
+			return t;
 		});
-
-		// camara = true;
-		// html5Qrcode = new Html5Qrcode('reader');
-		// html5Qrcode.start(
-		// 	{ facingMode: 'environment' },
-		// 	{
-		// 		fps: 10,
-		// 		qrbox: { width: 280, height: 60 }
-		// 	},
-		// 	(decodedText: any, decodedResult: any) => {
-		// 		otrasEntradas = otrasEntradas.map((t) => {
-		// 			if (t.tipo == zona.tipo && t.tickets) {
-		// 				t.tickets = t.tickets?.map((p) => {
-		// 					if (p.c == ticket.c) {
-		// 						p.v = decodedText;
-		// 					}
-		// 					return p;
-		// 				});
-		// 			}
-		// 			return t;
-		// 		});
-		// 	},
-		// 	onScanFailure
-		// );
-	};
+	}
 </script>
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	<button on:click={stop} type="button" class="btn">Cerrar</button>
-	<reader bind:this={reader} id="reader" />
+	{#if ticketc}
+		{#key ticketc}
+			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
+		{/key}
+	{/if}
 </div>
 
 <Breadcrumbs {evento} />
