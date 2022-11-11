@@ -15,7 +15,11 @@
 	export let data;
 	let { evento } = data;
 	let posting = false;
+
+	let scanning = false;
 	let camara = false;
+
+	let reader : any;
 
 	let totalEntradas: number = 0;
 	let totalPrecios: number = 0;
@@ -127,33 +131,30 @@
 	function start() {}
 
 	async function stop() {
+		await html5Qrcode.stop();
+		scanning = false;
 		camara = false;
-		Quagga.stop();
 	}
 
+	function onScanFailure(error: any) {
+		console.warn(`Code scan error = ${error}`);
+	}
 
 	const showDialogClick = (zona: any, ticket: any) => {
-		camara = true;
+
+		scanning = true;
+
+		
+
 		Quagga.init({
-			frequency: 5,
-			numOfWorkers: 2,
-			locator:{
-				patchSize: "medium"
-			},
 			inputStream : {
-				name : "Live",
-				type : "LiveStream",
-				constraints: {
-					width: 640,
-					height: 480,
-					facingMode: "environment",
-				},
-				target:   '#reader'  // Or '#yourElement' (optional)
+			name : "Live",
+			type : "LiveStream",
+			target:   '#reader'  // Or '#yourElement' (optional)
 			},
 			decoder : {
-				readers : ["code_39_reader","code_39_vin_reader","code_128_reader "]
-			},
-			multiple: false
+			readers : ["code_39_reader"]
+			}
 		}, function(err) {
 			if (err) {
 				console.log(err);
@@ -162,31 +163,60 @@
 			console.log("Initialization finished. Ready to start");
 			Quagga.start();
 		});
-		Quagga.onDetected((codeResult: any) => {
-			alert(JSON.stringify(codeResult));
-			otrasEntradas = otrasEntradas.map((t) => {
-				if (t.tipo == zona.tipo && t.tickets) {
-					t.tickets = t.tickets?.map((p) => {
-						if (p.c == ticket.c) {
-							p.v = JSON.stringify(codeResult);
-						}
-						return p;
-					});
-				}
-				return t;
-			});
 
-			camara = false;
-			Quagga.stop();
+		Quagga.onDetected((t: any) => {
+
+				alert(JSON.stringify(t));
+					otrasEntradas = otrasEntradas.map((t) => {
+					if (t.tipo == zona.tipo && t.tickets) {
+						t.tickets = t.tickets?.map((p) => {
+							if (p.c == ticket.c) {
+								p.v = JSON.stringify(t);
+							}
+							return p;
+						});
+					}
+					return t;
+				});
+
 		});
+
+		// camara = true;
+		// html5Qrcode = new Html5Qrcode('reader');
+		// html5Qrcode.start(
+		// 	{ facingMode: 'environment' },
+		// 	{
+		// 		fps: 10,
+		// 		qrbox: { width: 280, height: 60 }
+		// 	},
+		// 	(decodedText: any, decodedResult: any) => {
+		// 		otrasEntradas = otrasEntradas.map((t) => {
+		// 			if (t.tipo == zona.tipo && t.tickets) {
+		// 				t.tickets = t.tickets?.map((p) => {
+		// 					if (p.c == ticket.c) {
+		// 						p.v = decodedText;
+		// 					}
+		// 					return p;
+		// 				});
+		// 			}
+		// 			return t;
+		// 		});
+		// 	},
+		// 	onScanFailure
+		// );
+		
 	};
 </script>
 
+<reader bind:this={reader} id="reader" />
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	<div  id="reader" />
-		<button on:click={stop} type="button" class="btn">Cerrar</button>
 	
+	{#if scanning}
+		<button on:click={stop} type="button" class="btn">Cerrar</button>
+	{:else}
+		<button on:click={start} type="button" class="btn">Escanear</button>
+	{/if}
 </div>
 
 <Breadcrumbs {evento} />
