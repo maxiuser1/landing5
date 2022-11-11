@@ -129,7 +129,6 @@
 	}
 
 	function scanned(event: any) {
-		alert(JSON.stringify(event.detail));
 		otrasEntradas = otrasEntradas.map((t) => {
 			if (t.tipo == zonaTipo && t.tickets) {
 				t.tickets = t.tickets?.map((p) => {
@@ -141,6 +140,9 @@
 			}
 			return t;
 		});
+		camara = false;
+		zonaTipo = undefined;
+		ticketc = undefined;
 	}
 </script>
 
