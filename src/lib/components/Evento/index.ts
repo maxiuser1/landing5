@@ -6,3 +6,4 @@ export { default as Zonas } from './Zonas.svelte';
 export { default as Counter } from './Counter.svelte';
 export { default as Resumen } from './Resumen.svelte';
 export { default as Barinputer } from './Barinputer.svelte';
+export { default as FormasPago } from './FormasPago.svelte';

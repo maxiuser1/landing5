@@ -14,7 +14,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	const user = await event.locals.usuariosRepo.findUsuario(session);
-	console.log('user', user);
+
 	if (user) {
 		event.locals.user = user;
 	}

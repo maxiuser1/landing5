@@ -9,6 +9,7 @@
 
 	import { onMount, SvelteComponent } from 'svelte';
 	import Barinputer from '$lib/components/Evento/Barinputer.svelte';
+	import FormasPago from '$lib/components/Evento/FormasPago.svelte';
 
 	export let data;
 	let { evento } = data;
@@ -292,17 +293,9 @@
 				<div class="form-group">
 					<input type="email" name="correo" class="form-control" placeholder="Correo" required />
 				</div>
-				<div class="form-group">
-					<select name="formaPago" class="form-control" required>
-						<option value="">Forma pago</option>
-						<option value="Efectivo">Efectivo</option>
-						<option value="Debido">Tarjeta débito</option>
-						<option value="Credito">Tarjeta crédito</option>
-						<option value="Foranea">Tarjeta foránea</option>
-						<option value="Plin">Plin</option>
-						<option value="Yape">Yape</option>
-					</select>
-				</div>
+
+				<FormasPago monto={totalPrecios + oePrecio} />
+
 				<div class="cta">
 					<button type="submit" class="btn" disabled={posting}>
 						{#if posting}
@@ -348,9 +341,7 @@
 	button:disabled {
 		background: #d30ed038 !important;
 	}
-	.content-modal {
-		padding: 24px;
-	}
+
 	.modal {
 		background: transparent;
 		border: none;

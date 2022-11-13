@@ -12,8 +12,7 @@ export const actions: Actions = {
 		const compra = JSON.parse(formData.payload.toString());
 
 		const formDataCliente = { ...formData, payload: '' };
-		const compraCliente = { ...compra, cliente: formDataCliente, 
-			formaPago: formData.formaPago };
+		const compraCliente = { ...compra, cliente: formDataCliente, formaPago: formData.formaPago };
 
 		const vendedor = {
 			nombre: locals.user.nombre,

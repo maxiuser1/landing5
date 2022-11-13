@@ -18,3 +18,5 @@ export { default as Greatcheck } from './Greatcheck.svelte';
 export { default as Dolar } from './Dolar.svelte';
 export { default as Descuento } from './Descuento.svelte';
 export { default as Qrcode } from './Qrcode.svelte';
+export { default as Plus } from './Plus.svelte';
+export { default as Trash } from './Trash.svelte';
