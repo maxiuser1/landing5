@@ -1,6 +1,10 @@
 import { redirect, type Actions } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
+	if (locals.user.rol != 'promotor') {
+		throw redirect(303, `../`);
+	}
+
 	const evento = await locals.eventosRepo.getEvento(params.slug);
 	return { evento };
 };

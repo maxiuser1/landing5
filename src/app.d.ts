@@ -8,6 +8,7 @@ declare namespace App {
 		apellido?: string;
 		fbtoken: string;
 		dni?: string;
+		rol?: string;
 		avatar?: string;
 		correo: string;
 		telefono?: string;
@@ -42,7 +43,7 @@ declare namespace App {
 		descuentos?: Array<Descuento>;
 	};
 
-	type TipoCanal = "WEB" | "PROMOTOR";
+	type TipoCanal = 'WEB' | 'PROMOTOR';
 
 	type Descuento = {
 		nombre: string;
@@ -52,11 +53,11 @@ declare namespace App {
 	};
 
 	type Entrada = {
-		tenant:string;
-		slug?:string;
+		tenant: string;
+		slug?: string;
 		id?: string;
 		entradas?: Array<Sentado>;
-		fecha:Date;
+		fecha: Date;
 		evento: {
 			id?: string;
 			slug?: string;
@@ -68,18 +69,18 @@ declare namespace App {
 		qrcode?: string;
 		user?: User;
 		monto: number;
-		cliente?:{
-			id:string;
-			nombre:string;
-			apellido:string;
-			correo:string;
-			dni:string;
-		},
-		montoBase?:number;
-		canal:TipoCanal;
-		formaPago?:string;
-		tipoDscto?:string;
-		codigoDescto?:string;
+		cliente?: {
+			id: string;
+			nombre: string;
+			apellido: string;
+			correo: string;
+			dni: string;
+		};
+		montoBase?: number;
+		canal: TipoCanal;
+		formaPago?: string;
+		tipoDscto?: string;
+		codigoDescto?: string;
 		numero: number;
 		pago?: {
 			dataMap?: {
