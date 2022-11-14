@@ -119,8 +119,8 @@
 </script>
 
 <svelte:head>
-	<script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
-	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
+	<!-- <script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script> -->
+	<script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script>
 </svelte:head>
 
 <Breadcrumbs {evento} />
