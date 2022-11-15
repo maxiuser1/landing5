@@ -1,16 +1,11 @@
 <script lang="ts">
-	import {
-		signInWithPopup,
-		GoogleAuthProvider,
-		type User,
-		FacebookAuthProvider,
-		signInWithEmailAndPassword
-	} from 'firebase/auth';
+	import { signInWithPopup, GoogleAuthProvider, type User, FacebookAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 	import { applyAction, enhance } from '$app/forms';
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
 	import { Facebook, Google } from '$lib/icons';
 	import { z } from 'zod';
+	import { page } from '$app/stores';
 
 	let mensaje = '';
 
@@ -24,6 +19,7 @@
 		data.append('displayName', guser.displayName ?? '');
 		data.append('email', guser.email ?? '');
 		data.append('photoURL', guser.photoURL ?? '');
+		data.append('redirectTo', $page.url.searchParams.get('redirectTo')?.toString() ?? '');
 
 		const response = await fetch('/login', {
 			method: 'POST',
@@ -74,7 +70,7 @@
 			data.append('displayName', guser.displayName ?? '');
 			data.append('email', guser.email ?? '');
 			data.append('photoURL', guser.photoURL ?? '');
-
+			data.append('redirectTo', $page.url.searchParams.get('redirectTo')?.toString() ?? '');
 			const response = await fetch('/login', {
 				method: 'POST',
 				body: data
@@ -116,6 +112,7 @@
 		data.append('displayName', guser.displayName ?? '');
 		data.append('email', guser.email ?? '');
 		data.append('photoURL', guser.photoURL ?? '');
+		data.append('redirectTo', $page.url.searchParams.get('redirectTo')?.toString() ?? '');
 
 		const response = await fetch('/login', {
 			method: 'POST',

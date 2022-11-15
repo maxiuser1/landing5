@@ -19,6 +19,8 @@
 	let modal: any;
 
 	onMount(() => {
+		// console.log('process.env.NODE_ENV ', process.env.NODE_ENV);
+
 		compraData.update((current) => ({
 			...current,
 			entradas: current.entradas?.map((t) => {
@@ -109,7 +111,7 @@
 			timeouturl: 'about:blank',
 			merchantlogo: 'https://www.quehay.pe/img/logo.png',
 			formbuttoncolor: '#000000',
-			action: `compra/${datapago.id}`,
+			action: `compra/${datapago.id}${$page.url.search ?? ''}`,
 			complete: handleSuccess
 		});
 

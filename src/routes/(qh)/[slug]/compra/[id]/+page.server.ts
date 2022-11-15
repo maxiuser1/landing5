@@ -4,7 +4,7 @@ import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUB
 import axios from 'axios';
 
 export const actions = {
-	default: async ({ locals, request, params }) => {
+	default: async ({ locals, request, params, url }) => {
 		const parameters = decodeURIComponent(await request.text());
 
 		const transaction = Object.fromEntries(new URLSearchParams(parameters));
@@ -44,13 +44,13 @@ export const actions = {
 
 			await locals.eventosRepo.confirmarEntrada(compra, evento);
 
-			const entrada : App.Entrada= {
+			const entrada: App.Entrada = {
 				tenant: 'quehay',
 				evento: compra.evento,
 				slug: compra.evento.slug,
 				entradas: compra.entradas,
-				canal:"WEB",
-				formaPago:"Niubiz",
+				canal: 'WEB',
+				formaPago: 'Niubiz',
 				pago: exito,
 				monto: turno.monto,
 				numero: turno.compra,
@@ -66,7 +66,6 @@ export const actions = {
 			};
 
 			await locals.eventosRepo.guardarEntrada(entrada);
-			
 		} catch (err: any) {
 			const fracaso = err.response.data;
 			return {
@@ -76,6 +75,6 @@ export const actions = {
 			};
 		}
 
-		throw redirect(303, `/ticket/${turno.id}`);
+		throw redirect(303, `/ticket/${turno.id}${url.search}`);
 	}
 };

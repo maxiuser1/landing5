@@ -2,16 +2,16 @@ import type { Action, Actions, PageServerLoad } from './$types';
 
 import { invalid, redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ locals }) => {
-};
+export const load: PageServerLoad = async ({ locals }) => {};
 
-const login: Action = async ({ cookies, request, locals }) => {
+const login: Action = async ({ cookies, request, locals, url }) => {
 	const data = await request.formData();
 	const fbtoken: string = data.get('token')?.toString() ?? '';
 	const displayName: string = data.get('displayName')?.toString() ?? '';
 	const email: string = data.get('email')?.toString() ?? '';
 	const photoURL: string = data.get('photoURL')?.toString() ?? '';
-
+	const redirectTo: string = data.get('redirectTo')?.toString() ?? '';
+	console.log('login redirect to', redirectTo);
 	const user = await locals.usuariosRepo.findByFb(fbtoken);
 	let userToken = '';
 
@@ -24,10 +24,9 @@ const login: Action = async ({ cookies, request, locals }) => {
 				secure: process.env.NODE_ENV === 'production',
 				maxAge: 60 * 60 * 24 * 30
 			});
-
-			throw redirect(302, '/');
+			throw redirect(302, redirectTo ? redirectTo : '/');
 		} else {
-			throw redirect(302, `/completar/${user.id}`);
+			throw redirect(302, `/completar/${user.id}?redirectTo=${encodeURIComponent(redirectTo)}`);
 		}
 	} else {
 		const newUser: App.User = {
@@ -37,7 +36,7 @@ const login: Action = async ({ cookies, request, locals }) => {
 		};
 		userToken = await locals.usuariosRepo.create(newUser);
 
-		throw redirect(302, `/completar/${userToken}`);
+		throw redirect(302, `/completar/${userToken}?redirectTo=${encodeURIComponent(redirectTo)}`);
 	}
 };
 

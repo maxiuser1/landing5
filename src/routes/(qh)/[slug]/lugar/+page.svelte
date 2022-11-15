@@ -45,7 +45,7 @@
 
 		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
 
-		esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`../${evento.general?.slug}/reserva`);
+		esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`../${evento.general?.slug}/reserva${$page.url.search ?? ''}`);
 	};
 </script>
 

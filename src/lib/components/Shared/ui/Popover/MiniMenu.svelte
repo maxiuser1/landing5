@@ -4,7 +4,7 @@
 <div class="menu">
 	<ul>
 		<li>
-			<a href="./logout"> Salir </a>
+			<a href="../../logout"> Salir </a>
 		</li>
 	</ul>
 </div>
