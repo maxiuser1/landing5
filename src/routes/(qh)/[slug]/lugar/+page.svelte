@@ -8,7 +8,7 @@
 	export let data;
 	let { evento } = data;
 	let filas: Array<App.Fila> = evento.precios?.find((t: any) => t.tipo == $compraData.zona?.tipo)?.filas ?? new Array<App.Fila>();
-	const sitWidth = 25;
+	const sitWidth = 75;
 	const filaWidth = 100;
 
 	const continuarClick = () => {
