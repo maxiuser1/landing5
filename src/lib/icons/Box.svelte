@@ -1,13 +1,21 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	export let color: string;
+	export let color: string = '#D4D4D4';
 	export let disabled: boolean;
 	export let width: number;
+	export let tomados: number = 0;
+	let tomado = false;
 	// let height: number = width * 0.7;
+
+	function evaluar(indice: number) {
+		if (indice <= tomados) return 'blue';
+		return tomado ? '#ff5260' : '#D4D4D4';
+	}
 
 	const dispatch = createEventDispatcher();
 	function handleClick() {
+		tomado = !tomado;
 		dispatch('clickeado', {});
 	}
 </script>
@@ -36,29 +44,41 @@
 		/>
 	</svg> -->
 	<button on:click={handleClick} type="button" class="box">
-		<svg viewBox="0 0 112 60" {width} xmlns="http://www.w3.org/2000/svg">
+		<svg viewBox="0 0 112 60" {width} xmlns="http://www.w3.org/2000/svg" class={tomado ? 'tomado' : 'vacio'}>
 			<g class="layer">
 				<title />
-				<rect fill="none" height="8" id="svg_2" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="51" stroke="#D4D4D4" />
-				<rect fill={color} height="8" id="svg_8" rx="4" width="22.75" x="44.75" y="51" />
-				<rect fill={color} height="8" id="svg_9" rx="4" width="22.75" x="73.75" y="51" />
-				<rect fill={color} height="8" id="svg_10" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="0.75" />
-				<rect fill={color} height="8" id="svg_11" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="44.75" y="0.63" />
-				<rect fill={color} height="8" id="svg_12" rx="4" width="22.75" x="73.75" y="0.38" />
-				<rect fill={color} height="8" id="svg_13" rx="4" transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="-79.63" />
-				<rect fill={color} height="8" id="svg_17" rx="4" transform="matrix(0 -0.643713 1 0 81.875 86.642)" width="22.75" x="92.62" y="-79.75" />
-				<rect fill={color} height="8" id="svg_18" rx="4" transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="20.44" />
-				<rect fill={color} height="8" id="svg_19" rx="4" transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="89.95" y="20.56" />
-				<rect fill={color} height="36" id="svg_20" rx="4" width="81.62" x="15.44" y="11.63" />
+				<rect height="8" id="svg_2" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="51" stroke="#D4D4D4" />
+				<rect height="8" id="svg_9" rx="4" width="22.75" x="73.75" y="51" />
+				<rect height="8" id="svg_10" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="0.75" />
+				<rect height="8" id="svg_11" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="44.75" y="0.63" />
+				<rect height="8" id="svg_12" rx="4" width="22.75" x="73.75" y="0.38" />
+				<rect height="8" id="svg_13" rx="4" transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="-79.63" />
+				<rect height="8" id="svg_17" rx="4" transform="matrix(0 -0.643713 1 0 81.875 86.642)" width="22.75" x="92.62" y="-79.75" />
+				<rect height="8" id="svg_18" rx="4" transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="20.44" />
+				<rect height="8" id="svg_19" rx="4" transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="89.95" y="20.56" />
+
+				<rect height="8" id="box9" rx="4" width="22.75" x="44.75" y="51" />
+
+				<rect height="36" id="mesa" rx="4" width="81.62" x="15.44" y="11.63" />
 			</g>
 		</svg>
 	</button>
 {/if}
 
-<style>
+<style lang="scss">
+	.vacio rect {
+		fill: #d4d4d4;
+	}
+
+	.tomado rect {
+		fill: #ff888f;
+	}
+
 	.box:hover rect {
-		fill: #ff5260;
-		pointer-events: all;
+		@include breakpoint($md) {
+			fill: yellow;
+			pointer-events: all;
+		}
 	}
 
 	.box {

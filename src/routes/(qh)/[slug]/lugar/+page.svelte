@@ -69,7 +69,6 @@
 										<Box
 											disabled={asiento.s >= 2}
 											width={sitWidth}
-											color={asiento.s == 1 ? '#ff5260' : asiento.s == -1 ? '#D4D4D4' : 'blue'}
 											on:clickeado={() => {
 												if (asiento.s < 2) {
 													asiento.s = asiento.s * -1;
