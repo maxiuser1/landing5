@@ -76,7 +76,7 @@
 
 	.box:hover rect {
 		@include breakpoint($md) {
-			fill: yellow;
+			fill: #ff888f;
 			pointer-events: all;
 		}
 	}
