@@ -58,19 +58,17 @@
 
 <style lang="scss">
 	.ocupado rect {
+		fill: #d4d4d4;
+	}
+
+	.vacio rect {
 		fill: none;
 		stroke: #d4d4d4;
 		stroke-width: 2;
 	}
 
-	.vacio rect {
-		fill: #d4d4d4;
-	}
-
 	rect.sentado {
-		fill: none;
-		stroke: #d4d4d4;
-		stroke-width: 3;
+		fill: #d4d4d4;
 	}
 
 	.tomado rect {

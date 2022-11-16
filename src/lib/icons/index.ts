@@ -24,3 +24,5 @@ export { default as Lanchor } from './Lanchor.svelte';
 export { default as Ranchor } from './Ranchor.svelte';
 export { default as Escenario } from './Escenario.svelte';
 export { default as Deathbox } from './Deathbox.svelte';
+export { default as Decrease } from './Decrease.svelte';
+export { default as Increase } from './Increase.svelte';

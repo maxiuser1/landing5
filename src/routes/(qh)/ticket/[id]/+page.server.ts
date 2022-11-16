@@ -5,7 +5,7 @@ import { MailService } from '@sendgrid/mail';
 import type { Action, Actions } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }) => {
-	let ticket : App.Entrada = await locals.eventosRepo.getEntrada(params.id);
+	let ticket: App.Entrada = await locals.eventosRepo.getEntrada(params.id);
 
 	var opts: any = {
 		errorCorrectionLevel: 'H',
@@ -58,6 +58,7 @@ const enviar: Action = async ({ cookies, request, locals, params }) => {
 		templateId: SECRET_SENDGRID_TICKET,
 		dynamic_template_data: {
 			subject: 'Quehay',
+			id: ticket.id,
 			artista: ticket.evento.artista,
 			nombre: ticket.evento.nombre,
 			ubicacion: ticket.evento.lugar,
@@ -67,6 +68,8 @@ const enviar: Action = async ({ cookies, request, locals, params }) => {
 			codigo: ticket.qrcode
 		}
 	};
+
+	console.log('a', ticket.entradas);
 
 	try {
 		sgMail

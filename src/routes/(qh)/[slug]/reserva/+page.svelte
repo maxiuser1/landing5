@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { PUBLIC_NIUBIZ_FUNCTION } from '$env/static/public';
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { navigating, page } from '$app/stores';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
+	import Deathbox from '$lib/icons/Deathbox.svelte';
+	import Entradas from '$lib/components/Evento/Entradas.svelte';
 	export let data;
 	let posting = false;
 	let { evento } = data;
@@ -122,6 +125,7 @@
 
 <svelte:head>
 	<script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
+	<!-- <script type="text/javascript" src={PUBLIC_NIUBIZ_FUNCTION}></script> -->
 	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
 </svelte:head>
 
@@ -148,7 +152,7 @@
 							<div class="compra" class:odd={i % 2 == 0}>
 								<div class="asiento">
 									<div>
-										<Box width={30} color="red" disabled={false} />
+										<Deathbox width={40} disabled={false} tomado={true} />
 									</div>
 									<div class="etiquetas">
 										<h6><strong>{entrada.nombre}</strong></h6>
@@ -164,6 +168,10 @@
 											S/ {entrada.online?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 										</strong>
 									</h6>
+
+									<!-- {#if entrada.online}
+										<Counter precio={entrada.online / 10} count={10} on:cambiado={({ detail }) => handleOtrasEntrada('', detail.count)} />
+									{/if} -->
 								</div>
 							</div>
 						{/each}

@@ -3,7 +3,7 @@
 
 	export let disabled: boolean;
 	export let width: number;
-	export let tomados: number = 0;
+	export let tomados: number = 2;
 	export let tomado = false;
 	// let height: number = width * 0.7;
 
@@ -70,19 +70,17 @@
 
 <style lang="scss">
 	.ocupado rect {
+		fill: #d4d4d4;
+	}
+
+	.vacio rect {
 		fill: none;
 		stroke: #d4d4d4;
 		stroke-width: 2;
 	}
 
-	.vacio rect {
-		fill: #d4d4d4;
-	}
-
 	rect.sentado {
-		fill: none;
-		stroke: #d4d4d4;
-		stroke-width: 3;
+		fill: #d4d4d4;
 	}
 
 	.tomado rect {
