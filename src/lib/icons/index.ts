@@ -20,3 +20,7 @@ export { default as Descuento } from './Descuento.svelte';
 export { default as Qrcode } from './Qrcode.svelte';
 export { default as Plus } from './Plus.svelte';
 export { default as Trash } from './Trash.svelte';
+export { default as Lanchor } from './Lanchor.svelte';
+export { default as Ranchor } from './Ranchor.svelte';
+export { default as Escenario } from './Escenario.svelte';
+export { default as Deathbox } from './Deathbox.svelte';

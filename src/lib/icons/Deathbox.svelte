@@ -1,22 +1,10 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
 	export let disabled: boolean;
 	export let width: number;
 	export let tomados: number = 0;
 	export let tomado = false;
-	// let height: number = width * 0.7;
 
-	function evaluar(indice: number) {
-		if (indice <= tomados) return 'blue';
-		return tomado ? '#ff5260' : '#D4D4D4';
-	}
-
-	const dispatch = createEventDispatcher();
-	function handleClick() {
-		tomado = !tomado;
-		dispatch('clickeado', { state: tomado });
-	}
+	function handleClick() {}
 </script>
 
 {#if disabled}
@@ -87,13 +75,6 @@
 
 	.tomado rect {
 		fill: #ff888f;
-	}
-
-	.box:hover rect {
-		@include breakpoint($md) {
-			fill: #ff888f;
-			pointer-events: all;
-		}
 	}
 
 	.box {
