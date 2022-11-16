@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_NIUBIZ_FUNCTION } from '$env/static/public';
+	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { navigating, page } from '$app/stores';
@@ -124,9 +124,7 @@
 </script>
 
 <svelte:head>
-	<script type="text/javascript" src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
-	<!-- <script type="text/javascript" src={PUBLIC_NIUBIZ_FUNCTION}></script> -->
-	<!-- <script type="text/javascript" src="https://static-content-qas.vnforapps.com/v2/js/checkout.js?qa=true"></script> -->
+	<script type="text/javascript" src={PUBLIC_NIUBIZ_LIBRE}></script>
 </svelte:head>
 
 <Breadcrumbs {evento} />
