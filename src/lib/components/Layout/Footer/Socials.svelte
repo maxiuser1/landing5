@@ -4,7 +4,7 @@
 
 <ul>
 	<li>
-		<a target="_blank" href="https://www.facebook.com/profile.php?id=100084188800294">
+		<a target="_blank" href="https://www.facebook.com/quehayeventos">
 			<Face />
 		</a>
 	</li>
