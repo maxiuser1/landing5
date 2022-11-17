@@ -26,7 +26,7 @@
 			<ul class="ingresa menu">
 				<li>
 					{#if $page.data.user}
-						<div class="circle"><User /> <span class="anchormenu">{$page.data.user.nombre}</span></div>
+						<div class="circle"><User /> <span class="anchormenu">{$page.data.user.nombre} {$page.data.user.apellido}</span></div>
 					{:else}
 						<a class="anchormenu" href="./login"> Ingresa</a>
 					{/if}

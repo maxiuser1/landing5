@@ -69,8 +69,6 @@ const enviar: Action = async ({ cookies, request, locals, params }) => {
 		}
 	};
 
-	console.log('a', ticket.entradas);
-
 	try {
 		sgMail
 			.send(msg)
