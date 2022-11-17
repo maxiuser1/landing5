@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
-	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Counter, Regalo, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { navigating, page } from '$app/stores';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
@@ -171,6 +171,8 @@
 										<Counter precio={entrada.online / 10} count={10} on:cambiado={({ detail }) => handleOtrasEntrada('', detail.count)} />
 									{/if} -->
 								</div>
+
+								<Regalo {evento} {entrada} />
 							</div>
 						{/each}
 					{/if}
@@ -188,6 +190,7 @@
 							<div>
 								<Counter precio={zona.final ? zona.final : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
 							</div>
+							<Regalo {evento} entrada={zona} />
 						</div>
 					{/each}
 
@@ -253,6 +256,10 @@
 </section>
 
 <style lang="scss">
+	.break {
+		flex-basis: 100%;
+		height: 0;
+	}
 	.progreso {
 		display: flex;
 		align-items: center;
@@ -322,6 +329,7 @@
 				border-radius: 8px;
 				display: flex;
 				justify-content: space-between;
+				flex-wrap: wrap;
 				align-items: center;
 				gap: 10px;
 

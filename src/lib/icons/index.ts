@@ -26,3 +26,4 @@ export { default as Escenario } from './Escenario.svelte';
 export { default as Deathbox } from './Deathbox.svelte';
 export { default as Decrease } from './Decrease.svelte';
 export { default as Increase } from './Increase.svelte';
+export { default as Gift } from './Gift.svelte';

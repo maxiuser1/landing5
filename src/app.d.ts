@@ -36,6 +36,8 @@ declare namespace App {
 		online: number;
 		promotor: number;
 		tope?: number;
+		regalo?: string;
+		regaloIndividual?: string;
 		promo?: string;
 		numerado: boolean;
 		filas: Array<Fila>;
