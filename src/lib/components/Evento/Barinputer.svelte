@@ -31,7 +31,7 @@
 	}
 </script>
 
-<button on:click={stop} type="button" class="btn">Cerrar</button>
+<button on:click={stop} type="button" class="btn">Volver</button>
 <div bind:this={elRef} class="dce-video-container" />
 
 <style>
