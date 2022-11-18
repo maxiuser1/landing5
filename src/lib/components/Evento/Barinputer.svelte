@@ -1,29 +1,46 @@
 <script lang="ts">
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
+	import { BarcodeReader, BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
 	const dispatch = createEventDispatcher();
-	let barcontainer: any;
+
+	let bDestroyed = false;
+	let pScanner: any = null;
+	let elRef: any;
 	let scanner: any;
 	onMount(async () => {
-		BarcodeScanner.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxNDY5NjA4LVRYbFhaV0pRY205cVgyUmljZyIsIm9yZ2FuaXphdGlvbklEIjoiMTAxNDY5NjA4IiwiY2hlY2tDb2RlIjotMTU5ODI4OTE0MX0=';
-		scanner = await BarcodeScanner.createInstance();
-
+		const scanner = await (pScanner = BarcodeScanner.createInstance());
+		await scanner.setUIElement(elRef);
 		scanner.onUniqueRead = (txt: any, result: any) => {
 			dispatch('detected', { text: txt });
 		};
-		await scanner.show();
+
+		await scanner.open();
 	});
 
-	onDestroy(() => {
-		scanner.destroyContext();
+	onDestroy(async () => {
+		if (pScanner) {
+			(await pScanner).destroyContext();
+			console.log('BarcodeScanner Component Unmount');
+		}
 	});
 
 	async function stop() {
-		await scanner.stop();
+		// await scanner.stop();
 		dispatch('closed', { text: 'aa' });
 	}
 </script>
 
 <button on:click={stop} type="button" class="btn">Cerrar</button>
-<div bind:this={barcontainer} />
+<div bind:this={elRef} class="dce-video-container" />
+
+<style>
+	div {
+		width: 100%;
+		height: 100%; /* min-width:640px; */
+		min-height: 480px;
+		background: #eee;
+		position: relative;
+		resize: both;
+	}
+</style>

@@ -6,10 +6,11 @@
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Qrcode, Tarjeta, Ticket } from '$lib/icons';
 	import type { ActionResult } from '@sveltejs/kit';
-
+	import '../../../../dbr';
 	import { onMount, SvelteComponent } from 'svelte';
 	import Barinputer from '$lib/components/Evento/Barinputer.svelte';
 	import FormasPago from '$lib/components/Evento/FormasPago.svelte';
+	import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
 	export let data;
 	let { evento } = data;
@@ -32,7 +33,13 @@
 	let oePreciobase: number = 0;
 	let oeDescuento: number = 0;
 
-	onMount(() => {
+	onMount(async () => {
+		try {
+			await BarcodeScanner.loadWasm();
+		} catch (ex) {
+			console.error(ex);
+		}
+
 		compraData.update((current) => ({
 			...current,
 			entradas: current.entradas?.map((t) => {
