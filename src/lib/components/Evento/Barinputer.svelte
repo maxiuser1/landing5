@@ -27,5 +27,3 @@
 
 <button on:click={stop} type="button" class="btn">Cerrar</button>
 <div bind:this={barcontainer} />
-
-</style>
