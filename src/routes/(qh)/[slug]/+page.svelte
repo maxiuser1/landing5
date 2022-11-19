@@ -7,6 +7,8 @@
 	export let data;
 	let { evento } = data;
 
+	console.log('jose', $page.url);
+
 	const comprarClick = () => {
 		const compra: App.Compra = {
 			evento: {
@@ -21,9 +23,9 @@
 		compraData.set(compra);
 
 		if ($page.data?.user?.nombre?.length > 0) {
-			goto(`${evento.general?.slug}/entradas`);
+			goto(`${evento.general?.slug}/entradas${$page.url.search ?? ''}`);
 		} else {
-			goto('./login');
+			goto(`./login?redirectTo=${encodeURIComponent($page.url.href)}`);
 		}
 	};
 </script>

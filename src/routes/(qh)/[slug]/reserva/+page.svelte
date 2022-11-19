@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
+	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
+	import { Breadcrumbs, Counter, Regalo, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
-	import { zonas } from '$lib/components/Evento/zonas';
-	import { Dialog } from '$lib/components/Shared/ui/Dialog';
+	import { navigating, page } from '$app/stores';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Box, Descuento, Tarjeta, Ticket } from '$lib/icons';
 	import { onMount } from 'svelte';
+	import Deathbox from '$lib/icons/Deathbox.svelte';
+	import Entradas from '$lib/components/Evento/Entradas.svelte';
 	export let data;
-	let dialog: any;
 	let posting = false;
 	let { evento } = data;
 
@@ -21,10 +22,17 @@
 	let modal: any;
 
 	onMount(() => {
-		if ($compraData.entradas && $compraData.zona && $compraData.zona.base) {
-			totalEntradas = $compraData.entradas?.length;
-			totalPrecios = totalEntradas * $compraData.zona.base;
-		}
+		// console.log('process.env.NODE_ENV ', process.env.NODE_ENV);
+
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas?.map((t) => {
+				totalEntradas++;
+				t.final = t.online;
+				totalPrecios = totalPrecios + Number(t.online);
+				return t;
+			})
+		}));
 
 		evento.precios?.forEach((t: App.Precio) => {
 			if (!t.numerado) {
@@ -34,15 +42,20 @@
 					nombre: t.nombre,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
-					base: t.base,
-					final: t.descuentos ? t.descuentos![0].descontado : t.base
+					base: t.online,
+					final: t.descuentos ? t.descuentos![0].online : t.online
 				});
 			}
 		});
 
 		otrasEntradas = [...otrasEntradas];
 		calcular();
+		window.handleSuccess = someFunction;
 	});
+
+	const someFunction = (params: any) => {
+		alert('a');
+	};
 
 	const handleOtrasEntrada = (tipo: any, cantidad: any) => {
 		otrasEntradas = otrasEntradas.map((t) => {
@@ -72,12 +85,9 @@
 
 	const continuarClick = async () => {
 		posting = true;
-		dialog.showModal();
 		compraData.update((current) => ({
 			...current,
-			entradas: current.entradas
-				? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0))
-				: otrasEntradas.filter((t) => t.cantidad > 0)
+			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
 		}));
 
 		const resp = await fetch('/api/miturno', {
@@ -87,47 +97,50 @@
 				'content-type': 'application/json'
 			}
 		});
+		console.log('respondio api');
 		const datapago = await resp.json();
+		console.log('a', datapago);
 		VisanetCheckout.configure({
 			sessiontoken: datapago.sessiontoken,
 			channel: 'web',
 			merchantid: datapago.merchantid,
 			purchasenumber: datapago.purchasenumber,
 			amount: datapago.amount,
+			cardholdername: $page.data.user.nombre,
+			cardholderlastname: $page.data.user.apellido,
+			cardholderemail: $page.data.user.correo,
+			usertoken: $page.data.user.id,
 			expirationminutes: '20',
 			timeouturl: 'about:blank',
 			merchantlogo: 'https://www.quehay.pe/img/logo.png',
 			formbuttoncolor: '#000000',
-			action: `compra/${datapago.id}`,
-			complete: function (params: any) {
-				dialog.showModal();
-			}
+			action: `compra/${datapago.id}${$page.url.search ?? ''}`,
+			complete: handleSuccess
 		});
-		dialog.close();
+
 		VisanetCheckout.open();
+		posting = false;
 	};
 </script>
 
 <svelte:head>
-	<script
-		type="text/javascript"
-		src="https://static-content.vnforapps.com/v2/js/checkout.js"></script>
+	<script type="text/javascript" src={PUBLIC_NIUBIZ_LIBRE}></script>
 </svelte:head>
-
-<dialog bind:this={dialog} class="modal" id="modal">
-	<div class="content-modal">
-		<Spinner size="60" color="#D30ED1" unit="px" />
-	</div>
-</dialog>
 
 <Breadcrumbs {evento} />
 <Steps paso={4} />
+
+{#if posting || $navigating}
+	<div class="progreso">
+		<Spinner size="60" color="#D30ED1" unit="px" />
+	</div>
+{/if}
 
 <section class="container">
 	<div class="principal">
 		<div class="prota">
 			<div class="titulos">
-				<h4>Resumen</h4>
+				<h4>Resumen.</h4>
 				<p>Lugar reservado</p>
 			</div>
 			{#if $compraData.zona && $compraData.zona.base}
@@ -137,7 +150,7 @@
 							<div class="compra" class:odd={i % 2 == 0}>
 								<div class="asiento">
 									<div>
-										<Box width={30} color="red" disabled={false} />
+										<Deathbox width={40} disabled={false} tomado={true} />
 									</div>
 									<div class="etiquetas">
 										<h6><strong>{entrada.nombre}</strong></h6>
@@ -150,10 +163,16 @@
 								<div>
 									<h6>
 										<strong>
-											S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+											S/ {entrada.online?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 										</strong>
 									</h6>
+
+									<!-- {#if entrada.online}
+										<Counter precio={entrada.online / 10} count={10} on:cambiado={({ detail }) => handleOtrasEntrada('', detail.count)} />
+									{/if} -->
 								</div>
+
+								<Regalo {evento} {entrada} />
 							</div>
 						{/each}
 					{/if}
@@ -169,12 +188,9 @@
 								</div>
 							</div>
 							<div>
-								<Counter
-									precio={zona.base ? zona.base : 0}
-									count={zona.cantidad}
-									on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)}
-								/>
+								<Counter precio={zona.final ? zona.final : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
 							</div>
+							<Regalo {evento} entrada={zona} />
 						</div>
 					{/each}
 
@@ -185,7 +201,7 @@
 									<Descuento />
 								</div>
 								<div class="etiquetas">
-									<h5>Pre-Venta</h5>
+									<h5>Pre-Venta -15%</h5>
 								</div>
 							</div>
 							<div>
@@ -212,9 +228,7 @@
 						<div>
 							{#if oeDescuento > 0}
 								<h6 style="text-decoration: line-through;">
-									S/ {(totalPrecios + oePreciobase)
-										.toString()
-										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+									S/ {(totalPrecios + oePreciobase).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 								</h6>
 							{/if}
 
@@ -228,8 +242,8 @@
 				</div>
 			{/if}
 			<div class="cta">
-				<button on:click={continuarClick} class="btn" disabled={posting}>
-					{#if posting}
+				<button on:click={continuarClick} class="btn" disabled={posting || $navigating}>
+					{#if posting || $navigating}
 						<Spinner size="20" color="#D30ED1" unit="px" />
 					{:else}
 						Continuar <Tarjeta />
@@ -242,6 +256,16 @@
 </section>
 
 <style lang="scss">
+	.break {
+		flex-basis: 100%;
+		height: 0;
+	}
+	.progreso {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;
@@ -305,6 +329,7 @@
 				border-radius: 8px;
 				display: flex;
 				justify-content: space-between;
+				flex-wrap: wrap;
 				align-items: center;
 				gap: 10px;
 

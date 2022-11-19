@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import Spinner from '$lib/components/Shared/ui/Spinner/Spinner.svelte';
 	import { Arrow } from '$lib/icons';
 
@@ -25,6 +26,7 @@
 				};
 			}}
 		>
+			<input name="redirectTo" value={$page.url.searchParams.get('redirectTo')?.toString() ?? ''} type="hidden" />
 			<div>
 				<div class="form-group">
 					<label for="correo">Correo</label>

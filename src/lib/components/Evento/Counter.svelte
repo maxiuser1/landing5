@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { Decrease, Increase } from '$lib/icons';
 	import { createEventDispatcher } from 'svelte';
 
 	import { spring } from 'svelte/motion';
 	export let precio: number;
 	let total: number;
+	let tope: number = 10;
 	export let count: number = 0;
 
-	$: total = count * precio;
+	$: total = Math.ceil(count * precio * 10) / 10;
 	function modulo(n: number, m: number) {
 		// handle negative numbers
 		return ((n % m) + m) % m;
@@ -19,48 +21,63 @@
 	}
 </script>
 
-<div class="contenedor">
-	<div class="counter">
-		<button
-			on:click={() => {
-				count -= 1;
+<div class="counter">
+	<button
+		type="button"
+		on:click={() => {
+			count -= 1;
+			if (count <= tope) {
 				handleClick();
-			}}
-			aria-label="Disminiuir"
-		>
-			-
-		</button>
-		<div class="counter-viewport">
-			<div class="counter-digits">
-				{count}
-			</div>
+			}
+		}}
+		aria-label="Disminiuir"
+	>
+		<Decrease />
+	</button>
+	<div class="counter-viewport">
+		<div class="counter-digits">
+			{count}
 		</div>
-		<button
-			on:click={() => {
-				count += 1;
-				handleClick();
-			}}
-			aria-label="Aumentar"
-		>
-			+
-		</button>
 	</div>
-	<div>
-		<h6>
-			S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-		</h6>
+	<button
+		type="button"
+		on:click={() => {
+			count += 1;
+			if (count <= tope) {
+				handleClick();
+			}
+		}}
+		aria-label="Aumentar"
+	>
+		<Increase />
+	</button>
+</div>
+
+<div class="contenedor">
+	<div class="precio">
+		S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 	</div>
 </div>
 
 <style>
+	.precio {
+		font-weight: 900;
+		font-size: 18px;
+		line-height: 16px;
+		color: #d30ed1;
+		text-align: right;
+	}
+
 	.contenedor {
 		display: flex;
-		gap: 20px;
+		flex-direction: column;
 	}
 	.counter {
 		display: flex;
-		padding: 2px;
-		background-color: #f9f9f9;
+		align-items: center;
+		justify-content: end;
+		gap: 10px;
+		margin-bottom: 10px;
 	}
 
 	.counter button {
@@ -68,29 +85,15 @@
 		display: flex;
 		align-items: bottom;
 		justify-content: center;
-		border: 1px solid #f9f9f9;
-		background-color: #f9f9f9;
-		padding: 0px 10px;
+		background: none;
+		border: none;
+		padding: 0px;
 		touch-action: manipulation;
-		font-size: 1rem;
-	}
-
-	.counter button:hover {
-		background-color: #d1cbcb;
-	}
-
-	.counter-viewport {
-		width: 2em;
-		height: 1em;
-		overflow: hidden;
-		text-align: center;
-		vertical-align: middle;
-		position: relative;
 	}
 
 	.counter-digits {
-		position: absolute;
-		width: 100%;
-		height: 100%;
+		font-weight: 900;
+		font-size: 18px;
+		line-height: 16px;
 	}
 </style>

@@ -3,7 +3,6 @@
 	import Resumen from '$lib/components/Evento/Resumen.svelte';
 	import { compraData } from '$lib/components/Evento/store';
 	import Zonas from '$lib/components/Evento/Zonas.svelte';
-	import Pin from '$lib/icons/Pin.svelte';
 	import { onMount } from 'svelte';
 	export let data;
 	let { evento } = data;

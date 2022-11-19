@@ -6,13 +6,7 @@
 <section class="container exitoso">
 	{#if form.ok}
 		<div class="icon">
-			<svg
-				width="180"
-				height="180"
-				viewBox="0 0 180 180"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
+			<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					opacity="0.1"
 					fill-rule="evenodd"
@@ -25,25 +19,11 @@
 					fill="url(#paint1_linear_352_98)"
 				/>
 				<defs>
-					<linearGradient
-						id="paint0_linear_352_98"
-						x1="90"
-						y1="0"
-						x2="90"
-						y2="180"
-						gradientUnits="userSpaceOnUse"
-					>
+					<linearGradient id="paint0_linear_352_98" x1="90" y1="0" x2="90" y2="180" gradientUnits="userSpaceOnUse">
 						<stop stop-color="#FF0036" />
 						<stop offset="1" stop-color="#D30ED1" />
 					</linearGradient>
-					<linearGradient
-						id="paint1_linear_352_98"
-						x1="89.9994"
-						y1="16.6667"
-						x2="89.9994"
-						y2="163.333"
-						gradientUnits="userSpaceOnUse"
-					>
+					<linearGradient id="paint1_linear_352_98" x1="89.9994" y1="16.6667" x2="89.9994" y2="163.333" gradientUnits="userSpaceOnUse">
 						<stop stop-color="#FF0036" />
 						<stop offset="1" stop-color="#D30ED1" />
 					</linearGradient>
@@ -68,13 +48,7 @@
 		</div>
 	{:else}
 		<div class="icon">
-			<svg
-				width="180"
-				height="180"
-				viewBox="0 0 180 180"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
+			<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					opacity="0.1"
 					fill-rule="evenodd"
@@ -86,10 +60,7 @@
 					d="M49.2576 29.0249C61.3172 20.9669 75.4954 16.666 89.9994 16.666C109.449 16.666 128.101 24.3922 141.854 38.1449C155.607 51.8975 163.333 70.5501 163.333 89.9994C163.333 104.503 159.032 118.682 150.974 130.741C142.916 142.801 131.463 152.2 118.063 157.751C104.663 163.301 89.918 164.753 75.6928 161.924C61.4675 159.094 48.4007 152.11 38.1449 141.854C27.889 131.598 20.9047 118.531 18.0751 104.306C15.2455 90.0807 16.6978 75.3358 22.2482 61.9359C27.7986 48.536 37.198 37.0829 49.2576 29.0249Z"
 					fill="#B9B9B9"
 				/>
-				<path
-					d="M123 62.7479L116.252 56L89.5 82.7521L62.7479 56L56 62.7479L82.7521 89.5L56 116.252L62.7479 123L89.5 96.2479L116.252 123L123 116.252L96.2479 89.5L123 62.7479Z"
-					fill="white"
-				/>
+				<path d="M123 62.7479L116.252 56L89.5 82.7521L62.7479 56L56 62.7479L82.7521 89.5L56 116.252L62.7479 123L89.5 96.2479L116.252 123L123 116.252L96.2479 89.5L123 62.7479Z" fill="white" />
 			</svg>
 		</div>
 		<div class="pago">

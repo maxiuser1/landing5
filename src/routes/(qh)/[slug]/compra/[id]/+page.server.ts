@@ -1,14 +1,10 @@
 import { redirect } from '@sveltejs/kit';
-import {
-	SECRET_NIUBIZ_MERCHANTID,
-	SECRET_NIUBIZ_CREDENTIALS,
-	SECRET_NIUBIZ_NIUBIZAPI
-} from '$env/static/private';
+import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUBIZAPI } from '$env/static/private';
 
 import axios from 'axios';
 
 export const actions = {
-	default: async ({ locals, request, params }) => {
+	default: async ({ locals, request, params, url }) => {
 		const parameters = decodeURIComponent(await request.text());
 
 		const transaction = Object.fromEntries(new URLSearchParams(parameters));
@@ -48,24 +44,27 @@ export const actions = {
 
 			await locals.eventosRepo.confirmarEntrada(compra, evento);
 
-			const entrada = {
+			const entrada: App.Entrada = {
 				tenant: 'quehay',
 				evento: compra.evento,
 				slug: compra.evento.slug,
 				entradas: compra.entradas,
+				canal: 'WEB',
+				formaPago: 'Niubiz',
 				pago: exito,
 				monto: turno.monto,
 				numero: turno.compra,
 				id: turno.id,
-				user: {
+				cliente: {
 					nombre: locals.user.nombre,
 					correo: locals.user.correo,
 					apellido: locals.user.apellido,
 					dni: locals.user.dni,
 					id: locals.user.id
 				},
-				turno: turno.id
+				fecha: new Date()
 			};
+
 			await locals.eventosRepo.guardarEntrada(entrada);
 		} catch (err: any) {
 			const fracaso = err.response.data;
@@ -76,6 +75,6 @@ export const actions = {
 			};
 		}
 
-		throw redirect(303, `/ticket/${turno.id}`);
+		throw redirect(303, `/ticket/${turno.id}${url.search}`);
 	}
 };

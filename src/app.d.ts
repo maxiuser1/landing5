@@ -8,6 +8,7 @@ declare namespace App {
 		apellido?: string;
 		fbtoken: string;
 		dni?: string;
+		rol?: string;
 		avatar?: string;
 		correo: string;
 		telefono?: string;
@@ -32,36 +33,62 @@ declare namespace App {
 		color?: string;
 		nombre?: string;
 		base: number;
+		online: number;
+		promotor: number;
 		tope?: number;
+		regalo?: string;
+		regaloIndividual?: string;
 		promo?: string;
 		numerado: boolean;
 		filas: Array<Fila>;
 		total: number;
 		descuentos?: Array<Descuento>;
+		qrcode?:boolean;
 	};
+
+	type TipoCanal = 'WEB' | 'PROMOTOR';
 
 	type Descuento = {
 		nombre: string;
 		descuento: number;
-		descontado: number;
+		online: number;
+		promotor: number;
 	};
 
 	type Entrada = {
-		id: string;
-		entradas: Array<Sentado>;
+		tenant: string;
+		slug?: string;
+		id?: string;
+		entradas?: Array<Sentado>;
+		fecha: Date;
 		evento: {
-			nombre: string;
-			lugar: string;
-			fecha: Date;
-			artista: string;
+			id?: string;
+			slug?: string;
+			artista?: string;
+			nombre?: string;
+			fecha?: string;
+			lugar?: string;
 		};
 		qrcode?: string;
-		user: User;
+		user?: User;
 		monto: number;
+		cliente?: {
+			id: string;
+			nombre: string;
+			apellido: string;
+			correo: string;
+			dni: string;
+		};
+		montoBase?: number;
+		canal: TipoCanal;
+		formaPago?: string;
+		tipoDscto?: string;
+		codigoDescto?: string;
 		numero: number;
 		pago?: {
 			dataMap?: {
 				AUTHORIZATION_CODE: string;
+				TRACE_NUMBER: string;
 				ACTION_DESCRIPTION: string;
 				CARD: string;
 				TRANSACTION_DATE: string;
@@ -92,6 +119,10 @@ declare namespace App {
 			nombre?: string;
 			seccionamiento?: any;
 		};
+		caratula?: {
+			thumb?: string;
+			detalles?: string;
+		};
 		general?: {
 			categoria: string;
 			nombre: string;
@@ -103,7 +134,10 @@ declare namespace App {
 
 	type Sentado = {
 		base?: number;
+		online?: number;
 		final?: number;
+		promotor?: number;
+		qrcode?: boolean;
 		descuento?: number;
 		tipo?: string;
 		nombre?: string;
@@ -111,6 +145,10 @@ declare namespace App {
 		asiento: number;
 		cantidad: number;
 		numerado?: boolean;
+		tickets?: Array<{
+			c?: string;
+			v?: string;
+		}>;
 	};
 
 	type Compra = {
@@ -125,6 +163,8 @@ declare namespace App {
 		zona?: {
 			tipo: string;
 			base: number;
+			online: number;
+			promotor: number;
 			nombre?: string;
 			numerado?: boolean;
 		};
@@ -140,6 +180,7 @@ declare namespace App {
 		getTurno(id): Promise<any>;
 		findEvento(id): Promoise<Evento>;
 		confirmarEntrada(evento, compra): Promise<void>;
+		ventaManual(slug, compra, vendedor): Promise<void>;
 		guardarEntrada(entrada): Promise<void>;
 		getEntrada(id): Promise<Entrada>;
 	}

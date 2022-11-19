@@ -1,13 +1,29 @@
 <script lang="ts">
+	import { applyAction } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import { Breadcrumbs, Counter, Resumen, Steps } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
-	import { Box, Descuento, Tarjeta, Ticket } from '$lib/icons';
-	import { onMount } from 'svelte';
+	import { Box, Descuento, Qrcode, Tarjeta, Ticket } from '$lib/icons';
+	import type { ActionResult } from '@sveltejs/kit';
+	import '../../../../dbr';
+	import { onMount, SvelteComponent } from 'svelte';
+	import Barinputer from '$lib/components/Evento/Barinputer.svelte';
+	import FormasPago from '$lib/components/Evento/FormasPago.svelte';
+	import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
 	export let data;
 	let { evento } = data;
 	let posting = false;
+
+	let scanning = false;
+	let camara = false;
+
+	let zonaTipo: string | undefined;
+	let ticketc: string | undefined;
+
+	let reader: any;
+	let barcodeinputter: SvelteComponent;
 
 	let totalEntradas: number = 0;
 	let totalPrecios: number = 0;
@@ -17,22 +33,36 @@
 	let oePreciobase: number = 0;
 	let oeDescuento: number = 0;
 
-	onMount(() => {
-		if ($compraData.entradas && $compraData.zona && $compraData.zona.base) {
-			totalEntradas = $compraData.entradas?.length;
-			totalPrecios = totalEntradas * $compraData.zona.base;
+	onMount(async () => {
+		try {
+			await BarcodeScanner.loadWasm();
+		} catch (ex) {
+			console.error(ex);
 		}
 
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas?.map((t) => {
+				totalEntradas++;
+				t.final = t.promotor;
+				totalPrecios = totalPrecios + Number(t.promotor);
+				return t;
+			})
+		}));
+
 		evento.precios?.forEach((t: App.Precio) => {
+			console.log('d', t);
 			if (!t.numerado) {
 				otrasEntradas.push({
 					fila: 0,
 					asiento: 0,
 					nombre: t.nombre,
+					qrcode: t.qrcode,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
 					base: t.base,
-					final: t.descuentos ? t.descuentos![0].descontado : t.base
+					final: t.descuentos ? t.descuentos![0].promotor : t.promotor,
+					tickets: t.tipo == $compraData.zona?.tipo ? [{ c: `${t.nombre}_0`, v: '' }] : []
 				});
 			}
 		});
@@ -45,6 +75,10 @@
 		otrasEntradas = otrasEntradas.map((t) => {
 			if (t.tipo == tipo) {
 				t.cantidad = cantidad;
+				t.tickets = [];
+				for (let i = 0; i < cantidad; i++) {
+					t.tickets?.push({ c: `${tipo}_${i}`, v: '' });
+				}
 			}
 			return t;
 		});
@@ -67,22 +101,67 @@
 		oeDescuento = oePreciobase - oePrecio;
 	};
 
-	const continuarClick = async () => {
+	async function handleSubmit(event: any) {
+		posting = true;
+
 		compraData.update((current) => ({
 			...current,
 			entradas: current.entradas ? [...current.entradas].concat(otrasEntradas.filter((t) => t.cantidad > 0)) : otrasEntradas.filter((t) => t.cantidad > 0)
 		}));
 
-		const resp = await fetch('/api/miturno', {
+		const data = new FormData(this);
+		data.append('payload', JSON.stringify({ ...$compraData }));
+		const response = await fetch(this.action, {
 			method: 'POST',
-			body: JSON.stringify({ ...$compraData }),
-			headers: {
-				'content-type': 'application/json'
-			}
+			body: data
 		});
-		const datapago = await resp.json();
+
+		const result: ActionResult = await response.json();
+
+		if (result.type === 'success') {
+			await invalidateAll();
+		}
+
+		applyAction(result);
+	}
+
+	const showDialogClick = (zona: any, ticket: any) => {
+		camara = true;
+		zonaTipo = zona.tipo;
+		ticketc = ticket.c;
 	};
+
+	function scanCanceld(event: any) {
+		ticketc = undefined;
+		zonaTipo = undefined;
+		camara = false;
+	}
+
+	function scanned(event: any) {
+		otrasEntradas = otrasEntradas.map((t) => {
+			if (t.tipo == zonaTipo && t.tickets) {
+				t.tickets = t.tickets?.map((p) => {
+					if (p.c == ticketc) {
+						p.v = event.detail.text;
+					}
+					return p;
+				});
+			}
+			return t;
+		});
+		camara = false;
+		zonaTipo = undefined;
+		ticketc = undefined;
+	}
 </script>
+
+<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
+	{#if ticketc}
+		{#key ticketc}
+			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
+		{/key}
+	{/if}
+</div>
 
 <Breadcrumbs {evento} />
 <br />
@@ -90,121 +169,189 @@
 	<div class="principal">
 		<div class="prota">
 			<div class="titulos">
-				<h4>Resumen</h4>
-				<p>Lugar reservado</p>
+				<h4>Venta Directa</h4>
 			</div>
-			{#if $compraData.zona && $compraData.zona.base}
-				<div class="compras">
-					{#if $compraData.entradas}
-						{#each $compraData.entradas.filter((t) => t.numerado) as entrada, i}
-							<div class="compra" class:odd={i % 2 == 0}>
+
+			<form method="POST" on:submit|preventDefault={handleSubmit}>
+				{#if $compraData.zona && $compraData.zona.base}
+					<div class="compras">
+						{#if $compraData.entradas}
+							{#each $compraData.entradas.filter((t) => t.numerado) as entrada, i}
+								<div class="compra" class:odd={i % 2 == 0}>
+									<div class="asiento">
+										<div>
+											<Box width={30} disabled={false} />
+										</div>
+										<div class="etiquetas">
+											<h6><strong>{entrada.nombre}</strong></h6>
+											{#if entrada.numerado}
+												<h6>Fila: {entrada.fila + 1}</h6>
+												<h6>Mesa: {entrada.asiento + 1}</h6>
+											{/if}
+										</div>
+									</div>
+									<div>
+										<h6>
+											<strong>
+												S/ {entrada.promotor?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+											</strong>
+										</h6>
+									</div>
+								</div>
+
+								{#if entrada.tickets && (entrada.qrcode == undefined || entrada.qrcode == true)}
+									{entrada.qrcode}
+									<div class="tickets">
+										{#each entrada.tickets as ticket, j}
+											<div class="input-group">
+												<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
+												<button on:click={() => showDialogClick(entrada, ticket)} type="button" class="btn"><Qrcode /></button>
+											</div>
+										{/each}
+									</div>
+									<br />
+								{/if}
+							{/each}
+						{/if}
+
+						{#each otrasEntradas as zona, i}
+							<div class="compra odd">
 								<div class="asiento">
 									<div>
-										<Box width={30} color="red" disabled={false} />
+										<Ticket />
 									</div>
 									<div class="etiquetas">
-										<h6><strong>{entrada.nombre}</strong></h6>
-										{#if entrada.numerado}
-											<h6>Fila: {entrada.fila + 1}</h6>
-											<h6>Mesa: {entrada.asiento + 1}</h6>
-										{/if}
+										<h6>{zona.nombre}</h6>
 									</div>
 								</div>
 								<div>
-									<h6>
-										<strong>
-											S/ {entrada.base?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-										</strong>
-									</h6>
+									<Counter precio={zona.final ? zona.final : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
 								</div>
 							</div>
-						{/each}
-					{/if}
 
-					{#each otrasEntradas as zona, i}
-						<div class="compra odd">
+							{#if zona.tickets && (zona.qrcode == undefined || zona.qrcode == false)}
+								<div class="tickets">
+									{#each zona.tickets as ticket, j}
+										<div class="input-group">
+											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
+											<button on:click={() => showDialogClick(zona, ticket)} type="button" class="btn"><Qrcode /></button>
+										</div>
+									{/each}
+								</div>
+								<br />
+							{/if}
+						{/each}
+
+						{#if oeDescuento > 0}
+							<div class="compra ">
+								<div class="asiento">
+									<div>
+										<Descuento />
+									</div>
+									<div class="etiquetas">
+										<h5>Pre-Venta</h5>
+									</div>
+								</div>
+								<div>
+									<h5>
+										<strong>
+											-S/ {oeDescuento}
+										</strong>
+									</h5>
+								</div>
+							</div>
+						{/if}
+
+						<div class="compra totales">
 							<div class="asiento">
 								<div>
 									<Ticket />
 								</div>
 								<div class="etiquetas">
-									<h6>{zona.nombre}</h6>
+									<h2>
+										Total: {totalEntradas + oeCantidad}
+									</h2>
 								</div>
 							</div>
 							<div>
-								<Counter precio={zona.base ? zona.base : 0} count={zona.cantidad} on:cambiado={({ detail }) => handleOtrasEntrada(zona.tipo, detail.count)} />
-							</div>
-						</div>
-					{/each}
+								{#if oeDescuento > 0}
+									<h6 style="text-decoration: line-through;">
+										S/ {(totalPrecios + oePreciobase).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+									</h6>
+								{/if}
 
-					{#if oeDescuento > 0}
-						<div class="compra ">
-							<div class="asiento">
-								<div>
-									<Descuento />
-								</div>
-								<div class="etiquetas">
-									<h5>Pre-Venta</h5>
-								</div>
-							</div>
-							<div>
-								<h5>
+								<h4>
 									<strong>
-										-S/ {oeDescuento}
+										S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 									</strong>
-								</h5>
+								</h4>
 							</div>
-						</div>
-					{/if}
-
-					<div class="compra totales">
-						<div class="asiento">
-							<div>
-								<Ticket />
-							</div>
-							<div class="etiquetas">
-								<h2>
-									Total: {totalEntradas + oeCantidad}
-								</h2>
-							</div>
-						</div>
-						<div>
-							{#if oeDescuento > 0}
-								<h6 style="text-decoration: line-through;">
-									S/ {(totalPrecios + oePreciobase).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</h6>
-							{/if}
-
-							<h4>
-								<strong>
-									S/ {(totalPrecios + oePrecio).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</strong>
-							</h4>
 						</div>
 					</div>
+				{/if}
+				<br />
+				<div class="form-group">
+					<label for="nombres">Información del cliente</label>
+					<input type="text" name="nombre" class="form-control" placeholder="Nombre" required />
 				</div>
-			{/if}
-			<div class="cta">
-				<button on:click={continuarClick} class="btn" disabled={posting}>
-					{#if posting}
-						<Spinner size="20" color="#D30ED1" unit="px" />
-					{:else}
-						Continuar
-					{/if}
-				</button>
-			</div>
+				<div class="form-group">
+					<input type="text" name="apellido" class="form-control" placeholder="Apellido" required />
+				</div>
+				<div class="form-group">
+					<input type="text" name="dni" class="form-control" placeholder="DNI" required />
+				</div>
+				<div class="form-group">
+					<input type="email" name="correo" class="form-control" placeholder="Correo" required />
+				</div>
+
+				<FormasPago monto={totalPrecios + oePrecio} />
+
+				<div class="cta">
+					<button type="submit" class="btn" disabled={posting}>
+						{#if posting}
+							<Spinner size="20" color="#D30ED1" unit="px" />
+						{:else}
+							Continuar
+						{/if}
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </section>
 
 <style lang="scss">
+	.tickets {
+		padding: 2px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.modal {
+		width: 100%;
+		height: 90vh;
+		z-index: 9999;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: #000;
+		display: flex;
+		align-items: center;
+
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+	}
+
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;
 	}
-	.content-modal {
-		padding: 24px;
-	}
+
 	.modal {
 		background: transparent;
 		border: none;
@@ -253,11 +400,11 @@
 		}
 
 		.compras {
-			margin-top: 60px;
+			margin-top: 20px;
 
 			.compra {
 				min-width: 300px;
-				padding: 32px;
+				padding: 12px 24px;
 				border-radius: 8px;
 				display: flex;
 				justify-content: space-between;
@@ -292,6 +439,10 @@
 
 			.totales {
 				background-color: #f9f9f97f;
+			}
+
+			@include breakpoint($md) {
+				margin-top: 60px;
 			}
 		}
 

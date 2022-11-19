@@ -12,8 +12,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const container = await database.container('eventos');
 
 		const querySpec: SqlQuerySpec = {
-			query:
-				'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad FROM c WHERE c.destacado'
+			query: 'SELECT c.banner, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad FROM c WHERE c.destacado'
 		};
 
 		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
@@ -58,6 +57,79 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return entrada;
 	};
 
+	ventaManual = async (slug: string, compra: any, vendedor: any): Promise<any> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('ensallos');
+		const containerEntradas = await database.container('entradas');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where c.general.slug = @slug',
+			parameters: [
+				{
+					name: '@slug',
+					value: slug
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
+		const evento = results[0];
+
+		let precioReal: number = 0;
+
+		for (let entrada of compra.entradas) {
+			const entradaDb = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+			if (entradaDb && entrada.base && entrada.cantidad) {
+				const costoFinal = entradaDb.descuentos ? entradaDb.descuentos[0].promotor : entradaDb.promotor;
+
+				const precio = Number(costoFinal) * entrada.cantidad;
+				precioReal += precio;
+			}
+		}
+
+		const replaceOperation: PatchOperation[] = [];
+		compra.entradas.forEach((entrada: any) => {
+			const indexPrecio = evento.precios.findIndex((t) => t.tipo == entrada.tipo);
+
+			if (entrada.numerado) {
+				const currentPrecio = evento.precios.find((t) => t.tipo == entrada.tipo);
+				const indexFila = currentPrecio!.filas.findIndex((t) => t.id == entrada.fila);
+
+				const fila = currentPrecio!.filas.find((t) => t.id == entrada.fila);
+				const indexAsiento = fila!.sits.findIndex((t) => t.id == entrada.asiento);
+
+				replaceOperation.push({
+					op: 'replace',
+					path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
+					value: 3
+				});
+			}
+		});
+
+		if (replaceOperation.length > 0) await container.item(compra.evento.id, 'quehay').patch(replaceOperation);
+
+		const purchasenumber = Math.floor(new Date().getTime() / 10);
+
+		const entrada : App.Entrada = {
+			tenant: 'quehay',
+			evento: compra.evento,
+			slug: compra.evento.slug,
+			entradas: compra.entradas,
+			monto: precioReal,
+			numero: purchasenumber,
+			user: vendedor,
+			cliente: compra.cliente,
+			formaPago: compra.formaPago,
+			fecha: new Date(),
+			canal: "PROMOTOR"
+		};
+
+		const { resource: createdItem } = await containerEntradas.items.create(entrada);
+
+		return createdItem;
+	};
+
 	confirmarEntrada = async (compra: any, evento: any): Promise<void> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
@@ -77,13 +149,12 @@ export class EventosRepo implements App.EventosRepoInterface {
 				replaceOperation.push({
 					op: 'replace',
 					path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
-					value: 2
+					value: 3
 				});
 			}
 		});
 
-		if (replaceOperation.length > 0)
-			await container.item(compra.evento.id, 'quehay').patch(replaceOperation);
+		if (replaceOperation.length > 0) await container.item(compra.evento.id, 'quehay').patch(replaceOperation);
 	};
 
 	getEvento = async (slug: string): Promise<App.Evento> => {
@@ -123,9 +194,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 			]
 		};
 
-		const { resources: items } = await container.items
-			.query(querySpec, { partitionKey: evento.lugar })
-			.fetchAll();
+		const { resources: items } = await container.items.query(querySpec, { partitionKey: evento.lugar }).fetchAll();
 
 		const resultado = { ...evento, locacion: items[0].general.mapa };
 

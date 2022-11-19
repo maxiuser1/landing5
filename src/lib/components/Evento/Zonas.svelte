@@ -15,20 +15,19 @@
 				tipo: zonaSeleccionada.tipo,
 				nombre: zonaSeleccionada.nombre,
 				base: zonaSeleccionada.base,
-				numerado: zonaSeleccionada.numerado
+				online: zonaSeleccionada.online,
+				promotor: zonaSeleccionada.promotor,
+				numerado: zonaSeleccionada.numerado,
+				qrcode: zonaSeleccionada.qrcode
 			}
 		}));
-
-		console.log('a', $page.data.user.rol);
 
 		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
 
 		if (zonaSeleccionada.numerado) {
-			goto(`../${evento.general?.slug}/lugar`);
+			goto(`../${evento.general?.slug}/lugar${$page.url.search ?? ''}`);
 		} else {
-			esPromotor
-				? goto(`../${evento.general?.slug}/venta`)
-				: goto(`../${evento.general?.slug}/reserva`);
+			esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`../${evento.general?.slug}/reserva${$page.url.search ?? ''}`);
 		}
 	};
 </script>
@@ -56,7 +55,7 @@
 									</div>
 								</td>
 								<td class="tdnombre">{precio.nombre} </td>
-								<td class="tdprecio"><Soles number={precio.base} /></td>
+								<td class="tdprecio"><Soles number={precio.online} /></td>
 							</tr>
 						{/each}
 					{/if}

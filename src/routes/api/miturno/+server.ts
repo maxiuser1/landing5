@@ -1,18 +1,11 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
-import {
-	SECRET_NIUBIZ_MERCHANTID,
-	SECRET_NIUBIZ_CREDENTIALS,
-	SECRET_NIUBIZ_NIUBIZAPI,
-	SECRET_NIUBIZ_NIUBIZLIB
-} from '$env/static/private';
+import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUBIZAPI, SECRET_NIUBIZ_NIUBIZLIB } from '$env/static/private';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
-
-	console.log('indencnion', intencion);
 
 	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
 
@@ -21,9 +14,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	for (let entrada of intencion.entradas!) {
 		const entradaDb = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 		if (entradaDb && entrada.base && entrada.cantidad) {
-			const precioFinal = entradaDb.descuentos
-				? entradaDb.descuentos[0].descontado
-				: entradaDb.base;
+			const precioFinal = entradaDb.descuentos ? entradaDb.descuentos[0].online : entradaDb.online;
 			const precio = Number(precioFinal) * entrada.cantidad;
 
 			precioReal += precio;
@@ -35,6 +26,8 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 			Authorization: SECRET_NIUBIZ_CREDENTIALS
 		}
 	});
+
+	console.log('token', token, new Date());
 
 	const { data: session } = await axios.post(
 		`${SECRET_NIUBIZ_NIUBIZAPI}/api.ecommerce/v2/ecommerce/token/session/${SECRET_NIUBIZ_MERCHANTID}`,
@@ -60,6 +53,8 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		}
 	);
 
+	console.log('session', session, new Date());
+
 	const newId = uuidv4();
 
 	const pago = {
@@ -75,10 +70,20 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		compra: pago.purchasenumber,
 		monto: precioReal,
 		info: intencion,
-		clientIpAddress: clientIpAddress
+		clientIpAddress: clientIpAddress,
+		fecha: new Date(),
+		user: {
+			nombre: locals.user.nombre,
+			correo: locals.user.correo,
+			apellido: locals.user.apellido,
+			dni: locals.user.dni,
+			id: locals.user.id
+		}
 	};
 
 	await locals.eventosRepo.postTurno(turno);
+
+	console.log('post turno', new Date());
 
 	return json({ ...pago, id: newId, niubizlib: SECRET_NIUBIZ_NIUBIZLIB });
 };

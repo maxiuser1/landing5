@@ -1,4 +1,4 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<path
 		opacity="0.1"
 		fill-rule="evenodd"
@@ -11,27 +11,27 @@
 		fill="url(#paint1_linear_352_98)"
 	/>
 	<defs>
-		<linearGradient
-			id="paint0_linear_352_98"
-			x1="90"
-			y1="0"
-			x2="90"
-			y2="180"
-			gradientUnits="userSpaceOnUse"
-		>
+		<linearGradient id="paint0_linear_352_98" x1="90" y1="0" x2="90" y2="180" gradientUnits="userSpaceOnUse">
 			<stop stop-color="#FF0036" />
 			<stop offset="1" stop-color="#D30ED1" />
 		</linearGradient>
-		<linearGradient
-			id="paint1_linear_352_98"
-			x1="89.9994"
-			y1="16.6667"
-			x2="89.9994"
-			y2="163.333"
-			gradientUnits="userSpaceOnUse"
-		>
+		<linearGradient id="paint1_linear_352_98" x1="89.9994" y1="16.6667" x2="89.9994" y2="163.333" gradientUnits="userSpaceOnUse">
 			<stop stop-color="#FF0036" />
 			<stop offset="1" stop-color="#D30ED1" />
 		</linearGradient>
 	</defs>
 </svg>
+
+<style lang="scss">
+	svg {
+		z-index: 1;
+
+		width: 128px;
+		height: 128px;
+
+		@include breakpoint($sm) {
+			width: 180px;
+			height: 180px;
+		}
+	}
+</style>
