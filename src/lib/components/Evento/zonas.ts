@@ -19,6 +19,7 @@ export const zonas = (node: any, props: any) => {
 							base: cadaPrecio.base,
 							online: cadaPrecio.online,
 							promotor: cadaPrecio.promotor,
+							qrcode: cadaPrecio.qrcode,
 							nombre: cadaPrecio.nombre,
 							numerado: cadaPrecio.numerado
 						}

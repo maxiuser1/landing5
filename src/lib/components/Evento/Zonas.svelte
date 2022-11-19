@@ -17,7 +17,8 @@
 				base: zonaSeleccionada.base,
 				online: zonaSeleccionada.online,
 				promotor: zonaSeleccionada.promotor,
-				numerado: zonaSeleccionada.numerado
+				numerado: zonaSeleccionada.numerado,
+				qrcode: zonaSeleccionada.qrcode
 			}
 		}));
 

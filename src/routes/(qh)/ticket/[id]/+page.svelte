@@ -40,7 +40,7 @@
 
 <section class="container summary">
 	<div class="tarjeta">
-		{#if ticket.canal === 'WEB'}
+		{#if ticket.canal === 'WEB' || ticket.entradas?.some((t) => t.tipo == 'golds' || t.tipo == 'blacks')}
 			<div class="qrcode">
 				<img src={ticket.qrcode} alt="qrcode" />
 			</div>
@@ -75,7 +75,7 @@
 					<div class="ticket odd">
 						<div class="asiento">
 							<div>
-								<Box width={30} color="red" disabled={false} />
+								<Box width={30} disabled={false} />
 							</div>
 							<div class="etiquetas">
 								<h6><strong>{entrada.nombre}</strong></h6>

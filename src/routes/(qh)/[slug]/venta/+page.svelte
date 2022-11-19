@@ -51,11 +51,13 @@
 		}));
 
 		evento.precios?.forEach((t: App.Precio) => {
+			console.log('d', t);
 			if (!t.numerado) {
 				otrasEntradas.push({
 					fila: 0,
 					asiento: 0,
 					nombre: t.nombre,
+					qrcode: t.qrcode,
 					tipo: t.tipo,
 					cantidad: t.tipo == $compraData.zona?.tipo ? 1 : 0,
 					base: t.base,
@@ -178,7 +180,7 @@
 								<div class="compra" class:odd={i % 2 == 0}>
 									<div class="asiento">
 										<div>
-											<Box width={30} color="red" disabled={false} />
+											<Box width={30} disabled={false} />
 										</div>
 										<div class="etiquetas">
 											<h6><strong>{entrada.nombre}</strong></h6>
@@ -197,7 +199,8 @@
 									</div>
 								</div>
 
-								{#if entrada.tickets}
+								{#if entrada.tickets && (entrada.qrcode == undefined || entrada.qrcode == true)}
+									{entrada.qrcode}
 									<div class="tickets">
 										{#each entrada.tickets as ticket, j}
 											<div class="input-group">
@@ -226,7 +229,7 @@
 								</div>
 							</div>
 
-							{#if zona.tickets}
+							{#if zona.tickets && (zona.qrcode == undefined || zona.qrcode == false)}
 								<div class="tickets">
 									{#each zona.tickets as ticket, j}
 										<div class="input-group">

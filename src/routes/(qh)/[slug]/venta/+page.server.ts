@@ -31,22 +31,28 @@ export const actions: Actions = {
 
 		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
 
-		var opts: any = {
-			errorCorrectionLevel: 'H',
-			type: 'image/jpeg',
-			quality: 0.3,
-			margin: 1,
-			color: {
-				dark: '#80057F',
-				light: '#FFFFFF'
-			}
-		};
+		
 
-		const generateQR = async (text: any) => {
-			return await QRCode.toDataURL(text, opts);
-		};
-
-		const qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+		
+		let qrcode = "";
+		if(compraCliente.entradas.some((t : any) => t.tipo == "golds" || t.tipo == "blacks"))
+		{
+			var opts: any = {
+				errorCorrectionLevel: 'H',
+				type: 'image/jpeg',
+				quality: 0.3,
+				margin: 1,
+				color: {
+					dark: '#80057F',
+					light: '#FFFFFF'
+				}
+			};
+	
+			const generateQR = async (text: any) => {
+				return await QRCode.toDataURL(text, opts);
+			};
+			qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+		}
 
 		const sgMail: MailService = new MailService();
 		sgMail.setApiKey(SECRET_SENDGRID_KEY);
@@ -83,6 +89,6 @@ export const actions: Actions = {
 			console.log('err', err);
 		}
 
-		throw redirect(303, `/ticket/${entrada.id}`);
+		throw redirect(303, `../../ticket/${entrada.id}`);
 	}
 };

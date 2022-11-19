@@ -43,6 +43,7 @@ declare namespace App {
 		filas: Array<Fila>;
 		total: number;
 		descuentos?: Array<Descuento>;
+		qrcode?:boolean;
 	};
 
 	type TipoCanal = 'WEB' | 'PROMOTOR';
@@ -136,6 +137,7 @@ declare namespace App {
 		online?: number;
 		final?: number;
 		promotor?: number;
+		qrcode?: boolean;
 		descuento?: number;
 		tipo?: string;
 		nombre?: string;
