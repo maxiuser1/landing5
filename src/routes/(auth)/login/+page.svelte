@@ -186,10 +186,10 @@
 	.login {
 		margin: 0 auto;
 		max-width: 380px;
-		padding-top: 42px;
+		padding-top: 12px;
 	}
 	.form {
-		margin-top: 24px;
+		margin-top: 14px;
 
 		label {
 			font-weight: 600;
