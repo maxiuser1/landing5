@@ -43,7 +43,7 @@
 
 						const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
 
-						if (habilitados != zona.tope) {
+						if (habilitados == zona.tope) {
 							ticketesBox.push({ c: `${zona.tipo}_${fila!.id}_${asiento!.id}`, v: '' });
 						}
 
@@ -140,14 +140,14 @@
 							const asiento = fila?.sits.find((t) => t.id == obj.asiento);
 							console.log('a', obj.cantidad, 'b', zona.tope);
 							if (obj.cantidad == zona.tope) {
-								ticketesBox = [];
-							} else {
 								ticketesBox = [
 									{
 										c: `${zona.tipo}_${fila!.id}_${asiento!.id}`,
 										v: ''
 									}
 								];
+							} else {
+								ticketesBox = [];
 							}
 						} else {
 							if (!zona.qrcode) {

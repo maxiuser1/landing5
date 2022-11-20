@@ -5,6 +5,29 @@ export class VentaManual {
         this.evento = evento;
     }
 
+    public debeGenerarQR(tipoZona:string, cantidad: number) : boolean
+    {
+        const zona : App.Precio | undefined = this.evento.precios.find((t:App.Precio) => t.tipo == tipoZona);
+       
+        let generaQR = false;
+        if(zona){
+            if(zona.numerado){
+                console.log('numerado');
+                console.log('cantidad' , cantidad);
+                console.log('tope', zona.tope);
+                if(cantidad != zona.tope){
+                    generaQR = true;
+                }
+            } else {
+                if(zona!.qrcode){
+                    generaQR = true;	 
+                }
+            }
+        }
+        
+        return generaQR;
+    }
+
     public tarificarNumerado(zona: App.Precio, cantidad:number){
         if(cantidad == zona.tope){
             zona.final = zona.promotor;
