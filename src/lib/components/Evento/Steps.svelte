@@ -27,7 +27,7 @@
 <style lang="scss">
 	.wizard {
 		.mpasos {
-			margin: 40px 0px;
+			margin: 10px 0px;
 			display: flex;
 			justify-content: space-between;
 			@include breakpoint($md) {

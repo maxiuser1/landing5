@@ -22,30 +22,42 @@
 		.numero {
 			color: white;
 			display: flex;
-			width: 54px;
-			height: 54px;
+			width: 27px;
+			height: 27px;
 			font-weight: 900;
-			font-size: 24px;
+			font-size: 16px;
 			line-height: 29px;
 			align-items: center;
 			justify-content: center;
-			width: 54px;
 			border-radius: 50%;
 			background-color: #e2e2e2;
+			@include breakpoint($md) {
+				width: 54px;
+				height: 54px;
+				font-size: 24px;
+			}
 		}
 
 		h1 {
 			font-weight: 900;
-			font-size: 18px;
-			line-height: 22px;
+			font-size: 14px;
+			line-height: 14px;
 			color: #c6c6c6;
+			@include breakpoint($md) {
+				font-size: 18px;
+				line-height: 22px;
+			}
 		}
 
 		h2 {
 			font-weight: 400;
-			font-size: 14px;
-			line-height: 17px;
+			font-size: 10px;
+			line-height: 12px;
 			color: #c6c6c6;
+			@include breakpoint($md) {
+				font-size: 14px;
+				line-height: 17px;
+			}
 		}
 	}
 	.seleccionado {

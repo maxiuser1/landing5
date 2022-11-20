@@ -126,7 +126,6 @@
 					</button>
 				</div>
 			</div>
-			<Boxlegend />
 
 			{#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
 				<div class="legend">
@@ -150,6 +149,8 @@
 			<div class="cta">
 				<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
 			</div>
+
+			<Boxlegend /> <br />
 		</div>
 		<Resumen {evento} />
 	</div>
@@ -195,10 +196,14 @@
 		margin-top: 20px;
 	}
 	.scrollers {
-		margin-top: 39px;
+		margin-top: 10px;
 		width: 100%;
 		display: flex;
 		justify-content: center;
+
+		@include breakpoint($md) {
+			display: none;
+		}
 
 		div {
 			display: flex;
@@ -207,10 +212,6 @@
 		.scroller {
 			background: none;
 			border: none;
-		}
-
-		@include breakpoint($md) {
-			display: none;
 		}
 	}
 

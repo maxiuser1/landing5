@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let evento: App.Evento;
+	const artista = (evento.general?.artista ?? '').length > 20 ? evento.general?.artista.substring(0, 19) + '..' : evento.general?.artista;
 </script>
 
 <section class="breacrumbs">
@@ -14,7 +15,7 @@
 			</li>
 			<li class="selected">
 				<a href="/{evento.general?.slug}">
-					{evento.general?.artista}
+					{artista}
 				</a>
 			</li>
 			<li>></li>
@@ -27,9 +28,13 @@
 	.breacrumbs {
 		background: white;
 		ul {
-			padding: 24px 0px;
+			padding: 12px 0px;
 			display: flex;
 			gap: 14px;
+			@include breakpoint($md) {
+				padding: 24px 0px;
+			}
+
 			li {
 				font-weight: 500;
 				font-size: 16px;

@@ -280,14 +280,19 @@
 		border-radius: 8px;
 		background: white;
 		.titulos {
-			padding: 20px 20px 0px;
+			display: none;
 			@include breakpoint($md) {
+				display: block;
 				padding: initial;
 			}
 		}
 
 		.compras {
-			margin-top: 60px;
+			margin-top: 10px;
+
+			@include breakpoint($md) {
+				margin-top: 60px;
+			}
 
 			.odd {
 				background-color: #f9f9f9;

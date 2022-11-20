@@ -114,9 +114,8 @@
 			</div>
 		</div>
 	</div>
+	<Regalo {regalo} />
 </div>
-
-<Regalo {regalo} />
 
 <style lang="scss">
 	.box {
