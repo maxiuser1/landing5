@@ -43,11 +43,11 @@
 
 						const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
 
-						if (habilitados == zona.tope) {
+						if (habilitados != zona.tope) {
 							ticketesBox.push({ c: `${zona.tipo}_${fila!.id}_${asiento!.id}`, v: '' });
 						}
 
-						const final = habilitados == zona.tope ? obj.final : habilitados! * zona.promotor!;
+						const final = habilitados == zona.tope ? obj.final : habilitados! * zona.promotori!;
 
 						return accumulator + (final ?? 0);
 					}, 0),
@@ -80,7 +80,7 @@
 				monto: zona.descuentos && zona.descuentos[0] ? zona.descuentos[0].promotor : zona.promotor
 			}));
 		}
-
+		ticketesBox = [...ticketesBox];
 		ticketesGeneral = [...ticketesGeneral];
 	});
 
@@ -120,7 +120,6 @@
 	}
 
 	const showDialogClick = (ticket: any) => {
-		console.log('showDialogClick', ticket);
 		camara = true;
 		zonaTipo = zona.tipo;
 		ticketc = ticket.c;
@@ -139,28 +138,24 @@
 						if (zona.numerado) {
 							const fila = zona.filas.find((t) => t.id == obj.fila);
 							const asiento = fila?.sits.find((t) => t.id == obj.asiento);
-
+							console.log('a', obj.cantidad, 'b', zona.tope);
 							if (obj.cantidad == zona.tope) {
+								ticketesBox = [];
+							} else {
 								ticketesBox = [
 									{
 										c: `${zona.tipo}_${fila!.id}_${asiento!.id}`,
 										v: ''
 									}
 								];
-							} else {
-								ticketesBox = [];
 							}
 						} else {
-							console.log('que', zona.qrcode);
 							if (!zona.qrcode) {
 								if (ticketesGeneral.length < obj.cantidad) {
 									for (let i = 1; i <= obj.cantidad; i++) {
 										const tcode = `${zona.tipo}_${i}`;
 
-										console.log('tl', ticketesGeneral.length, 'obj.c', obj.cantidad, tcode, ticketesGeneral);
-
 										if (!ticketesGeneral.some((t) => t.c == tcode)) {
-											console.log('entro', tcode);
 											ticketesGeneral = [...ticketesGeneral, { c: tcode, v: '' }];
 										}
 									}
@@ -185,7 +180,6 @@
 	}
 
 	function scanned(event: any) {
-		alert(event.detail.text);
 		compraData.update((current) => ({
 			...current,
 			entradas: [
@@ -214,7 +208,6 @@
 		{/key}
 	{/if}
 </div>
-{JSON.stringify(ticketesGeneral)}
 <Breadcrumbs {evento} />
 
 <br />
@@ -235,7 +228,7 @@
 							{/each}
 							{#if ticketesBox}
 								<div class="tickets">
-									{#each ticketesGeneral as ticket, j}
+									{#each ticketesBox as ticket, j}
 										<div class="input-group">
 											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
 											<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>

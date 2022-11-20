@@ -55,7 +55,7 @@
 			entradas: entradas
 		}));
 
-		esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`./reserva${$page.url.search ?? ''}`);
+		esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
 	};
 </script>
 

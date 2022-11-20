@@ -38,8 +38,9 @@
 	});
 
 	function handleClick(count: number) {
-		console.log('handleclick counterbox');
-		total = count == tope ? precio : count * precioIndividual;
+		total = count == zona.tope ? precio : count * precioIndividual;
+		console.log('handleclick counterbox', precioIndividual, precio);
+
 		if (count <= 0) count = 1;
 
 		if (count == 1) {

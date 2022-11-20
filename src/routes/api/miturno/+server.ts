@@ -16,14 +16,12 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	let precioReal: number = 0;
 
 	for (let entrada of intencion.entradas!) {
-		console.log('entrada.cantidad', entrada.cantidad);
 		const entradaDb = ventaOnline.tarificar(entrada.tipo!, entrada.cantidad);
 		if(entradaDb.numerado)
 		{
 			const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
 			const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 			const habilitados = asiento.c ? entradaDb.tope! - asiento.c : entradaDb.tope;
-			console.log('habilitados', habilitados);
 
 			const final = habilitados == entradaDb.tope ? entrada.final : entrada.cantidad! * entradaDb.onlinei!;
 			precioReal+= final!;
