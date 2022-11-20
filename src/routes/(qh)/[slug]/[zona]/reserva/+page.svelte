@@ -187,7 +187,7 @@
 						{#if posting || $navigating}
 							<Spinner size="20" color="#D30ED1" unit="px" />
 						{:else}
-							Continuar <Tarjeta />
+							Pagar <Tarjeta />
 						{/if}
 					</button>
 				</div>
