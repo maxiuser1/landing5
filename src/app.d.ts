@@ -173,7 +173,7 @@ declare namespace App {
 
 	type Tickete = {
 		c:string;
-		v:string;
+		v?:string;
 	}
 
 	type Compra = {

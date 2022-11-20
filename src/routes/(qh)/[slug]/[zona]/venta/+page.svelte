@@ -180,20 +180,25 @@
 	}
 
 	function scanned(event: any) {
-		compraData.update((current) => ({
-			...current,
-			entradas: [
-				...current.entradas!.map((entrada) => {
-					entrada.tickets = entrada.tickets?.map((p) => {
-						if (p.c == ticketc) {
-							p.v = event.detail.text;
-						}
-						return p;
-					});
-					return entrada;
+		if (zona.numerado) {
+			ticketesBox = [
+				...ticketesBox.map((t) => {
+					if (t.c == ticketc) {
+						t.v: event.detail.text;
+					}
+					return t;
 				})
-			]
-		}));
+			];
+		} else {
+			ticketesGeneral = [
+				...ticketesGeneral.map((t) => {
+					if (t.c == ticketc) {
+						t.v: event.detail.text;
+					}
+					return t;
+				})
+			];
+		}
 
 		camara = false;
 		zonaTipo = undefined;
