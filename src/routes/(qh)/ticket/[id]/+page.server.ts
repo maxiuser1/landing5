@@ -3,26 +3,37 @@ import { SECRET_SENDGRID_KEY, SECRET_SENDGRID_TICKET } from '$env/static/private
 import QRCode from 'qrcode';
 import { MailService } from '@sendgrid/mail';
 import type { Action, Actions } from '@sveltejs/kit';
+import { VentaManual } from '$lib/aplicacion/ventamanual';
 
 export const load = async ({ locals, params }) => {
+
 	let ticket: App.Entrada = await locals.eventosRepo.getEntrada(params.id);
+	const evento = await locals.eventosRepo.findEvento(ticket.evento.id);
+	const zona = evento.precios.find((t:App.Precio) => t.tipo == ticket.entradas![0].tipo);
 
-	var opts: any = {
-		errorCorrectionLevel: 'H',
-		type: 'image/jpeg',
-		quality: 0.3,
-		margin: 1,
-		color: {
-			dark: '#80057F',
-			light: '#FFFFFF'
-		}
-	};
+	const generaQR = ticket.canal === "WEB" ? true: new VentaManual(evento).debeGenerarQR(ticket.entradas![0].tipo!, ticket.entradas![0].cantidad);
+	
+	console.log('generaQR4', generaQR);
 
-	const generateQR = async (text: any) => {
-		return await QRCode.toDataURL(text, opts);
-	};
 
-	ticket.qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+	if(generaQR){
+		var opts: any = {
+			errorCorrectionLevel: 'H',
+			type: 'image/jpeg',
+			quality: 0.3,
+			margin: 1,
+			color: {
+				dark: '#80057F',
+				light: '#FFFFFF'
+			}
+		};
+	
+		const generateQR = async (text: any) => {
+			return await QRCode.toDataURL(text, opts);
+		};
+	
+		ticket.qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+	}
 
 	return { ticket };
 };

@@ -3,6 +3,7 @@ import { redirect, type Actions } from '@sveltejs/kit';
 import QRCode from 'qrcode';
 import { MailService } from '@sendgrid/mail';
 import { VentaManual } from '$lib/aplicacion/ventamanual';
+import { letrar } from '$lib/utils/letrador';
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
 	if (locals.user.rol == 'promotor') {
@@ -28,6 +29,9 @@ export const actions: Actions = {
 		const formDataCliente = { ...formData, payload: '' };
 		const compraCliente = { ...compra, cliente: formDataCliente, formaPago: formData.formaPago };
 
+
+		const evento = await locals.eventosRepo.findEvento(compra.evento.id);
+		const generaQR = new VentaManual(evento).debeGenerarQR(compra.entradas[0].tipo, compra.entradas[0].cantidad);
 		const vendedor = {
 			nombre: locals.user.nombre,
 			correo: locals.user.correo,
@@ -38,22 +42,28 @@ export const actions: Actions = {
 
 		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
 
-		var opts: any = {
-			errorCorrectionLevel: 'H',
-			type: 'image/jpeg',
-			quality: 0.3,
-			margin: 1,
-			color: {
-				dark: '#80057F',
-				light: '#FFFFFF'
-			}
-		};
+		
+		let qrcode = "";
 
-		const generateQR = async (text: any) => {
-			return await QRCode.toDataURL(text, opts);
-		};
-
-		const qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+		if(generaQR){
+			var opts: any = {
+				errorCorrectionLevel: 'H',
+				type: 'image/jpeg',
+				quality: 0.3,
+				margin: 1,
+				color: {
+					dark: '#80057F',
+					light: '#FFFFFF'
+				}
+			};
+	
+			const generateQR = async (text: any) => {
+				return await QRCode.toDataURL(text, opts);
+			};
+	
+			 qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+		}
+		
 
 		const sgMail: MailService = new MailService();
 		sgMail.setApiKey(SECRET_SENDGRID_KEY);
@@ -70,7 +80,9 @@ export const actions: Actions = {
 				ubicacion: compra.evento.lugar,
 				numero: entrada.numero.toString(),
 				monto: entrada.monto.toString(),
-				entradas: compra.entradas,
+				entradas: compra.entradas.map((t:any) => {
+					return {...t, fila:letrar(t.fila) }
+				}),
 				codigo: qrcode
 			}
 		};

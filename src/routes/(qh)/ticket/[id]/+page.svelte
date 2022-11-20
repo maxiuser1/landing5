@@ -11,6 +11,8 @@
 	import { EventosRepo } from '$lib/repos';
 	import { clearCompradata } from '$lib/components/Evento/store';
 	import Deathbox from '$lib/icons/Deathbox.svelte';
+	import { letrar } from '$lib/utils/letrador';
+
 	export let data: PageData;
 
 	let { ticket } = data;
@@ -43,7 +45,7 @@
 
 <section class="container summary">
 	<div class="tarjeta">
-		{#if ticket.canal === 'WEB'}
+		{#if ticket.qrcode}
 			<div class="qrcode">
 				<img src={ticket.qrcode} alt="qrcode" />
 			</div>
@@ -85,12 +87,11 @@
 								{/if}
 							</div>
 							<div class="etiquetas">
-								<h6><strong>{entrada.nombre}</strong></h6>
+								<h6><strong>{entrada.nombre}</strong> x{entrada.cantidad ?? ''}</h6>
 								<p>
 									{#if entrada.numerado}
 										<p>
-											Lugar: {entrada.fila}
-											{entrada.asiento} x{entrada.cantidad ?? ''}
+											{letrar(entrada.fila ?? 0)}-{entrada.asiento}
 										</p>
 									{:else}
 										<p>
