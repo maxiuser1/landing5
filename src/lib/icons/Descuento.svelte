@@ -1,13 +1,4 @@
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	fill="none"
-	width="30"
-	height="30"
-	viewBox="0 0 24 24"
-	stroke="#d30ed1"
-	stroke-width="2"
-	aria-hidden="true"
->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20" viewBox="0 0 24 24" stroke="pink" stroke-width="2" aria-hidden="true">
 	<path
 		stroke-linecap="round"
 		stroke-linejoin="round"

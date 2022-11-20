@@ -1,25 +1,26 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { Breadcrumbs, Steps } from '$lib/components/Evento';
 	import Resumen from '$lib/components/Evento/Resumen.svelte';
-	import { compraData } from '$lib/components/Evento/store';
+	import { clearCompradata } from '$lib/components/Evento/store';
 	import Zonas from '$lib/components/Evento/Zonas.svelte';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+
 	export let data;
 	let { evento } = data;
+	clearCompradata();
 
-	onMount(async () => {
-		const compra: App.Compra = {
-			evento: {
-				id: evento.id,
-				slug: evento.general?.slug,
-				artista: evento.general?.artista,
-				nombre: evento.general?.nombre,
-				lugar: `${evento.ubicacion?.ciudad} ${evento.ubicacion?.nombre}`,
-				fecha: evento.fechas[0].dia
-			}
-		};
-		compraData.set(compra);
-	});
+	const seleccionar = ({ detail }: any) => {
+		const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona);
+		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+
+		if (zonaEvento.numerado) {
+			goto(`${zonaEvento.tipo}/lugar${$page.url.search ?? ''}`);
+		} else {
+			esPromotor ? goto(`${zonaEvento.tipo}/venta`) : goto(`${zonaEvento.tipo}/reserva${$page.url.search ?? ''}`);
+		}
+	};
 </script>
 
 <Breadcrumbs {evento} />
@@ -32,7 +33,7 @@
 				<h4>Entrada</h4>
 				<p>Selecciona en que sector deseas adquirir y luego continua el proceso</p>
 			</div>
-			<Zonas {evento} />
+			<Zonas {evento} on:seleccionar={seleccionar} />
 		</div>
 		<Resumen {evento} />
 	</div>

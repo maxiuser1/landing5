@@ -2,24 +2,36 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUBIZAPI, SECRET_NIUBIZ_NIUBIZLIB } from '$env/static/private';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
+import { VentaOnline } from '$lib/aplicacion/ventaonline';
 
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
 
-	const evento = await locals.eventosRepo.getEvento(intencion.evento.slug);
+	const evento = await locals.eventosRepo.findEvento(intencion.evento.id);
+	const ventaOnline = new VentaOnline(evento);
+
+
 
 	let precioReal: number = 0;
 
 	for (let entrada of intencion.entradas!) {
-		const entradaDb = evento.precios.find((t: any) => t.tipo == entrada.tipo);
-		if (entradaDb && entrada.base && entrada.cantidad) {
-			const precioFinal = entradaDb.descuentos ? entradaDb.descuentos[0].online : entradaDb.online;
-			const precio = Number(precioFinal) * entrada.cantidad;
+		const entradaDb = ventaOnline.tarificar(entrada.tipo!, entrada.cantidad);
+		if(entradaDb.numerado)
+		{
+			const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
+			const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
+			const habilitados = asiento.c ? entradaDb.tope! - asiento.c : entradaDb.tope;
 
-			precioReal += precio;
+			const final = habilitados == entradaDb.tope ? entrada.final : entrada.cantidad! * entradaDb.onlinei!;
+			precioReal+= final!;
+		}
+		else{
+			precioReal+= entradaDb.final!;
 		}
 	}
+
+	console.log('precioReal', precioReal);
 
 	const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 		headers: {
@@ -35,7 +47,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 			channel: 'web',
 			amount: precioReal,
 			antifraud: {
-				clientIp: clientIpAddress,
+				clientIp: "38.25.15.249",
 				merchantDefineData: {
 					MDD4: locals.user.correo, //cambiar al correo del usuario
 					MDD21: '0',

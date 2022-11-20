@@ -9,12 +9,15 @@
 	import { confetiConfig } from '$lib/components/Home/particles';
 	import type { PageData } from './$types';
 	import { EventosRepo } from '$lib/repos';
+	import { clearCompradata } from '$lib/components/Evento/store';
+	import Deathbox from '$lib/icons/Deathbox.svelte';
 	export let data: PageData;
 
 	let { ticket } = data;
 	let dialog: any;
 
 	onMount(async () => {
+		clearCompradata();
 		await loadFull(tsParticles);
 		await tsParticles.load('tsparticles', confetiConfig);
 	});
@@ -40,7 +43,7 @@
 
 <section class="container summary">
 	<div class="tarjeta">
-		{#if ticket.canal === 'WEB' || ticket.entradas?.some((t) => t.tipo == 'golds' || t.tipo == 'blacks')}
+		{#if ticket.canal === 'WEB'}
 			<div class="qrcode">
 				<img src={ticket.qrcode} alt="qrcode" />
 			</div>
@@ -75,7 +78,11 @@
 					<div class="ticket odd">
 						<div class="asiento">
 							<div>
-								<Box width={30} disabled={false} />
+								{#if entrada.numerado}
+									<Deathbox width={80} disabled={false} tomado={true} />
+								{:else}
+									<Ticket />
+								{/if}
 							</div>
 							<div class="etiquetas">
 								<h6><strong>{entrada.nombre}</strong></h6>
@@ -83,7 +90,7 @@
 									{#if entrada.numerado}
 										<p>
 											Lugar: {entrada.fila}
-											{entrada.asiento}
+											{entrada.asiento} x{entrada.cantidad ?? ''}
 										</p>
 									{:else}
 										<p>

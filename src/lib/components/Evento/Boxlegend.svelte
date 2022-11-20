@@ -18,9 +18,9 @@
 		</div>
 
 		<div class="line">
-			<Deathbox disabled={false} tomados={4} width={60} />
+			<Deathbox disabled={false} tomados={7} width={60} />
 			<div>
-				<strong>Box con 6 puestos libres</strong>
+				<strong>Box con 3 puestos libres</strong>
 			</div>
 		</div>
 

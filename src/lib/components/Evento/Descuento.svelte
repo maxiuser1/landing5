@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { Gift } from '$lib/icons';
-	export let regalo: string = '';
+	import { Descuento } from '$lib/icons';
+
+	export let descuento: string = '';
 </script>
 
 <div>
 	<span>
-		<Gift />
+		<Descuento />
 	</span>
-	{regalo}
+	{descuento}
 </div>
 
 <style lang="scss">

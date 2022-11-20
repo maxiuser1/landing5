@@ -1,14 +1,7 @@
 <script lang="ts">
 	import { Footer, Header } from '$lib/components/Layout';
-	let categories: Array<string> = [
-		'Destacados',
-		'Conciertos',
-		'Teatro',
-		'Deportes',
-		'Festrivales',
-		'Arte y Cultura',
-		'Niños'
-	];
+	import { Whatsapp } from '$lib/icons';
+	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
 <Header {categories} />
@@ -16,6 +9,18 @@
 	<slot />
 </main>
 <Footer />
+<a class="whatsapp-btn" target="_blank" href="https://wa.me/51966058176">
+	<Whatsapp />
+</a>
 
 <style lang="scss">
+	.whatsapp-btn {
+		position: fixed;
+		right: 0;
+		top: 92% !important;
+		display: block;
+		padding: 10px 20px;
+		font-size: 12px;
+		z-index: 99;
+	}
 </style>

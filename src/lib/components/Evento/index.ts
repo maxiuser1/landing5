@@ -9,3 +9,5 @@ export { default as Barinputer } from './Barinputer.svelte';
 export { default as FormasPago } from './FormasPago.svelte';
 export { default as Boxlegend } from './Boxlegend.svelte';
 export { default as Regalo } from './Regalo.svelte';
+export { default as Counterbox} from './Counterbox.svelte';
+export { default as Descuento} from './Descuento.svelte';

@@ -1,9 +1,8 @@
 <script type="ts">
 	import Step from './Step.svelte';
 
-	import { compraData } from './store';
-
 	export let paso: number;
+	export let zona: App.Precio | undefined = undefined;
 </script>
 
 <section class="container wizard">
@@ -17,9 +16,9 @@
 	</div>
 
 	<div class="pasos">
-		<Step numero="1" titulo="Entrada" subtitulo={$compraData.zona?.nombre ?? 'Elige el tipo de entrada'} seleccionado={true} />
+		<Step numero="1" titulo="Zona" subtitulo={zona?.nombre ?? 'Elige el tipo de entrada'} seleccionado={true} />
 
-		<Step numero="2" titulo="Lugar" subtitulo="¿Vas solo o acompañado?" seleccionado={paso >= 2} />
+		<Step numero="2" titulo="Lugar" subtitulo="¿Donde quieres?" seleccionado={paso >= 2} />
 
 		<Step numero="3" titulo="Resumen" subtitulo="Estas a un paso" seleccionado={paso >= 4} />
 	</div>
@@ -28,7 +27,7 @@
 <style lang="scss">
 	.wizard {
 		.mpasos {
-			margin: 40px 0px;
+			margin: 10px 0px;
 			display: flex;
 			justify-content: space-between;
 			@include breakpoint($md) {

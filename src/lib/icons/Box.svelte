@@ -90,6 +90,7 @@
 	.box:hover rect {
 		@include breakpoint($md) {
 			fill: #ff888f;
+			stroke: none;
 			pointer-events: all;
 		}
 	}
