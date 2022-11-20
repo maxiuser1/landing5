@@ -88,10 +88,8 @@
 			</button>
 		</div>
 
-		<div class="contenedor">
-			<div class="precio">
-				S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-			</div>
+		<div class="precio">
+			S/ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 		</div>
 	</div>
 </div>
@@ -107,12 +105,14 @@
 		padding: 32px;
 		border-radius: 8px;
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 10px;
 
 		@include breakpoint($sm) {
+			flex-direction: row;
 			min-width: 400px;
 		}
 
