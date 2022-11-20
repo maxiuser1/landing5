@@ -15,13 +15,7 @@ export const zonas = (node: any, props: any) => {
 					tooltipComp.$destroy();
 					const zonned = new CustomEvent('zonned', {
 						detail: {
-							tipo: cadaPrecio.tipo,
-							base: cadaPrecio.base,
-							online: cadaPrecio.online,
-							promotor: cadaPrecio.promotor,
-							qrcode: cadaPrecio.qrcode,
-							nombre: cadaPrecio.nombre,
-							numerado: cadaPrecio.numerado
+							tipo: cadaPrecio.tipo
 						}
 					});
 

@@ -122,8 +122,9 @@
 		}
 
 		.contenido {
-			margin-top: 102px;
+			margin-top: 32px;
 			@include breakpoint($sm) {
+				margin-top: 102px;
 				margin-top: initial;
 				max-height: 100vh;
 				overflow-x: auto;

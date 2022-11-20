@@ -7,11 +7,13 @@
 	import { loadFull } from 'tsparticles';
 	import { onMount } from 'svelte';
 	import { particlesConfig } from '$lib/components/Home/particles';
+	import { clearCompradata } from '$lib/components/Evento/store';
 
 	export let data;
 	let { eventos } = data;
-
 	onMount(async () => {
+		clearCompradata();
+
 		await loadFull(tsParticles);
 		await tsParticles.load('tsparticles', particlesConfig);
 	});

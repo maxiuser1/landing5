@@ -1,42 +1,19 @@
 <script type="ts">
 	import { zonas } from './zonas';
-	import { compraData } from './store';
-	import { goto } from '$app/navigation';
 	import { Radio } from '$lib/icons';
 	import { Soles } from '$lib/utils/formats';
-	import { page } from '$app/stores';
+	import { createEventDispatcher } from 'svelte';
 
 	export let evento: App.Evento;
 
-	const seleccionar = (zonaSeleccionada: any) => {
-		compraData.update((current) => ({
-			...current,
-			zona: {
-				tipo: zonaSeleccionada.tipo,
-				nombre: zonaSeleccionada.nombre,
-				base: zonaSeleccionada.base,
-				online: zonaSeleccionada.online,
-				promotor: zonaSeleccionada.promotor,
-				numerado: zonaSeleccionada.numerado,
-				qrcode: zonaSeleccionada.qrcode
-			}
-		}));
-
-		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
-
-		if (zonaSeleccionada.numerado) {
-			goto(`../${evento.general?.slug}/lugar${$page.url.search ?? ''}`);
-		} else {
-			esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`../${evento.general?.slug}/reserva${$page.url.search ?? ''}`);
-		}
-	};
+	const dispatch = createEventDispatcher();
 </script>
 
 <div
 	class="mapa"
 	use:zonas={evento.precios}
 	on:zonned={({ detail }) => {
-		seleccionar(detail);
+		dispatch('seleccionar', { zona: detail.tipo });
 	}}
 >
 	{@html evento.locacion}

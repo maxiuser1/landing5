@@ -2,11 +2,18 @@ import { SECRET_SENDGRID_KEY, SECRET_SENDGRID_TICKET } from '$env/static/private
 import { redirect, type Actions } from '@sveltejs/kit';
 import QRCode from 'qrcode';
 import { MailService } from '@sendgrid/mail';
+import { VentaManual } from '$lib/aplicacion/ventamanual';
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
 	if (locals.user.rol == 'promotor') {
+
 		const evento = await locals.eventosRepo.getEvento(params.slug);
-		return { evento };
+		const zonaEvento : App.Precio  = evento.precios.find((t:App.Precio) => t.tipo == params.zona);
+	
+		const ventaManual = new VentaManual(evento);
+    	const zona : App.Precio = ventaManual.tarificar(params.zona, zonaEvento.numerado? zonaEvento.tope!: 1);
+
+		return { evento, zona };
 	} else {
 		throw redirect(303, `../`);
 	}
@@ -31,28 +38,22 @@ export const actions: Actions = {
 
 		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
 
-		
+		var opts: any = {
+			errorCorrectionLevel: 'H',
+			type: 'image/jpeg',
+			quality: 0.3,
+			margin: 1,
+			color: {
+				dark: '#80057F',
+				light: '#FFFFFF'
+			}
+		};
 
-		
-		let qrcode = "";
-		if(compraCliente.entradas.some((t : any) => t.tipo == "golds" || t.tipo == "blacks"))
-		{
-			var opts: any = {
-				errorCorrectionLevel: 'H',
-				type: 'image/jpeg',
-				quality: 0.3,
-				margin: 1,
-				color: {
-					dark: '#80057F',
-					light: '#FFFFFF'
-				}
-			};
-	
-			const generateQR = async (text: any) => {
-				return await QRCode.toDataURL(text, opts);
-			};
-			qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
-		}
+		const generateQR = async (text: any) => {
+			return await QRCode.toDataURL(text, opts);
+		};
+
+		const qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
 
 		const sgMail: MailService = new MailService();
 		sgMail.setApiKey(SECRET_SENDGRID_KEY);
@@ -89,6 +90,6 @@ export const actions: Actions = {
 			console.log('err', err);
 		}
 
-		throw redirect(303, `../../ticket/${entrada.id}`);
+		throw redirect(303, `/ticket/${entrada.id}`);
 	}
 };

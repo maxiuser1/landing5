@@ -35,13 +35,29 @@ declare namespace App {
 		base: number;
 		online: number;
 		promotor: number;
+
+		basei?: number;
+		onlinei?: number;
+		promotori?: number;
+
+		final?:number;
+		finali?:number;
+
 		tope?: number;
+		disponibles?:number;
 		regalo?: string;
-		regaloIndividual?: string;
+		regaloIndividual?: {
+			una: string;
+			varias:string;
+		};
 		promo?: string;
 		numerado: boolean;
 		filas: Array<Fila>;
 		total: number;
+		descuento?: {
+			nombre:string;
+			descuento: number;
+		};
 		descuentos?: Array<Descuento>;
 		qrcode?:boolean;
 	};
@@ -118,6 +134,7 @@ declare namespace App {
 		ubicacion?: {
 			nombre?: string;
 			seccionamiento?: any;
+			ciudad?:string;
 		};
 		caratula?: {
 			thumb?: string;
@@ -137,12 +154,15 @@ declare namespace App {
 		online?: number;
 		final?: number;
 		promotor?: number;
-		qrcode?: boolean;
-		descuento?: number;
+		descuento?:{
+			nombre?:string;
+			valor?: number;
+		} | null,
 		tipo?: string;
 		nombre?: string;
-		fila: number;
-		asiento: number;
+		regalo?:string;
+		fila?: number;
+		asiento?: number;
 		cantidad: number;
 		numerado?: boolean;
 		tickets?: Array<{
@@ -151,24 +171,27 @@ declare namespace App {
 		}>;
 	};
 
+	type Tickete = {
+		c:string;
+		v:string;
+	}
+
 	type Compra = {
 		evento: {
 			id?: string;
-			slug?: string;
-			artista?: string;
-			nombre?: string;
-			fecha?: string;
-			lugar?: string;
+			slug?:string;
+			nombre?:string;
+			artista?:string;
+			fecha?:string;
+			lugar?:string;
 		};
 		zona?: {
 			tipo: string;
-			base: number;
-			online: number;
-			promotor: number;
-			nombre?: string;
-			numerado?: boolean;
+			nombre?:string;
 		};
 		user?: any;
+		monto?:number;
+		cantidad?:number;
 		entradas?: Array<Sentado>;
 	};
 

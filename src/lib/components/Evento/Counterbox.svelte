@@ -1,26 +1,45 @@
 <script lang="ts">
-	import { Decrease, Increase } from '$lib/icons';
+	import { Deathbox, Decrease, Increase } from '$lib/icons';
 	import { page } from '$app/stores';
-	import { createEventDispatcher } from 'svelte';
-	import { compraData } from './store';
+	import { letrar } from '$lib/utils/letrador';
 	import Regalo from './Regalo.svelte';
-	import Ticket from '$lib/icons/Ticket.svelte';
-	import Descuento from './Descuento.svelte';
+	import { compraData } from './store';
+	import { createEventDispatcher, onMount } from 'svelte';
 
-	export let zona: App.Precio;
 	export let entrada: App.Sentado;
+	export let zona: App.Precio;
 
-	let count = 1;
-	let tope: number = 50;
-	let precio: number = zona.final!;
-	let total: number = precio;
+	const fila = zona.filas.find((t) => t.id == entrada.fila);
+	const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 
-	let regalo: string = zona.regaloIndividual?.una ?? '';
+	const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+
+	let precio: number = esPromotor ? zona.promotor : zona.online;
+	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;
+	let total: number = 0;
+	let tope: number = asiento.c ? zona.tope! - asiento.c : zona.tope!;
+	let regalo: string = zona.regalo ?? '';
+
+	export let count: number = tope;
+	total = count == zona.tope ? precio : count * precioIndividual;
 
 	const dispatch = createEventDispatcher();
-	function handleClick(count: number) {
-		total = precio * count;
+	onMount(() => {
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas?.map((currentEntrada) => {
+				if (currentEntrada.fila == entrada.fila && currentEntrada.asiento == entrada.asiento) {
+					const entradaUpdated = { ...currentEntrada, cantidad: count, final: total };
+					return entradaUpdated;
+				}
+				return { ...currentEntrada };
+			})
+		}));
+	});
 
+	function handleClick(count: number) {
+		console.log('handleclick counterbox');
+		total = count == tope ? precio : count * precioIndividual;
 		if (count <= 0) count = 1;
 
 		if (count == 1) {
@@ -31,27 +50,27 @@
 
 		compraData.update((current) => ({
 			...current,
-			entradas: [
-				{
-					...entrada,
-					cantidad: count,
-					regalo,
-					final: total
+			entradas: current.entradas?.map((currentEntrada) => {
+				if (currentEntrada.fila == entrada.fila && currentEntrada.asiento == entrada.asiento) {
+					const entradaUpdated = { ...currentEntrada, cantidad: count, final: total, regalo: regalo };
+					return entradaUpdated;
 				}
-			]
+				return { ...currentEntrada };
+			})
 		}));
 
-		dispatch('cambiado', { count });
+		dispatch('cambiado');
 	}
 </script>
 
 <div class="box">
 	<div class="asiento">
 		<div>
-			<Ticket />
+			<Deathbox width={40} disabled={false} tomado={true} />
 		</div>
 		<div class="etiquetas">
 			<h6><strong>{zona.nombre}</strong></h6>
+			<h6>{letrar(entrada?.fila ?? 0)}-{entrada.asiento}</h6>
 		</div>
 	</div>
 
@@ -97,9 +116,6 @@
 </div>
 
 <Regalo {regalo} />
-{#if zona.descuento}
-	<Descuento descuento={zona.descuento.nombre + ' -' + zona.descuento.descuento + '%'} />
-{/if}
 
 <style lang="scss">
 	.box {

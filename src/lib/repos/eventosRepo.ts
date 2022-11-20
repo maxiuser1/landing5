@@ -29,23 +29,9 @@ export class EventosRepo implements App.EventosRepoInterface {
 	};
 
 	findEvento = async (id: string): Promise<App.Evento> => {
-		const client = new CosmosClient(this.cn);
-		const database = await client.database('quehaydb');
-		const container = await database.container('ensallos');
-
-		const querySpec: SqlQuerySpec = {
-			query: 'SELECT * from c where c.id = @id',
-			parameters: [
-				{
-					name: '@id',
-					value: id
-				}
-			]
-		};
-
-		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
-
-		return results[0];
+		const container = await this.getContainer('ensallos');
+		const { resource: evento } = await container.item(id, 'quehay').read();
+		return evento;
 	};
 
 	getEntrada = async (id: string): Promise<App.Entrada> => {
@@ -140,16 +126,39 @@ export class EventosRepo implements App.EventosRepoInterface {
 			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);
 
 			if (entrada.numerado) {
-				const ubicacion = evento.precios.find((t: any) => t.tipo == entrada.tipo);
-				const indexFila = ubicacion!.filas.findIndex((t: any) => t.id == entrada.fila);
+				const zona = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+				const indexFila = zona!.filas.findIndex((t: any) => t.id == entrada.fila);
 
-				const fila = ubicacion!.filas.find((t: any) => t.id == entrada.fila);
+				const fila = zona!.filas.find((t: any) => t.id == entrada.fila);
 				const indexAsiento = fila!.sits.findIndex((t: any) => t.id == entrada.asiento);
 
+				const asiento = fila!.sits.find((t: any) => t.id == entrada.asiento);
+
+				console.log('asiento encontrado', asiento);
+				console.log('entrada.cantidad', entrada.cantidad);
+
+				const currentCantidad = asiento.c != undefined ? Number(asiento.c) : 0;
+
+				if((entrada.cantidad + currentCantidad) == zona.tope){
+					replaceOperation.push({
+						op: 'replace',
+						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
+						value: 3
+					});
+				}
+				else{
+					replaceOperation.push({
+						op: 'incr',
+						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
+						value: entrada.cantidad
+					});
+				}
+			}
+			else{
 				replaceOperation.push({
-					op: 'replace',
-					path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
-					value: 3
+					op: 'incr',
+					path: `/precios/${indexPrecio}/c`,
+					value: entrada.cantidad
 				});
 			}
 		});
@@ -227,4 +236,11 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
 		return results[0];
 	};
+
+	getContainer = async (cname: string) => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container(cname);
+		return container;
+	}
 }

@@ -1,16 +1,24 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Boxlegend, Breadcrumbs, Resumen, Steps } from '$lib/components/Evento';
-	import { compraData } from '$lib/components/Evento/store';
+	import { clearCompradata, compraData } from '$lib/components/Evento/store';
 	import { Arrow, Box, Deathbox, Escenario, Lanchor, Ranchor } from '$lib/icons';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 
 	export let data;
 	let asientos: any;
-	let { evento } = data;
-	let filas: Array<App.Fila> = evento.precios?.find((t: any) => t.tipo == $compraData.zona?.tipo)?.filas ?? new Array<App.Fila>();
+	let { evento, zona }: { evento: App.Evento; zona: App.Precio } = data;
+
+	let filas: Array<App.Fila> = evento.precios?.find((t: App.Precio) => t.tipo == zona.tipo)?.filas ?? new Array<App.Fila>();
+	const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+
 	const sitWidth = 75;
 	const filaWidth = 100;
+
+	onMount(() => {
+		clearCompradata();
+	});
 
 	function letrar(indice: number) {
 		const lasLetras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -18,45 +26,41 @@
 	}
 
 	const continuarClick = () => {
-		let asientos: Array<App.Sentado> = new Array<App.Sentado>();
+		let entradas: Array<App.Sentado> = new Array<App.Sentado>();
 
 		filas.forEach((fila) => {
-			fila.sits.forEach((a) => {
-				if (a.s == 1) {
-					asientos.push({
-						tipo: $compraData.zona?.tipo,
-						nombre: $compraData.zona?.nombre,
-						base: $compraData.zona?.base,
-						promotor: $compraData.zona?.promotor,
-						online: $compraData.zona?.online,
-						numerado: $compraData.zona?.numerado,
+			fila.sits.forEach((sit) => {
+				if (sit.s == 1) {
+					entradas.push({
+						tipo: zona.tipo,
+						nombre: zona.nombre,
+						numerado: true,
 						fila: fila.id,
-						asiento: a.id,
-						cantidad: 1,
-						tickets: [{ c: `${$compraData.zona?.tipo}_${fila.id}_${a.id}`, v: '' }]
+						asiento: sit.id,
+						cantidad: zona.tope!,
+						final: esPromotor ? zona.promotor : zona.online
 					});
 				}
 			});
 		});
 
-		if (asientos.length == 0) {
+		if (entradas.length == 0) {
 			alert('Debe seleccionar algún lugar para poder continuar.');
 			return;
 		}
 
 		compraData.update((current) => ({
 			...current,
-			entradas: asientos
+			zona: { tipo: zona.tipo },
+			entradas: entradas
 		}));
 
-		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
-
-		esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`../${evento.general?.slug}/reserva${$page.url.search ?? ''}`);
+		esPromotor ? goto(`../${evento.general?.slug}/venta`) : goto(`./reserva${$page.url.search ?? ''}`);
 	};
 </script>
 
 <Breadcrumbs {evento} />
-<Steps paso={2} />
+<Steps paso={2} {zona} />
 
 <section class="container">
 	<div class="principal">
@@ -81,7 +85,7 @@
 										<Box
 											disabled={asiento.s >= 2}
 											width={sitWidth}
-											tomados={0}
+											tomados={asiento.c ?? 0}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;

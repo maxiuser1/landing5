@@ -1,45 +1,26 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { Entradas, Info } from '$lib/components/Evento';
-	import { compraData } from '$lib/components/Evento/store';
 	import { page } from '$app/stores';
 
 	export let data;
 	let { evento } = data;
-
-	console.log('jose', $page.url);
-
-	const comprarClick = () => {
-		const compra: App.Compra = {
-			evento: {
-				id: evento.id,
-				slug: evento.general?.slug,
-				artista: evento.general?.artista,
-				nombre: evento.general?.nombre,
-				lugar: `${evento.ubicacion?.ciudad} ${evento.ubicacion?.nombre}`,
-				fecha: evento.fechas[0].dia
-			}
-		};
-		compraData.set(compra);
-
-		if ($page.data?.user?.nombre?.length > 0) {
-			goto(`${evento.general?.slug}/entradas${$page.url.search ?? ''}`);
-		} else {
-			goto(`./login?redirectTo=${encodeURIComponent($page.url.href)}`);
-		}
-	};
+	const urlZonas = `${evento.general?.slug}/zonas${$page.url.search ?? ''}`;
+	const urlLogin = `./login?redirectTo=${encodeURIComponent($page.url.href)}`;
+	let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
 </script>
 
 <svelte:head>
-	<title>{evento.general?.slug}</title>
+	<title>{evento.general?.nombre}</title>
 </svelte:head>
 
 {#if evento.caratula.portada}
 	<section class="container portada">
-		<img src={evento.caratula.portada} alt="portada" on:click|once={comprarClick} />
+		<a href={redirectUrl}>
+			<img src={evento.caratula.portada} alt="portada" />
+		</a>
 	</section>
 	<section class="container cta">
-		<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
+		<a class="comprar" href={redirectUrl}>Comprar</a>
 	</section>
 {:else}
 	<section class="banner" style:background-image="url('{evento.caratula?.banner}')">
@@ -50,7 +31,7 @@
 	<Info {evento} />
 	<Entradas {evento} />
 	<section class="container cta">
-		<button on:click|once={comprarClick} class="comprar">Ir a comprar </button>
+		<a class="comprar" href={redirectUrl}>Comprar</a>
 	</section>
 {/if}
 
@@ -64,14 +45,21 @@
 	.cta {
 		margin-top: 52px;
 		margin-bottom: 60px;
+		width: 100%;
 	}
 	.comprar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
 		padding: 22px 16px;
 		background: linear-gradient(270deg, #ff0036 0%, #d30ed1 100%);
 		border-radius: 4px;
 		border: none;
+		font-size: 32px;
 		color: white;
 		width: 100%;
+		min-width: 100%;
 	}
 	.content-banner {
 		width: 100%;
