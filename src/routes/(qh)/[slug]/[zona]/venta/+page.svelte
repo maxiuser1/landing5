@@ -184,7 +184,7 @@
 			ticketesBox = [
 				...ticketesBox.map((t) => {
 					if (t.c == ticketc) {
-						t.v: event.detail.text;
+						t.v = event.detail.text;
 					}
 					return t;
 				})
@@ -193,7 +193,7 @@
 			ticketesGeneral = [
 				...ticketesGeneral.map((t) => {
 					if (t.c == ticketc) {
-						t.v: event.detail.text;
+						t.v = event.detail.text;
 					}
 					return t;
 				})
