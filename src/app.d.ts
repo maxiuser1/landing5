@@ -121,6 +121,7 @@ declare namespace App {
 		nombre: string;
 		artista: string;
 		banner: string;
+		card?:string;
 		lugar: string;
 		ciudad: string;
 		desde?: number;
@@ -193,6 +194,7 @@ declare namespace App {
 		monto?:number;
 		cantidad?:number;
 		entradas?: Array<Sentado>;
+		invitado?: any;
 	};
 
 	interface EventosRepoInterface {
@@ -211,6 +213,7 @@ declare namespace App {
 	interface UsuariosRepoInterface {
 		findUsuario(id): Promise<User>;
 		findByFb(id): Promise<User | null>;
+		findByCorreo(correo) : Promoise<User | null>;
 		create(user: User): Promise<string>;
 		complete(id: string, user: User): Promise<string>;
 	}
