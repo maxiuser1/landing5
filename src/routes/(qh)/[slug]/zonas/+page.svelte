@@ -13,7 +13,7 @@
 
 	const seleccionar = ({ detail }: any) => {
 		const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona);
-		const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+		const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 
 		if (zonaEvento.numerado) {
 			goto(`${zonaEvento.tipo}/lugar${$page.url.search ?? ''}`);

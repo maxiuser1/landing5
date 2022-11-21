@@ -11,3 +11,4 @@ export { default as Boxlegend } from './Boxlegend.svelte';
 export { default as Regalo } from './Regalo.svelte';
 export { default as Counterbox} from './Counterbox.svelte';
 export { default as Descuento} from './Descuento.svelte';
+export {default as Total} from './Total.svelte';

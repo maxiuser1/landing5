@@ -11,7 +11,7 @@
 	let { evento, zona }: { evento: App.Evento; zona: App.Precio } = data;
 
 	let filas: Array<App.Fila> = evento.precios?.find((t: App.Precio) => t.tipo == zona.tipo)?.filas ?? new Array<App.Fila>();
-	const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+	const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 
 	const sitWidth = 75;
 	const filaWidth = 100;

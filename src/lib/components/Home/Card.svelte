@@ -7,7 +7,7 @@
 
 <a href="/{evento.slug}">
 	<div class="card">
-		<div class="imagen" style="background:  url('{evento.banner.replaceAll('maxitech/image/upload', 'maxitech/image/upload/w_352,c_scale')}') no-repeat center top" />
+		<div class="imagen" style="background:  url('{evento.card}') no-repeat center top" />
 		<div class="content">
 			<div class="info">
 				<div class="h2">
@@ -99,7 +99,7 @@
 	}
 
 	.imagen {
-		height: 100px;
+		height: 107px;
 		background-size: cover;
 		background-repeat: no-repeat;
 

@@ -3,10 +3,24 @@ import { SECRET_NIUBIZ_MERCHANTID, SECRET_NIUBIZ_CREDENTIALS, SECRET_NIUBIZ_NIUB
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { VentaOnline } from '$lib/aplicacion/ventaonline';
+import { user } from '$lib/stores/userstore';
 
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
+
+	if(intencion.invitado != undefined && intencion.invitado && !locals.user)
+	{
+		const usersearch = await locals.usuariosRepo.findByCorreo(intencion.invitado.correo);
+		if(usersearch)
+		{
+			locals.user = {...intencion.invitado, id : usersearch.id };
+		}
+		else {
+			const usercreate = await locals.usuariosRepo.create(intencion.invitado);
+			locals.user = {...intencion.invitado, id : usercreate};
+		}
+	}
 
 	const evento = await locals.eventosRepo.findEvento(intencion.evento.id);
 	const ventaOnline = new VentaOnline(evento);
@@ -85,7 +99,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		clientIpAddress: clientIpAddress,
 		fecha: new Date(),
 		user: {
-			nombre: locals.user.nombre,
+			nombre:  locals.user.nombre,
 			correo: locals.user.correo,
 			apellido: locals.user.apellido,
 			dni: locals.user.dni,

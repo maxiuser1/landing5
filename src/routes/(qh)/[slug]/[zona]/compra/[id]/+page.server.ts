@@ -10,6 +10,10 @@ export const actions = {
 		const transaction = Object.fromEntries(new URLSearchParams(parameters));
 
 		const turno = await locals.eventosRepo.getTurno(params.id);
+		if(!locals.user && turno.user)
+		{
+			locals.user = {...turno.user};
+		}
 
 		const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 			headers: { Authorization: SECRET_NIUBIZ_CREDENTIALS }

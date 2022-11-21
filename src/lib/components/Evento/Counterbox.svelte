@@ -12,7 +12,7 @@
 	const fila = zona.filas.find((t) => t.id == entrada.fila);
 	const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 
-	const esPromotor = $page.data.user.rol != undefined && $page.data.user.rol == 'promotor';
+	const esPromotor = $page.data?.user?.rol != undefined && $page.data?.user?.rol == 'promotor';
 
 	let precio: number = esPromotor ? zona.promotor : zona.online;
 	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;

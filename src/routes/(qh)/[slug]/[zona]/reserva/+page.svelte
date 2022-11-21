@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
-	import { Breadcrumbs, Counter, Counterbox, Regalo, Resumen, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Counter, Counterbox, Regalo, Resumen, Steps, Total } from '$lib/components/Evento';
 	import { compraData } from '$lib/components/Evento/store';
 	import { navigating, page } from '$app/stores';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
@@ -10,11 +10,12 @@
 	let posting = false;
 	let { evento, zona }: { evento: App.Evento; zona: App.Precio } = data;
 
-	let otrasEntradas: Array<App.Sentado> = new Array<App.Sentado>();
-	let oeCantidad: number = 0;
-	let oePrecio: number = 0;
-	let oePreciobase: number = 0;
-	let oeDescuento: number = 0;
+	let mostrarFormulario = false;
+	let correo: any;
+	let nombre: any;
+	let apellido: any;
+	let dni: any;
+	let telefono: any;
 
 	onMount(() => {
 		if (zona.numerado) {
@@ -73,7 +74,11 @@
 		}));
 	};
 
-	const continuarClick = async () => {
+	const continuarClick = () => {
+		mostrarFormulario = true;
+	};
+
+	const pagarClick = async () => {
 		posting = true;
 		compraData.update((current) => ({
 			...current,
@@ -91,6 +96,19 @@
 			}
 		}));
 
+		if (mostrarFormulario) {
+			compraData.update((current) => ({
+				...current,
+				invitado: {
+					nombre: nombre.value,
+					apellido: apellido.value,
+					correo: correo.value?.toLowerCase(),
+					dni: dni.value,
+					telefono: telefono.value
+				}
+			}));
+		}
+
 		const resp = await fetch('/api/miturno', {
 			method: 'POST',
 			body: JSON.stringify({ ...$compraData }),
@@ -100,8 +118,6 @@
 		});
 
 		const datapago = await resp.json();
-
-		console.log('a', datapago);
 
 		VisanetCheckout.configure({
 			sessiontoken: datapago.sessiontoken,
@@ -126,6 +142,10 @@
 		VisanetCheckout.open();
 		posting = false;
 	};
+
+	function volverDetalle() {
+		mostrarFormulario = false;
+	}
 </script>
 
 <svelte:head>
@@ -147,7 +167,46 @@
 			<div class="titulos">
 				<h4>Resumen</h4>
 			</div>
-			{#if $compraData.entradas && zona}
+			{#if mostrarFormulario}
+				<div class="compras">
+					<div on:click={volverDetalle}>
+						<Total volver={true} cantidad={$compraData.cantidad} monto={$compraData.monto ?? 0} />
+					</div>
+					<form method="POST" on:submit|preventDefault={pagarClick}>
+						<div class="formulario">
+							<h5>Tus datos</h5>
+							<div class="form-group">
+								<input name="correo" placeholder="Correo" bind:this={correo} type="email" required />
+							</div>
+
+							<div class="form-group">
+								<input type="text" name="nombre" placeholder="Nombre" bind:this={nombre} required />
+							</div>
+
+							<div class="form-group">
+								<input type="text" name="apellido" placeholder="Apellidos" bind:this={apellido} required />
+							</div>
+
+							<div class="form-group">
+								<input type="text" name="dni" placeholder="Documento de identidad" bind:this={dni} required />
+							</div>
+
+							<div class="form-group">
+								<input type="text" name="telefono" placeholder="Teléfono / Movil" bind:this={telefono} required />
+							</div>
+						</div>
+						<div class="cta">
+							<button type="submit" class="btn" disabled={posting || $navigating != null}>
+								{#if posting || $navigating}
+									<Spinner size="20" color="#D30ED1" unit="px" />
+								{:else}
+									Pagar <Tarjeta />
+								{/if}
+							</button>
+						</div>
+					</form>
+				</div>
+			{:else if $compraData.entradas && zona}
 				<div class="compras">
 					{#if zona.numerado}
 						{#each $compraData.entradas as entrada, i}
@@ -161,35 +220,21 @@
 						</div>
 					{/if}
 
-					<div class="compra totales">
-						<div class="asiento">
-							<div>
-								<Ticket />
-							</div>
-							<div class="etiquetas">
-								<h2>
-									Total: {$compraData.cantidad}
-								</h2>
-							</div>
-						</div>
-						<div>
-							<h4>
-								<strong>
-									S/ {($compraData.monto ?? 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</strong>
-							</h4>
-						</div>
-					</div>
+					<Total cantidad={$compraData.cantidad} monto={$compraData.monto ?? 0} />
 				</div>
 
 				<div class="cta">
-					<button on:click={continuarClick} class="btn" disabled={posting || $navigating != null}>
-						{#if posting || $navigating}
-							<Spinner size="20" color="#D30ED1" unit="px" />
-						{:else}
-							Pagar <Tarjeta />
-						{/if}
-					</button>
+					{#if $page.data.user}
+						<button on:click={pagarClick} class="btn" disabled={posting || $navigating != null}>
+							{#if posting || $navigating}
+								<Spinner size="20" color="#D30ED1" unit="px" />
+							{:else}
+								Pagar <Tarjeta />
+							{/if}
+						</button>
+					{:else}
+						<button class="btn" on:click={continuarClick} type="button">Continuar</button>
+					{/if}
 				</div>
 			{/if}
 		</div>
@@ -198,9 +243,14 @@
 </section>
 
 <style lang="scss">
+	.formulario {
+		h5 {
+			padding: 12px 24px;
+		}
+	}
 	.compra {
 		min-width: 300px;
-		padding: 32px;
+		padding: 32px 32px 10px 32px;
 		border-radius: 8px;
 		display: flex;
 		justify-content: space-between;
@@ -216,15 +266,6 @@
 			min-width: 500px;
 		}
 	}
-	.asiento {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-
-		.etiquetas {
-			padding-left: 24px;
-		}
-	}
 
 	.progreso {
 		display: flex;
@@ -236,23 +277,14 @@
 	button:disabled {
 		background: #d30ed038 !important;
 	}
-	.content-modal {
-		padding: 24px;
-	}
-	.modal {
-		background: transparent;
-		border: none;
-		margin: 0 auto;
-		margin-top: 24px;
-	}
-
-	.modal::backdrop {
-		background: rgb(0 0 0 / 0.4);
-	}
 
 	.container {
 		padding-right: initial;
 		padding-left: initial;
+	}
+
+	.btn {
+		margin-bottom: 20px;
 	}
 
 	.cta {
@@ -289,18 +321,8 @@
 
 		.compras {
 			margin-top: 10px;
-
-			@include breakpoint($md) {
-				margin-top: 60px;
-			}
-
-			.odd {
-				background-color: #f9f9f9;
-			}
-
-			.totales {
-				background-color: #f9f9f97f;
-			}
+			margin-bottom: 10px;
+			background-color: #f9f9f9;
 		}
 
 		@include breakpoint($md) {

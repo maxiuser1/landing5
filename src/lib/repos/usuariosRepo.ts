@@ -36,6 +36,26 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		else return null;
 	};
 
+	findByCorreo = async (correo: string): Promise<App.User | null> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('personas');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where LOWER(c.correo) = @correo',
+			parameters: [
+				{
+					name: '@correo',
+					value: correo
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.User>(querySpec).fetchAll();
+		if (results && results[0]) return results[0];
+		else return null;
+	};
+
 	create = async (user: App.User): Promise<string> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
