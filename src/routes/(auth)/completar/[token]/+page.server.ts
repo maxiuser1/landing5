@@ -9,7 +9,6 @@ export const load = async ({ locals, params }) => {
 const completar: Action = async ({ cookies, request, locals, params }) => {
 	const data = await request.formData();
 	const redirectTo: string = data.get('redirectTo')?.toString() ?? '';
-	console.log('completar redirect to', redirectTo);
 	const formData = Object.fromEntries(data);
 	await locals.usuariosRepo.complete(params.token, formData);
 

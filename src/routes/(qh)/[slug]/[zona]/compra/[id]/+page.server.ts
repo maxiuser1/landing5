@@ -71,7 +71,6 @@ export const actions = {
 
 			await locals.eventosRepo.guardarEntrada(entrada);
 		} catch (err: any) {
-			console.log('err',err);
 			const fracaso = err.response.data;
 			return {
 				ok: false,

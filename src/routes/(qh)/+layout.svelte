@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Footer, Header } from '$lib/components/Layout';
 	import { Whatsapp } from '$lib/icons';
+	import { compraData } from '$lib/components/Evento/store';
+
 	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 

@@ -66,6 +66,7 @@ declare namespace App {
 
 	type Descuento = {
 		nombre: string;
+		codigo: string;
 		descuento: number;
 		online: number;
 		promotor: number;

@@ -21,7 +21,6 @@
 	onDestroy(async () => {
 		if (pScanner) {
 			(await pScanner).destroyContext();
-			console.log('BarcodeScanner Component Unmount');
 		}
 	});
 

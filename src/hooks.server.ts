@@ -26,8 +26,12 @@ export const handleError: HandleServerError = ({ error, event } : { error: any, 
 	
 	console.log('err', error);
 	console.log('eve', event);
-	const usuarioRepo = new UsuariosRepo(SECRET_DATABASE_URL);
-	usuarioRepo.log(event,error);
+	if(event?.url.includes('immutable')){
+		console.log('logeoerror');
+	} else{
+		const usuarioRepo = new UsuariosRepo(SECRET_DATABASE_URL);
+		usuarioRepo.log(event,error);
+	}
 	return {
 	  message: 'Whoops!',
 	  code: error.code ?? 'UNKNOWN'

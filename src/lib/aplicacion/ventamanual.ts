@@ -12,9 +12,6 @@ export class VentaManual {
         let generaQR = false;
         if(zona){
             if(zona.numerado){
-                console.log('numerado');
-                console.log('cantidad' , cantidad);
-                console.log('tope', zona.tope);
                 if(cantidad != zona.tope){
                     generaQR = true;
                 }
@@ -39,19 +36,7 @@ export class VentaManual {
     }
 
     public tarificarGeneral(zona: App.Precio, cantidad: number){
-       
-        if(zona.descuentos && zona.descuentos[0]){
-            const descuento = zona.descuentos[0];
-            zona.final = descuento.promotor * cantidad;
-            zona.descuento = {
-                nombre: descuento.nombre,
-                descuento : descuento.descuento,
-            };
-        }
-        else{
-            zona.final = zona.promotor * cantidad;
-        }
-
+        zona.final = zona.promotor * cantidad;
         return zona;
     }
 
@@ -64,6 +49,26 @@ export class VentaManual {
             return this.tarificarNumerado(zona, cantidad);
         else
             return this.tarificarGeneral(zona, cantidad);
+    }
+
+    public tarificarEntrada(tipoZona: string, cantidad:number, entrada : any) : App.Precio {
+        const zona : App.Precio | undefined = this.evento.precios.find((t:App.Precio) => t.tipo == tipoZona);
+        
+        if(!zona)  throw new Error("Zona no válida");
+        
+        if(zona.numerado){
+            return this.tarificarNumerado(zona, cantidad);
+        }
+        else
+        {
+            if(entrada.descuento && entrada.descuento.nombre)
+            {
+                const descuentoAplicado = zona.descuentos?.find(t => t.nombre == entrada.descuento.nombre);
+                zona.final = descuentoAplicado!.promotor * cantidad;
+                return zona;
+            }
+            return this.tarificarGeneral(zona, cantidad);
+        }
     }
 }
 
