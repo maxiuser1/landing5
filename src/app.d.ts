@@ -216,6 +216,7 @@ declare namespace App {
 		findByCorreo(correo) : Promoise<User | null>;
 		create(user: User): Promise<string>;
 		complete(id: string, user: User): Promise<string>;
+		log(event , error) : Promise<void>;
 	}
 
 	interface ContactosRepoInterface {

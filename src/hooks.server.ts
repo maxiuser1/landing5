@@ -1,6 +1,6 @@
-import { SECRET_DATABASE_URL } from '$env/static/private';
 import { ContactosRepo, EventosRepo, UsuariosRepo } from '$lib/repos';
-import type { Handle } from '@sveltejs/kit';
+import { SECRET_DATABASE_URL } from '$env/static/private';
+import type { Handle, HandleServerError } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.eventosRepo = new EventosRepo(SECRET_DATABASE_URL);
@@ -21,3 +21,15 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	return await resolve(event);
 };
+
+export const handleError: HandleServerError = ({ error, event } : { error: any, event:any}) => {
+	
+	console.log('err', error);
+	console.log('eve', event);
+	const usuarioRepo = new UsuariosRepo(SECRET_DATABASE_URL);
+	usuarioRepo.log(event,error);
+	return {
+	  message: 'Whoops!',
+	  code: error.code ?? 'UNKNOWN'
+	};
+  }

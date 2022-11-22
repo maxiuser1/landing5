@@ -65,6 +65,19 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		return createdItem?.id ?? '';
 	};
 
+	log = async (event : any, error:any): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('logeos');
+		const entrada = {
+			tenant:'quehay',
+			fecha:new Date(),
+			event,
+			error,
+		}
+		 await container.items.create(entrada);
+	};
+
 	complete = async (id:string, user: App.User) : Promise<string> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');

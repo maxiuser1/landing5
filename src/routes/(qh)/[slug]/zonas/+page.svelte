@@ -6,19 +6,24 @@
 	import Zonas from '$lib/components/Evento/Zonas.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { handlee } from '$lib/utils/errorer';
 
 	export let data;
 	let { evento } = data;
 	clearCompradata();
 
 	const seleccionar = ({ detail }: any) => {
-		const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona);
-		const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
+		try {
+			const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
+			const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona);
 
-		if (zonaEvento.numerado) {
-			goto(`${zonaEvento.tipo}/lugar${$page.url.search ?? ''}`);
-		} else {
-			esPromotor ? goto(`${zonaEvento.tipo}/venta`) : goto(`${zonaEvento.tipo}/reserva${$page.url.search ?? ''}`);
+			if (zonaEvento.numerado) {
+				goto(`${zonaEvento.tipo}/lugar${$page.url.search ?? ''}`);
+			} else {
+				esPromotor ? goto(`${zonaEvento.tipo}/venta`) : goto(`${zonaEvento.tipo}/reserva${$page.url.search ?? ''}`);
+			}
+		} catch (err) {
+			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
 		}
 	};
 </script>
