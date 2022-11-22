@@ -111,9 +111,6 @@
 						</div>
 					</div>
 					<div>
-						{#if entrada.regalo}
-							<Regalo regalo={entrada.regalo} />
-						{/if}
 						{#if entrada.descuento && entrada.descuento.nombre}
 							<Descuento descuento="{entrada.descuento.nombre} -%{entrada.descuento.valor}" />
 						{/if}
