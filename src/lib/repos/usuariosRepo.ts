@@ -70,6 +70,7 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		const database = await client.database('quehaydb');
 		const container = await database.container('logeos');
 		const entrada = {
+			tenant:'quehay',
 			fecha:new Date(),
 			event,
 			error,

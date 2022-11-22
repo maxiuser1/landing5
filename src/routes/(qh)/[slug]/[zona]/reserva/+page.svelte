@@ -6,6 +6,7 @@
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
 	import { Descuento, Tarjeta, Ticket, Deathbox } from '$lib/icons';
 	import { onMount } from 'svelte';
+	import { handlee } from '$lib/utils/errorer';
 	export let data;
 	let posting = false;
 	let { evento, zona }: { evento: App.Evento; zona: App.Precio } = data;
@@ -18,60 +19,68 @@
 	let telefono: any;
 
 	onMount(() => {
-		if (zona.numerado) {
-			if ($compraData.entradas) {
+		try {
+			if (zona.numerado) {
+				if ($compraData.entradas) {
+					compraData.update((current) => ({
+						...current,
+						monto: current.entradas!.reduce((accumulator: number, obj) => {
+							const fila = zona.filas.find((t) => t.id == obj.fila);
+							const asiento = fila?.sits.find((t) => t.id == obj.asiento);
+
+							const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
+							const final = habilitados == zona.tope ? obj.final : habilitados! * zona.onlinei!;
+
+							return accumulator + (final ?? 0);
+						}, 0),
+						cantidad: current.entradas!.reduce((accumulator: number, obj) => {
+							return accumulator + (obj.cantidad ?? 0);
+						}, 0)
+					}));
+				}
+			} else {
 				compraData.update((current) => ({
 					...current,
-					monto: current.entradas!.reduce((accumulator: number, obj) => {
-						const fila = zona.filas.find((t) => t.id == obj.fila);
-						const asiento = fila?.sits.find((t) => t.id == obj.asiento);
-
-						const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
-						const final = habilitados == zona.tope ? obj.final : habilitados! * zona.onlinei!;
-
-						return accumulator + (final ?? 0);
-					}, 0),
-					cantidad: current.entradas!.reduce((accumulator: number, obj) => {
-						return accumulator + (obj.cantidad ?? 0);
-					}, 0)
+					entradas: [
+						{
+							tipo: zona.tipo,
+							nombre: zona.nombre,
+							numerado: false,
+							base: zona.base,
+							online: zona.online,
+							regalo: zona.regaloIndividual?.una ?? '',
+							final: zona.final,
+							descuento: zona.descuento,
+							cantidad: 1
+						}
+					],
+					cantidad: 1,
+					monto: zona.descuentos && zona.descuentos[0] ? zona.descuentos[0].online : zona.online
 				}));
 			}
-		} else {
-			compraData.update((current) => ({
-				...current,
-				entradas: [
-					{
-						tipo: zona.tipo,
-						nombre: zona.nombre,
-						numerado: false,
-						base: zona.base,
-						online: zona.online,
-						regalo: zona.regaloIndividual?.una ?? '',
-						final: zona.final,
-						descuento: zona.descuento,
-						cantidad: 1
-					}
-				],
-				cantidad: 1,
-				monto: zona.descuentos && zona.descuentos[0] ? zona.descuentos[0].online : zona.online
-			}));
+		} catch (err) {
+			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
 		}
 	});
 
 	const handleCantidad = () => {
-		compraData.update((current) => ({
-			...current,
-			monto: current.entradas
-				? current.entradas.reduce((accumulator, obj) => {
-						return accumulator + (obj.final ?? 0);
-				  }, 0)
-				: 0,
-			cantidad: current.entradas
-				? current.entradas.reduce((accumulator, obj) => {
-						return accumulator + (obj.cantidad ?? 0);
-				  }, 0)
-				: 0
-		}));
+		try {
+			compraData.update((current) => ({
+				...current,
+				monto: current.entradas
+					? current.entradas.reduce((accumulator, obj) => {
+							return accumulator + (obj.final ?? 0);
+					  }, 0)
+					: 0,
+				cantidad: current.entradas
+					? current.entradas.reduce((accumulator, obj) => {
+							return accumulator + (obj.cantidad ?? 0);
+					  }, 0)
+					: 0
+			}));
+		} catch (err) {
+			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
+		}
 	};
 
 	const continuarClick = () => {
@@ -79,68 +88,72 @@
 	};
 
 	const pagarClick = async () => {
-		posting = true;
-		compraData.update((current) => ({
-			...current,
-			evento: {
-				id: evento.id,
-				slug: evento.general?.slug,
-				artista: evento.general?.artista,
-				nombre: evento.general?.nombre,
-				lugar: `${evento.ubicacion?.ciudad} ${evento.ubicacion?.nombre}`,
-				fecha: evento.fechas[0].dia
-			},
-			zona: {
-				tipo: zona.tipo,
-				nombre: zona.nombre
-			}
-		}));
-
-		if (mostrarFormulario) {
+		try {
+			posting = true;
 			compraData.update((current) => ({
 				...current,
-				invitado: {
-					nombre: nombre.value,
-					apellido: apellido.value,
-					correo: correo.value?.toLowerCase(),
-					dni: dni.value,
-					telefono: telefono.value
+				evento: {
+					id: evento.id,
+					slug: evento.general?.slug,
+					artista: evento.general?.artista,
+					nombre: evento.general?.nombre,
+					lugar: `${evento.ubicacion?.ciudad} ${evento.ubicacion?.nombre}`,
+					fecha: evento.fechas[0].dia
+				},
+				zona: {
+					tipo: zona.tipo,
+					nombre: zona.nombre
 				}
 			}));
+
+			if (mostrarFormulario) {
+				compraData.update((current) => ({
+					...current,
+					invitado: {
+						nombre: nombre.value,
+						apellido: apellido.value,
+						correo: correo.value?.toLowerCase(),
+						dni: dni.value,
+						telefono: telefono.value
+					}
+				}));
+			}
+
+			const resp = await fetch('/api/miturno', {
+				method: 'POST',
+				body: JSON.stringify({ ...$compraData }),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+
+			const datapago = await resp.json();
+
+			VisanetCheckout.configure({
+				sessiontoken: datapago.sessiontoken,
+				channel: 'web',
+				merchantid: datapago.merchantid,
+				purchasenumber: datapago.purchasenumber,
+				amount: datapago.amount,
+				cardholdername: $page.data.user ? $page.data.user.nombre : nombre.value,
+				cardholderlastname: $page.data.user ? $page.data.user.apellido : apellido.value,
+				cardholderemail: $page.data.user ? $page.data.user.correo : correo.value,
+				usertoken: $page.data.user ? $page.data.user.id : dni.value,
+				expirationminutes: '20',
+				timeouturl: 'about:blank',
+				merchantlogo: 'https://www.quehay.pe/img/logo.png',
+				formbuttoncolor: '#000000',
+				action: `compra/${datapago.id}${$page.url.search ?? ''}`,
+				complete: function (params: any) {
+					console.log('p', params);
+				}
+			});
+
+			VisanetCheckout.open();
+			posting = false;
+		} catch (err) {
+			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
 		}
-
-		const resp = await fetch('/api/miturno', {
-			method: 'POST',
-			body: JSON.stringify({ ...$compraData }),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-
-		const datapago = await resp.json();
-
-		VisanetCheckout.configure({
-			sessiontoken: datapago.sessiontoken,
-			channel: 'web',
-			merchantid: datapago.merchantid,
-			purchasenumber: datapago.purchasenumber,
-			amount: datapago.amount,
-			cardholdername: $page.data.user ? $page.data.user.nombre : nombre.value,
-			cardholderlastname: $page.data.user ? $page.data.user.apellido : apellido.value,
-			cardholderemail: $page.data.user ? $page.data.user.correo : correo.value,
-			usertoken: $page.data.user ? $page.data.user.id : dni.value,
-			expirationminutes: '20',
-			timeouturl: 'about:blank',
-			merchantlogo: 'https://www.quehay.pe/img/logo.png',
-			formbuttoncolor: '#000000',
-			action: `compra/${datapago.id}${$page.url.search ?? ''}`,
-			complete: function (params: any) {
-				console.log('p', params);
-			}
-		});
-
-		VisanetCheckout.open();
-		posting = false;
 	};
 
 	function volverDetalle() {

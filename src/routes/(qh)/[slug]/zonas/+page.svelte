@@ -14,9 +14,7 @@
 
 	const seleccionar = ({ detail }: any) => {
 		try {
-			const esPromotor = $page.data.user.rol != undefined && $page.data.user?.rol == 'promotor';
-
-			//TODO
+			const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 			const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona);
 
 			if (zonaEvento.numerado) {

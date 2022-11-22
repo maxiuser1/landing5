@@ -5,6 +5,7 @@
 	import { Arrow, Box, Deathbox, Escenario, Lanchor, Ranchor } from '$lib/icons';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import { handlee } from '$lib/utils/errorer';
 
 	export let data;
 	let asientos: any;
@@ -21,41 +22,49 @@
 	});
 
 	function letrar(indice: number) {
-		const lasLetras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-		return lasLetras.at(indice);
+		try {
+			const lasLetras = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+			return lasLetras.at(indice);
+		} catch (err) {
+			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
+		}
 	}
 
 	const continuarClick = () => {
-		let entradas: Array<App.Sentado> = new Array<App.Sentado>();
+		try {
+			let entradas: Array<App.Sentado> = new Array<App.Sentado>();
 
-		filas.forEach((fila) => {
-			fila.sits.forEach((sit) => {
-				if (sit.s == 1) {
-					entradas.push({
-						tipo: zona.tipo,
-						nombre: zona.nombre,
-						numerado: true,
-						fila: fila.id,
-						asiento: sit.id,
-						cantidad: zona.tope!,
-						final: esPromotor ? zona.promotor : zona.online
-					});
-				}
+			filas.forEach((fila) => {
+				fila.sits.forEach((sit) => {
+					if (sit.s == 1) {
+						entradas.push({
+							tipo: zona.tipo,
+							nombre: zona.nombre,
+							numerado: true,
+							fila: fila.id,
+							asiento: sit.id,
+							cantidad: zona.tope!,
+							final: esPromotor ? zona.promotor : zona.online
+						});
+					}
+				});
 			});
-		});
 
-		if (entradas.length == 0) {
-			alert('Debe seleccionar algún lugar para poder continuar.');
-			return;
+			if (entradas.length == 0) {
+				alert('Debe seleccionar algún lugar para poder continuar.');
+				return;
+			}
+
+			compraData.update((current) => ({
+				...current,
+				zona: { tipo: zona.tipo },
+				entradas: entradas
+			}));
+
+			esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
+		} catch (err) {
+			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
 		}
-
-		compraData.update((current) => ({
-			...current,
-			zona: { tipo: zona.tipo },
-			entradas: entradas
-		}));
-
-		esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
 	};
 </script>
 
