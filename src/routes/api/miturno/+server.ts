@@ -45,7 +45,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		}
 	}
 
-	console.log('precioReal', precioReal);
 
 	const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 		headers: {
@@ -53,7 +52,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		}
 	});
 
-	console.log('token', token, new Date());
 
 	const { data: session } = await axios.post(
 		`${SECRET_NIUBIZ_NIUBIZAPI}/api.ecommerce/v2/ecommerce/token/session/${SECRET_NIUBIZ_MERCHANTID}`,
@@ -79,7 +77,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		}
 	);
 
-	console.log('session', session, new Date());
 
 	const newId = uuidv4();
 
@@ -109,7 +106,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 
 	await locals.eventosRepo.postTurno(turno);
 
-	console.log('post turno', new Date());
 
 	return json({ ...pago, id: newId, niubizlib: SECRET_NIUBIZ_NIUBIZLIB });
 };

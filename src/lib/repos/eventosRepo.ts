@@ -58,7 +58,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		let precioReal: number = 0;
 
 		for (let entrada of compra.entradas) {
-			const entradaDb = ventaManual.tarificar(entrada.tipo!, entrada.cantidad);
+			const entradaDb = ventaManual.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
 	
 			if(entradaDb.numerado)
 			{
@@ -73,7 +73,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 				precioReal+= entradaDb.final!;
 			}
 		}
-
+		console.log('PRECIO REAL', precioReal);
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
 			const indexPrecio = evento.precios.findIndex((t:any) => t.tipo == entrada.tipo);

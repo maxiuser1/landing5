@@ -25,7 +25,6 @@
 		method="POST"
 		use:enhance={({ form, data, action, cancel }) => {
 			return async ({ result, update }) => {
-				console.log('resu', result);
 				form.reset();
 				alert('Su formulario de contacto ha sido enviado, muchas gracias.');
 			};

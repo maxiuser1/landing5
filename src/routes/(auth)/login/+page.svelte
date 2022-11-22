@@ -36,26 +36,6 @@
 	async function handleFormSubmit() {
 		const fdata = new FormData(this);
 
-		// const formData = Object.fromEntries(fdata);
-
-		// const loginSchema = z.object({
-		// 	username: z
-		// 		.string({ required_error: 'Es necesario completar este campo' })
-		// 		.min(1, { message: 'Es necesario completar este campo' }),
-		// 	password: z
-		// 		.string({ required_error: 'Es necesario completar este campo' })
-		// 		.min(1, { message: 'Es necesario completar este campo' })
-		// });
-
-		// try {
-		// 	const result = loginSchema.parse(formData);
-		// 	console.log('success', result);
-		// } catch (err: any) {
-		// 	const { fieldErrors: errors } = err.flatten();
-		// 	console.log(errors);
-		// 	form = { ...form, errors };
-		// }
-
 		const username = fdata.get('username')?.toString() ?? '';
 		const password = fdata.get('password')?.toString() ?? '';
 

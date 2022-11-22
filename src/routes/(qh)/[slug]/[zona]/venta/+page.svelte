@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Barinputer, Breadcrumbs, Counter, Counterbox, FormasPago, Steps } from '$lib/components/Evento';
+	import { Barinputer, Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
 	import { onMount, SvelteComponent } from 'svelte';
 	import { compraData } from '$lib/components/Evento/store';
 	import { applyAction } from '$app/forms';
@@ -77,7 +77,7 @@
 					}
 				],
 				cantidad: 1,
-				monto: zona.descuentos && zona.descuentos[0] ? zona.descuentos[0].promotor : zona.promotor
+				monto: zona.final
 			}));
 		}
 		ticketesBox = [...ticketesBox];
@@ -138,7 +138,6 @@
 						if (zona.numerado) {
 							const fila = zona.filas.find((t) => t.id == obj.fila);
 							const asiento = fila?.sits.find((t) => t.id == obj.asiento);
-							console.log('a', obj.cantidad, 'b', zona.tope);
 							if (obj.cantidad == zona.tope) {
 								ticketesBox = [
 									{
@@ -244,7 +243,7 @@
 							{/if}
 						{:else}
 							<div class="compra">
-								<Counter entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
+								<Counterd entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
 							</div>
 
 							{#if ticketesGeneral}
@@ -379,6 +378,7 @@
 				padding: 12px 24px;
 				border-radius: 8px;
 				display: flex;
+				flex-wrap: wrap;
 				justify-content: space-between;
 				align-items: center;
 				gap: 10px;

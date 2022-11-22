@@ -1,7 +1,6 @@
 import { error } from "@sveltejs/kit";
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
-	console.log('kann');
 	const evento = await locals.eventosRepo.getEvento(params.slug);
 	if(evento){
 		return { evento };

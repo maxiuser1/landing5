@@ -12,6 +12,7 @@
 	import { clearCompradata } from '$lib/components/Evento/store';
 	import Deathbox from '$lib/icons/Deathbox.svelte';
 	import { letrar } from '$lib/utils/letrador';
+	import { Descuento, Regalo } from '$lib/components/Evento';
 
 	export let data: PageData;
 
@@ -108,6 +109,14 @@
 								</strong>
 							</h6>
 						</div>
+					</div>
+					<div>
+						{#if entrada.regalo}
+							<Regalo regalo={entrada.regalo} />
+						{/if}
+						{#if entrada.descuento && entrada.descuento.nombre}
+							<Descuento descuento="{entrada.descuento.nombre} -%{entrada.descuento.valor}" />
+						{/if}
 					</div>
 				{/each}
 			{/if}

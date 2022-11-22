@@ -11,7 +11,6 @@ const login: Action = async ({ cookies, request, locals, url }) => {
 	const email: string = data.get('email')?.toString() ?? '';
 	const photoURL: string = data.get('photoURL')?.toString() ?? '';
 	const redirectTo: string = data.get('redirectTo')?.toString() ?? '';
-	console.log('login redirect to', redirectTo);
 	const user = await locals.usuariosRepo.findByFb(fbtoken);
 	let userToken = '';
 

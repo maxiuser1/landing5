@@ -87,7 +87,6 @@ export const actions: Actions = {
 			}
 		};
 
-		console.log('msg', msg);
 
 		try {
 			sgMail

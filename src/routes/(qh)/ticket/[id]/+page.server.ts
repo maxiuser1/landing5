@@ -13,7 +13,6 @@ export const load = async ({ locals, params }) => {
 
 	const generaQR = ticket.canal === "WEB" ? true: new VentaManual(evento).debeGenerarQR(ticket.entradas![0].tipo!, ticket.entradas![0].cantidad);
 	
-	console.log('generaQR4', generaQR);
 
 
 	if(generaQR){
