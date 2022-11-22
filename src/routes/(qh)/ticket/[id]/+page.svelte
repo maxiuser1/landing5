@@ -111,9 +111,9 @@
 						</div>
 					</div>
 					<div>
-						{#if entrada.descuento && entrada.descuento.nombre}
+						<!-- {#if entrada.descuento && entrada.descuento.nombre}
 							<Descuento descuento="{entrada.descuento.nombre} -%{entrada.descuento.valor}" />
-						{/if}
+						{/if} -->
 					</div>
 				{/each}
 			{/if}
