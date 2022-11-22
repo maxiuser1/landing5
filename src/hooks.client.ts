@@ -1,8 +1,12 @@
 import { UsuariosRepo } from '$lib/repos';
+import { handlee } from '$lib/utils/errorer';
 import type { HandleClientError } from '@sveltejs/kit';
  
 export const handleError: HandleClientError = ({ error, event } : { error:any, event: any}) => {
-  new UsuariosRepo("AccountEndpoint=https://encuestasdb.documents.azure.com:443/;AccountKey=jbUfTnFcRnprj1rKnuMxQXBsiJr4ph2MTxdyDWhKYHNZe0z0Et6ecKIkKnVOcY8uaWBTiPDG3BjBetDtj7lfpA==").log(event,error);
+    console.log('cli error', error);
+    console.log('cli even',event);
+    handlee(JSON.stringify({error,event}));
+
   return {
     message: 'Whoops!',
     code: error.code ?? 'UNKNOWN'
