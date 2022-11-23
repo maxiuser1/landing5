@@ -42,6 +42,28 @@ export class VentaOnline {
         else
             return this.tarificarGeneral(zona, cantidad);
     }
+
+    public tarificarEntrada(tipoZona: string, cantidad:number, entrada: any): App.Precio{
+        const zona : App.Precio | undefined = this.evento.precios.find((t:App.Precio) => t.tipo == tipoZona);
+        
+        if(!zona)  throw new Error("Zona no válida");
+
+        if(zona.numerado)
+           {
+            return this.tarificarNumerado(zona, cantidad);
+           }
+        else
+           {
+            console.log('entrada', entrada);
+            if(entrada.descuento && entrada.descuento.nombre)
+            {
+                const descuentoAplicado = zona.descuentos?.find(t => t.nombre == entrada.descuento.nombre);
+                zona.final = descuentoAplicado!.online * cantidad;
+                return zona;
+            }
+            return this.tarificarGeneral(zona, cantidad);
+        }
+    }
 }
 
 

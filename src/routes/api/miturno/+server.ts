@@ -30,7 +30,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	let precioReal: number = 0;
 
 	for (let entrada of intencion.entradas!) {
-		const entradaDb = ventaOnline.tarificar(entrada.tipo!, entrada.cantidad);
+		const entradaDb = ventaOnline.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
 		if(entradaDb.numerado)
 		{
 			const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
@@ -45,6 +45,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		}
 	}
 
+	console.log('PRECIO REAL', precioReal);
 
 	const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 		headers: {
