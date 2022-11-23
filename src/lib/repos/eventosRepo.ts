@@ -77,6 +77,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
 			const indexPrecio = evento.precios.findIndex((t:any) => t.tipo == entrada.tipo);
+			const currentPrecio = evento.precios.find((t:any) => t.tipo == entrada.tipo);
 
 			if (entrada.numerado) {
 				const currentPrecio = evento.precios.find((t:any) => t.tipo == entrada.tipo);
@@ -109,6 +110,19 @@ export class EventosRepo implements App.EventosRepoInterface {
 				}
 			}
 			else{
+
+				if(entrada.descuento && entrada.descuento.nombre)
+				{
+					const indexdescuento = currentPrecio!.descuentos.findIndex((t:any) => t.nombre == entrada.descuento.nombre );
+					console.log('entrada.descuento', entrada.descuento, indexdescuento);
+					
+					replaceOperation.push({
+						op: 'incr',
+						path: `/precios/${indexPrecio}/descuentos/${indexdescuento}/van`,
+						value: entrada.cantidad
+					});
+				}
+
 				replaceOperation.push({
 					op: 'incr',
 					path: `/precios/${indexPrecio}/c`,
@@ -148,9 +162,9 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
 			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);
+			const zona = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 
 			if (entrada.numerado) {
-				const zona = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 				const indexFila = zona!.filas.findIndex((t: any) => t.id == entrada.fila);
 
 				const fila = zona!.filas.find((t: any) => t.id == entrada.fila);
@@ -181,6 +195,17 @@ export class EventosRepo implements App.EventosRepoInterface {
 				}
 			}
 			else{
+				if(entrada.descuento && entrada.descuento.nombre)
+				{
+					const indexdescuento = zona!.descuentos.findIndex((t:any) => t.nombre == entrada.descuento.nombre );
+					
+					replaceOperation.push({
+						op: 'incr',
+						path: `/precios/${indexPrecio}/descuentos/${indexdescuento}/van`,
+						value: entrada.cantidad
+					});
+				}
+
 				replaceOperation.push({
 					op: 'incr',
 					path: `/precios/${indexPrecio}/c`,

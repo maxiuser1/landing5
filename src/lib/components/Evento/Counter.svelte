@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Decrease, Increase } from '$lib/icons';
+	import { Decrease, Descuento as Icondescuento, Gift, Increase } from '$lib/icons';
 	import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
 	import { compraData } from './store';
@@ -14,6 +14,8 @@
 	let tope: number = 50;
 	let precio: number = zona.final!;
 	let total: number = precio;
+	let codigodscto = '';
+	let glosaDescuento = `${zona?.descuento?.nombre} ${zona?.descuento?.descuento}%`;
 
 	let regalo: string = zona.regaloIndividual?.una ?? '';
 
@@ -42,6 +44,33 @@
 		}));
 
 		dispatch('cambiado', { count });
+	}
+
+	function aplicar() {
+		if (codigodscto && zona.descuentos && zona.descuentos.find((t) => t.nombre == codigodscto.toLowerCase())) {
+			const descuento = zona.descuentos.find((t) => t.nombre == codigodscto.toLowerCase());
+			if (descuento && descuento?.online) {
+				precio = descuento.online!;
+				total = precio * count;
+				glosaDescuento = `${descuento?.nombre} ${descuento?.descuento}%`;
+				compraData.update((current) => ({
+					...current,
+					entradas: [
+						{
+							...entrada,
+							cantidad: count,
+							regalo,
+							final: total,
+							descuento: {
+								nombre: descuento?.nombre,
+								valor: descuento?.descuento
+							}
+						}
+					]
+				}));
+				dispatch('cambiado', { count });
+			}
+		}
 	}
 </script>
 
@@ -91,9 +120,16 @@
 </div>
 <div class="adiconales">
 	<Regalo {regalo} />
-	{#if zona.descuento}
-		<Descuento descuento={zona.descuento.nombre + ' -' + zona.descuento.descuento + '%'} />
+	{#if glosaDescuento}
+		<Descuento descuento={glosaDescuento} />
 	{/if}
+</div>
+<div>
+	<br />
+	<div class="input-group">
+		<input type="text" name="codigo" bind:value={codigodscto} placeholder="Código de descuento" class="form-control" />
+		<button type="button" class="btn-outline" on:click={aplicar}>Aplicar</button>
+	</div>
 </div>
 
 <style lang="scss">
