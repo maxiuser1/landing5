@@ -25,7 +25,7 @@
 		{:else}
 			<a class="ingresa" href="../login">
 				<User />
-				Ingresa
+				Ingresar
 			</a>
 		{/if}
 	</li>
