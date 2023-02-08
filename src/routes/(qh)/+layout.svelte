@@ -18,6 +18,7 @@
 <style lang="scss">
 	@import './static/style.scss';
 	@import './static/style.scss';
+	@import './static/style.scss';
 
 	.whatsapp-btn {
 		position: fixed;
