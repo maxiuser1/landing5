@@ -13,12 +13,13 @@
 	},
 	"devDependencies": {
 		"@azure/cosmos": "^3.17.2",
-		"@sveltejs/adapter-auto": "^1.0.0",
-		"@sveltejs/kit": "^1.0.0",
 		"dotenv": "^16.0.3",
+		"sass": "^1.58.0",
+
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.5.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"sass": "^1.58.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
 		"tslib": "^2.4.1",
