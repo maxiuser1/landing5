@@ -18,6 +18,7 @@ declare global {
 			eventosRepo;
 			usuariosRepo;
 			contactosRepo;
+			entradasRepo: EntradasRepoInterface;
 			user: User;
 		}
 		// interface PageData {}
@@ -222,6 +223,10 @@ declare global {
 
 		interface ContactosRepoInterface {
 			create(contacto): Promise<void>;
+		}
+
+		interface EntradasRepoInterface {
+			getEntradas(userId): Promise<Array<Entrada>>;
 		}
 	}
 }

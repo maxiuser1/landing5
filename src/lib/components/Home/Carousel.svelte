@@ -52,6 +52,7 @@
 	<div class="grande" style:width="{ancho}%" style:transform="translateX({translate}%)">
 		{#each eventos as evento}
 			<div class="slide-container" style="width: {mini}%">
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}');background-size: contain; background-position: center top;">
 					<div class="gradiente" />
 				</div>
@@ -61,6 +62,7 @@
 	<div class="botonera">
 		<ul class="puntos">
 			{#each eventos as item, idx}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<li class="punto" on:click={() => handleClick(idx)} class:selected={selectedidx === idx} />
 			{/each}
 		</ul>

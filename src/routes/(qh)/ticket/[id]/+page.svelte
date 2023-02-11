@@ -180,7 +180,7 @@
 					if (result.type === 'success') {
 						form.reset();
 					}
-					if (result.type === 'invalid') {
+					if (result.type === 'failure') {
 						await applyAction(result);
 					}
 					update();
