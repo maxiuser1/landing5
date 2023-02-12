@@ -39,7 +39,6 @@
 
 	function handleClick(count: number) {
 		total = count == zona.tope ? precio : count * precioIndividual;
-		console.log('handleclick counterbox', precioIndividual, precio);
 
 		if (count <= 0) count = 1;
 

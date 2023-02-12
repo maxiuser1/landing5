@@ -16,7 +16,7 @@ declare global {
 
 		interface Locals {
 			eventosRepo;
-			usuariosRepo;
+			usuariosRepo: UsuariosRepoInterface;
 			contactosRepo;
 			entradasRepo: EntradasRepoInterface;
 			user: User;

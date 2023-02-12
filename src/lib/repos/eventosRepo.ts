@@ -54,42 +54,38 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const ventaManual = new VentaManual(evento);
 
-
 		let precioReal: number = 0;
 
 		for (let entrada of compra.entradas) {
 			const entradaDb = ventaManual.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
-	
-			if(entradaDb.numerado)
-			{
+
+			if (entradaDb.numerado) {
 				const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
 				const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 				const habilitados = asiento.c ? entradaDb.tope! - asiento.c : entradaDb.tope;
-	
+
 				const final = habilitados == entradaDb.tope ? entrada.final : entrada.cantidad! * entradaDb.promotori!;
-				precioReal+= final!;
-			}
-			else{
-				precioReal+= entradaDb.final!;
+				precioReal += final!;
+			} else {
+				precioReal += entradaDb.final!;
 			}
 		}
-		console.log('PRECIO REAL', precioReal);
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
-			const indexPrecio = evento.precios.findIndex((t:any) => t.tipo == entrada.tipo);
-			const currentPrecio = evento.precios.find((t:any) => t.tipo == entrada.tipo);
+			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);
+			const currentPrecio = evento.precios.find((t: any) => t.tipo == entrada.tipo);
 
 			if (entrada.numerado) {
-				const currentPrecio = evento.precios.find((t:any) => t.tipo == entrada.tipo);
-				const indexFila = currentPrecio!.filas.findIndex((t:any) => t.id == entrada.fila);
+				const currentPrecio = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+				const indexFila = currentPrecio!.filas.findIndex((t: any) => t.id == entrada.fila);
 
-				const fila = currentPrecio!.filas.find((t:any) => t.id == entrada.fila);
-				const indexAsiento = fila!.sits.findIndex((t:any) => t.id == entrada.asiento);
+				const fila = currentPrecio!.filas.find((t: any) => t.id == entrada.fila);
+				const indexAsiento = fila!.sits.findIndex((t: any) => t.id == entrada.asiento);
 
 				const asiento = fila!.sits.find((t: any) => t.id == entrada.asiento);
 				const currentCantidad = asiento.c != undefined ? Number(asiento.c) : 0;
 
-				if((entrada.cantidad + currentCantidad) == currentPrecio.tope){
+				if (entrada.cantidad + currentCantidad == currentPrecio.tope) {
 					replaceOperation.push({
 						op: 'replace',
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
@@ -100,22 +96,17 @@ export class EventosRepo implements App.EventosRepoInterface {
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
 						value: entrada.cantidad
 					});
-				}
-				else{
+				} else {
 					replaceOperation.push({
 						op: 'incr',
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
 						value: entrada.cantidad
 					});
 				}
-			}
-			else{
+			} else {
+				if (entrada.descuento && entrada.descuento.nombre) {
+					const indexdescuento = currentPrecio!.descuentos.findIndex((t: any) => t.nombre == entrada.descuento.nombre);
 
-				if(entrada.descuento && entrada.descuento.nombre)
-				{
-					const indexdescuento = currentPrecio!.descuentos.findIndex((t:any) => t.nombre == entrada.descuento.nombre );
-					console.log('entrada.descuento', entrada.descuento, indexdescuento);
-					
 					replaceOperation.push({
 						op: 'incr',
 						path: `/precios/${indexPrecio}/descuentos/${indexdescuento}/van`,
@@ -135,7 +126,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const purchasenumber = Math.floor(new Date().getTime() / 10);
 
-		const entrada : App.Entrada = {
+		const entrada: App.Entrada = {
 			tenant: 'quehay',
 			evento: compra.evento,
 			slug: compra.evento.slug,
@@ -146,7 +137,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 			cliente: compra.cliente,
 			formaPago: compra.formaPago,
 			fecha: new Date(),
-			canal: "PROMOTOR"
+			canal: 'PROMOTOR'
 		};
 
 		const { resource: createdItem } = await containerEntradas.items.create(entrada);
@@ -174,7 +165,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 				const currentCantidad = asiento.c != undefined ? Number(asiento.c) : 0;
 
-				if((entrada.cantidad + currentCantidad) == zona.tope){
+				if (entrada.cantidad + currentCantidad == zona.tope) {
 					replaceOperation.push({
 						op: 'replace',
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
@@ -185,20 +176,17 @@ export class EventosRepo implements App.EventosRepoInterface {
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
 						value: entrada.cantidad
 					});
-				}
-				else{
+				} else {
 					replaceOperation.push({
 						op: 'incr',
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
 						value: entrada.cantidad
 					});
 				}
-			}
-			else{
-				if(entrada.descuento && entrada.descuento.nombre)
-				{
-					const indexdescuento = zona!.descuentos.findIndex((t:any) => t.nombre == entrada.descuento.nombre );
-					
+			} else {
+				if (entrada.descuento && entrada.descuento.nombre) {
+					const indexdescuento = zona!.descuentos.findIndex((t: any) => t.nombre == entrada.descuento.nombre);
+
 					replaceOperation.push({
 						op: 'incr',
 						path: `/precios/${indexPrecio}/descuentos/${indexdescuento}/van`,
@@ -293,5 +281,5 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const database = await client.database('quehaydb');
 		const container = await database.container(cname);
 		return container;
-	}
+	};
 }

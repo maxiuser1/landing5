@@ -9,43 +9,34 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
 
-	if(intencion.invitado != undefined && intencion.invitado && !locals.user)
-	{
+	if (intencion.invitado != undefined && intencion.invitado && !locals.user) {
 		const usersearch = await locals.usuariosRepo.findByCorreo(intencion.invitado.correo);
-		if(usersearch)
-		{
-			locals.user = {...intencion.invitado, id : usersearch.id };
-		}
-		else {
+		if (usersearch) {
+			locals.user = { ...intencion.invitado, id: usersearch.id };
+		} else {
 			const usercreate = await locals.usuariosRepo.create(intencion.invitado);
-			locals.user = {...intencion.invitado, id : usercreate};
+			locals.user = { ...intencion.invitado, id: usercreate };
 		}
 	}
 
 	const evento = await locals.eventosRepo.findEvento(intencion.evento.id);
 	const ventaOnline = new VentaOnline(evento);
 
-
-
 	let precioReal: number = 0;
 
 	for (let entrada of intencion.entradas!) {
 		const entradaDb = ventaOnline.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
-		if(entradaDb.numerado)
-		{
+		if (entradaDb.numerado) {
 			const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
 			const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 			const habilitados = asiento.c ? entradaDb.tope! - asiento.c : entradaDb.tope;
 
 			const final = habilitados == entradaDb.tope ? entrada.final : entrada.cantidad! * entradaDb.onlinei!;
-			precioReal+= final!;
-		}
-		else{
-			precioReal+= entradaDb.final!;
+			precioReal += final!;
+		} else {
+			precioReal += entradaDb.final!;
 		}
 	}
-
-	console.log('PRECIO REAL', precioReal);
 
 	const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
 		headers: {
@@ -53,14 +44,13 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		}
 	});
 
-
 	const { data: session } = await axios.post(
 		`${SECRET_NIUBIZ_NIUBIZAPI}/api.ecommerce/v2/ecommerce/token/session/${SECRET_NIUBIZ_MERCHANTID}`,
 		{
 			channel: 'web',
 			amount: precioReal,
 			antifraud: {
-				clientIp: "38.25.15.249",
+				clientIp: '38.25.15.249',
 				merchantDefineData: {
 					MDD4: locals.user.correo, //cambiar al correo del usuario
 					MDD21: '0',
@@ -77,7 +67,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 			}
 		}
 	);
-
 
 	const newId = uuidv4();
 
@@ -97,7 +86,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		clientIpAddress: clientIpAddress,
 		fecha: new Date(),
 		user: {
-			nombre:  locals.user.nombre,
+			nombre: locals.user.nombre,
 			correo: locals.user.correo,
 			apellido: locals.user.apellido,
 			dni: locals.user.dni,
@@ -106,7 +95,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	};
 
 	await locals.eventosRepo.postTurno(turno);
-
 
 	return json({ ...pago, id: newId, niubizlib: SECRET_NIUBIZ_NIUBIZLIB });
 };
