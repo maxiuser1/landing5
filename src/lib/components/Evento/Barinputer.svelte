@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { BarcodeReader, BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
@@ -42,4 +42,4 @@
 		position: relative;
 		resize: both;
 	}
-</style> -->
+</style>

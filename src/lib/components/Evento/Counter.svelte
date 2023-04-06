@@ -15,7 +15,7 @@
 	let precio: number = zona.final!;
 	let total: number = precio;
 	let codigodscto = '';
-	let glosaDescuento = `${zona?.descuento?.nombre} ${zona?.descuento?.descuento}%`;
+	let glosaDescuento = `${zona?.descuento?.nombre ?? ''} ${zona?.descuento?.descuento ?? ''}`;
 
 	let regalo: string = zona.regaloIndividual?.una ?? '';
 
@@ -52,7 +52,7 @@
 			if (descuento && descuento?.online) {
 				precio = descuento.online!;
 				total = precio * count;
-				glosaDescuento = `${descuento?.nombre} ${descuento?.descuento}%`;
+				glosaDescuento = `${descuento ? descuento.nombre : ''} ${descuento?.descuento ?? ''}%`;
 				compraData.update((current) => ({
 					...current,
 					entradas: [
@@ -119,8 +119,10 @@
 	</div>
 </div>
 <div class="adiconales">
-	<Regalo {regalo} />
-	{#if glosaDescuento}
+	{#if regalo?.length > 1}
+		<Regalo {regalo} />
+	{/if}
+	{#if glosaDescuento?.length > 1}
 		<Descuento descuento={glosaDescuento} />
 	{/if}
 </div>

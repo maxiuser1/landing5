@@ -16,7 +16,11 @@ export const actions = {
 
 		const transferible = await locals.usuariosRepo.findByCorreo(email);
 
-		console.log('email', transferible);
 		return { success: true, user: transferible };
+	},
+	traspasar: async ({ request, locals }) => {
+		const { entradaId, transferableId } = Object.fromEntries(await request.formData()) as Record<string, string>;
+		await locals.entradasRepo.traspasar(entradaId, transferableId);
+		return { success: true };
 	}
 } satisfies Actions;

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
+	import { Greatcheck } from '$lib/icons';
 	import Close from '$lib/icons/Close.svelte';
 	import User from '$lib/icons/User.svelte';
 	import type { PageData } from './$types';
@@ -8,8 +9,9 @@
 
 	let { entradas } = data;
 	let isOpen = false;
-	let paso: 'inicio' | 'traspaso' | 'traspaso-verificado' = 'inicio';
+	let paso: 'inicio' | 'traspaso' | 'traspaso-verificado' | 'traspaso-realizado' = 'inicio';
 	let transferable: App.User | null = null;
+	let entradaId: string | undefined = '';
 </script>
 
 <section class="entradas">
@@ -19,6 +21,7 @@
 			<h1>Mis entradas</h1>
 			<div class="tickets">
 				{#each entradas as entrada, idx}
+					<div>{entrada.id}</div>
 					<div class="ticket" class:zebra={idx % 2 == 0}>
 						<div class="avatar">Av</div>
 						<div class="titulos">
@@ -30,6 +33,7 @@
 							<button
 								class="btn"
 								on:click={() => {
+									entradaId = entrada.id;
 									isOpen = true;
 								}}>No lo quiero</button
 							>
@@ -84,8 +88,6 @@
 						action="?/traspaso"
 						use:enhance={({ form, data, action, cancel }) => {
 							return async ({ result }) => {
-								console.log('data', data);
-								console.log('result', result);
 								transferable = result.data.user;
 								paso = 'traspaso-verificado';
 								await applyAction(result);
@@ -104,10 +106,57 @@
 			{/if}
 
 			{#if paso === 'traspaso-verificado'}
-				<div>
-					hi
+				<div class="traspaso-verificado">
+					<h4>Traspasar</h4>
+					<p>Correo validado correctamente. Puedes seguir con el proceso de traspaso.</p>
 
-					{JSON.stringify(transferable)}
+					<form
+						autocomplete="off"
+						method="POST"
+						action="?/traspasar"
+						use:enhance={({ form, data, action, cancel }) => {
+							return async ({ result }) => {
+								entradas = entradas.filter((t) => t.id !== entradaId);
+								paso = 'traspaso-realizado';
+								await applyAction(result);
+							};
+						}}
+					>
+						<input type="hidden" name="entradaId" value={entradaId} />
+						<input type="hidden" name="transferableId" value={transferable?.id} />
+						<div class="form-group">
+							<label for="email">Nombre</label>
+							<input type="email" name="email" disabled value={transferable?.nombre ?? ''} />
+						</div>
+						<div class="form-group">
+							<label for="email">Correo electrónico</label>
+							<input type="email" name="email" disabled value={transferable?.correo ?? ''} />
+						</div>
+						<div>
+							<button class="btn" type="submit">Traspasar</button>
+						</div>
+					</form>
+				</div>
+			{/if}
+
+			{#if paso === 'traspaso-realizado'}
+				<div class="traspaso-realizado">
+					<Greatcheck />
+
+					<div>
+						<h3><b>Traspaso exitoso</b></h3>
+						<p>Se realizó el traspaso correctamente</p>
+						<button
+							class="btn"
+							type="button"
+							on:click={() => {
+								paso = 'inicio';
+								entradaId = undefined;
+								transferable = null;
+								isOpen = false;
+							}}>Aceptar</button
+						>
+					</div>
 				</div>
 			{/if}
 		</div>
@@ -116,8 +165,20 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+	.traspaso-realizado {
+		text-align: center;
+		h3 {
+			margin-top: 40px;
+		}
 
-	.traspaso {
+		button {
+			margin-top: 32px;
+			min-width: 100%;
+		}
+	}
+
+	.traspaso,
+	.traspaso-verificado {
 		.form-group {
 			padding-left: initial;
 			padding-right: initial;
