@@ -13,4 +13,4 @@ BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxODAzMDI3LVRYbFhaV0pRY20
  * LICENSE ALERT - THE END 
  */
 
-BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.3.1/dist/";
+BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.11/dist/";
