@@ -11,7 +11,7 @@
 	<slot />
 </main>
 <Footer />
-<a class="whatsapp-btn" rel="noreferrer" target="_blank" href="https://wa.me/51966058176">
+<a class="whatsapp-btn" rel="noreferrer" target="_blank" href="https://wa.me/51902826113">
 	<Whatsapp />
 </a>
 
