@@ -6,16 +6,20 @@
 	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
-<Header {categories} />
+<Header />
 <main>
 	<slot />
 </main>
 <Footer />
-<a class="whatsapp-btn" target="_blank" href="https://wa.me/51966058176">
+<a class="whatsapp-btn" rel="noreferrer" target="_blank" href="https://wa.me/51919293256">
 	<Whatsapp />
 </a>
 
 <style lang="scss">
+	@import './static/style.scss';
+	@import './static/style.scss';
+	@import './static/style.scss';
+
 	.whatsapp-btn {
 		position: fixed;
 		right: 0;

@@ -158,6 +158,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.descto {
 		width: 100%;
 	}

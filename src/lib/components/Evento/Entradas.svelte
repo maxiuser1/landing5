@@ -49,6 +49,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.entradas {
 		table {
 			border-spacing: 0px;

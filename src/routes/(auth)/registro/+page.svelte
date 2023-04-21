@@ -1,9 +1,5 @@
 <script lang="ts">
-	import {
-		signInWithPopup,
-		type User,
-		createUserWithEmailAndPassword
-	} from 'firebase/auth';
+	import { signInWithPopup, type User, createUserWithEmailAndPassword } from 'firebase/auth';
 	import { applyAction, enhance } from '$app/forms';
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
@@ -45,7 +41,6 @@
 			}
 			applyAction(result);
 			posting = false;
-
 		} catch (error: any) {
 			posting = false;
 			mensaje = error.message;
@@ -53,8 +48,8 @@
 				mensaje = 'Correo ya registrado';
 			}
 
-			if(error.code.includes('auth/weak-password')){
-				mensaje = "Mejora un poco la contraseña";
+			if (error.code.includes('auth/weak-password')) {
+				mensaje = 'Mejora un poco la contraseña';
 			}
 		}
 	}
@@ -127,6 +122,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;

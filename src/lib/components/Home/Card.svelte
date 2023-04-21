@@ -34,6 +34,7 @@
 </a>
 
 <style lang="scss">
+	@import './static/style.scss';
 	a {
 		z-index: 2;
 	}

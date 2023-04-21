@@ -32,15 +32,8 @@
 	>
 		<div>
 			<h1>Libro de Reclamaciones</h1>
-			<p>
-				Conforme a lo establecido en el Código de Protección y Defensa del Consumidor este
-				establecimiento cuenta con un Libro de Reclamaciones Virtual a tu disposición.
-			</p>
-			<p>
-				Los proveedores están obligados a atender reclamos de los consumidores en un plazo no mayor
-				a 30 días, pudiendo extenderse el plazo cuando la naturaleza del reclamo lo acredite. Art.
-				24.1 Ley 29571
-			</p>
+			<p>Conforme a lo establecido en el Código de Protección y Defensa del Consumidor este establecimiento cuenta con un Libro de Reclamaciones Virtual a tu disposición.</p>
+			<p>Los proveedores están obligados a atender reclamos de los consumidores en un plazo no mayor a 30 días, pudiendo extenderse el plazo cuando la naturaleza del reclamo lo acredite. Art. 24.1 Ley 29571</p>
 		</div>
 		<div class="row">
 			<div class="input-group">
@@ -114,6 +107,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	form {
 		margin-bottom: 40px;
 	}

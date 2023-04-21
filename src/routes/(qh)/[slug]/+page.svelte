@@ -37,6 +37,7 @@
 {/if}
 
 <style lang="scss">
+	@import './static/style.scss';
 	.portada {
 		img {
 			width: 100%;

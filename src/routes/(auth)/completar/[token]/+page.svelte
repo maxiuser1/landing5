@@ -71,6 +71,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;

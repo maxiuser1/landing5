@@ -25,6 +25,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.breacrumbs {
 		background: white;
 		ul {

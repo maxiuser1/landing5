@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import { zonas } from './zonas';
 	import { Radio } from '$lib/icons';
 	import { Soles } from '$lib/utils/formats';
@@ -43,6 +43,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.leyenda {
 		padding: 20px 20px 0px;
 	}

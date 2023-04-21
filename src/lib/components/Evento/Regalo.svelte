@@ -11,6 +11,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	span {
 		color: pink;
 		margin-right: 10px;

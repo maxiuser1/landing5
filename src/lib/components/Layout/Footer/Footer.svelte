@@ -24,10 +24,7 @@
 			<Socials />
 			<div class="libro">
 				<a href="/contenido/libro-de-reclamaciones">
-					<img
-						src="https://res.cloudinary.com/maxitech/image/upload/v1665546173/ticketera/assets/libro_mlxv6e.png"
-						alt="libro"
-					/>
+					<img src="https://res.cloudinary.com/maxitech/image/upload/v1665546173/ticketera/assets/libro_mlxv6e.png" alt="libro" />
 				</a>
 			</div>
 		</div>
@@ -40,6 +37,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.derechos {
 		font-size: 12px;
 	}

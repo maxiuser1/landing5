@@ -34,6 +34,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.compra {
 		min-width: 300px;
 		padding: 32px;

@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	export let numero: string;
 	export let titulo: string;
 	export let subtitulo: string;
@@ -14,6 +14,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.paso {
 		display: flex;
 		align-items: center;

@@ -22,13 +22,14 @@
 
 	<br />
 	<div>
-		{@html evento.caratula?.detalles}
+		{@html evento.caratula?.detalles ?? ''}
 	</div>
 
 	<img src={evento.caratula?.thumb} alt="logo" />
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.detalles {
 		border-radius: 8px;
 		background: white;

@@ -25,7 +25,7 @@
 		{:else}
 			<a class="ingresa" href="../login">
 				<User />
-				Ingresa
+				Ingresar
 			</a>
 		{/if}
 	</li>
@@ -39,6 +39,7 @@
 </ul>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.circle {
 		cursor: pointer;
 		border-radius: 50%;

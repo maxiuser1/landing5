@@ -60,6 +60,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	button {
 		padding: 4px 6px;
 		background: transparent;

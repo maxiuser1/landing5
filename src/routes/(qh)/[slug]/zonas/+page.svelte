@@ -45,6 +45,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.container {
 		padding-right: initial;
 		padding-left: initial;

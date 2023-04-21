@@ -166,6 +166,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.btn {
 		display: flex;
 		gap: 10px;

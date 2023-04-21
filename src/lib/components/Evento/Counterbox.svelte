@@ -39,7 +39,6 @@
 
 	function handleClick(count: number) {
 		total = count == zona.tope ? precio : count * precioIndividual;
-		console.log('handleclick counterbox', precioIndividual, precio);
 
 		if (count <= 0) count = 1;
 
@@ -118,6 +117,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.box {
 		min-width: 300px;
 		padding: 32px;

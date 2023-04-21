@@ -1,11 +1,5 @@
 <script lang="ts">
-	import {
-		signInWithPopup,
-		GoogleAuthProvider,
-		type User,
-		FacebookAuthProvider,
-		signInWithEmailAndPassword
-	} from 'firebase/auth';
+	import { signInWithPopup, GoogleAuthProvider, type User, FacebookAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 	import { applyAction, enhance } from '$app/forms';
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
@@ -94,6 +88,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	input[type='number'] {
 		-moz-appearance: textfield;
 	}

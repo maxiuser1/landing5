@@ -58,6 +58,7 @@
 </ul>
 
 <style lang="scss">
+	@import './static/style.scss';
 	ul {
 		display: flex;
 		gap: 32px;

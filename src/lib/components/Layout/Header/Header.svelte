@@ -50,6 +50,7 @@
 {/if}
 
 <style lang="scss">
+	@import './static/style.scss';
 	.anchormenu {
 		color: #fff;
 	}

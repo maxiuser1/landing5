@@ -256,6 +256,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.formulario {
 		h5 {
 			padding: 12px 24px;

@@ -24,6 +24,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.info {
 		display: flex;
 		justify-content: space-between;

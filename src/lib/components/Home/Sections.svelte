@@ -21,6 +21,7 @@
 	</div>
 </section> -->
 <style lang="scss">
+	@import './static/style.scss';
 	.destacados {
 		margin-top: 32px;
 		@include breakpoint($md) {

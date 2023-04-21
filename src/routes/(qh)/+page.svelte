@@ -34,4 +34,6 @@
 <div id="tsparticles" />
 
 <style lang="scss">
+	@import './static/style.scss';
+	@import './static/style.scss';
 </style>

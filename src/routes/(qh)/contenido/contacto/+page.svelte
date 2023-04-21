@@ -85,6 +85,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	form {
 		margin-bottom: 40px;
 	}

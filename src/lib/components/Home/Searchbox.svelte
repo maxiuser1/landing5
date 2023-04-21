@@ -15,6 +15,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.bind {
 		position: relative;
 		z-index: 4;

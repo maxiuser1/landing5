@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		signInWithPopup,
-		GoogleAuthProvider,
-		type User,
-		FacebookAuthProvider,
-		signInWithEmailAndPassword,
-		sendPasswordResetEmail
-	} from 'firebase/auth';
+	import { signInWithPopup, GoogleAuthProvider, type User, FacebookAuthProvider, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 	import { applyAction, enhance } from '$app/forms';
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
@@ -21,8 +14,7 @@
 
 		try {
 			const res = await sendPasswordResetEmail(auth, email);
-			mensaje =
-				'Hemos enviado un correo a la casilla ingresada, porfavor siga ahí las instrucciones.';
+			mensaje = 'Hemos enviado un correo a la casilla ingresada, porfavor siga ahí las instrucciones.';
 		} catch (error: any) {
 			mensaje = error.message;
 			if (error.code == 'auth/wrong-password') {
@@ -70,6 +62,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.error {
 		margin-top: 10px;
 		color: red;

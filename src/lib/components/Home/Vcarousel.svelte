@@ -60,6 +60,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.carousel {
 		z-index: 3;
 		width: 100%;

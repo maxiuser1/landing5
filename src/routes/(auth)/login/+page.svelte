@@ -159,6 +159,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.error {
 		margin-top: 10px;
 		color: red;

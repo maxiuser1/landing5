@@ -11,6 +11,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.cards {
 		margin-top: 24px;
 		display: grid;

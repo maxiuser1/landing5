@@ -34,6 +34,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.legend {
 		margin-top: 48px;
 		padding: 0 24px;

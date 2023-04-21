@@ -37,6 +37,7 @@
 </div>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.logo--nav {
 		height: 20px;
 	}

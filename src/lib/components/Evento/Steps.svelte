@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import Step from './Step.svelte';
 
 	export let paso: number;
@@ -25,6 +25,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.wizard {
 		.mpasos {
 			margin: 10px 0px;

@@ -292,6 +292,7 @@
 </section>
 
 <style lang="scss">
+	@import './static/style.scss';
 	.tickets {
 		padding: 2px 24px;
 		display: flex;
