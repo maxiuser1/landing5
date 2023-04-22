@@ -1,6 +1,6 @@
 import { SECRET_SENDGRID_KEY, SECRET_SENDGRID_TICKET } from '$env/static/private';
 import { redirect, type Actions } from '@sveltejs/kit';
-// import QRCode from 'qrcode';
+import QRCode from 'qrcode';
 import { MailService } from '@sendgrid/mail';
 import { VentaManual } from '$lib/aplicacion/ventamanual';
 import { letrar } from '$lib/utils/letrador';
@@ -42,24 +42,24 @@ export const actions: Actions = {
 
 		let qrcode = '';
 
-		// if(generaQR){
-		// 	var opts: any = {
-		// 		errorCorrectionLevel: 'H',
-		// 		type: 'image/jpeg',
-		// 		quality: 0.3,
-		// 		margin: 1,
-		// 		color: {
-		// 			dark: '#80057F',
-		// 			light: '#FFFFFF'
-		// 		}
-		// 	};
+		if (generaQR) {
+			var opts: any = {
+				errorCorrectionLevel: 'H',
+				type: 'image/jpeg',
+				quality: 0.3,
+				margin: 1,
+				color: {
+					dark: '#80057F',
+					light: '#FFFFFF'
+				}
+			};
 
-		// 	const generateQR = async (text: any) => {
-		// 		return await QRCode.toDataURL(text, opts);
-		// 	};
+			const generateQR = async (text: any) => {
+				return await QRCode.toDataURL(text, opts);
+			};
 
-		// 	 qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
-		// }
+			qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+		}
 
 		const sgMail: MailService = new MailService();
 		sgMail.setApiKey(SECRET_SENDGRID_KEY);
