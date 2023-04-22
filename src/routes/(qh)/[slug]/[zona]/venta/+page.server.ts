@@ -1,18 +1,17 @@
 import { SECRET_SENDGRID_KEY, SECRET_SENDGRID_TICKET } from '$env/static/private';
 import { redirect, type Actions } from '@sveltejs/kit';
-import QRCode from 'qrcode';
+// import QRCode from 'qrcode';
 import { MailService } from '@sendgrid/mail';
 import { VentaManual } from '$lib/aplicacion/ventamanual';
 import { letrar } from '$lib/utils/letrador';
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
 	if (locals.user.rol == 'promotor') {
-
 		const evento = await locals.eventosRepo.getEvento(params.slug);
-		const zonaEvento : App.Precio  = evento.precios.find((t:App.Precio) => t.tipo == params.zona);
-	
+		const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == params.zona);
+
 		const ventaManual = new VentaManual(evento);
-    	const zona : App.Precio = ventaManual.tarificar(params.zona, zonaEvento.numerado? zonaEvento.tope!: 1);
+		const zona: App.Precio = ventaManual.tarificar(params.zona, zonaEvento.numerado ? zonaEvento.tope! : 1);
 
 		return { evento, zona };
 	} else {
@@ -29,7 +28,6 @@ export const actions: Actions = {
 		const formDataCliente = { ...formData, payload: '' };
 		const compraCliente = { ...compra, cliente: formDataCliente, formaPago: formData.formaPago };
 
-
 		const evento = await locals.eventosRepo.findEvento(compra.evento.id);
 		const generaQR = new VentaManual(evento).debeGenerarQR(compra.entradas[0].tipo, compra.entradas[0].cantidad);
 		const vendedor = {
@@ -42,28 +40,26 @@ export const actions: Actions = {
 
 		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
 
-		
-		let qrcode = "";
+		let qrcode = '';
 
-		if(generaQR){
-			var opts: any = {
-				errorCorrectionLevel: 'H',
-				type: 'image/jpeg',
-				quality: 0.3,
-				margin: 1,
-				color: {
-					dark: '#80057F',
-					light: '#FFFFFF'
-				}
-			};
-	
-			const generateQR = async (text: any) => {
-				return await QRCode.toDataURL(text, opts);
-			};
-	
-			 qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
-		}
-		
+		// if(generaQR){
+		// 	var opts: any = {
+		// 		errorCorrectionLevel: 'H',
+		// 		type: 'image/jpeg',
+		// 		quality: 0.3,
+		// 		margin: 1,
+		// 		color: {
+		// 			dark: '#80057F',
+		// 			light: '#FFFFFF'
+		// 		}
+		// 	};
+
+		// 	const generateQR = async (text: any) => {
+		// 		return await QRCode.toDataURL(text, opts);
+		// 	};
+
+		// 	 qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+		// }
 
 		const sgMail: MailService = new MailService();
 		sgMail.setApiKey(SECRET_SENDGRID_KEY);
@@ -80,13 +76,12 @@ export const actions: Actions = {
 				ubicacion: compra.evento.lugar,
 				numero: entrada.numero.toString(),
 				monto: entrada.monto.toString(),
-				entradas: compra.entradas.map((t:any) => {
-					return {...t, fila:letrar(t.fila) }
+				entradas: compra.entradas.map((t: any) => {
+					return { ...t, fila: letrar(t.fila) };
 				}),
 				codigo: qrcode
 			}
 		};
-
 
 		try {
 			sgMail
