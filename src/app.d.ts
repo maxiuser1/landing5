@@ -45,6 +45,7 @@ declare global {
 			finali?: number;
 
 			tope?: number;
+			c?: number;
 			disponibles?: number;
 			regalo?: string;
 			regaloIndividual?: {

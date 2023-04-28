@@ -31,7 +31,11 @@
 										<Radio color={precio.color ? precio.color : ''} />
 									</div>
 								</td>
-								<td class="tdnombre">{precio.nombre} </td>
+								{#if precio.c && precio.tope && precio.c >= precio.tope}
+									<td class="tdnombre agotado">{precio.nombre} (Agotado) </td>
+								{:else}
+									<td class="tdnombre">{precio.nombre} </td>
+								{/if}
 								<td class="tdprecio"><Soles number={precio.online} /></td>
 							</tr>
 						{/each}
@@ -50,6 +54,10 @@
 
 	.tdnombre {
 		min-width: 100px;
+	}
+
+	.agotado {
+		text-decoration: line-through;
 	}
 
 	.tdprecio {

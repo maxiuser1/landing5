@@ -13,13 +13,17 @@ export const zonas = (node: any, props: any) => {
 
 				each.addEventListener('click', () => {
 					tooltipComp.$destroy();
-					const zonned = new CustomEvent('zonned', {
-						detail: {
-							tipo: cadaPrecio.tipo
-						}
-					});
 
-					node.dispatchEvent(zonned);
+					if (cadaPrecio.c >= cadaPrecio.tope) {
+					} else {
+						const zonned = new CustomEvent('zonned', {
+							detail: {
+								tipo: cadaPrecio.tipo
+							}
+						});
+
+						node.dispatchEvent(zonned);
+					}
 				});
 
 				each.addEventListener('mouseover', (event: MouseEvent) => {
@@ -28,7 +32,7 @@ export const zonas = (node: any, props: any) => {
 							mouseX: event.pageX,
 							mouseY: event.pageY,
 							config: {
-								body: `${cadaPrecio.nombre}: S/ ${cadaPrecio.online.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+								body: cadaPrecio.c >= cadaPrecio.tope ? 'Agotado' : `${cadaPrecio.nombre}: S/ ${cadaPrecio.online.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
 								bodyAsHTML: false,
 								place: 'top',
 								effect: 'solid',
