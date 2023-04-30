@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { BarcodeReader, BarcodeScanner } from 'dynamsoft-javascript-barcode';
+	// import { BarcodeReader, BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
 	const dispatch = createEventDispatcher();
 
@@ -9,18 +9,17 @@
 	let elRef: any;
 	let scanner: any;
 	onMount(async () => {
-		const scanner = await (pScanner = BarcodeScanner.createInstance());
-		await scanner.setUIElement(elRef);
-		scanner.onUniqueRead = (txt: any, result: any) => {
-			dispatch('detected', { text: txt });
-		};
-
-		await scanner.open();
+		// const scanner = await (pScanner = BarcodeScanner.createInstance());
+		// await scanner.setUIElement(elRef);
+		// scanner.onUniqueRead = (txt: any, result: any) => {
+		// 	dispatch('detected', { text: txt });
+		// };
+		// await scanner.open();
 	});
 
 	onDestroy(async () => {
 		if (pScanner) {
-			(await pScanner).destroyContext();
+			// (await pScanner).destroyContext();
 		}
 	});
 

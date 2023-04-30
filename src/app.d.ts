@@ -72,6 +72,7 @@ declare global {
 			descuento: number;
 			online: number;
 			promotor: number;
+			tipo: string;
 		};
 
 		type Entrada = {

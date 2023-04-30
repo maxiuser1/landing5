@@ -55,7 +55,7 @@
 						}
 					],
 					cantidad: 1,
-					monto: zona.descuentos && zona.descuentos[0] ? zona.descuentos[0].online : zona.online
+					monto: zona.descuentos && zona.descuentos[0] && zona.descuentos[0].tipo == 'auto' ? zona.descuentos[0].online : zona.online
 				}));
 			}
 		} catch (err) {
