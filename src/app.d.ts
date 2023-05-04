@@ -99,6 +99,7 @@ declare global {
 				correo: string;
 				dni: string;
 			};
+			picados?: number;
 			montoBase?: number;
 			canal: TipoCanal;
 			formaPago?: string;
@@ -212,6 +213,7 @@ declare global {
 			ventaManual(slug, compra, vendedor): Promise<void>;
 			guardarEntrada(entrada): Promise<void>;
 			getEntrada(id): Promise<Entrada>;
+			picarEntrada(id, cantidad): Promise<void>;
 		}
 
 		interface UsuariosRepoInterface {

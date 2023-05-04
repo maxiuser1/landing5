@@ -44,6 +44,24 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return entrada;
 	};
 
+	picarEntrada = async (id: string, cantidad: number): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		const replaceOperation: PatchOperation[] = [];
+
+		console.log('cantidad', cantidad);
+
+		replaceOperation.push({
+			op: 'incr',
+			path: `/picados`,
+			value: cantidad
+		});
+
+		await container.item(id, 'quehay').patch(replaceOperation);
+	};
+
 	ventaManual = async (slug: string, compra: any, vendedor: any): Promise<any> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');

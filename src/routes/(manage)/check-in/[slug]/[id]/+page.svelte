@@ -1,26 +1,50 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
+
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
 	let { ticket } = data;
+	let posting = false;
 
 	const options: any = { weekday: 'short', month: 'long', day: 'numeric' };
 
-	function aplicar() {
-		alert('exito');
-	}
+	let cantidad = ticket!.entradas![0].cantidad;
+	let picados = ticket.picados ?? 0;
+	let resto = cantidad - picados;
+	function aplicar() {}
 </script>
 
 <section class="container summary">
 	<div class="tarjeta">
 		<div class="cantidad">
-			<div class="input-group">
-				<input type="text" name="Cantidad" placeholder="Cantidad" class="form-control" />
-				<button type="button" class="btn-outline" on:click={aplicar}>Picar Tickets</button>
-			</div>
+			<form
+				method="POST"
+				autocomplete="off"
+				use:enhance={({ form, data, action, cancel }) => {
+					posting = true;
+					return async ({ result }) => {
+						applyAction(result);
+					};
+				}}
+			>
+				<div class="input-group">
+					{#if resto < 1}
+						<h1>Entradas consumidas</h1>
+					{:else}
+						<input name="Cantidad" pattern="\d*" type="number" max={resto} min="1" value={resto} placeholder="Cantidad" class="form-control txtcantidad" />
+						<button type="submit" class="btn-outline">Picar Tickets</button>
+					{/if}
+				</div>
+			</form>
 		</div>
 		<div class="headings">
+			<h1>Compradas: {cantidad}</h1>
+			<h1>Picadas: {picados}</h1>
+			<br />
+			<br />
+			<br />
 			<h2>{ticket.evento.nombre}</h2>
 			<br />
 			<div class="subheadings">
@@ -45,6 +69,10 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.txtcantidad {
+		font-size: 40px;
+	}
 
 	.cantidad {
 		max-width: 300px;
@@ -112,7 +140,8 @@
 		background: white;
 		padding: 60px 24px 0px;
 		@include breakpoint($md) {
-			padding: 48px 24px 0px;
+			margin-bottom: 400px;
+			padding: 48px 24px 40px;
 		}
 
 		.headings {
