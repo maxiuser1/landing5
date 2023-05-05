@@ -10,7 +10,8 @@ export const load = async ({ locals, params }) => {
 	const evento = await locals.eventosRepo.findEvento(ticket.evento.id);
 	const zona = evento.precios.find((t: App.Precio) => t.tipo == ticket.entradas![0].tipo);
 
-	const generaQR = ticket.canal === 'WEB' ? true : new VentaManual(evento).debeGenerarQR(ticket.entradas![0].tipo!, ticket.entradas![0].cantidad);
+	const vieneTipoQR = ticket.cliente && ticket.cliente.tipo && ticket.cliente.tipo == 'qr';
+	const generaQR = ticket.canal === 'WEB' || vieneTipoQR ? true : new VentaManual(evento).debeGenerarQR(ticket.entradas![0].tipo!, ticket.entradas![0].cantidad);
 
 	if (generaQR) {
 		var opts: any = {

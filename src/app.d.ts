@@ -98,6 +98,7 @@ declare global {
 				apellido: string;
 				correo: string;
 				dni: string;
+				tipo?: string;
 			};
 			picados?: number;
 			montoBase?: number;

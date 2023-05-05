@@ -5,7 +5,7 @@
 	import { applyAction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import '../../../../../dbr';
-	import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
+	// import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Qrcode } from '$lib/icons';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
@@ -27,11 +27,11 @@
 	let barcodeinputter: SvelteComponent;
 
 	onMount(async () => {
-		try {
-			await BarcodeScanner.loadWasm();
-		} catch (ex) {
-			console.error(ex);
-		}
+		// try {
+		// 	await BarcodeScanner.loadWasm();
+		// } catch (ex) {
+		// 	console.error(ex);
+		// }
 
 		if (zona.numerado) {
 			if ($compraData.entradas) {
@@ -206,11 +206,11 @@
 </script>
 
 <div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc}
+	<!-- {#if ticketc}
 		{#key ticketc}
 			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
 		{/key}
-	{/if}
+	{/if} -->
 </div>
 <Breadcrumbs {evento} />
 
@@ -271,8 +271,16 @@
 				<div class="form-group">
 					<input type="text" name="dni" class="form-control" placeholder="DNI" required />
 				</div>
+
 				<div class="form-group">
 					<input type="email" name="correo" class="form-control" placeholder="Correo" required />
+				</div>
+
+				<div class="form-group">
+					<select name="tipo" class="form-control">
+						<option value="impreso">Con ticket fisico</option>
+						<option value="qr">Con generación de código QR</option>
+					</select>
 				</div>
 
 				<FormasPago monto={$compraData.monto} />
