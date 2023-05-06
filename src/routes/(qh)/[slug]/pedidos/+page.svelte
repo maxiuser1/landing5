@@ -25,6 +25,7 @@
 							<th>Cliente</th>
 							<th>Orden</th>
 							<th>Ubicacion</th>
+							<th>Monto</th>
 							<th />
 						</tr>
 					</thead>
@@ -32,11 +33,11 @@
 						{#each compras as compra}
 							<tr>
 								<td>
-									{compra.pedido.compra}
+									{compra.pedido.compra ?? ''}
 								</td>
 								<td>
-									{compra.pedido.info.invitado.nombre}
-									{compra.pedido.info.invitado.apellido}
+									{compra.pedido.info.invitado?.nombre ?? ''}
+									{compra.pedido.info.invitado?.apellido ?? ''}
 								</td>
 								<td>
 									{#each compra.pedido.info.productos as producto}
@@ -46,7 +47,10 @@
 									{/each}
 								</td>
 								<td>
-									{compra.pedido.info.ubicacion}
+									{compra.pedido.info.ubicacion ?? ''}
+								</td>
+								<td>
+									S/ {compra.pedido.info.total}
 								</td>
 								<td>
 									<button class="btn">Cerrar</button>
