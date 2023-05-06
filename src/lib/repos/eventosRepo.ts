@@ -44,6 +44,63 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return entrada;
 	};
 
+	getEntradasPorNumero = async (tipo: string, numero: string): Promise<App.Entrada | null> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		const querySpec: SqlQuerySpec = {
+			query: `SELECT c.id
+			FROM c
+			join f in c.entradas
+			join t in c.impresos
+			where 
+			f.tipo = @tipo 
+			and contains(t.n, @numero)`,
+			parameters: [
+				{
+					name: '@tipo',
+					value: tipo
+				},
+				{
+					name: '@numero',
+					value: numero
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.Entrada>(querySpec).fetchAll();
+
+		console.log('r', results);
+
+		if (results && results.length > 0) {
+			const { resource: entrada } = await container.item(results[0].id!, 'quehay').read();
+			return entrada;
+		} else {
+			return null;
+		}
+	};
+
+	picarEntradaFisica = async (ticket: App.Entrada, numero: string): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		if (ticket && ticket.impresos) {
+			const currentInd = ticket.impresos.findIndex((t: any) => t.n.endsWith(numero));
+			const replaceOperation: PatchOperation[] = [];
+
+			console.log('currentind', currentInd);
+			replaceOperation.push({
+				op: 'replace',
+				path: `/impresos/${currentInd}/p`,
+				value: 1
+			});
+
+			await container.item(ticket.id!, 'quehay').patch(replaceOperation);
+		}
+	};
+
 	picarEntrada = async (id: string, cantidad: number): Promise<void> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');

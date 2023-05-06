@@ -19,6 +19,7 @@ declare global {
 			usuariosRepo: UsuariosRepoInterface;
 			contactosRepo;
 			entradasRepo: EntradasRepoInterface;
+			tiendaRepo: TiendaRepoInterface;
 			user: User;
 		}
 		// interface PageData {}
@@ -27,6 +28,20 @@ declare global {
 		type Fila = {
 			id: number;
 			sits: Array<Asiento>;
+		};
+
+		type Producto = {
+			id: string;
+			nombre: string;
+			stock: number;
+			precio: number;
+			img: string;
+		};
+
+		type ProductoComprado = {
+			id: string;
+			cantidad: number;
+			total: number;
 		};
 
 		type Precio = {
@@ -116,6 +131,10 @@ declare global {
 					TRANSACTION_DATE: string;
 				};
 			};
+			impresos?: Array<{
+				n: string;
+				p: number;
+			}>;
 		};
 
 		type Baneable = {
@@ -203,6 +222,18 @@ declare global {
 			invitado?: any;
 		};
 
+		type CompraTienda = {
+			productos: Array<{
+				id: string;
+				cantidad: number;
+				total: number;
+			}>;
+			evento: {
+				slug?: string;
+			};
+			total: number;
+		};
+
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<Evento> | undefined>;
 			getEvento(slug): Promise<Evento>;
@@ -215,6 +246,16 @@ declare global {
 			guardarEntrada(entrada): Promise<void>;
 			getEntrada(id): Promise<Entrada>;
 			picarEntrada(id, cantidad): Promise<void>;
+			getEntradasPorNumero(tipo, numero): Promise<Entrada | null>;
+			picarEntradaFisica(ticket, numero): Promise<void>;
+		}
+
+		interface TiendaRepoInterface {
+			getProductos(slug): Promise<Array<Producto>>;
+			postPedido(turno): Promise<void>;
+			getPedido(id): Promise<void>;
+			guardarCompra(compra): Promise<void>;
+			getCompras(slug): Promise<Array<any>>;
 		}
 
 		interface UsuariosRepoInterface {

@@ -157,7 +157,6 @@
 			font-size: 18px;
 			line-height: 16px;
 			color: #d30ed1;
-			text-align: right;
 		}
 	}
 

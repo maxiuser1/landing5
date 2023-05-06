@@ -11,9 +11,22 @@
 		(async () => {
 			let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
 			scanner.onUniqueRead = (txt, result) => {
-				const ticketId = txt.substring(txt.lastIndexOf('/') + 1);
-				window.location.href = `/check-in/ticket/${ticketId}`;
-				console.log('asd', ticketId);
+				if (txt) {
+					if (txt.includes('quehay')) {
+						const ticketId = txt.substring(txt.lastIndexOf('/') + 1);
+						window.location.href = `/check-in/vilmapalma/qr/${ticketId}`;
+					} else {
+						let texto = txt.toString();
+						const ticketId = texto.substring(miString.length - 5);
+						if (texto.startsWith('11')) {
+							window.location.href = `/check-in/vilmapalma/impreso/SUPER/${ticketId}`;
+						} else if (texto.startsWith('12')) {
+							window.location.href = `/check-in/vilmapalma/impreso/VIP/${ticketId}`;
+						} else if (texto.startsWith('13')) {
+							window.location.href = `/check-in/vilmapalma/impreso/GENERAL/${ticketId}`;
+						}
+					}
+				}
 			};
 			await scanner.show();
 		})();
