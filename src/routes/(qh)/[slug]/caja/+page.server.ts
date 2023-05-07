@@ -17,8 +17,11 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(formulario);
 		const compra = JSON.parse(formData.payload.toString());
 
+		const formDataCliente = { ...formData, payload: '' };
+
 		await locals.tiendaRepo.guardarCompra({
 			tenant: 'vilmapalma',
+			cliente: formDataCliente,
 			pedido: {
 				info: { ...compra }
 			},

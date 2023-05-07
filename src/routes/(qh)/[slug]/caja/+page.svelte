@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
 
-	import { Resumen, Total } from '$lib/components/Evento/index.js';
+	import { FormasPago, Resumen, Total } from '$lib/components/Evento/index.js';
 	import { Breadcrumbs, Counter } from '$lib/components/Tienda';
 	import { cartItems } from '$lib/components/Tienda/store.js';
 	import { onDestroy } from 'svelte';
@@ -101,18 +101,7 @@
 							</button>
 							Complete sus datos porfavor
 						</div>
-						<div class="form-group">
-							<select name="formaPago" class="form-control" required>
-								<option value="">Forma pago</option>
-								<option value="Efectivo">Efectivo</option>
-								<option value="Debido">Tarjeta débito</option>
-								<option value="Credito">Tarjeta crédito</option>
-								<option value="Foranea">Tarjeta foránea</option>
-								<option value="Plin">Plin</option>
-								<option value="Yape">Yape</option>
-								<option value="Transferencia">Transferencia</option>
-							</select>
-						</div>
+						<FormasPago monto={totalPago} />
 					</div>
 
 					<br />
