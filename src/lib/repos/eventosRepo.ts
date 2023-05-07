@@ -351,6 +351,14 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return results[0];
 	};
 
+	guardarIngreso = async (ingreso: any): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('ingresos');
+
+		const { resource: createdItem } = await container.items.create(ingreso);
+	};
+
 	getContainer = async (cname: string) => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');

@@ -248,6 +248,7 @@ declare global {
 			picarEntrada(id, cantidad): Promise<void>;
 			getEntradasPorNumero(tipo, numero): Promise<Entrada | null>;
 			picarEntradaFisica(ticket, numero): Promise<void>;
+			guardarIngreso(ingreso): Promise<void>;
 		}
 
 		interface TiendaRepoInterface {
@@ -256,6 +257,8 @@ declare global {
 			getPedido(id): Promise<void>;
 			guardarCompra(compra): Promise<void>;
 			getCompras(slug): Promise<Array<any>>;
+			getNewId(): Promise<string>;
+			cerrarCompra(id): Promise<void>;
 		}
 
 		interface UsuariosRepoInterface {

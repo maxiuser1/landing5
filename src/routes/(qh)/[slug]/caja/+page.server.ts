@@ -19,8 +19,10 @@ export const actions: Actions = {
 
 		const formDataCliente = { ...formData, payload: '' };
 
+		const newId = await locals.tiendaRepo.getNewId();
 		await locals.tiendaRepo.guardarCompra({
 			tenant: 'vilmapalma',
+			id: newId,
 			cliente: formDataCliente,
 			pedido: {
 				info: { ...compra }

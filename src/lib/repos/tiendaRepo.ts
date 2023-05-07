@@ -47,6 +47,16 @@ export class TiendaRepo implements App.TiendaRepoInterface {
 		return results;
 	};
 
+	cerrarCompra = async (id: string): Promise<any> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('compras');
+
+		console.log('verify', id);
+
+		await container.item(id, 'vilmapalma').patch([{ op: 'add', path: '/estado', value: 'cerrado' }]);
+	};
+
 	postPedido = async (turno: any): Promise<any> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
@@ -61,6 +71,17 @@ export class TiendaRepo implements App.TiendaRepoInterface {
 		const container = await database.container('compras');
 
 		const { resource: createdItem } = await container.items.create(compra);
+	};
+
+	getNewId = async (): Promise<string> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('secuencias');
+		const {
+			resource: { value }
+		} = await container.item('1', '1').patch([{ op: 'incr', path: '/value', value: 1 }]);
+
+		return value.toString();
 	};
 
 	getPedido = async (id: string): Promise<any> => {

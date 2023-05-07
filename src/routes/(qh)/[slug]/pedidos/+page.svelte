@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
 	import { Breadcrumbs } from '$lib/components/Tienda';
 	import type { PageData } from './$types';
 
@@ -33,7 +34,7 @@
 						{#each compras as compra}
 							<tr>
 								<td>
-									{compra.pedido.compra ?? ''}
+									{compra.id ?? ''}
 								</td>
 								<td>
 									{compra.pedido.info.invitado?.nombre ?? ''}
@@ -53,7 +54,23 @@
 									S/ {compra.pedido.info.total}
 								</td>
 								<td>
-									<button class="btn">Cerrar</button>
+									{#if compra.estado && compra.estado == 'cerrado'}
+										Cerrada
+									{:else}
+										<form
+											method="POST"
+											autocomplete="off"
+											use:enhance={({ form, data, action, cancel }) => {
+												return async ({ result }) => {
+													applyAction(result);
+													window.location.reload();
+												};
+											}}
+										>
+											<input type="hidden" name="numero" id="numero" value={compra.id} />
+											<button class="btn" type="submit">Cerrar</button>
+										</form>
+									{/if}
 								</td>
 							</tr>
 						{/each}
