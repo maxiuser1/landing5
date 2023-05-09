@@ -12,14 +12,6 @@
 <br />
 <br />
 
-<section class="proximamente">
-	<div class="container">
-		<h1>Próximamente</h1>
-		<div>
-			<a rel="noreferrer" target="_blank" href="https://wa.me/51919293256"> <img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1683245959/PSX_20230503_222104_jsu4py.jpg" alt="bprxo" /></a>
-		</div>
-	</div>
-</section>
 <br />
 <br />
 <br />
