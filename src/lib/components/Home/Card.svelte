@@ -10,8 +10,10 @@
 		<div class="imagen" style="background:  url('{evento.card}') no-repeat center top" />
 		<div class="content">
 			<div class="info">
-				<div class="h2">
-					{evento.artista} <span class="tour">{evento.nombre}</span>
+				<div class="encabezado">
+					<div class="h2">
+						{evento.artista} <span class="tour">{evento.nombre}</span>
+					</div>
 				</div>
 				<div class="h3">
 					<Pin />
@@ -40,6 +42,11 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.encabezado {
+		min-height: 50px;
+	}
+
 	a {
 		z-index: 2;
 	}
