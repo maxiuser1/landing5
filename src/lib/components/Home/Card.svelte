@@ -20,8 +20,13 @@
 				<div class="h3">
 					<Dolar />
 					Desde
-					<span class="desde"> S/. {evento.desde} </span>
-					<span class="descontado"> S/. {evento.descontado} </span>
+
+					{#if evento.descontado}
+						<span class="desde"> S/. {evento.desde} </span>
+						<span class="descontado"> S/. {evento.descontado} </span>
+					{:else}
+						<span class="descontado"> S/. {evento.desde} </span>
+					{/if}
 				</div>
 			</div>
 			<div class="fechas">
