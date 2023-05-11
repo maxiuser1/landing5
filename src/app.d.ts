@@ -173,6 +173,7 @@ declare global {
 				slug: string;
 				destacado: boolean;
 			};
+			searchTerms?: string;
 		};
 
 		type Sentado = {
