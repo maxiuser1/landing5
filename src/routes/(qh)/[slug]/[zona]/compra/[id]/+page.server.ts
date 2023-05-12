@@ -10,9 +10,8 @@ export const actions = {
 		const transaction = Object.fromEntries(new URLSearchParams(parameters));
 
 		const turno = await locals.eventosRepo.getTurno(params.id);
-		if(!locals.user && turno.user)
-		{
-			locals.user = {...turno.user};
+		if (!locals.user && turno.user) {
+			locals.user = { ...turno.user };
 		}
 
 		const { data: token } = await axios.get(`${SECRET_NIUBIZ_NIUBIZAPI}/api.security/v1/security`, {
@@ -79,6 +78,6 @@ export const actions = {
 			};
 		}
 
-		throw redirect(303, `/ticket/${turno.id}${url.search}`);
+		throw redirect(303, `/${turno.info.evento.slug}/ticket/${turno.id}${url.search}`);
 	}
 };

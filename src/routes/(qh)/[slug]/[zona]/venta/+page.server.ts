@@ -96,6 +96,6 @@ export const actions: Actions = {
 			console.log('err', err);
 		}
 
-		throw redirect(303, `/ticket/${entrada.id}`);
+		throw redirect(303, `/${evento.slug}/ticket/${entrada.id}`);
 	}
 };
