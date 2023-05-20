@@ -3,27 +3,27 @@
 
 	let numeroTicket: any;
 	const clickGeneral = () => {
-		window.location.href = `/check-in/vilmapalma/impreso/GENERAL/${numeroTicket.value}`;
+		window.location.href = `/check-in/urban/impreso/GENERAL/${numeroTicket.value}`;
 	};
 
 	const clickVip = () => {
-		window.location.href = `/check-in/vilmapalma/impreso/VIP/${numeroTicket.value}`;
+		window.location.href = `/check-in/urban/impreso/VIP/${numeroTicket.value}`;
 	};
 
 	const clickSuper = () => {
-		window.location.href = `/check-in/vilmapalma/impreso/SUPER/${numeroTicket.value}`;
+		window.location.href = `/check-in/urban/impreso/BOX/${numeroTicket.value}`;
 	};
 
 	const clickGeneralDirecto = () => {
-		window.location.href = `/check-in/vilmapalma/impreso/SUPER/${numeroTicket.value}`;
+		window.location.href = `/check-in/urban/impreso/GENERAL/${numeroTicket.value}`;
 	};
 
 	const clickVipDirecto = () => {
-		window.location.href = `/check-in/vilmapalma/impreso/SUPER/${numeroTicket.value}`;
+		window.location.href = `/check-in/urban/impreso/VIP/${numeroTicket.value}`;
 	};
 
 	const clickSuperDirecto = () => {
-		window.location.href = `/check-in/vilmapalma/impreso/SUPER/${numeroTicket.value}`;
+		window.location.href = `/check-in/urban/impreso/BOX/${numeroTicket.value}`;
 	};
 </script>
 
@@ -54,7 +54,7 @@
 			</div>
 
 			<div class="form-group">
-				<button on:click={clickSuper} class="btn" type="button">SUPER VIP</button>
+				<button on:click={clickSuper} class="btn" type="button">BOX</button>
 			</div>
 
 			<div class="form-group">
@@ -64,7 +64,7 @@
 				<button class="btn" type="submit" name="VIP">VIP DIRECTO</button>
 			</div>
 			<div class="form-group">
-				<button class="btn" type="submit" name="SUPER">SUPER DIRECTO</button>
+				<button class="btn" type="submit" name="SUPER">BOX</button>
 			</div>
 		</form>
 	</div>
