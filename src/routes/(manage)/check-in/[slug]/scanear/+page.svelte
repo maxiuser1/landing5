@@ -16,6 +16,7 @@
 						window.location.href = `/check-in/vilmapalma/qr/${ticketId}`;
 					} else {
 						let texto = txt.toString();
+						alert(texto);
 						const ticketId = texto.substring(miString.length - 5);
 						if (texto.startsWith('11')) {
 							window.location.href = `/check-in/vilmapalma/impreso/SUPER/${ticketId}`;
@@ -27,6 +28,7 @@
 					}
 				}
 			};
+
 			await scanner.show();
 		})();
 	</script>

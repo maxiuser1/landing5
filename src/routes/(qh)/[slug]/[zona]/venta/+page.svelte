@@ -5,7 +5,7 @@
 	import { applyAction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import '../../../../../dbr';
-	// import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
+	import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Qrcode } from '$lib/icons';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
@@ -27,11 +27,11 @@
 	let barcodeinputter: SvelteComponent;
 
 	onMount(async () => {
-		// try {
-		// 	await BarcodeScanner.loadWasm();
-		// } catch (ex) {
-		// 	console.error(ex);
-		// }
+		try {
+			await BarcodeScanner.loadWasm();
+		} catch (ex) {
+			console.error(ex);
+		}
 
 		if (zona.numerado) {
 			if ($compraData.entradas) {
