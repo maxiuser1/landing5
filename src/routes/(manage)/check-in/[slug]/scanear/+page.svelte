@@ -16,7 +16,7 @@
 						window.location.href = `/check-in/urban/qr/${ticketId}`;
 					} else {
 						let texto = txt.toString();
-						const ticketId = texto.substring(miString.length - 5);
+						const ticketId = texto.substring(texto.length - 5);
 						if (texto.startsWith('11')) {
 							window.location.href = `/check-in/urban/impreso/BOX/${ticketId}`;
 						} else if (texto.startsWith('12')) {

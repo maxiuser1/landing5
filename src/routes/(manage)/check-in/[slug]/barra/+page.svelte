@@ -20,7 +20,15 @@
 	}
 
 	function scanned(event: any) {
-		console.log('event', event);
+		let texto = event.detail.text;
+		const ticketId = texto.substring(texto.length - 5);
+		if (texto.startsWith('11')) {
+			window.location.href = `/check-in/urban/impreso/BOX/${ticketId}`;
+		} else if (texto.startsWith('12')) {
+			window.location.href = `/check-in/urban/impreso/VIP/${ticketId}`;
+		} else if (texto.startsWith('13')) {
+			window.location.href = `/check-in/urban/impreso/GENERAL/${ticketId}`;
+		}
 	}
 </script>
 

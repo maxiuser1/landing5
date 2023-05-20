@@ -5,7 +5,8 @@
 	<div class="seccion">
 		<h3>Picado de tickets</h3>
 		<div class="botones">
-			<a href="/check-in/urban/scanear" class="btn">Scanear</a>
+			<a href="/check-in/urban/scanear" class="btn">Scanear QR</a>
+			<a href="/check-in/urban/barra" class="btn">Scanear Código de barra</a>
 			<a href="/check-in/urban/manual" class="btn">Manual</a>
 		</div>
 	</div>
