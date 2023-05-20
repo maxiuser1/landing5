@@ -13,17 +13,16 @@
 				if (txt) {
 					if (txt.includes('quehay')) {
 						const ticketId = txt.substring(txt.lastIndexOf('/') + 1);
-						window.location.href = `/check-in/vilmapalma/qr/${ticketId}`;
+						window.location.href = `/check-in/urban/qr/${ticketId}`;
 					} else {
 						let texto = txt.toString();
-						alert(texto);
 						const ticketId = texto.substring(miString.length - 5);
 						if (texto.startsWith('11')) {
-							window.location.href = `/check-in/vilmapalma/impreso/SUPER/${ticketId}`;
+							window.location.href = `/check-in/urban/impreso/BOX/${ticketId}`;
 						} else if (texto.startsWith('12')) {
-							window.location.href = `/check-in/vilmapalma/impreso/VIP/${ticketId}`;
+							window.location.href = `/check-in/urban/impreso/VIP/${ticketId}`;
 						} else if (texto.startsWith('13')) {
-							window.location.href = `/check-in/vilmapalma/impreso/GENERAL/${ticketId}`;
+							window.location.href = `/check-in/urban/impreso/GENERAL/${ticketId}`;
 						}
 					}
 				}
