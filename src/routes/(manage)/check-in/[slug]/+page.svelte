@@ -16,11 +16,15 @@
 	@import './static/style.scss';
 
 	.seccion {
-		margin: 100px;
-		text-align: center;
+		margin-top: 100px;
 	}
 
 	.botones {
-		margin: 20px;
+		a {
+			display: block;
+			min-width: 200px;
+			min-height: 40px;
+			margin-bottom: 20px;
+		}
 	}
 </style>
