@@ -11,6 +11,16 @@
 <br />
 <br />
 <br />
+<section class="proximamente">
+	<div class="container">
+		<h1>Próximamente</h1>
+		<br />
+
+		<div>
+			<a rel="noreferrer" target="_blank" href="https://wa.me/51919293256"> <img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1684602032/ticketera/banners/AGENDA_AUTOCONTROL_1_matgcn.jpg" alt="bprxo" /></a>
+		</div>
+	</div>
+</section>
 
 <br />
 <br />
