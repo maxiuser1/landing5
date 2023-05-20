@@ -17,8 +17,6 @@
 				dispatch('detected', { text: txt });
 			};
 
-			await scanner.updateRuntimeSettings('dense');
-			await scanner.setResolution(3840, 2160);
 			await scanner.open();
 		} catch (error) {
 			console.error(error);
