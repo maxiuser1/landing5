@@ -212,7 +212,8 @@ export class EventosRepo implements App.EventosRepoInterface {
 			cliente: compra.cliente,
 			formaPago: compra.formaPago,
 			fecha: new Date(),
-			canal: 'PROMOTOR'
+			canal: 'PROMOTOR',
+			picados: compra?.cliente?.tipo == 'autopicado' ? 100 : 0
 		};
 
 		const { resource: createdItem } = await containerEntradas.items.create(entrada);

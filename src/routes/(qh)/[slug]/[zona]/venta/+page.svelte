@@ -280,6 +280,7 @@
 					<select name="tipo" class="form-control">
 						<option value="impreso">Con ticket fisico</option>
 						<option value="qr">Con generación de código QR</option>
+						<option value="autopicado">Con picado automatico</option>
 					</select>
 				</div>
 
