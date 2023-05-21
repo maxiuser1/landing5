@@ -15,7 +15,7 @@ const completar: Action = async ({ request, locals, params }) => {
 
 	await locals.tiendaRepo.cerrarCompra(formData.numero);
 
-	throw redirect(302, '/vilmapalma/pedidos');
+	throw redirect(302, '/urban/pedidos');
 };
 
 export const actions: Actions = { default: completar };

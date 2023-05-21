@@ -11,7 +11,7 @@
 	<br />
 	<br />
 
-	<a href="https://quehay.pe/check-in/vilmapalma" class="btn volver">Volver</a>
+	<a href="https://quehay.pe/check-in/urban" class="btn volver">Volver</a>
 </section>
 
 <style lang="scss">

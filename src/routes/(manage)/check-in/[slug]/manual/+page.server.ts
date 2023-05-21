@@ -9,7 +9,7 @@ const completar: Action = async ({ request, locals, params }) => {
 
 	if (formData.SUPER != undefined) {
 		let payload = {
-			tenant: 'vilmapalma',
+			tenant: 'urban',
 			numero: formData.numero,
 			tipo: 'SUPER'
 		};
@@ -18,7 +18,7 @@ const completar: Action = async ({ request, locals, params }) => {
 
 	if (formData.GENERAL != undefined) {
 		let payload = {
-			tenant: 'vilmapalma',
+			tenant: 'urban',
 			numero: formData.numero,
 			tipo: 'GENERAL'
 		};
@@ -27,7 +27,7 @@ const completar: Action = async ({ request, locals, params }) => {
 
 	if (formData.VIP != undefined) {
 		let payload = {
-			tenant: 'vilmapalma',
+			tenant: 'urban',
 			numero: formData.numero,
 			tipo: 'VIP'
 		};

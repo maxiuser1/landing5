@@ -9,7 +9,7 @@
 	<br />
 	<br />
 	<br />
-	<a href="/vilmapalma/caja" class="btn">Volver</a>
+	<a href="/urban/caja" class="btn">Volver</a>
 </section>
 
 <style lang="scss">

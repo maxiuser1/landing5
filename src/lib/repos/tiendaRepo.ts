@@ -54,7 +54,7 @@ export class TiendaRepo implements App.TiendaRepoInterface {
 
 		console.log('verify', id);
 
-		await container.item(id, 'vilmapalma').patch([{ op: 'add', path: '/estado', value: 'cerrado' }]);
+		await container.item(id, 'urban').patch([{ op: 'add', path: '/estado', value: 'cerrado' }]);
 	};
 
 	postPedido = async (turno: any): Promise<any> => {

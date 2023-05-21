@@ -21,7 +21,7 @@ export const actions: Actions = {
 
 		const newId = await locals.tiendaRepo.getNewId();
 		await locals.tiendaRepo.guardarCompra({
-			tenant: 'vilmapalma',
+			tenant: 'urban',
 			id: newId,
 			cliente: formDataCliente,
 			pedido: {

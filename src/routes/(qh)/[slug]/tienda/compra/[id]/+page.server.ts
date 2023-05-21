@@ -40,7 +40,7 @@ export const actions = {
 			const exito = resultado.data;
 
 			await locals.tiendaRepo.guardarCompra({
-				tenant: 'vilmapalma',
+				tenant: 'urban',
 				pedido: turno,
 				pago: exito,
 				id: turno.id,

@@ -57,7 +57,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	};
 
 	const turno = {
-		tenant: 'vilmapalma',
+		tenant: 'urban',
 		id: newId,
 		compra: pago.purchasenumber,
 		monto: intencion.total,
