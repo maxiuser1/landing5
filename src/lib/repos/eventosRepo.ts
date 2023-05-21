@@ -56,6 +56,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 			join t in c.impresos
 			where 
 			f.tipo = @tipo 
+			and c.slug = 'urban'
 			and contains(t.n, @numero)`,
 			parameters: [
 				{
@@ -71,12 +72,11 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const { resources: results } = await container.items.query<App.Entrada>(querySpec).fetchAll();
 
-		console.log('r', results);
-
 		if (results && results.length > 0) {
 			const { resource: entrada } = await container.item(results[0].id!, 'quehay').read();
 			return entrada;
 		} else {
+			console.log('resource', results);
 			return null;
 		}
 	};

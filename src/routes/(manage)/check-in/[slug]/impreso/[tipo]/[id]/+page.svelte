@@ -10,7 +10,9 @@
 
 	const options: any = { weekday: 'short', month: 'long', day: 'numeric' };
 
-	let cantidad = ticket!.entradas![0].cantidad;
+	let cantidad = 0;
+
+	if (ticket) cantidad = ticket!.entradas![0].cantidad;
 </script>
 
 <section class="container summary">

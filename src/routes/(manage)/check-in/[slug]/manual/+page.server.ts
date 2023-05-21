@@ -7,7 +7,7 @@ const completar: Action = async ({ request, locals, params }) => {
 
 	console.log('www', formData);
 
-	if (formData.SUPER != undefined) {
+	if (formData.BOX != undefined) {
 		let payload = {
 			tenant: 'urban',
 			numero: formData.numero,
