@@ -174,6 +174,7 @@ declare global {
 				destacado: boolean;
 			};
 			searchTerms?: string;
+			publicado?: boolean;
 		};
 
 		type Sentado = {
@@ -237,6 +238,7 @@ declare global {
 
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<Evento> | undefined>;
+			getEventosPasados(): Promise<Array<Evento> | undefined>;
 			getEvento(slug): Promise<Evento>;
 			getEventoConLocacion(slug): Promise<Evento>;
 			postTurno(turno): Promise<void>;

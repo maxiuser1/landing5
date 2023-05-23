@@ -25,12 +25,24 @@
 <br />
 <br />
 <br />
-
-<!-- <section class="final" id="conciertos">
+<section class="proximamente">
 	<div class="container">
-		<Cards {eventos} />
+		<h1>Eventos Pasados</h1>
+		<div class="tarjetas">
+			<div class="tarjeta">
+				<img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1683775105/ticketera/banners/PSX_20230510_203607_w6qg82.jpg" alt="card" />
+			</div>
+			<div class="tarjeta">
+				<img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1684806729/samples/BANNER-TICKETERA_hnepeg_cppyrj.jpg" alt="card" />
+			</div>
+		</div>
 	</div>
-</section> -->
+</section>
+
+<br />
+<br />
+<br />
+
 <style lang="scss">
 	@import './static/style.scss';
 
@@ -49,6 +61,20 @@
 		margin-top: 32px;
 		@include breakpoint($md) {
 			margin-top: 60px;
+		}
+	}
+
+	.tarjetas {
+		margin-top: 24px;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(342px, 1fr));
+		gap: 15px;
+
+		@include breakpoint($md) {
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			margin-top: 36px;
+
+			gap: 24px;
 		}
 	}
 </style>

@@ -21,6 +21,20 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return items;
 	};
 
+	getEventosPasados = async (): Promise<Array<App.Evento> | undefined> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('eventos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT c.banner, c.card, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad, c.searchTerms FROM c WHERE c.destacado and c.publicado = false order by c.orden'
+		};
+
+		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
+
+		return items;
+	};
+
 	guardarEntrada = async (entrada: any): Promise<void> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
