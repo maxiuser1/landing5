@@ -26,7 +26,7 @@
 						<img src="/img/evento.png" alt="evento" />
 					</td>
 					<td>
-						<h6 class="h7">{entrada.evento.nombre}</h6>
+						<h6 class="h7">{entrada.evento.artista}</h6>
 					</td>
 					<td>
 						{#if entrada.entradas && entrada.entradas[0]}
