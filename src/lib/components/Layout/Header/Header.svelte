@@ -27,11 +27,15 @@
 				<li>
 					{#if $page.data.user}
 						<div class="circle"><User /> <span class="anchormenu">{$page.data.user.nombre} {$page.data.user.apellido}</span></div>
+						<div />
 					{:else}
 						<a class="anchormenu" href="./login"> Ingresa</a>
 					{/if}
 				</li>
 				{#if $page.data.user}
+					<li>
+						<a href="https://quehay.pe/entradas">Mis entradas</a>
+					</li>
 					<li>
 						<a class="anchormenu" href="../../logout"> Salir</a>
 					</li>

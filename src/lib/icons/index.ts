@@ -29,3 +29,5 @@ export { default as Increase } from './Increase.svelte';
 export { default as Gift } from './Gift.svelte';
 export { default as Whatsapp } from './Whatsapp.svelte';
 export { default as Lupa } from './Lupa.svelte';
+export { default as Settings } from './Settings.svelte';
+export { default as Impresora } from './Impresora.svelte';

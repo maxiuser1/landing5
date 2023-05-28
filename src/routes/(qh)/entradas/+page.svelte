@@ -2,6 +2,8 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { Greatcheck } from '$lib/icons';
 	import Close from '$lib/icons/Close.svelte';
+	import Impresora from '$lib/icons/Impresora.svelte';
+	import Settings from '$lib/icons/Settings.svelte';
 	import User from '$lib/icons/User.svelte';
 	import type { PageData } from './$types';
 
@@ -14,37 +16,49 @@
 	let entradaId: string | undefined = '';
 </script>
 
-<section class="entradas">
-	<div class="container">
-		<div />
-		<div class="main">
-			<h1>Mis entradas</h1>
-			<div class="tickets">
-				{#each entradas as entrada, idx}
-					<div>{entrada.id}</div>
-					<div class="ticket" class:zebra={idx % 2 == 0}>
-						<div class="avatar">Av</div>
-						<div class="titulos">
-							<h6 class="h7">{entrada.evento.artista}</h6>
-						</div>
-						<div>zona</div>
-						<div class="spacer" />
-						<div>
-							<button
-								class="btn"
-								on:click={() => {
-									entradaId = entrada.id;
-									isOpen = true;
-								}}>No lo quiero</button
-							>
-						</div>
-					</div>
-				{/each}
-				{#if isOpen}
-					<div class="modal-overlay" />
-				{/if}
-			</div>
-		</div>
+<section class="container">
+	<div class="tickets">
+		<h1>Mis entradas</h1>
+		<table>
+			{#each entradas as entrada, idx}
+				<tr>
+					<td>
+						<img src="/img/evento.png" alt="evento" />
+					</td>
+					<td>
+						<h6 class="h7">{entrada.evento.nombre}</h6>
+					</td>
+					<td>
+						{#if entrada.entradas && entrada.entradas[0]}
+							{entrada.entradas[0].nombre}
+						{/if}
+					</td>
+					<td>
+						<button
+							class="btn"
+							on:click={() => {
+								entradaId = entrada.id;
+								isOpen = true;
+							}}
+						>
+							<Settings />
+						</button>
+
+						<a href="https://quehay.pe/{entrada.slug}/ticket/{entrada.id}" target="_blank" class="link-btn">
+							<Impresora />
+						</a>
+					</td>
+				</tr>
+			{/each}
+		</table>
+
+		{#if entradas.length == 0}
+			<div class="mensaje">Sin entradas</div>
+		{/if}
+
+		{#if isOpen}
+			<div class="modal-overlay" />
+		{/if}
 	</div>
 </section>
 
@@ -64,12 +78,11 @@
 		<div class="modal-content">
 			{#if paso === 'inicio'}
 				<div class="inicio">
-					<h4>No lo quiero</h4>
 					<p>¿Qué deseas hacer con tu entrada?</p>
 					<div class="botonera">
 						<button class="btn">Revender</button>
 						<button
-							class="btn btn--alt "
+							class="btn btn--alt"
 							on:click={() => {
 								paso = 'traspaso';
 							}}>Traspasar</button
@@ -165,6 +178,21 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.mensaje {
+		margin: 50px;
+		font-size: 26px;
+	}
+
+	.container {
+		margin-top: 20px;
+		background-color: white;
+		h1 {
+			margin-top: 100px;
+			margin-left: 20px;
+		}
+	}
+
 	.traspaso-realizado {
 		text-align: center;
 		h3 {
@@ -191,6 +219,7 @@
 		.btn {
 			margin-top: 32px;
 			width: 100%;
+			color: white;
 		}
 	}
 
@@ -215,6 +244,12 @@
 
 		pointer-events: all;
 		opacity: 0.5;
+	}
+
+	.link-btn {
+		padding: 19px 16px 16px;
+		background: linear-gradient(270deg, #ff0036 0%, #d30ed1 100%);
+		border-radius: 4px;
 	}
 
 	.modal {
@@ -265,41 +300,28 @@
 		}
 	}
 
-	.spacer {
-		flex-grow: 1;
-	}
-	.zebra {
-		background-color: #f9f9f9;
-	}
-
-	.ticket {
-		display: flex;
-		flex-direction: row;
-		border-radius: 8px;
-		padding: 19px;
-		gap: 20px;
-	}
-
 	.tickets {
 		margin-top: 48px;
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
-	}
 
-	.entradas {
-		margin-top: 116px;
-	}
+		table {
+			tr {
+				background: #f9f9f9;
+			}
 
-	.container {
-		display: flex;
-		flex-direction: row;
-		gap: 20px;
-	}
+			tr:nth-of-type(2n) {
+				background: white;
+			}
+			td {
+				display: block;
+				padding: 18px;
 
-	.main {
-		min-width: 100%;
-		background-color: white;
-		padding: 48px;
+				@include breakpoint($md) {
+					display: table-cell;
+				}
+			}
+		}
 	}
 </style>
