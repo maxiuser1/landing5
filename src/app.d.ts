@@ -278,7 +278,7 @@ declare global {
 		}
 
 		interface EntradasRepoInterface {
-			getEntradas(userId): Promise<Array<Entrada>>;
+			getEntradas(userId, correo): Promise<Array<Entrada>>;
 			traspasar(entradaId: string, transfereableId: string): Promise<void>;
 		}
 	}
