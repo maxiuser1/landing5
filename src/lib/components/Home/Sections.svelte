@@ -17,7 +17,7 @@
 		<br />
 
 		<div>
-			<a rel="noreferrer" target="_blank" href="https://wa.me/51919293256"> <img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1684602032/ticketera/banners/AGENDA_AUTOCONTROL_1_matgcn.jpg" alt="bprxo" /></a>
+			<a rel="noreferrer" target="_blank" href="https://wa.me/51919293256"> <img src="https://imagizer.imageshack.com/img922/9927/1n2KDK.jpg" alt="bprxo" /></a>
 		</div>
 	</div>
 </section>
@@ -30,10 +30,10 @@
 		<h1>Eventos Pasados</h1>
 		<div class="tarjetas">
 			<div class="tarjeta">
-				<img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1683775105/ticketera/banners/PSX_20230510_203607_w6qg82.jpg" alt="card" />
+				<img src="https://imagizer.imageshack.com/img923/1156/T2Jo6H.jpg" alt="card" />
 			</div>
 			<div class="tarjeta">
-				<img src="https://res.cloudinary.com/dpywuss2o/image/upload/v1684806729/samples/BANNER-TICKETERA_hnepeg_cppyrj.jpg" alt="card" />
+				<img src="https://imagizer.imageshack.com/img922/9371/RhWEoN.jpg" alt="card" />
 			</div>
 		</div>
 	</div>
