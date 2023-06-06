@@ -5,7 +5,7 @@ import { BarcodeReader } from "dynamsoft-javascript-barcode";
  */
 
 
-BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxODY1OTk3LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21sdHMuZHluYW1zb2Z0LmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAxODY1OTk3IiwiY2hlY2tDb2RlIjotMTQyOTM5NTc1N30=';
+BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxOTcxNTM0LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAxOTcxNTM0IiwiY2hlY2tDb2RlIjoxMjYxNDAyMjQwfQ==';
       
         
 /** 
