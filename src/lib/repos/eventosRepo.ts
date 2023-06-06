@@ -58,7 +58,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return entrada;
 	};
 
-	getEntradasPorNumero = async (tipo: string, numero: string): Promise<App.Entrada | null> => {
+	getEntradasPorNumero = async (slug: string, tipo: string, numero: string): Promise<App.Entrada | null> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('entradas');
@@ -70,9 +70,13 @@ export class EventosRepo implements App.EventosRepoInterface {
 			join t in c.impresos
 			where 
 			f.tipo = @tipo 
-			and c.slug = 'urban'
+			and c.slug = @slug
 			and contains(t.n, @numero)`,
 			parameters: [
+				{
+					name: '@slug',
+					value: slug
+				},
 				{
 					name: '@tipo',
 					value: tipo

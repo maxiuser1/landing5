@@ -2,7 +2,7 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }) => {
-	const ticket: App.Entrada = await locals.eventosRepo.getEntradasPorNumero(params.tipo, params.id);
+	const ticket: App.Entrada = await locals.eventosRepo.getEntradasPorNumero(params.slug, params.tipo, params.id);
 
 	if (ticket && ticket.impresos) {
 		const currentImpreso = ticket.impresos.find((t: any) => t.n.endsWith(params.id));
@@ -13,7 +13,7 @@ export const load = async ({ locals, params }) => {
 };
 
 const completar: Action = async ({ request, locals, params }) => {
-	const ticket: App.Entrada = await locals.eventosRepo.getEntradasPorNumero(params.tipo, params.id);
+	const ticket: App.Entrada = await locals.eventosRepo.getEntradasPorNumero(params.slug, params.tipo, params.id);
 
 	const data = await request.formData();
 	const formData = Object.fromEntries(data);

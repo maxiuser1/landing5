@@ -11,9 +11,7 @@ const completar: Action = async ({ request, locals, params }) => {
 	const data = await request.formData();
 	const formData = Object.fromEntries(data);
 
-	console.log('foi', formData);
-
-	await locals.tiendaRepo.cerrarCompra(formData.numero);
+	await locals.tiendaRepo.cerrarCompra(params.slug, formData.numero);
 
 	throw redirect(302, '/urban/pedidos');
 };

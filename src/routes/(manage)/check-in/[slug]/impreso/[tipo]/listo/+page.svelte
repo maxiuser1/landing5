@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
 	import { Greatcheck } from '$lib/icons';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
 <section class="container summary">
@@ -11,7 +14,7 @@
 	<br />
 	<br />
 
-	<a href="https://quehay.pe/check-in/urban" class="btn volver">Volver</a>
+	<a href="https://quehay.pe/check-in/${data.slug}" class="btn volver">Volver</a>
 </section>
 
 <style lang="scss">
