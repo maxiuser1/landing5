@@ -14,7 +14,7 @@ export class VentaOnline {
 	}
 
 	public tarificarGeneral(zona: App.Precio, cantidad: number) {
-		if (zona.descuentos && zona.descuentos[0]) {
+		if (zona.descuentos && zona.descuentos[0] && zona.descuentos[0].tipo == 'auto') {
 			const descuento = zona.descuentos[0];
 			zona.final = descuento.online * cantidad;
 			zona.descuento = {

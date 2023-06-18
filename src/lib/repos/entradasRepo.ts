@@ -7,17 +7,21 @@ export class EntradasRepo implements App.EntradasRepoInterface {
 		this.cn = cn;
 	}
 
-	getEntradas = async (userId: string): Promise<Array<App.Entrada>> => {
+	getEntradas = async (userId: string, correo: string): Promise<Array<App.Entrada>> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('entradas');
 
 		const querySpec: SqlQuerySpec = {
-			query: 'SELECT * from c where c.cliente.id = @id',
+			query: 'SELECT * from c where STRINGEQUALS( c.cliente.correo , @correo, true) or c.cliente.id = @id',
 			parameters: [
 				{
 					name: '@id',
 					value: userId
+				},
+				{
+					name: '@correo',
+					value: correo.toLowerCase()
 				}
 			]
 		};

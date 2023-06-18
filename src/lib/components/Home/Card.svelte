@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Dolar from '$lib/icons/Dolar.svelte';
+	import * as prismicH from '@prismicio/helpers';
 	import Pin from '$lib/icons/Pin.svelte';
 
 	export let evento: App.Evento;
@@ -10,8 +11,13 @@
 		<div class="imagen" style="background:  url('{evento.card}') no-repeat center top" />
 		<div class="content">
 			<div class="info">
-				<div class="h2">
-					{evento.artista} <span class="tour">{evento.nombre}</span>
+				<div class="encabezado">
+					<div class="h2">
+						{evento.artista}
+						<span class="tour">
+							{@html evento.nombre}
+						</span>
+					</div>
 				</div>
 				<div class="h3">
 					<Pin />
@@ -20,8 +26,13 @@
 				<div class="h3">
 					<Dolar />
 					Desde
-					<span class="desde"> S/. {evento.desde} </span>
-					<span class="descontado"> S/. {evento.descontado} </span>
+
+					{#if evento.descontado}
+						<span class="desde"> S/. {evento.desde} </span>
+						<span class="descontado"> S/. {evento.descontado} </span>
+					{:else}
+						<span class="descontado"> S/. {evento.desde} </span>
+					{/if}
 				</div>
 			</div>
 			<div class="fechas">
@@ -35,6 +46,11 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.encabezado {
+		min-height: 50px;
+	}
+
 	a {
 		z-index: 2;
 	}

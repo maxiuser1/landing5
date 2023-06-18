@@ -11,24 +11,31 @@ export const zonas = (node: any, props: any) => {
 				let tooltipComp: SvelteComponent;
 				const prevcolor = each.getAttribute('fill');
 
-				each.addEventListener('click', () => {
-					tooltipComp.$destroy();
-					const zonned = new CustomEvent('zonned', {
-						detail: {
-							tipo: cadaPrecio.tipo
-						}
-					});
+				const entradasAgotadas = cadaPrecio.c && cadaPrecio.disponibles && cadaPrecio.c >= cadaPrecio.disponibles;
 
-					node.dispatchEvent(zonned);
-				});
+				console.log('agotado', entradasAgotadas, cadaPrecio.c, cadaPrecio.nombre, cadaPrecio.disponibles);
+				if (!entradasAgotadas) {
+					each.addEventListener('click', () => {
+						tooltipComp.$destroy();
+						const zonned = new CustomEvent('zonned', {
+							detail: {
+								tipo: cadaPrecio.tipo
+							}
+						});
+
+						node.dispatchEvent(zonned);
+					});
+				}
 
 				each.addEventListener('mouseover', (event: MouseEvent) => {
+					const entradasAgotadas = cadaPrecio.c && cadaPrecio.disponibles && cadaPrecio.c >= cadaPrecio.disponibles;
+
 					tooltipComp = new Tooltip({
 						props: {
 							mouseX: event.pageX,
 							mouseY: event.pageY,
 							config: {
-								body: `${cadaPrecio.nombre}: S/ ${cadaPrecio.online.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+								body: entradasAgotadas ? 'Agotado' : `${cadaPrecio.nombre}: S/ ${cadaPrecio.online.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
 								bodyAsHTML: false,
 								place: 'top',
 								effect: 'solid',

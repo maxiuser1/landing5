@@ -10,6 +10,7 @@
 
 	export let data;
 	let { evento } = data;
+
 	clearCompradata();
 
 	const seleccionar = ({ detail }: any) => {

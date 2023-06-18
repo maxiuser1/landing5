@@ -4,7 +4,9 @@ import { BarcodeReader } from "dynamsoft-javascript-barcode";
  * To use the library, you need to first specify a license key using the API "license" as shown below.
  */
 
-BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxODAzMDI3LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21sdHMuZHluYW1zb2Z0LmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAxODAzMDI3IiwiY2hlY2tDb2RlIjoyMTgyODg4M30=';
+
+BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxOTcxNTM0LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAxOTcxNTM0IiwiY2hlY2tDb2RlIjoxMjYxNDAyMjQwfQ==';
+      
         
 /** 
  * You can visit https://www.dynamsoft.com/customer/license/trialLicense?utm_source=github&product=dbr&package=js to get your own trial license good for 30 days. 
@@ -13,4 +15,4 @@ BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxODAzMDI3LVRYbFhaV0pRY20
  * LICENSE ALERT - THE END 
  */
 
-BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.11/dist/";
+BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.20/dist/";

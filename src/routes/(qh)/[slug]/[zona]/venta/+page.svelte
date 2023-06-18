@@ -271,8 +271,17 @@
 				<div class="form-group">
 					<input type="text" name="dni" class="form-control" placeholder="DNI" required />
 				</div>
+
 				<div class="form-group">
 					<input type="email" name="correo" class="form-control" placeholder="Correo" required />
+				</div>
+
+				<div class="form-group">
+					<select name="tipo" class="form-control">
+						<option value="impreso">Con ticket fisico</option>
+						<option value="qr">Con generación de código QR</option>
+						<option value="autopicado">Con picado automatico</option>
+					</select>
 				</div>
 
 				<FormasPago monto={$compraData.monto} />

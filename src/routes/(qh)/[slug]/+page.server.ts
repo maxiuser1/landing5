@@ -1,10 +1,10 @@
-import { error } from "@sveltejs/kit";
+import { error } from '@sveltejs/kit';
 
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
 	const evento = await locals.eventosRepo.getEvento(params.slug);
-	if(evento){
+	if (evento && evento.publicado && evento.publicado == true) {
 		return { evento };
 	}
-	
+
 	throw error(404, 'Not found');
 };

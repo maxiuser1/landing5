@@ -13,7 +13,21 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const container = await database.container('eventos');
 
 		const querySpec: SqlQuerySpec = {
-			query: 'SELECT c.banner, c.card, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad FROM c WHERE c.destacado'
+			query: 'SELECT c.banner, c.card, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad, c.searchTerms FROM c WHERE c.destacado and c.publicado = true order by c.orden'
+		};
+
+		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
+
+		return items;
+	};
+
+	getEventosPasados = async (): Promise<Array<App.Evento> | undefined> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('eventos');
+
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT c.banner, c.card, c.slug, c.fechas,c.nombre,c.artista,c.lugar, c.desde, c.descuento, c.descontado, c.ciudad, c.searchTerms FROM c WHERE c.destacado and c.publicado = false order by c.orden'
 		};
 
 		const { resources: items } = await container.items.query<App.Evento>(querySpec).fetchAll();
@@ -42,6 +56,85 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const { resource: entrada } = await container.item(id, 'quehay').read();
 		return entrada;
+	};
+
+	getEntradasPorNumero = async (slug: string, tipo: string, numero: string): Promise<App.Entrada | null> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		const querySpec: SqlQuerySpec = {
+			query: `SELECT c.id
+			FROM c
+			join f in c.entradas
+			join t in c.impresos
+			where 
+			f.tipo = @tipo 
+			and c.slug = @slug
+			and contains(t.n, @numero)`,
+			parameters: [
+				{
+					name: '@slug',
+					value: slug
+				},
+				{
+					name: '@tipo',
+					value: tipo
+				},
+				{
+					name: '@numero',
+					value: numero
+				}
+			]
+		};
+
+		const { resources: results } = await container.items.query<App.Entrada>(querySpec).fetchAll();
+
+		if (results && results.length > 0) {
+			const { resource: entrada } = await container.item(results[0].id!, 'quehay').read();
+			return entrada;
+		} else {
+			console.log('resource', results);
+			return null;
+		}
+	};
+
+	picarEntradaFisica = async (ticket: App.Entrada, numero: string): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		if (ticket && ticket.impresos) {
+			const currentInd = ticket.impresos.findIndex((t: any) => t.n.endsWith(numero));
+			const replaceOperation: PatchOperation[] = [];
+
+			console.log('currentind', currentInd);
+			replaceOperation.push({
+				op: 'replace',
+				path: `/impresos/${currentInd}/p`,
+				value: 1
+			});
+
+			await container.item(ticket.id!, 'quehay').patch(replaceOperation);
+		}
+	};
+
+	picarEntrada = async (id: string, cantidad: number): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+
+		const replaceOperation: PatchOperation[] = [];
+
+		console.log('cantidad', cantidad);
+
+		replaceOperation.push({
+			op: 'incr',
+			path: `/picados`,
+			value: cantidad
+		});
+
+		await container.item(id, 'quehay').patch(replaceOperation);
 	};
 
 	ventaManual = async (slug: string, compra: any, vendedor: any): Promise<any> => {
@@ -137,7 +230,8 @@ export class EventosRepo implements App.EventosRepoInterface {
 			cliente: compra.cliente,
 			formaPago: compra.formaPago,
 			fecha: new Date(),
-			canal: 'PROMOTOR'
+			canal: 'PROMOTOR',
+			picados: compra?.cliente?.tipo == 'autopicado' ? 100 : 0
 		};
 
 		const { resource: createdItem } = await containerEntradas.items.create(entrada);
@@ -274,6 +368,14 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
 		return results[0];
+	};
+
+	guardarIngreso = async (ingreso: any): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('ingresos');
+
+		const { resource: createdItem } = await container.items.create(ingreso);
 	};
 
 	getContainer = async (cname: string) => {

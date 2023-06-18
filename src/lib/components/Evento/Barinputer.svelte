@@ -9,13 +9,20 @@
 	let elRef: any;
 	let scanner: any;
 	onMount(async () => {
-		const scanner = await (pScanner = BarcodeScanner.createInstance());
-		await scanner.setUIElement(elRef);
-		scanner.onUniqueRead = (txt: any, result: any) => {
-			dispatch('detected', { text: txt });
-		};
+		try {
+			const scanner = await (pScanner = BarcodeScanner.createInstance());
+			await scanner.setUIElement(elRef);
+			scanner.onUniqueRead = (txt: any, result: any) => {
+				alert(txt);
+				dispatch('detected', { text: txt });
+			};
 
-		await scanner.open();
+			await scanner.updateRuntimeSettings('dense');
+			await scanner.setResolution(3840, 2160);
+			await scanner.open();
+		} catch (error) {
+			console.error(error);
+		}
 	});
 
 	onDestroy(async () => {
@@ -25,7 +32,7 @@
 	});
 
 	async function stop() {
-		// await scanner.stop();
+		await scanner.stop();
 		dispatch('closed', { text: 'aa' });
 	}
 </script>
@@ -36,7 +43,7 @@
 <style>
 	div {
 		width: 100%;
-		height: 100%; /* min-width:640px; */
+		height: 100%;
 		min-height: 480px;
 		background: #eee;
 		position: relative;

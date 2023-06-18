@@ -20,7 +20,7 @@
 		<div>
 			<h1>&nbsp;</h1>
 
-			<h1>Sigue a Que Hay</h1>
+			<h1>Sigue a QueHay</h1>
 			<Socials />
 			<div class="libro">
 				<a href="/contenido/libro-de-reclamaciones">
