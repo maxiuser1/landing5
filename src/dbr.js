@@ -1,5 +1,4 @@
 import { BarcodeReader } from "dynamsoft-javascript-barcode";
-
 /** LICENSE ALERT - README 
  * To use the library, you need to first specify a license key using the API "license" as shown below.
  */

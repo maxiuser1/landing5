@@ -8,6 +8,7 @@
 	import type { ActionResult } from '@sveltejs/kit';
 	import { Qrcode } from '$lib/icons';
 	import { Spinner } from '$lib/components/Shared/ui/Spinner';
+	import MCounterd from '$lib/components/Evento/MCounterd.svelte';
 
 	export let data;
 	let { evento, zona }: { evento: App.Evento; zona: App.Precio } = data;
@@ -232,33 +233,10 @@
 									<Counterbox {entrada} {zona} on:cambiado={handleCantidad} />
 								</div>
 							{/each}
-							{#if ticketesBox}
-								<div class="tickets">
-									{#each ticketesBox as ticket, j}
-										<div class="input-group">
-											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
-											<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>
-										</div>
-									{/each}
-								</div>
-								<br />
-							{/if}
 						{:else}
 							<div class="compra">
-								<Counterd entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
+								<MCounterd entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
 							</div>
-
-							{#if ticketesGeneral}
-								<div class="tickets">
-									{#each ticketesGeneral as ticket, j}
-										<div class="input-group">
-											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
-											<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>
-										</div>
-									{/each}
-								</div>
-								<br />
-							{/if}
 						{/if}
 					</div>
 				{/if}

@@ -41,64 +41,24 @@ export const actions: Actions = {
 			id: locals.user.id
 		};
 
-		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
+		for (let index = 0; index < compraCliente.entradas[0].cantidad; index++) {
+			const entrada = await locals.eventosRepo.ventaManual(
+				params.slug,
+				{
+					...compraCliente,
+					entradas: [
+						{
+							...compraCliente.entradas[0],
+							cantidad: 1
+						}
+					]
+				},
+				vendedor
+			);
 
-		let qrcode = '';
-
-		if (generaQR) {
-			var opts: any = {
-				errorCorrectionLevel: 'H',
-				type: 'image/jpeg',
-				quality: 0.3,
-				margin: 1,
-				color: {
-					dark: '#80057F',
-					light: '#FFFFFF'
-				}
-			};
-
-			const generateQR = async (text: any) => {
-				return await QRCode.toDataURL(text, opts);
-			};
-
-			qrcode = await generateQR(`https://www.quehay.pe/ticket/${params.id}`);
+			console.log(`https://www.quehay.pe/danielaromo/ticket/${entrada.id}`);
 		}
 
-		const sgMail: MailService = new MailService();
-		sgMail.setApiKey(SECRET_SENDGRID_KEY);
-
-		const msg: any = {
-			to: formData.correo,
-			from: 'contacto@quehay.com.pe',
-			templateId: SECRET_SENDGRID_TICKET,
-			dynamic_template_data: {
-				subject: 'Quehay',
-				id: entrada.id,
-				artista: compra.evento.artista,
-				nombre: compra.evento.nombre,
-				ubicacion: compra.evento.lugar,
-				numero: entrada.numero.toString(),
-				monto: entrada.monto.toString(),
-				entradas: compra.entradas.map((t: any) => {
-					return { ...t, fila: letrar(t.fila) };
-				}),
-				codigo: qrcode
-			}
-		};
-
-		try {
-			sgMail
-				.send(msg)
-				.then(() => {
-					console.log('Email sent');
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		} catch (err: any) {
-			console.log('err', err);
-		}
-
-		throw redirect(303, `/${evento.slug}/ticket/${entrada.id}`);
+		// throw redirect(303, `/${evento.slug}/ticket/${entrada.id}`);
 	}
 };
