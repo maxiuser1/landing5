@@ -208,13 +208,6 @@
 	}
 </script>
 
-<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc}
-		{#key ticketc}
-			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
-		{/key}
-	{/if}
-</div>
 <Breadcrumbs {evento} />
 
 <br />

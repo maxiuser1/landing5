@@ -54,7 +54,7 @@
 		justify-content: center;
 		align-items: center;
 
-		padding: 22px 16px;
+		padding: 22px 17px;
 		background: linear-gradient(270deg, #ff0036 0%, #d30ed1 100%);
 		border-radius: 4px;
 		border: none;
