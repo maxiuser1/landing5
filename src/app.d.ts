@@ -94,6 +94,10 @@ declare global {
 			tenant: string;
 			slug?: string;
 			id?: string;
+
+			tipoZona?: string;
+			nombreZona?: string;
+
 			entradas?: Array<Sentado>;
 			fecha: Date;
 			evento: {
@@ -108,11 +112,11 @@ declare global {
 			user?: User;
 			monto: number;
 			cliente?: {
-				id: string;
-				nombre: string;
-				apellido: string;
-				correo: string;
-				dni: string;
+				id?: string;
+				nombre?: string;
+				apellido?: string;
+				correo?: string;
+				dni?: string;
 				tipo?: string;
 			};
 			picados?: number;
@@ -175,6 +179,12 @@ declare global {
 			};
 			searchTerms?: string;
 			publicado?: boolean;
+		};
+
+		type Entradita = {
+			numero: number;
+			picado: boolean;
+			codigo: string;
 		};
 
 		type Sentado = {

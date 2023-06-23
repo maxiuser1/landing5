@@ -45,11 +45,17 @@ export const actions = {
 
 			const evento = await locals.eventosRepo.findEvento(compra.evento.id);
 
+			const sentadoComprado: App.Sentado = compra!.entradas![0]!;
+
 			await locals.eventosRepo.confirmarEntrada(compra, evento);
 
 			const entrada: App.Entrada = {
 				tenant: 'quehay',
 				evento: compra.evento,
+
+				nombreZona: sentadoComprado.nombre,
+				tipoZona: sentadoComprado.tipo,
+
 				slug: compra.evento.slug,
 				entradas: compra.entradas,
 				canal: 'WEB',

@@ -53,4 +53,6 @@ export class VentaOnline {
 			return this.tarificarGeneral(zona, cantidad);
 		}
 	}
+
+	public entradear(tipoZona: string, sentado: App.Sentado) {}
 }
