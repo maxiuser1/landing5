@@ -11,16 +11,6 @@
 <br />
 <br />
 <br />
-<section class="proximamente">
-	<div class="container">
-		<h1>Próximamente</h1>
-		<br />
-
-		<div>
-			<a rel="noreferrer" target="_blank" href="https://wa.me/51919293256"> <img src="https://imagizer.imageshack.com/img922/9927/1n2KDK.jpg" alt="bprxo" /></a>
-		</div>
-	</div>
-</section>
 
 <br />
 <br />
@@ -29,6 +19,12 @@
 	<div class="container">
 		<h1>Eventos Pasados</h1>
 		<div class="tarjetas">
+			<div class="tarjeta">
+				<img src="https://imagizer.imageshack.com/img923/9513/JJj6ag.jpg" alt="card" />
+			</div>
+			<div class="tarjeta">
+				<img src="https://imagizer.imageshack.com/img924/7946/hax9C8.jpg" alt="card" />
+			</div>
 			<div class="tarjeta">
 				<img src="https://imagizer.imageshack.com/img923/1156/T2Jo6H.jpg" alt="card" />
 			</div>
