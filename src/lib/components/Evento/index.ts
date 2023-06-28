@@ -5,7 +5,6 @@ export { default as Steps } from './Steps.svelte';
 export { default as Zonas } from './Zonas.svelte';
 export { default as Counter } from './Counter.svelte';
 export { default as Resumen } from './Resumen.svelte';
-export { default as Barinputer } from './Barinputer.svelte';
 export { default as FormasPago } from './FormasPago.svelte';
 export { default as Boxlegend } from './Boxlegend.svelte';
 export { default as Regalo } from './Regalo.svelte';

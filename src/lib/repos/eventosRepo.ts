@@ -259,7 +259,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 				const currentCantidad = asiento.c != undefined ? Number(asiento.c) : 0;
 
-				if (entrada.cantidad + currentCantidad == zona.tope) {
+				if (entrada.cantidad + currentCantidad == asiento.l) {
 					replaceOperation.push({
 						op: 'replace',
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,

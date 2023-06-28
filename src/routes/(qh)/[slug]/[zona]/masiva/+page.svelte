@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Barinputer, Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
 	import { onMount, SvelteComponent } from 'svelte';
 	import { compraData } from '$lib/components/Evento/store';
 	import { applyAction } from '$app/forms';
@@ -208,13 +208,6 @@
 	}
 </script>
 
-<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc}
-		{#key ticketc}
-			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
-		{/key}
-	{/if}
-</div>
 <Breadcrumbs {evento} />
 
 <br />

@@ -43,7 +43,7 @@
 							numerado: true,
 							fila: fila.id,
 							asiento: sit.id,
-							cantidad: zona.tope!,
+							cantidad: sit.l!,
 							final: esPromotor ? zona.promotor : zona.online
 						});
 					}
@@ -95,6 +95,7 @@
 											disabled={asiento.s >= 2}
 											width={sitWidth}
 											tomados={asiento.c ?? 0}
+											limite={asiento.l ?? 10}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;

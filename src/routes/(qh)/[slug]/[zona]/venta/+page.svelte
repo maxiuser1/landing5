@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Barinputer, Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
 	import { onMount, SvelteComponent } from 'svelte';
 	import { compraData } from '$lib/components/Evento/store';
 	import { applyAction } from '$app/forms';
@@ -43,13 +43,13 @@
 						const fila = zona.filas.find((t) => t.id == obj.fila);
 						const asiento = fila?.sits.find((t) => t.id == obj.asiento);
 
-						const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
+						const habilitados = asiento.c ? asiento.l! - asiento.c : asiento.l;
 
-						if (habilitados == zona.tope) {
+						if (habilitados == asiento.l) {
 							ticketesBox.push({ c: `${zona.tipo}_${fila!.id}_${asiento!.id}`, v: '' });
 						}
 
-						const final = habilitados == zona.tope ? obj.final : habilitados! * zona.promotori!;
+						const final = habilitados == asiento.l ? obj.final : habilitados! * zona.promotori!;
 
 						return accumulator + (final ?? 0);
 					}, 0),
@@ -140,7 +140,7 @@
 						if (zona.numerado) {
 							const fila = zona.filas.find((t) => t.id == obj.fila);
 							const asiento = fila?.sits.find((t) => t.id == obj.asiento);
-							if (obj.cantidad == zona.tope) {
+							if (obj.cantidad == asiento.l) {
 								ticketesBox = [
 									{
 										c: `${zona.tipo}_${fila!.id}_${asiento!.id}`,
@@ -207,13 +207,6 @@
 	}
 </script>
 
-<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc}
-		{#key ticketc}
-			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
-		{/key}
-	{/if}
-</div>
 <Breadcrumbs {evento} />
 
 <br />

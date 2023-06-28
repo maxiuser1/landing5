@@ -12,16 +12,18 @@
 	const fila = zona.filas.find((t) => t.id == entrada.fila);
 	const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 
+	console.log('asiento', asiento);
+
 	const esPromotor = $page.data?.user?.rol != undefined && $page.data?.user?.rol == 'promotor';
 
 	let precio: number = esPromotor ? zona.promotor : zona.online;
 	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;
 	let total: number = 0;
-	let tope: number = asiento.c ? zona.tope! - asiento.c : zona.tope!;
+	let tope: number = asiento.c ? asiento.l! - asiento.c : asiento.l!;
 	let regalo: string = zona.regalo ?? '';
 
 	export let count: number = tope;
-	total = count == zona.tope ? precio : count * precioIndividual;
+	total = count * precioIndividual;
 
 	const dispatch = createEventDispatcher();
 	onMount(() => {
@@ -38,7 +40,7 @@
 	});
 
 	function handleClick(count: number) {
-		total = count == zona.tope ? precio : count * precioIndividual;
+		total = count * precioIndividual;
 
 		if (count <= 0) count = 1;
 
