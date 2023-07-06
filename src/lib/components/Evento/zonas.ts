@@ -13,7 +13,6 @@ export const zonas = (node: any, props: any) => {
 
 				const entradasAgotadas = cadaPrecio.c && cadaPrecio.disponibles && cadaPrecio.c >= cadaPrecio.disponibles;
 
-				console.log('agotado', entradasAgotadas, cadaPrecio.c, cadaPrecio.nombre, cadaPrecio.disponibles);
 				if (!entradasAgotadas) {
 					each.addEventListener('click', () => {
 						tooltipComp.$destroy();
