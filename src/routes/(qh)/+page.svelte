@@ -23,6 +23,7 @@
 	});
 
 	onMount(async () => {
+		console.log('v');
 		clearCompradata();
 
 		await loadFull(tsParticles);
