@@ -27,15 +27,6 @@
 	let barcodeinputter: SvelteComponent;
 
 	onMount(async () => {
-		try {
-			BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxOTcxNTM0LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAxOTcxNTM0IiwiY2hlY2tDb2RlIjoxMjYxNDAyMjQwfQ==';
-
-			BarcodeReader.engineResourcePath = 'https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.20/dist/';
-			await BarcodeScanner.loadWasm();
-		} catch (ex) {
-			console.error(ex);
-		}
-
 		if (zona.numerado) {
 			if ($compraData.entradas) {
 				compraData.update((current) => ({
