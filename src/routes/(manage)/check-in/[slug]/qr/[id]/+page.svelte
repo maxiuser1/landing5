@@ -40,6 +40,9 @@
 			</form>
 		</div>
 		<div class="headings">
+			{#if ticket.entradas}
+				<h1>Entrada {ticket.entradas[0].tipo}</h1>
+			{/if}
 			<h1>Compradas: {cantidad}</h1>
 			<h1>Picadas: {picados}</h1>
 			<br />
