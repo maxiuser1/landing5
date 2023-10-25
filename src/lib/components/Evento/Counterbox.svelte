@@ -19,7 +19,10 @@
 	let precio: number = esPromotor ? zona.promotor : zona.online;
 	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;
 	let total: number = 0;
+	console.log('asiento', asiento);
 	let tope: number = asiento.c ? asiento.l! - asiento.c : asiento.l!;
+	console.log('tope', tope);
+
 	let regalo: string = zona.regalo ?? '';
 
 	export let count: number = tope;
@@ -78,7 +81,8 @@
 
 	<div>
 		<div class="counter">
-			<button
+			<!-- <button
+				disabled
 				type="button"
 				on:click={() => {
 					if (count >= 2) {
@@ -89,13 +93,14 @@
 				aria-label="Disminiuir"
 			>
 				<Decrease />
-			</button>
+			</button> -->
 			<div class="counter-viewport">
 				<div class="counter-digits">
 					{count}
 				</div>
 			</div>
-			<button
+			<!-- <button
+				disabled
 				type="button"
 				on:click={() => {
 					if (count < tope) {
@@ -106,7 +111,7 @@
 				aria-label="Aumentar"
 			>
 				<Increase />
-			</button>
+			</button> -->
 		</div>
 
 		<div class="contenedor">
