@@ -110,7 +110,7 @@
 				}}
 				aria-label="Aumentar"
 			>
-				<Increase />
+				<Increase /> 
 			</button> -->
 		</div>
 
