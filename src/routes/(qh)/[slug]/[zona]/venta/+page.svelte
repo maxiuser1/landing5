@@ -28,7 +28,7 @@
 	onMount(async () => {
 		try {
 			BarcodeReader.license =
-				'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAyMTE2MDY0LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAyMTE2MDY0Iiwic3RhbmRieVNlcnZlclVSTCI6Imh0dHBzOi8vc2Rscy5keW5hbXNvZnRvbmxpbmUuY29tIiwiY2hlY2tDb2RlIjotMTEyMDAzODcxOX0=';
+				'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAyMzY5Nzk3LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAyMzY5Nzk3Iiwic3RhbmRieVNlcnZlclVSTCI6Imh0dHBzOi8vc2Rscy5keW5hbXNvZnRvbmxpbmUuY29tIiwiY2hlY2tDb2RlIjotODA3NDM5OX0=';
 
 			BarcodeReader.engineResourcePath = 'https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.20/dist/';
 			await BarcodeScanner.loadWasm();

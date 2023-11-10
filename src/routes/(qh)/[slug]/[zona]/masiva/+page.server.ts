@@ -56,7 +56,7 @@ export const actions: Actions = {
 				vendedor
 			);
 
-			console.log(`https://www.quehay.pe/autocontrol/ticket/${entrada.id}`);
+			console.log(`https://www.quehay.pe/victormunoz/ticket/${entrada.id}`);
 		}
 
 		// throw redirect(303, `/${evento.slug}/ticket/${entrada.id}`);
