@@ -53,7 +53,7 @@
 		{#each eventos as evento}
 			<div class="slide-container" style="width: {mini}%">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}');background-size: contain; background-position: center top;">
+				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
 					<div class="gradiente" />
 				</div>
 			</div>
@@ -98,8 +98,8 @@
 			}
 
 			@include breakpoint($md) {
-				min-height: 280px;
-				max-height: 280px;
+				min-height: 22.5rem;
+				max-height: 22.5rem;
 			}
 		}
 
@@ -112,9 +112,8 @@
 		}
 
 		.botonera {
+			padding-top: 20px;
 			width: 100%;
-			position: absolute;
-			bottom: 0px;
 			display: none;
 			@include breakpoint($md) {
 				display: flex;
@@ -134,7 +133,6 @@
 			height: 12px;
 			background-color: white;
 			border: 1px solid #a809a6;
-			margin-bottom: 52px;
 			border-radius: 50%;
 		}
 

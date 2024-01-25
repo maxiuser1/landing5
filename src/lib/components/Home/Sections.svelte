@@ -3,11 +3,17 @@
 	export let eventos: Array<App.Evento>;
 </script>
 
-<section class="destacados" id="destacados">
-	<div class="container">
-		<Cards {eventos} />
+<div class="container contenedor">
+	<div class="eventos">
+		<section class="destacados" id="destacados">
+			<Cards {eventos} />
+		</section>
 	</div>
-</section>
+	<div class="side">
+		<div class="titulo--suprayado">Destacados</div>
+	</div>
+</div>
+
 <br />
 <br />
 <br />
@@ -51,6 +57,20 @@
 		img {
 			width: 300px;
 		}
+	}
+
+	.side {
+		min-width: 16.25rem;
+		padding: 20px 10px;
+		border-radius: 0.5rem;
+		border: 1px solid #fff;
+		background: var(--White-White_98, #f9f9f9);
+		box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+	}
+
+	.contenedor {
+		display: grid;
+		grid-template-columns: 80% 20%;
 	}
 
 	.destacados {

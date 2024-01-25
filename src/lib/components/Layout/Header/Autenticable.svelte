@@ -18,22 +18,24 @@
 	};
 </script>
 
-<button on:click={toggleMenu}>
-	{#if closable}
-		<Close color="black" />
+<ul class="socials">
+	{#if $page.data.user}
+		<li class="item">
+			<div class="circle" use:Popover={config}>{$page.data.user.nombre[0]}</div>
+		</li>
 	{:else}
-		<Menu lefted={false} />
+		<li>
+			<a class="ingresa" href="../login"> Ingresa </a>
+		</li>
+		<li>/</li>
+		<li>
+			<a class="ingresa" href="../login"> Regístrate </a>
+		</li>
 	{/if}
-</button>
+</ul>
 
 <style lang="scss">
 	@import './static/style.scss';
-
-	button {
-		border: none;
-		background-color: transparent;
-	}
-
 	.circle {
 		cursor: pointer;
 		border-radius: 50%;

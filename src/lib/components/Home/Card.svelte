@@ -8,37 +8,24 @@
 
 <a href="/{evento.slug}">
 	<div class="card">
-		<div class="imagen" style="background:  url('{evento.card}') no-repeat center top" />
+		<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
 		<div class="content">
 			<div class="info">
 				<div class="encabezado">
-					<div class="h2">
+					<div class="h2 titulo--suprayado">
 						{evento.artista}
-						<span class="tour">
-							{@html evento.nombre}
-						</span>
 					</div>
 				</div>
 				<div class="h3">
-					<Pin />
-					<span> {evento.lugar} <strong>, {evento.ciudad}</strong> </span>
+					{@html evento.nombre}
 				</div>
 				<div class="h3">
-					<Dolar />
-					Desde
-
-					{#if evento.descontado}
-						<span class="desde"> S/. {evento.desde} </span>
-						<span class="descontado"> S/. {evento.descontado} </span>
-					{:else}
-						<span class="descontado"> S/. {evento.desde} </span>
-					{/if}
+					<div class="fechas">
+						{#each evento.fechas as fecha}
+							<h4>{fecha}</h4>
+						{/each}
+					</div>
 				</div>
-			</div>
-			<div class="fechas">
-				{#each evento.fechas as fecha}
-					<h4>{fecha}</h4>
-				{/each}
 			</div>
 		</div>
 	</div>
@@ -47,21 +34,17 @@
 <style lang="scss">
 	@import './static/style.scss';
 
-	.encabezado {
-		min-height: 50px;
-	}
-
 	a {
 		z-index: 2;
 	}
 	.card {
 		width: 342px;
-		background-color: #310b6b;
-
-		border-radius: 2rem;
+		border-radius: 0.5rem;
+		border: 1px solid #f1f1f1;
+		background: #f9f9f9;
 
 		@include breakpoint($md) {
-			width: 352px;
+			width: 24.8rem;
 		}
 	}
 
@@ -75,7 +58,7 @@
 				font-weight: 900;
 				font-size: 18px;
 				line-height: 22px;
-				color: #fff;
+				color: #3b3b3b;
 
 				span {
 					font-weight: 500;
@@ -86,41 +69,33 @@
 			}
 
 			.h3 {
-				color: #e4e6eb;
-				line-height: initial;
-				font-weight: 400;
-				font-size: 12px;
-				padding-top: 10px;
-				.desde {
-					text-decoration: line-through;
-				}
-
-				.descontado {
-					font-size: 14px;
-				}
+				color: var(--Black-Black_25, #3b3b3b);
+				font-family: Gotham;
+				font-size: 0.875rem;
+				font-style: normal;
+				font-weight: 350;
+				line-height: 1.125rem;
 			}
 		}
 
 		.fechas {
-			border-left: 1px solid #b9b9b9;
-			padding-left: 16px;
-			text-align: center;
-
 			h4 {
-				font-weight: 500;
-				font-size: 12px;
-				line-height: 18px;
-				color: #e4e6eb;
+				color: #3b3b3b;
+				font-family: Gotham;
+				font-size: 0.75rem;
+				font-style: normal;
+				font-weight: 350;
+				line-height: 0.875rem;
 			}
 		}
 	}
 
 	.imagen {
-		height: 107px;
+		height: 11.375rem;
 		background-size: cover;
 		background-repeat: no-repeat;
 
-		border-top-left-radius: 2rem;
-		border-top-right-radius: 2rem;
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
 	}
 </style>

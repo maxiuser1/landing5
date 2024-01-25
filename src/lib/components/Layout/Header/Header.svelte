@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { User } from '$lib/icons';
+	import { Lupa, User } from '$lib/icons';
 	import { slide } from 'svelte/transition';
 	import Logo from './Logo.svelte';
 	import Nav from './Nav.svelte';
 	import Socials from './Socials.svelte';
+	import Har from './Har.svelte';
+	import Bogo from './Bogo.svelte';
 
 	let visible = false;
 
@@ -13,13 +15,24 @@
 	};
 </script>
 
-<header class="header">
-	<nav class="container">
-		<Socials on:togglemenu={toggle} closable={visible} />
-		<Logo />
-		<Nav on:togglemenu={toggle} closable={visible} />
-	</nav>
-</header>
+<Har />
+<div class="container">
+	<div class="logo">
+		<Bogo />
+	</div>
+	<div class="searchbox">
+		<div class="box">
+			<input type="search" class="input" placeholder="Encuentra tu evento" />
+			<div class="boton">
+				<Lupa />
+			</div>
+		</div>
+	</div>
+	<div class="hamburger">
+		<Nav on:togglemenu={toggle} />
+	</div>
+</div>
+
 {#if visible}
 	<header class="categories" transition:slide>
 		<nav class="container">
@@ -59,21 +72,83 @@
 		color: #fff;
 	}
 
-	.header {
-		width: 100%;
-		position: fixed;
-		z-index: 20;
-		top: 0;
-		left: 0;
-		background: linear-gradient(270deg, var(--red) 0%, var(--pink) 100%);
+	.logo {
+		flex: 1;
+	}
 
-		nav {
-			margin: 0 auto;
-			height: var(--header-height);
+	.hamburger {
+		flex: 1;
+		text-align: right;
+	}
+
+	.searchbox {
+		flex: 2;
+		padding-left: 24px;
+		padding-right: 24px;
+		text-align: center;
+		margin-top: -12px;
+		display: flex;
+		justify-content: center;
+		.box {
+			width: 100%;
+			height: 48px;
+
 			display: flex;
 			align-items: center;
+			border: 1px solid #c6c6c6;
+
 			justify-content: space-between;
+			border-radius: 4px;
+			background-color: #f1f1f1;
+
+			@include breakpoint($md) {
+				height: 56px;
+			}
 		}
+
+		.input {
+			padding-left: 16px;
+			font-family: 'Gotham';
+			line-height: 20px;
+			width: 100%;
+			border-color: transparent;
+			outline-offset: -2px;
+			background-color: #f1f1f1;
+
+			font-size: 16px;
+			&:focus {
+				outline: none;
+			}
+		}
+
+		.boton {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			margin-right: 12px;
+			gap: 8px;
+			height: 40px;
+			width: 56px;
+			background: #d30ed1;
+			border-radius: 4px;
+		}
+	}
+
+	.container {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	nav {
+		margin: 0 auto;
+		height: var(--header-height);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.categories {
@@ -81,7 +156,7 @@
 		position: fixed;
 		height: 100vh;
 		z-index: 5;
-		top: var(--header-height);
+		top: 7rem;
 		left: 0;
 		background-color: #5b025a;
 
