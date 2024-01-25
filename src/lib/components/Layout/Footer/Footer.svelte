@@ -88,6 +88,7 @@
 	}
 
 	.libro {
+		margin-top: 20px;
 		text-align: left;
 	}
 </style>

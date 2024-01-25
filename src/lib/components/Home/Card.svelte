@@ -92,10 +92,13 @@
 
 	.imagen {
 		height: 11.375rem;
-		background-size: cover;
-		background-repeat: no-repeat;
+		transition: all 0.3s ease-in-out;
 
 		border-top-left-radius: 0.5rem;
 		border-top-right-radius: 0.5rem;
+
+		&:hover {
+			background-size: 120% 120% !important;
+		}
 	}
 </style>
