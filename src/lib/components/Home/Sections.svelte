@@ -11,35 +11,13 @@
 	</div>
 	<div class="side">
 		<div class="titulo--suprayado">Destacados</div>
+		<div class="tarjetas" />
 	</div>
 </div>
 
 <br />
 <br />
 <br />
-
-<br />
-<br />
-<br />
-<section class="proximamente">
-	<div class="container">
-		<h1>Eventos Pasados</h1>
-		<div class="tarjetas">
-			<div class="tarjeta">
-				<img src="https://imagizer.imageshack.com/img923/9513/JJj6ag.jpg" alt="card" />
-			</div>
-			<div class="tarjeta">
-				<img src="https://imagizer.imageshack.com/img924/7946/hax9C8.jpg" alt="card" />
-			</div>
-			<div class="tarjeta">
-				<img src="https://imagizer.imageshack.com/img923/1156/T2Jo6H.jpg" alt="card" />
-			</div>
-			<div class="tarjeta">
-				<img src="https://imagizer.imageshack.com/img922/9371/RhWEoN.jpg" alt="card" />
-			</div>
-		</div>
-	</div>
-</section>
 
 <br />
 <br />
@@ -61,6 +39,7 @@
 
 	.side {
 		min-width: 16.25rem;
+		margin-top: 34px;
 		padding: 20px 10px;
 		border-radius: 0.5rem;
 		border: 1px solid #fff;
@@ -74,20 +53,15 @@
 	}
 
 	.destacados {
-		margin-top: 32px;
 		@include breakpoint($md) {
-			margin-top: 60px;
 		}
 	}
 
 	.tarjetas {
-		margin-top: 24px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(342px, 1fr));
 		gap: 15px;
 
 		@include breakpoint($md) {
-			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 			margin-top: 36px;
 
 			gap: 24px;

@@ -6,8 +6,9 @@
 <section class="footer no-print">
 	<div class="container">
 		<div>
-			<Logo size={'25px'} />
-
+			<Logo size={'4.3rem'} />
+		</div>
+		<div>
 			<ul class="links">
 				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
 				<li><a href="/contenido/preguntas-frecuentes">Preguntas frecuentes</a></li>
@@ -17,15 +18,12 @@
 				<li><a href="/contenido/contacto">Contacto</a></li>
 			</ul>
 		</div>
-		<div />
 		<div>
-			<h1>&nbsp;</h1>
-
 			<h1>Sigue a QueHay</h1>
 			<Socials />
 			<div class="libro">
 				<a href="/contenido/libro-de-reclamaciones">
-					<img src="https://res.cloudinary.com/maxitech/image/upload/v1665546173/ticketera/assets/libro_mlxv6e.png" alt="libro" />
+					<img src="https://i.postimg.cc/HLTtb0cw/image-7.png" alt="libro" />
 				</a>
 			</div>
 		</div>
@@ -44,7 +42,7 @@
 	}
 	.infrafooter {
 		padding: 24px 0;
-		background-color: #5b025a;
+		background-color: #090909;
 		text-align: center;
 		color: #ffebff;
 		div {
@@ -56,7 +54,7 @@
 		z-index: 3;
 		padding-bottom: 20px;
 		color: white;
-		background-color: #80057f;
+		background-color: #1b1b1b;
 	}
 
 	.container {

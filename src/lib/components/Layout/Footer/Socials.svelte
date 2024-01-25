@@ -34,6 +34,16 @@
 
 		gap: 32px;
 
+		li {
+			border: 0.5px solid #fff;
+			width: 3rem;
+			height: 3rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 0.5rem;
+		}
+
 		a {
 			text-align: center;
 			vertical-align: middle;
