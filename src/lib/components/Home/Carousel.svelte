@@ -219,7 +219,7 @@
 		}
 
 		.selected {
-			width: 32px;
+			width: 12px;
 			background: #d30ed1;
 			border: 1px solid #ffffff;
 			border-radius: 8px;

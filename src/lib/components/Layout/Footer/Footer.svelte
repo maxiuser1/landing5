@@ -1,6 +1,8 @@
 <script>
 	import Logo from '../Header/Logo.svelte';
 	import Socials from './Socials.svelte';
+
+	const anio = new Date().getFullYear();
 </script>
 
 <section class="footer no-print">
@@ -31,7 +33,7 @@
 </section>
 <section class="infrafooter">
 	<div class="container">
-		<div class="derechos">Derechos reservados © 2022, Que Hay</div>
+		<div class="derechos">Derechos reservados © {anio}, Que Hay</div>
 	</div>
 </section>
 
