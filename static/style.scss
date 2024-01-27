@@ -34,7 +34,7 @@ $xl: 1600px;
 		max-width: 704px;
 	}
 	@include breakpoint($md) {
-		max-width: 1104px;
+		max-width: 1105px;
 	}
 }
 
@@ -92,12 +92,8 @@ h6 {
 
 .titulo--suprayado {
 	position: relative;
-	font-weight: 900;
+	font-family: 'GothamBolder';
 	color: #3b3b3b;
-	font-size: 1.25rem;
-	font-style: normal;
-	font-weight: 425;
-	line-height: 1.25rem;
 	&:before {
 		position: absolute;
 		content: '';

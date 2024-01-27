@@ -10,17 +10,22 @@
 	src: url('./fonts/Gotham-Book.otf') format('opentype');
 }
 
+@font-face {
+	font-family: 'GothamBolder';
+	src: url('./fonts/Gotham-Black.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'GothamBold';
+	src: url('./fonts/Gotham-Bold.otf') format('opentype');
+}
+
 *,
 ::before,
 ::after {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
-}
-
-@font-face {
-	font-family: 'Gotham';
-	src: url('./fonts/Gotham-Book.otf') format('opentype');
 }
 
 html {
