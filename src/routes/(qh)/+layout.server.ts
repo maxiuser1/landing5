@@ -1,9 +1,9 @@
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ locals, params }) => {
-	console.log('grrrrr', params.slug);
+	console.log('grrrrr', params.slug, params.slug != undefined ? true : false);
 	return {
 		user: locals.user,
-		enEvento: params.slug ? false : true
+		enEvento: params.slug != undefined ? true : false
 	};
 };

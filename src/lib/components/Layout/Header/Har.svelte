@@ -6,7 +6,8 @@
 	import Nav from './Nav.svelte';
 	import Socials from './Socials.svelte';
 	import Autenticable from './Autenticable.svelte';
-
+	import Arrow from '$lib/icons/Arrow.svelte';
+	export let enEvento = true;
 	let visible = false;
 
 	const toggle = () => {
@@ -16,13 +17,28 @@
 
 <header class="header">
 	<nav class="container">
-		<div />
+		{#if enEvento}
+			<div class="backlogo">
+				<a href="../../../">
+					<Arrow left={true} />
+				</a>
+				<Logo />
+			</div>
+		{:else}
+			<div />
+		{/if}
 		<Autenticable />
 	</nav>
 </header>
 
 <style lang="scss">
 	@import './static/style.scss';
+	.backlogo {
+		display: flex;
+		gap: 20px;
+		align-items: center;
+	}
+
 	.anchormenu {
 		color: #fff;
 	}

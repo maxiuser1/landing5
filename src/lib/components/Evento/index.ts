@@ -13,3 +13,4 @@ export { default as Descuento } from './Descuento.svelte';
 export { default as Total } from './Total.svelte';
 export { default as Counterd } from './Counterd.svelte';
 export { default as MCounterd } from './MCounterd.svelte';
+export { default as Entrada } from './Entrada.svelte';

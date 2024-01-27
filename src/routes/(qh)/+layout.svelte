@@ -8,15 +8,15 @@
 	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
-<Har />
-{#if data.enEvento}
+<Har enEvento={data.enEvento} />
+{#if !data.enEvento}
 	<Header />
 {/if}
 
 <main>
 	<slot />
 </main>
-<Footer />
+<Footer enEvento={data.enEvento} />
 <a class="whatsapp-btn" rel="noreferrer" target="_blank" href="https://wa.me/51919293256">
 	<Whatsapp />
 </a>

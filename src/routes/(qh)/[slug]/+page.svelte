@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Entradas, Info } from '$lib/components/Evento';
 	import { page } from '$app/stores';
+	import Entrada from '$lib/components/Evento/Entrada.svelte';
 
 	export let data;
 	let { evento } = data;
@@ -26,11 +27,8 @@
 			<div class="titulos" />
 		</div>
 	</section>
-	<Info {evento} />
-	<Entradas {evento} />
-	<section class="container cta">
-		<a class="comprar" href={redirectUrl}>Comprar</a>
-	</section>
+
+	<Entrada {evento} />
 {/if}
 
 <style lang="scss">
@@ -74,7 +72,7 @@
 		align-items: flex-end;
 
 		@include breakpoint($md) {
-			height: 440px;
+			height: 420px;
 		}
 
 		.titulos {
