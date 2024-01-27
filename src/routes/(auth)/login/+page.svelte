@@ -110,7 +110,7 @@
 
 <div class="login">
 	<div class="form">
-		<a href="/login" class="titulo--subrayado">Bienvenido</a>
+		<a href="/login" class="titulo--suprayado">Bienvenido</a>
 		{#if mensaje}
 			<div class="error">{mensaje}</div>
 		{/if}
@@ -160,6 +160,10 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.titulo--suprayado {
+		font-size: 32px;
+	}
 	.error {
 		margin-top: 10px;
 		color: red;
@@ -170,7 +174,7 @@
 		padding-top: 12px;
 	}
 	.form {
-		margin-top: 14px;
+		margin-top: 50px;
 
 		label {
 			font-weight: 600;
@@ -190,6 +194,8 @@
 		}
 
 		.form-group {
+			padding-left: initial;
+			padding-right: initial;
 			&:first-child {
 				margin-top: 32px;
 			}
@@ -245,82 +251,4 @@
 			}
 		}
 	}
-	// input {
-	// 	width: 92%;
-	// 	padding: 0 12px;
-	// 	border: 1px solid #c6c6c6;
-	// 	border-radius: 4px;
-	// 	background: #ffffff;
-	// 	height: 42px;
-	// }
-	// input:focus {
-	// 	outline: none;
-	// }
-
-	// label {
-	// 	font-weight: 600;
-	// 	font-size: 14px;
-	// 	line-height: 24px;
-	// }
-
-	// .usuario {
-	// 	margin-top: 24px;
-	// }
-
-	// .contrasena {
-	// 	margin-top: 32px;
-	// }
-
-	// .btn {
-	// 	margin-top: 34px;
-	// 	margin-bottom: 24px;
-	// 	width: 100%;
-	// }
-
-	// .error {
-	// 	margin-top: 10px;
-	// 	color: red;
-	// }
-
-	// .titulo {
-	// 	color: #d30ed1;
-	// 	font-weight: 700;
-	// 	font-size: 30px;
-	// 	line-height: 36px;
-	// 	border-bottom: 2px solid #d30ed1;
-	// }
-
-	// .recordar {
-	// 	label {
-	// 		font-weight: 400;
-	// 		font-size: 14px;
-	// 		line-height: 20px;
-	// 	}
-	// }
-
-	// .form {
-	// 	margin-top: 42px;
-
-	// 	.btn {
-	// 		width: 100%;
-	// 	}
-	// }
-
-	// .controls {
-	// 	margin-top: 32px;
-	// 	margin-bottom: 32px;
-
-	// 	.usuario {
-	// 		margin-bottom: 20px;
-	// 	}
-
-	// 	input {
-	// 		width: 100%;
-	// 		padding: 6px 12px;
-	// 		border: 1px solid #c6c6c6;
-	// 		border-radius: 4px;
-	// 		background: #ffffff;
-	// 		height: 42px;
-	// 	}
-	// }
 </style>

@@ -42,11 +42,12 @@
 		Volver al login
 	</a>
 	<div class="form">
-		<div class="titulo">Ingresa tu correo</div>
+		<div class="titulo--suprayado">Ingresa tu correo</div>
 		<p>Ingresa tu correo y te enviaremos instrucciones para reiniciar tu contraseña</p>
 		{#if mensaje}
 			<div class="error">{mensaje}</div>
 		{/if}
+		<br />
 		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
 			<div>
 				<div class="form-group">
@@ -63,6 +64,13 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.titulo--suprayado {
+		margin-top: 40px;
+		font-size: 32px;
+		margin-bottom: 15px;
+	}
+
 	.error {
 		margin-top: 10px;
 		color: red;
@@ -101,6 +109,8 @@
 
 		.form-group {
 			margin-bottom: 32px;
+			padding-left: initial;
+			padding-right: initial;
 		}
 
 		.btn {

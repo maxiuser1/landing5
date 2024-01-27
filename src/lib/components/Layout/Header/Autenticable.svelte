@@ -29,7 +29,7 @@
 		</li>
 		<li>/</li>
 		<li>
-			<a class="ingresa" href="../login"> Regístrate </a>
+			<a class="ingresa" href="../registro"> Regístrate </a>
 		</li>
 	{/if}
 </ul>

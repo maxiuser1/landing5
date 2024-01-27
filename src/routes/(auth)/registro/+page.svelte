@@ -66,7 +66,7 @@
 	{/if}
 
 	<div class="form">
-		<div class="titulo">Registro</div>
+		<div class="titulo--suprayado">Registro</div>
 		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
 			<div>
 				<div class="form-group">
@@ -127,6 +127,11 @@
 	button:disabled {
 		background: #d30ed038 !important;
 	}
+
+	.titulo--suprayado {
+		margin-top: 40px;
+		font-size: 32px;
+	}
 	.registro {
 		margin: 0 auto;
 		max-width: 380px;
@@ -161,6 +166,8 @@
 
 		.form-group {
 			margin-bottom: 32px;
+			padding-left: initial;
+			padding-right: initial;
 		}
 
 		.btn {

@@ -56,10 +56,28 @@
 			</ul>
 			<ul class="menu">
 				<li class:active={$page.url.hash.includes('destacados')}>
-					<a href="#destacados">Destacados</a>
+					<a href="#destacados">Conciertos</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos"> Festivales</a>
+					<a href="#conciertos">Teatro</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos">Deportes</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos">Festivales</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos">Arte y Cultura</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos">Niños</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos">Viajes y aventuras</a>
+				</li>
+				<li class:active={$page.url.hash.includes('conciertos')}>
+					<a href="#conciertos">Salud y bienestar</a>
 				</li>
 			</ul>
 		</nav>

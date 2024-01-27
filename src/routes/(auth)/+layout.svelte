@@ -18,10 +18,7 @@
 			<div class="logos">
 				<Logo size={'80px'} />
 			</div>
-			<div class="socials">
-				<div class="visita">Visita nuestras redes sociales</div>
-				<div class="icons"><Socials /></div>
-			</div>
+			<div class="socials" />
 		</div>
 	</div>
 	<div class="forms">
@@ -51,7 +48,7 @@
 
 	.banner {
 		display: none;
-		min-width: 50%;
+		min-width: 37%;
 		height: 100vh;
 		background: linear-gradient(180deg, #ff0030 0%, #ff00ad 53.12%, #9023fe 100%);
 		@include breakpoint($sm) {
@@ -63,7 +60,7 @@
 		width: 100%;
 		height: 100vh;
 
-		background: url('https://res.cloudinary.com/maxitech/image/upload/v1658348860/ticketera/assets/people-in-festival_1_w8qpie.png');
+		background: url('https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-BTGAKO-P/w:auto/h:auto/q:auto/id:849adad5fbc709bf38829e5f1dedd8cf/directUpload/people-in-festival-1.png');
 		background-size: cover;
 		display: flex;
 		flex-direction: column;
