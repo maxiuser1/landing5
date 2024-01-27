@@ -9,20 +9,32 @@
 	import Bogo from './Bogo.svelte';
 
 	let visible = false;
+	let inputph = 'Encuentra tu evento';
+	let active = false;
+	$: active_class = active ? 'searchbox searchbox-focus' : 'searchbox';
 
 	const toggle = () => {
 		visible = !visible;
 	};
+
+	const handleInputer = () => {
+		inputph = '';
+		active = true;
+	};
+
+	const handleOutInputer = () => {
+		inputph = 'Encuentra tu evento';
+		active = false;
+	};
 </script>
 
-<Har />
 <div class="container">
 	<div class="logo">
 		<Bogo />
 	</div>
-	<div class="searchbox">
+	<div class={active_class}>
 		<div class="box">
-			<input type="search" class="input" placeholder="Encuentra tu evento" />
+			<input type="search" class="input" placeholder={inputph} on:focusin={handleInputer} on:focusout={handleOutInputer} />
 			<div class="boton">
 				<Lupa />
 			</div>
@@ -107,6 +119,7 @@
 		margin-top: -12px;
 		display: flex;
 		justify-content: center;
+
 		.box {
 			width: 100%;
 			height: 48px;
@@ -150,6 +163,18 @@
 			width: 56px;
 			background: #d30ed1;
 			border-radius: 4px;
+		}
+
+		&-focus {
+			.box {
+				border: 1px solid #d30ed1;
+				background-color: #fff;
+				box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+			}
+
+			.input {
+				background-color: #fff;
+			}
 		}
 	}
 

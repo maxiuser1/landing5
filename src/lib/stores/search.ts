@@ -16,7 +16,6 @@ export const createSearchStore = (data: any) => {
 
 export const searchHandler = (store) => {
 	const searchTerm = store.search.toLowerCase() || '';
-	console.log('llamo', store.data);
 	if (searchTerm) {
 		store.filtered = store.data.filter((item: any) => {
 			return item.searchTerms ? item.searchTerms.toLowerCase().includes(searchTerm) : false;

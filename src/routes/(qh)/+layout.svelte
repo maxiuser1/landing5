@@ -2,11 +2,17 @@
 	import { Footer, Header } from '$lib/components/Layout';
 	import { Whatsapp } from '$lib/icons';
 	import { compraData } from '$lib/components/Evento/store';
+	import Har from '$lib/components/Layout/Header/Har.svelte';
+	export let data;
 
 	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
-<Header />
+<Har />
+{#if data.enEvento}
+	<Header />
+{/if}
+
 <main>
 	<slot />
 </main>

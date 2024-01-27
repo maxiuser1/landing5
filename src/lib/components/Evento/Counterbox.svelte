@@ -12,16 +12,12 @@
 	const fila = zona.filas.find((t) => t.id == entrada.fila);
 	const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 
-	console.log('asiento', asiento);
-
 	const esPromotor = $page.data?.user?.rol != undefined && $page.data?.user?.rol == 'promotor';
 
 	let precio: number = esPromotor ? zona.promotor : zona.online;
 	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;
 	let total: number = 0;
-	console.log('asiento', asiento);
 	let tope: number = asiento.c ? asiento.l! - asiento.c : asiento.l!;
-	console.log('tope', tope);
 
 	let regalo: string = zona.regalo ?? '';
 

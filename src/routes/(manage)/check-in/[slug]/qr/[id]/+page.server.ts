@@ -9,7 +9,6 @@ export const load = async ({ locals, params }) => {
 const completar: Action = async ({ request, locals, params }) => {
 	let ticket: App.Entrada = await locals.eventosRepo.getEntrada(params.id);
 
-	console.log('test');
 	const data = await request.formData();
 	const formData = Object.fromEntries(data);
 

@@ -52,8 +52,6 @@ export class TiendaRepo implements App.TiendaRepoInterface {
 		const database = await client.database('quehaydb');
 		const container = await database.container('compras');
 
-		console.log('verify', id);
-
 		await container.item(id, slug).patch([{ op: 'add', path: '/estado', value: 'cerrado' }]);
 	};
 

@@ -94,7 +94,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 			const { resource: entrada } = await container.item(results[0].id!, 'quehay').read();
 			return entrada;
 		} else {
-			console.log('resource', results);
 			return null;
 		}
 	};
@@ -108,7 +107,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 			const currentInd = ticket.impresos.findIndex((t: any) => t.n.endsWith(numero));
 			const replaceOperation: PatchOperation[] = [];
 
-			console.log('currentind', currentInd);
 			replaceOperation.push({
 				op: 'replace',
 				path: `/impresos/${currentInd}/p`,
@@ -125,8 +123,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const container = await database.container('entradas');
 
 		const replaceOperation: PatchOperation[] = [];
-
-		console.log('cantidad', cantidad);
 
 		replaceOperation.push({
 			op: 'incr',

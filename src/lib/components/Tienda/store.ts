@@ -5,8 +5,6 @@ export const cartItems = writable<App.ProductoComprado[]>([]);
 export const addToCart = (id: string, cantidad: number, total: number, nombre: string) => {
 	let items = get(cartItems);
 
-	console.log('i', items);
-
 	let itemPosition = items.findIndex((item) => {
 		return item.id == id;
 	});
