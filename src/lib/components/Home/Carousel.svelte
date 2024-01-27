@@ -104,11 +104,13 @@
 
 	.ver-mas {
 		position: absolute;
-		top: 86%;
+		top: 50%;
 		background-color: transparent;
-		font-size: 1rem;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 24px;
 		left: 10%;
-		border: 2px solid #fff;
+		border: 1px solid #fff;
 		color: #fff;
 		padding: 0.5rem 1rem;
 		border-radius: 0.25rem;

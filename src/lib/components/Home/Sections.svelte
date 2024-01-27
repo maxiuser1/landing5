@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Cards from './Cards.svelte';
+	import Destacados from './Destacados.svelte';
 	export let eventos: Array<App.Evento>;
 </script>
 
@@ -10,8 +11,7 @@
 		</section>
 	</div>
 	<div class="side">
-		<div class="titulo--suprayado">Destacados</div>
-		<div class="tarjetas" />
+		<Destacados />
 	</div>
 </div>
 
@@ -25,10 +25,6 @@
 
 <style lang="scss">
 	@import './static/style.scss';
-
-	.titulo--suprayado {
-		font-size: 1.25rem;
-	}
 
 	.proximamente {
 		h1 {
