@@ -37,7 +37,7 @@
 		}
 
 		.pasos {
-			margin: 72px 0px;
+			margin: 49px 0px;
 			display: none;
 			width: 100%;
 			gap: 24px;

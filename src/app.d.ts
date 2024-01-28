@@ -165,6 +165,7 @@ declare global {
 			caratula?: {
 				thumb?: string;
 				detalles?: string;
+				card?: string;
 			};
 			general?: {
 				categoria: string;
