@@ -16,9 +16,9 @@
 		<div class="overlay">
 			<div />
 			<div class="logos">
-				<Logo size={'80px'} />
+				<Logo size={'120px'} />
 			</div>
-			<div class="socials" />
+			<div />
 		</div>
 	</div>
 	<div class="forms">
@@ -50,7 +50,7 @@
 		display: none;
 		min-width: 37%;
 		height: 100vh;
-		background: linear-gradient(180deg, #ff0030 0%, #ff00ad 53.12%, #9023fe 100%);
+		background: #d30ed1;
 		@include breakpoint($sm) {
 			display: initial;
 		}
@@ -60,8 +60,9 @@
 		width: 100%;
 		height: 100vh;
 
-		background: url('https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-BTGAKO-P/w:auto/h:auto/q:auto/id:849adad5fbc709bf38829e5f1dedd8cf/directUpload/people-in-festival-1.png');
+		background: url('https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-3YYAqoz6/w:auto/h:auto/q:auto/id:009cc655fc2549a3e9ebaae7fc2e9bf0/directUpload/overl.png');
 		background-size: cover;
+		background-position: center center;
 		display: flex;
 		flex-direction: column;
 		align-self: flex-end;

@@ -208,6 +208,23 @@ button.btn-outline {
 		border-radius: 4px;
 		background: #ffffff;
 		height: 42px;
+
+		&::placeholder {
+			color: #919191;
+			font-size: 14px;
+			line-height: 20px;
+			font-weight: 500;
+		}
+
+		&.error {
+			border-color: #ff0036 !important;
+			color: #ff0036;
+		}
+	}
+
+	.error {
+		margin-top: 10px;
+		color: #ff0036;
 	}
 }
 

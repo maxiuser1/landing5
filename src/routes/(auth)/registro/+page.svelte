@@ -68,40 +68,40 @@
 	<div class="form">
 		<div class="titulo--suprayado">Registro</div>
 		<form autocomplete="off" on:submit|preventDefault={handleFormSubmit}>
-			<div>
+			<div class="formulario">
 				<div class="form-group">
 					<label for="nombres">Nombres</label>
-					<input type="text" name="nombre" required />
+					<input type="text" name="nombre" placeholder="Ejem. Jose Luis" />
 				</div>
 
 				<div class="form-group">
 					<label for="apellidos">Apellidos</label>
-					<input type="text" name="apellido" required />
+					<input type="text" name="apellido" placeholder="Ejem. Quispe Huaman" />
 				</div>
 
 				<div class="form-group">
 					<label for="dni">DNI</label>
-					<input type="text" name="dni" required />
+					<input type="text" name="dni" placeholder="0000000" />
 				</div>
 
 				<div class="form-group">
-					<label for="correo">Correo</label>
-					<input type="email" name="correo" required />
+					<label for="correo">Email</label>
+					<input type="email" name="correo" placeholder="Ejem. usuario@mai.com" />
 				</div>
 
 				<div class="form-group">
 					<label for="telefono">Teléfono</label>
-					<input type="text" name="telefono" required />
+					<input type="text" name="telefono" placeholder="00000000" />
 				</div>
 
 				<div class="form-group">
 					<label for="password">Contraseña</label>
-					<input type="password" name="password" required />
+					<input type="password" name="password" placeholder="*****" />
 				</div>
 
 				<div class="form-group">
 					<label for="password">Confirmar Contraseña</label>
-					<input type="password" name="repassword" required />
+					<input type="password" name="repassword" placeholder="*****" />
 				</div>
 			</div>
 			<div>
@@ -123,6 +123,11 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.formulario {
+		margin-top: 24px;
+	}
+
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;
