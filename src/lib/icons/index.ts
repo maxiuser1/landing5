@@ -32,3 +32,4 @@ export { default as Lupa } from './Lupa.svelte';
 export { default as Settings } from './Settings.svelte';
 export { default as Impresora } from './Impresora.svelte';
 export { default as Fecha } from './Fecha.svelte';
+export { default as Hamburger } from './Hamburger.svelte';

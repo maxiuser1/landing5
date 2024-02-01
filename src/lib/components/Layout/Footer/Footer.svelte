@@ -7,7 +7,7 @@
 
 {#if !enEvento}
 	<section class="footer no-print">
-		<div class="container">
+		<div class="container container--foter">
 			<div>
 				<Logo size={'4.3rem'} />
 			</div>
@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 			<div>
-				<h1>Sigue a QueHay</h1>
+				<h1 class="sigue">Sigue a QueHay</h1>
 				<Socials />
 				<div class="libro">
 					<a href="/contenido/libro-de-reclamaciones">
@@ -49,7 +49,10 @@
 <style lang="scss">
 	@import './static/style.scss';
 	.derechos {
-		font-size: 12px;
+		font-size: 16px;
+		@include breakpoint($md) {
+			font-size: 12px;
+		}
 	}
 	.infrafooter {
 		padding: 24px 0;
@@ -68,16 +71,31 @@
 		background-color: #1b1b1b;
 	}
 
-	.container {
+	.container--foter {
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: space-between;
+		flex-direction: column;
+		text-align: center;
+
+		@include breakpoint($md) {
+			text-align: initial;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		.sigue {
+			margin-top: 40px;
+		}
 
 		h1 {
-			font-weight: 700;
-			font-size: 14px;
 			line-height: 22px;
 			margin-bottom: 24px;
+			font-size: 18px;
+			font-weight: normal;
+
+			@include breakpoint($md) {
+				font-size: 14px;
+			}
 		}
 
 		ul.links {
@@ -100,6 +118,8 @@
 
 	.libro {
 		margin-top: 20px;
-		text-align: left;
+		width: 100%;
+		display: flex;
+		justify-content: center;
 	}
 </style>

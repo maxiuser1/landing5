@@ -33,6 +33,15 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.header {
+		display: none;
+
+		@include breakpoint($md) {
+			display: initial;
+		}
+	}
+
 	.backlogo {
 		display: flex;
 		gap: 20px;

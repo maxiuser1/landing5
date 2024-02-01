@@ -15,14 +15,6 @@
 	</div>
 </div>
 
-<br />
-<br />
-<br />
-
-<br />
-<br />
-<br />
-
 <style lang="scss">
 	@import './static/style.scss';
 
@@ -61,6 +53,7 @@
 
 	.container {
 		margin-top: 33px;
+		margin-bottom: 32px;
 		display: grid;
 
 		grid-template-columns: 1fr;

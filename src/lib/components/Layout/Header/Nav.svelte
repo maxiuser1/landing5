@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import type { TooltipConifg } from '$lib/components/Shared/ui/Tooltip/types';
 	import Popover from '$lib/components/Shared/ui/Popover';
+	import Hamburger from '$lib/icons/Hamburger.svelte';
 	export let closable = false;
 	const dispatch = createEventDispatcher();
 	const toggleMenu = () => dispatch('togglemenu');
@@ -22,7 +23,7 @@
 	{#if closable}
 		<Close color="black" />
 	{:else}
-		<Menu lefted={false} />
+		<Hamburger />
 	{/if}
 </button>
 

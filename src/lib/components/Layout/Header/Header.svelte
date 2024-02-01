@@ -2,10 +2,7 @@
 	import { page } from '$app/stores';
 	import { Lupa, User } from '$lib/icons';
 	import { slide } from 'svelte/transition';
-	import Logo from './Logo.svelte';
 	import Nav from './Nav.svelte';
-	import Socials from './Socials.svelte';
-	import Har from './Har.svelte';
 	import Bogo from './Bogo.svelte';
 
 	let visible = false;
@@ -28,7 +25,7 @@
 	};
 </script>
 
-<div class="container">
+<div class="container superheader">
 	<div class="logo">
 		<Bogo />
 	</div>
@@ -103,22 +100,31 @@
 	}
 
 	.logo {
-		flex: 1;
+		grid-area: logo;
+		margin: 0 auto;
+
+		@include breakpoint($md) {
+			margin: initial;
+		}
 	}
 
 	.hamburger {
-		flex: 1;
+		grid-area: hb;
 		text-align: right;
 	}
 
 	.searchbox {
-		flex: 2;
+		grid-area: sb;
 		padding-left: 24px;
 		padding-right: 24px;
 		text-align: center;
-		margin-top: -12px;
+		margin-top: 24px;
 		display: flex;
 		justify-content: center;
+
+		@include breakpoint($md) {
+			margin-top: -12px;
+		}
 
 		.box {
 			width: 100%;
@@ -178,12 +184,22 @@
 		}
 	}
 
-	.container {
+	.superheader {
+		margin-top: -32px;
 		padding-top: 20px;
 		padding-bottom: 20px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		grid-template-columns: repeat(9, 1fr);
+		display: grid;
+		grid-template-areas:
+			'hb logo logo logo logo logo logo logo logo '
+			'sb sb sb sb sb sb sb sb sb';
+		padding-left: 0px;
+		padding-right: 0px;
+
+		@include breakpoint($md) {
+			margin-top: initial;
+			grid-template-areas: 'logo logo sb sb sb sb sb sb hb';
+		}
 	}
 
 	nav {
