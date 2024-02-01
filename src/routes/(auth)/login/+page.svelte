@@ -7,6 +7,7 @@
 	import { z } from 'zod';
 	import { page } from '$app/stores';
 	import { user } from '$lib/stores/userstore';
+	import Arrow from '$lib/icons/Arrow.svelte';
 
 	let mensaje = '';
 	let userError = '';
@@ -165,11 +166,13 @@
 			</div>
 
 			<div>
-				<button class="btn" type="submit"><span>Ingresar</span></button>
+				<button class="btn" type="submit"><span>Ingresar</span>&nbsp; <Arrow /></button>
 			</div>
 		</form>
 
 		<div class="texto">
+			<br />
+			<br />
 			<p>Tambien puedes ingresar con:</p>
 		</div>
 

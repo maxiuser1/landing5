@@ -39,18 +39,39 @@
 
 	.side {
 		min-width: 16.25rem;
-		margin-left: 24px;
-		padding: 20px 10px;
-		border-radius: 0.5rem;
-		border: 1px solid #fff;
-		background: var(--White-White_98, #f9f9f9);
-		box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+		grid-area: side;
+
+		@include breakpoint($md) {
+			border-radius: 0.5rem;
+			border: 1px solid #fff;
+			background: #f9f9f9;
+			padding: 20px 10px;
+			margin-left: 24px;
+			box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+		}
+	}
+
+	.eventos {
+		grid-area: eventos;
+		margin-top: 24px;
+		@include breakpoint($md) {
+			margin-top: initial;
+		}
 	}
 
 	.container {
 		margin-top: 33px;
 		display: grid;
-		grid-template-columns: 821px 260px;
+
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'side'
+			'eventos';
+
+		@include breakpoint($md) {
+			grid-template-columns: 821px 260px;
+			grid-template-areas: 'eventos side';
+		}
 	}
 
 	.destacados {

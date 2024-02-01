@@ -40,8 +40,15 @@
 
 	.tarjetas {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		overflow-x: scroll;
+		white-space: nowrap;
 		gap: 16px;
+
+		@include breakpoint($md) {
+			flex-direction: column;
+			flex-wrap: wrap;
+		}
 	}
 	.titulo--suprayado {
 		font-size: 1.25rem;
