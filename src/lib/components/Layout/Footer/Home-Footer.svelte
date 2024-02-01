@@ -4,10 +4,37 @@
 	const anio = new Date().getFullYear();
 </script>
 
+<section class="footer no-print">
+	<div class="container container--foter">
+		<div>
+			<Logo size={'4.3rem'} />
+		</div>
+		<div>
+			<ul class="links">
+				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
+				<li><a href="/contenido/preguntas-frecuentes">Preguntas frecuentes</a></li>
+				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
+				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
+				<li><a href="/contenido/politicas-de-cookies">Políticas de Cookies</a></li>
+				<li><a href="/contenido/contacto">Contacto</a></li>
+			</ul>
+		</div>
+		<div>
+			<h1 class="sigue">Sigue a QueHay</h1>
+			<Socials />
+			<div class="libro">
+				<a href="/contenido/libro-de-reclamaciones">
+					<img src="https://i.postimg.cc/HLTtb0cw/image-7.png" alt="libro" />
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
 <section class="infrafooter">
 	<div class="container">
 		<div class="derechos">
-			<Logo />
+			Derechos reservados © {anio}, Que Hay
 		</div>
 	</div>
 </section>
