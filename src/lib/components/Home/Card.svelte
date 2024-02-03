@@ -7,33 +7,63 @@
 	export let evento: App.Evento;
 </script>
 
-<a href={evento.redireccion ? evento.redireccion : `/${evento.slug}`}>
-	<div class="card">
-		<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
-		<div class="content">
-			<div class="info">
-				<div class="encabezado">
-					<div class="titulo--suprayado">
-						{evento.artista}
+{#if evento.redireccion}
+	<a href={evento.redireccion}>
+		<div class="card">
+			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
+			<div class="content">
+				<div class="info">
+					<div class="encabezado">
+						<div class="titulo--suprayado">
+							{evento.nombre}
+						</div>
 					</div>
-				</div>
-				<div class="h3">
-					{@html evento.nombre}
-				</div>
-				<div class="h3">
-					<div class="fechas">
-						{#each evento.fechas as fecha}
-							<div class="date-info">
-								<Fecha />
-								<h4>{fecha}</h4>
-							</div>
-						{/each}
+					<div class="h3">
+						{@html evento.lugar}
+					</div>
+					<div class="h3">
+						<div class="fechas">
+							{#each evento.fechas as fecha}
+								<div class="date-info">
+									<Fecha />
+									<h4>{fecha}</h4>
+								</div>
+							{/each}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</a>
+	</a>
+{:else}
+	<a href="/{evento.slug}">
+		<div class="card">
+			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
+			<div class="content">
+				<div class="info">
+					<div class="encabezado">
+						<div class="titulo--suprayado">
+							{evento.artista}
+						</div>
+					</div>
+					<div class="h3">
+						{@html evento.nombre}
+					</div>
+					<div class="h3">
+						<div class="fechas">
+							{#each evento.fechas as fecha}
+								<div class="date-info">
+									<Fecha />
+									<h4>{fecha}</h4>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+{/if}
 
 <style lang="scss">
 	@import './static/style.scss';
