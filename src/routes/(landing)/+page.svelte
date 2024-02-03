@@ -7,7 +7,7 @@
 	import { Lupa } from '$lib/icons';
 
 	export let data;
-	let { eventos } = data;
+	let { eventos, banners } = data;
 
 	const searchStore = createSearchStore(eventos);
 
@@ -28,7 +28,7 @@
 	<meta name="google-site-verification" content="pl9VVmD7YcLmYEzm-KVoHjL1KJSyBI3YFJw7xnKRsJc" />
 </svelte:head>
 
-<Carousel {eventos} />
+<Carousel eventos={banners} />
 
 <Sections eventos={$searchStore.filtered} />
 

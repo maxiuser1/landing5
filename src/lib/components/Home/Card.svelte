@@ -7,7 +7,7 @@
 	export let evento: App.Evento;
 </script>
 
-<a href="/{evento.slug}">
+<a href={evento.redireccion ? evento.redireccion : `/${evento.slug}`}>
 	<div class="card">
 		<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
 		<div class="content">
