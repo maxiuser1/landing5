@@ -82,13 +82,16 @@
 		z-index: 2;
 	}
 	.card {
+		max-width: 398px;
 		width: 398px;
+		overflow: hidden;
 		border-radius: 0.5rem;
 		border: 1px solid #f1f1f1;
 		background: #f9f9f9;
 
 		@include breakpoint($md) {
 			width: 24.8rem;
+			max-width: 24.8rem;
 		}
 
 		&:hover {
