@@ -43,7 +43,7 @@
 		const username = fdata.get('username')?.toString() ?? '';
 		const password = fdata.get('password')?.toString() ?? '';
 
-		const usernameSchema = z.string().trim().email('Usuario no válido').min(1, 'Usuario requerido');
+		const usernameSchema = z.string().trim().min(1, 'Es necesario completar este campo').email('Usuario no válido');
 		const usernameValidation: any = usernameSchema.safeParse(username);
 		if (!usernameValidation.success) {
 			userError = usernameValidation.error.errors[0].message;
@@ -51,7 +51,7 @@
 			userError = '';
 		}
 
-		const passSchema = z.string().min(1, 'Contraseña requerida');
+		const passSchema = z.string().min(1, 'Es necesario completar este campo');
 		const passValidation: any = passSchema.safeParse(username);
 		if (!passValidation.success) {
 			passError = passValidation.error.errors[0].message;

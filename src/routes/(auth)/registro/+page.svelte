@@ -80,28 +80,57 @@
 				</div>
 
 				<div class="form-group">
-					<label for="dni">DNI</label>
-					<input type="text" name="dni" placeholder="0000000" />
-				</div>
-
-				<div class="form-group">
 					<label for="correo">Email</label>
 					<input type="email" name="correo" placeholder="Ejem. usuario@mai.com" />
 				</div>
 
-				<div class="form-group">
-					<label for="telefono">Teléfono</label>
-					<input type="text" name="telefono" placeholder="00000000" />
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label for="dni">Tipo de documento</label>
+							<select>
+								<option value="DNI">DNI</option>
+								<option value="CE">CE</option>
+								<option value="PASAPORTE">PASAPORTE</option>
+							</select>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="dni">Número de documento</label>
+							<input type="text" name="dni" placeholder="0000000" />
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="password">Contraseña</label>
-					<input type="password" name="password" placeholder="*****" />
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label for="telefono">Teléfono</label>
+							<input type="text" name="telefono" placeholder="00000000" style="width: 150px;" />
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="correo">Nacionalidad</label>
+							<input type="text" name="nacionalidad" placeholder="Ejem. peruano" />
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="password">Confirmar Contraseña</label>
-					<input type="password" name="repassword" placeholder="*****" />
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label for="password">Contraseña</label>
+							<input type="password" name="password" placeholder="*****" style="width: 150px;" />
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="password">Confirmar Contraseña</label>
+							<input type="password" name="repassword" placeholder="*****" />
+						</div>
+					</div>
 				</div>
 			</div>
 			<div>
@@ -124,8 +153,13 @@
 <style lang="scss">
 	@import './static/style.scss';
 
+	.row {
+		display: flex;
+		gap: 1px;
+	}
+
 	.formulario {
-		margin-top: 24px;
+		margin-top: 4px;
 	}
 
 	button[disabled='disabled'],
@@ -134,13 +168,13 @@
 	}
 
 	.titulo--suprayado {
-		margin-top: 40px;
+		margin-top: 20px;
 		font-size: 32px;
 	}
 	.registro {
 		margin: 0 auto;
 		max-width: 380px;
-		padding-top: 42px;
+		padding-top: 22px;
 	}
 	.form {
 		margin-top: 24px;
@@ -170,7 +204,7 @@
 		}
 
 		.form-group {
-			margin-bottom: 32px;
+			margin-bottom: 22px;
 			padding-left: initial;
 			padding-right: initial;
 		}
@@ -182,111 +216,7 @@
 			line-height: 24px;
 		}
 	}
-	// input[type='number'] {
-	// 	-moz-appearance: textfield;
-	// }
 
-	// input::-webkit-outer-spin-button,
-	// input::-webkit-inner-spin-button {
-	// 	-webkit-appearance: none;
-	// }
-
-	// input:focus {
-	// 	outline: none;
-	// }
-
-	// .usuario {
-	// 	margin-top: 24px;
-	// }
-
-	// .contrasena {
-	// 	margin-top: 32px;
-	// }
-
-	// .btn {
-	// 	margin-top: 34px;
-	// 	margin-bottom: 24px;
-	// 	width: 100%;
-	// }
-
-	// .error {
-	// 	margin-top: 10px;
-	// 	color: red;
-	// }
-	// .socials {
-	// 	margin-top: 24px;
-	// 	margin-bottom: 24px;
-	// 	display: flex;
-	// 	gap: 10px;
-
-	// 	form {
-	// 		width: 100%;
-	// 		.btn-social {
-	// 			background: #ffffff;
-	// 			/* White/White_80 */
-	// 			border: 1px solid #c6c6c6;
-	// 			border-radius: 4px;
-	// 			padding: 10px 0px;
-	// 			width: 100%;
-	// 		}
-	// 	}
-	// }
-
-	// .texto {
-	// 	width: 100%;
-	// 	text-align: center;
-	// 	p {
-	// 		font-weight: 400;
-	// 		font-size: 14px;
-	// 		line-height: 24px;
-	// 	}
-
-	// 	.link {
-	// 		color: #d30ed1;
-	// 	}
-	// }
-
-	// .titulo {
-	// 	color: #d30ed1;
-	// 	font-weight: 700;
-	// 	font-size: 30px;
-	// 	line-height: 36px;
-	// 	border-bottom: 2px solid #d30ed1;
-	// }
-
-	// .recordar {
-	// 	label {
-	// 		font-weight: 400;
-	// 		font-size: 14px;
-	// 		line-height: 20px;
-	// 	}
-	// }
-
-	// .form {
-	// 	margin-top: 22px;
-
-	// 	.btn {
-	// 		width: 100%;
-	// 	}
-	// }
-
-	// .controls {
-	// 	margin-top: 32px;
-	// 	margin-bottom: 32px;
-
-	// 	.usuario {
-	// 		margin-bottom: 20px;
-	// 	}
-
-	// 	input {
-	// 		width: 100%;
-	// 		padding: 6px 12px;
-	// 		border: 1px solid #c6c6c6;
-	// 		border-radius: 4px;
-	// 		background: #ffffff;
-	// 		height: 42px;
-	// 	}
-	// }
 	.error {
 		margin-top: 10px;
 		color: red;
