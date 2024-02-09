@@ -157,6 +157,8 @@ declare global {
 			precios: Array<Precio>;
 			mapa?: string;
 			locacion?: string;
+			externo?: boolean;
+			redireccion?: string;
 			ubicacion?: {
 				nombre?: string;
 				seccionamiento?: any;
@@ -165,6 +167,7 @@ declare global {
 			caratula?: {
 				thumb?: string;
 				detalles?: string;
+				card?: string;
 			};
 			general?: {
 				categoria: string;

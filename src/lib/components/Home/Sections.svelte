@@ -1,47 +1,19 @@
 <script lang="ts">
 	import Cards from './Cards.svelte';
+	import Destacados from './Destacados.svelte';
 	export let eventos: Array<App.Evento>;
 </script>
 
-<section class="destacados" id="destacados">
-	<div class="container">
-		<Cards {eventos} />
+<div class="container">
+	<div class="eventos">
+		<section class="destacados" id="destacados">
+			<Cards {eventos} />
+		</section>
 	</div>
-</section>
-<br />
-<br />
-<br />
-<section class="proximamente">
-	<div class="container">
-		<h1>Próximamente</h1>
-		<br />
-
-		<div>
-			<a rel="noreferrer" target="_blank" href="https://wa.me/51919293256"> <img src="https://imagizer.imageshack.com/img922/9927/1n2KDK.jpg" alt="bprxo" /></a>
-		</div>
+	<div class="side">
+		<Destacados />
 	</div>
-</section>
-
-<br />
-<br />
-<br />
-<section class="proximamente">
-	<div class="container">
-		<h1>Eventos Pasados</h1>
-		<div class="tarjetas">
-			<div class="tarjeta">
-				<img src="https://imagizer.imageshack.com/img923/1156/T2Jo6H.jpg" alt="card" />
-			</div>
-			<div class="tarjeta">
-				<img src="https://imagizer.imageshack.com/img922/9371/RhWEoN.jpg" alt="card" />
-			</div>
-		</div>
-	</div>
-</section>
-
-<br />
-<br />
-<br />
+</div>
 
 <style lang="scss">
 	@import './static/style.scss';
@@ -57,21 +29,54 @@
 		}
 	}
 
-	.destacados {
-		margin-top: 32px;
+	.side {
+		min-width: 16.25rem;
+		grid-area: side;
+
 		@include breakpoint($md) {
-			margin-top: 60px;
+			border-radius: 0.5rem;
+			border: 1px solid #fff;
+			background: #f9f9f9;
+			padding: 20px 10px;
+			margin-left: 24px;
+			box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+		}
+	}
+
+	.eventos {
+		grid-area: eventos;
+		margin-top: 24px;
+		@include breakpoint($md) {
+			margin-top: initial;
+		}
+	}
+
+	.container {
+		margin-top: 33px;
+		margin-bottom: 32px;
+		display: grid;
+
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'side'
+			'eventos';
+
+		@include breakpoint($md) {
+			grid-template-columns: 821px 260px;
+			grid-template-areas: 'eventos side';
+		}
+	}
+
+	.destacados {
+		@include breakpoint($md) {
 		}
 	}
 
 	.tarjetas {
-		margin-top: 24px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(342px, 1fr));
 		gap: 15px;
 
 		@include breakpoint($md) {
-			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 			margin-top: 36px;
 
 			gap: 24px;

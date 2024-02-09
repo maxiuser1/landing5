@@ -1,57 +1,52 @@
 <script lang="ts">
-	import { Pin } from '$lib/icons';
+	import { Fecha, Pin } from '$lib/icons';
 	export let evento: App.Evento;
 </script>
 
-<div class="detalles">
-	<div class="headings">
-		<h4>Detalle</h4>
-		<h2>{evento.general?.artista}</h2>
-		<h5>{evento.general?.nombre}</h5>
-	</div>
-
-	<h6>
-		{#each evento.fechas as fecha}
-			{new Date(fecha.dia).toLocaleDateString()}
-		{/each}
+<div class="banner">
+	<img class="img" src={evento?.caratula?.card} alt="banner" />
+</div>
+<div class="info">
+	<h4 class="titulo--suprayado">{evento.general?.artista}</h4>
+	<h6 class="h7">
+		{evento.general?.nombre}
 	</h6>
-	<p>
+
+	{#each evento.fechas as fecha}
+		<div class="date-info">
+			<Fecha />
+			<h6 class="h7 fechas">{new Date(fecha.dia).toLocaleDateString()}</h6>
+		</div>
+	{/each}
+
+	<div class="date-info">
 		<Pin />
-		{evento.ubicacion?.nombre}
-	</p>
-
-	<br />
-	<div>
-		{@html evento.caratula?.detalles ?? ''}
+		<h6 class="h7">
+			{evento.ubicacion?.nombre}
+		</h6>
 	</div>
-
-	<img src={evento.caratula?.thumb} alt="logo" />
 </div>
 
 <style lang="scss">
 	@import './static/style.scss';
-	.detalles {
-		border-radius: 8px;
-		background: white;
-		padding: 24px !important;
 
-		@include breakpoint($md) {
-			width: 40%;
-		}
+	.date-info {
+		color: #3b3b3b;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 10px;
+	}
+	.fechas {
+		margin-top: 8px;
+	}
+	.info {
+		margin-top: 28px;
+	}
 
-		.headings {
-			border-bottom: 1px solid #e2e2e2;
-			margin-bottom: 16px;
-		}
-
-		p {
-			margin-top: 8px;
-			font-size: 14px;
-		}
-
+	.banner {
 		img {
-			width: 100%;
-			height: auto;
+			width: 304px;
 		}
 	}
 </style>

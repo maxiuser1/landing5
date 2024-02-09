@@ -5,10 +5,11 @@
 	export let width: number;
 	export let tomados: number = 2;
 	export let tomado = false;
+	export let limite = 10;
 	// let height: number = width * 0.7;
 
 	function evaluar(indice: number) {
-		if (indice <= tomados) return 'blue';
+		if (indice >= tomados) return 'blue';
 		return tomado ? '#ff5260' : '#D4D4D4';
 	}
 
@@ -46,21 +47,42 @@
 		<svg viewBox="0 0 112 60" {width} xmlns="http://www.w3.org/2000/svg" class={tomado ? 'tomado' : 'vacio'}>
 			<g class="layer">
 				<title />
-
 				<rect height="8" id="s1" rx="4" class:sentado={tomados > 0} transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="0.75" />
-				<rect height="8" id="s2" rx="4" class:sentado={tomados > 1} transform="matrix(1 0 0 1 0 0)" width="22.75" x="44.75" y="0.63" />
-				<rect height="8" id="s3" rx="4" class:sentado={tomados > 2} width="22.75" x="73.75" y="0.38" />
-				<rect height="8" id="s4" rx="4" class:sentado={tomados > 3} transform="matrix(0 -0.643713 1 0 81.875 86.642)" width="22.75" x="92.62" y="-79.75" />
+				{#if limite >= 2}
+					<rect height="8" id="s2" rx="4" class:sentado={tomados > 1} transform="matrix(1 0 0 1 0 0)" width="22.75" x="44.75" y="0.63" />
+				{/if}
+				{#if limite >= 3}
+					<rect height="8" id="s3" rx="4" class:sentado={tomados > 2} width="22.75" x="73.75" y="0.38" />
+				{/if}
 
-				<rect height="8" id="s5" rx="4" class:sentado={tomados > 4} transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="89.95" y="20.56" />
-				<rect height="8" id="s6" rx="4" class:sentado={tomados > 5} transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="-79.63" />
+				{#if limite >= 4}
+					<rect height="8" id="s4" rx="4" class:sentado={tomados > 3} transform="matrix(0 -0.643713 1 0 81.875 86.642)" width="22.75" x="92.62" y="-79.75" />
+				{/if}
 
-				<rect height="8" id="s7" rx="4" class:sentado={tomados > 6} transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="20.44" />
+				{#if limite >= 5}
+					<rect height="8" id="s5" rx="4" class:sentado={tomados > 4} transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="89.95" y="20.56" />
+				{/if}
 
-				<rect height="8" id="s8" rx="4" class:sentado={tomados > 7} transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="51" />
+				{#if limite >= 6}
+					<rect height="8" id="s6" rx="4" class:sentado={tomados > 5} transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="-79.63" />
+				{/if}
 
-				<rect height="8" id="s9" rx="4" class:sentado={tomados > 8} width="22.75" x="44.75" y="51" />
-				<rect height="8" id="s10" rx="4" class:sentado={9 < tomados} width="22.75" x="73.75" y="51" />
+				{#if limite >= 7}
+					<rect height="8" id="s7" rx="4" class:sentado={tomados > 6} transform="matrix(0 -0.703351 1 0 81.875 91.6459)" width="22.75" x="65.43" y="20.44" />
+				{/if}
+
+				{#if limite >= 8}
+					<rect height="8" id="s8" rx="4" class:sentado={tomados > 7} transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="51" />
+				{/if}
+
+				{#if limite >= 9}
+					<rect height="8" id="s9" rx="4" class:sentado={tomados > 8} width="22.75" x="44.75" y="51" />
+				{/if}
+
+				{#if limite >= 10}
+					<rect height="8" id="s10" rx="4" class:sentado={9 < tomados} width="22.75" x="73.75" y="51" />
+				{/if}
+
 				<rect height="36" id="mesa" rx="4" width="81.62" x="15.44" y="11.63" />
 				<!-- <text fill="#777777" font-family="Gotham" font-size="18" id="svg_3" stroke-width="0" text-anchor="middle" x="51.22" xml:space="preserve" y="40.5">{tomados}/10</text> -->
 			</g>

@@ -4,7 +4,6 @@ export const load = async ({ locals, params }: { locals: App.Locals; params: Rec
 	const evento = await locals.eventosRepo.getEvento(params.slug);
 	const productos = await locals.tiendaRepo.getProductos(params.slug);
 
-	console.log('productos', productos);
 	if (productos) {
 		return { evento, productos };
 	}

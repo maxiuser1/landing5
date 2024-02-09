@@ -6,14 +6,14 @@ const completar: Action = async ({ cookies, request, locals, params }) => {
 	const userToken = await locals.usuariosRepo.create(formData);
 
 	cookies.set('session', userToken, {
-        path: '/',
-        httpOnly: true,
-        sameSite: 'strict',
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 60 * 60 * 24 * 30
-    });
+		path: '/',
+		httpOnly: true,
+		sameSite: 'strict',
+		secure: process.env.NODE_ENV === 'production',
+		maxAge: 60 * 60 * 24 * 30
+	});
 
-    throw redirect(302, '/');
+	throw redirect(302, '/');
 };
 
 export const actions: Actions = { default: completar };

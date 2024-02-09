@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Entradas, Info } from '$lib/components/Evento';
 	import { page } from '$app/stores';
+	import Entrada from '$lib/components/Evento/Entrada.svelte';
 
 	export let data;
 	let { evento } = data;
@@ -15,13 +16,10 @@
 </svelte:head>
 
 {#if evento.caratula.portada}
-	<section class="container portada">
+	<section class="portada">
 		<a href={redirectUrl}>
-			<img src={evento.caratula.portada} alt="portada" />
+			<img width="100%" src="https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-I3ijXCmY/w:auto/h:auto/q:auto/id:333ffed4d9c9f89f751deb234a0b46f9/directUpload/land.jpg" alt="portada" />
 		</a>
-	</section>
-	<section class="container cta">
-		<a class="comprar" href={redirectUrl}>Comprar</a>
 	</section>
 {:else}
 	<section class="banner" style:background-image="url('{evento.caratula?.banner}')">
@@ -29,11 +27,8 @@
 			<div class="titulos" />
 		</div>
 	</section>
-	<Info {evento} />
-	<Entradas {evento} />
-	<section class="container cta">
-		<a class="comprar" href={redirectUrl}>Comprar</a>
-	</section>
+
+	<Entrada {evento} />
 {/if}
 
 <style lang="scss">
@@ -77,7 +72,7 @@
 		align-items: flex-end;
 
 		@include breakpoint($md) {
-			height: 440px;
+			height: 420px;
 		}
 
 		.titulos {

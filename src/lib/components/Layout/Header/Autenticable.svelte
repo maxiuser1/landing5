@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import type { TooltipConifg } from '$lib/components/Shared/ui/Tooltip/types';
 	import Popover from '$lib/components/Shared/ui/Popover';
-	import Hamburger from '$lib/icons/Hamburger.svelte';
 	export let closable = false;
 	const dispatch = createEventDispatcher();
 	const toggleMenu = () => dispatch('togglemenu');
@@ -19,22 +18,24 @@
 	};
 </script>
 
-<button on:click={toggleMenu}>
-	{#if closable}
-		<Close color="black" />
+<ul class="socials">
+	{#if $page.data.user}
+		<li class="item">
+			<div class="circle" use:Popover={config}>{$page.data.user.nombre[0]}</div>
+		</li>
 	{:else}
-		<Hamburger />
+		<li>
+			<a class="ingresa" href="../login"> Ingresa </a>
+		</li>
+		<li>/</li>
+		<li>
+			<a class="ingresa" href="../registro"> Regístrate </a>
+		</li>
 	{/if}
-</button>
+</ul>
 
 <style lang="scss">
 	@import './static/style.scss';
-
-	button {
-		border: none;
-		background-color: transparent;
-	}
-
 	.circle {
 		cursor: pointer;
 		border-radius: 50%;

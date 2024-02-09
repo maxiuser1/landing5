@@ -28,8 +28,8 @@
 							const fila = zona.filas.find((t) => t.id == obj.fila);
 							const asiento = fila?.sits.find((t) => t.id == obj.asiento);
 
-							const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
-							const final = habilitados == zona.tope ? obj.final : habilitados! * zona.onlinei!;
+							const habilitados = asiento.c ? asiento.l! - asiento.c : asiento.l;
+							const final = habilitados! * zona.onlinei!;
 
 							return accumulator + (final ?? 0);
 						}, 0),

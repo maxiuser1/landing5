@@ -2,11 +2,22 @@
 	--header-height: 2.75rem;
 	--red: #ff0036;
 	--pink: #d30ed1;
+	--black: #090909;
 }
 
 @font-face {
-    font-family: 'Gotham';
-    src: url('./fonts/Gotham-Book.otf') format('opentype');
+	font-family: 'Gotham';
+	src: url('./fonts/Gotham-Book.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'GothamBolder';
+	src: url('./fonts/Gotham-Black.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'GothamBold';
+	src: url('./fonts/Gotham-Bold.otf') format('opentype');
 }
 
 *,
@@ -17,11 +28,6 @@
 	margin: 0;
 }
 
-@font-face {
-	font-family: 'Gotham';
-	src: url('./fonts/Gotham-Book.otf') format('opentype');
-}
-
 html {
 	scroll-behavior: smooth;
 }
@@ -29,16 +35,15 @@ html {
 body {
 	margin: var(--header-height) 0 0 0;
 	font-family: Gotham !important;
-	background: #F8F8F8;
+	background: #fff;
 }
 
-    
 ul {
-    list-style: none;
+	list-style: none;
 }
 a {
-    text-decoration: none;
-    color:#000;
+	text-decoration: none;
+	color: #000;
 }
 
 @media print {

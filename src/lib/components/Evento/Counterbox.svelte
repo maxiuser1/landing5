@@ -17,11 +17,12 @@
 	let precio: number = esPromotor ? zona.promotor : zona.online;
 	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;
 	let total: number = 0;
-	let tope: number = asiento.c ? zona.tope! - asiento.c : zona.tope!;
+	let tope: number = asiento.c ? asiento.l! - asiento.c : asiento.l!;
+
 	let regalo: string = zona.regalo ?? '';
 
 	export let count: number = tope;
-	total = count == zona.tope ? precio : count * precioIndividual;
+	total = count * precioIndividual;
 
 	const dispatch = createEventDispatcher();
 	onMount(() => {
@@ -38,7 +39,7 @@
 	});
 
 	function handleClick(count: number) {
-		total = count == zona.tope ? precio : count * precioIndividual;
+		total = count * precioIndividual;
 
 		if (count <= 0) count = 1;
 
@@ -76,7 +77,8 @@
 
 	<div>
 		<div class="counter">
-			<button
+			<!-- <button
+				disabled
 				type="button"
 				on:click={() => {
 					if (count >= 2) {
@@ -87,13 +89,14 @@
 				aria-label="Disminiuir"
 			>
 				<Decrease />
-			</button>
+			</button> -->
 			<div class="counter-viewport">
 				<div class="counter-digits">
 					{count}
 				</div>
 			</div>
-			<button
+			<!-- <button
+				disabled
 				type="button"
 				on:click={() => {
 					if (count < tope) {
@@ -103,8 +106,8 @@
 				}}
 				aria-label="Aumentar"
 			>
-				<Increase />
-			</button>
+				<Increase /> 
+			</button> -->
 		</div>
 
 		<div class="contenedor">

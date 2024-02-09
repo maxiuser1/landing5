@@ -2,80 +2,115 @@
 	import Dolar from '$lib/icons/Dolar.svelte';
 	import * as prismicH from '@prismicio/helpers';
 	import Pin from '$lib/icons/Pin.svelte';
+	import Fecha from '$lib/icons/Fecha.svelte';
 
 	export let evento: App.Evento;
 </script>
 
-<a href="/{evento.slug}">
-	<div class="card">
-		<div class="imagen" style="background:  url('{evento.card}') no-repeat center top" />
-		<div class="content">
-			<div class="info">
-				<div class="encabezado">
-					<div class="h2">
-						{evento.artista}
-						<span class="tour">
-							{@html evento.nombre}
-						</span>
+{#if evento.redireccion}
+	<a href={evento.redireccion}>
+		<div class="card">
+			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
+			<div class="content">
+				<div class="info">
+					<div class="encabezado">
+						<div class="titulo--suprayado">
+							{evento.nombre}
+						</div>
+					</div>
+					<div class="h3">
+						{@html evento.lugar}
+					</div>
+					<div class="h3">
+						<div class="fechas">
+							{#each evento.fechas as fecha}
+								<div class="date-info">
+									<Fecha />
+									<h4>{fecha}</h4>
+								</div>
+							{/each}
+						</div>
 					</div>
 				</div>
-				<div class="h3">
-					<Pin />
-					<span> {evento.lugar} <strong>, {evento.ciudad}</strong> </span>
-				</div>
-				<div class="h3">
-					<Dolar />
-					Desde
-
-					{#if evento.descontado}
-						<span class="desde"> S/. {evento.desde} </span>
-						<span class="descontado"> S/. {evento.descontado} </span>
-					{:else}
-						<span class="descontado"> S/. {evento.desde} </span>
-					{/if}
-				</div>
-			</div>
-			<div class="fechas">
-				{#each evento.fechas as fecha}
-					<h4>{fecha}</h4>
-				{/each}
 			</div>
 		</div>
-	</div>
-</a>
+	</a>
+{:else}
+	<a href="/{evento.slug}">
+		<div class="card">
+			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
+			<div class="content">
+				<div class="info">
+					<div class="encabezado">
+						<div class="titulo--suprayado">
+							{evento.artista}
+						</div>
+					</div>
+					<div class="h3">
+						{@html evento.nombre}
+					</div>
+					<div class="h3">
+						<div class="fechas">
+							{#each evento.fechas as fecha}
+								<div class="date-info">
+									<Fecha />
+									<h4>{fecha}</h4>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</a>
+{/if}
 
 <style lang="scss">
 	@import './static/style.scss';
 
-	.encabezado {
-		min-height: 50px;
+	.date-info {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 0.38rem;
+	}
+	.titulo--suprayado {
+		font-size: 1rem;
 	}
 
 	a {
 		z-index: 2;
 	}
 	.card {
-		width: 342px;
-		background-color: #310b6b;
-
-		border-radius: 2rem;
+		max-width: 398px;
+		width: 398px;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		border: 1px solid #f1f1f1;
+		background: #f9f9f9;
 
 		@include breakpoint($md) {
-			width: 352px;
+			width: 24.8rem;
+			max-width: 24.8rem;
+		}
+
+		&:hover {
+			background-color: #fff;
+			box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.24);
 		}
 	}
 
 	.content {
-		padding: 19px;
 		display: flex;
 		justify-content: space-between;
 
 		.info {
+			padding: 1.45rem 1rem;
 			.h2 {
 				font-weight: 900;
 				font-size: 18px;
 				line-height: 22px;
-				color: #fff;
+				color: #3b3b3b;
 
 				span {
 					font-weight: 500;
@@ -86,41 +121,31 @@
 			}
 
 			.h3 {
-				color: #e4e6eb;
-				line-height: initial;
-				font-weight: 400;
-				font-size: 12px;
-				padding-top: 10px;
-				.desde {
-					text-decoration: line-through;
-				}
-
-				.descontado {
-					font-size: 14px;
-				}
+				color: #3b3b3b;
+				font-size: 0.875rem;
+				font-style: normal;
+				font-weight: 700;
+				line-height: 1.125rem;
 			}
 		}
 
 		.fechas {
-			border-left: 1px solid #b9b9b9;
-			padding-left: 16px;
-			text-align: center;
-
 			h4 {
-				font-weight: 500;
-				font-size: 12px;
-				line-height: 18px;
-				color: #e4e6eb;
+				color: #3b3b3b;
+				font-family: Gotham;
+				font-size: 0.75rem;
+				font-style: normal;
+				font-weight: 350;
+				line-height: 0.875rem;
 			}
 		}
 	}
 
 	.imagen {
-		height: 107px;
-		background-size: cover;
-		background-repeat: no-repeat;
+		height: 11.375rem;
+		transition: all 0.3s ease-in-out;
 
-		border-top-left-radius: 2rem;
-		border-top-right-radius: 2rem;
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
 	}
 </style>

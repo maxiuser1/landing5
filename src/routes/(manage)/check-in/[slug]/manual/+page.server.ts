@@ -5,8 +5,6 @@ const completar: Action = async ({ request, locals, params }) => {
 	const data = await request.formData();
 	const formData = Object.fromEntries(data);
 
-	console.log('www', formData);
-
 	if (formData.BOX != undefined) {
 		let payload = {
 			tenant: 'urban',

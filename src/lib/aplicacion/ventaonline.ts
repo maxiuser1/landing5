@@ -5,11 +5,7 @@ export class VentaOnline {
 	}
 
 	public tarificarNumerado(zona: App.Precio, cantidad: number) {
-		if (cantidad == zona.tope) {
-			zona.final = zona.online;
-		} else {
-			zona.final = zona.onlinei! * cantidad;
-		}
+		zona.final = zona.onlinei! * cantidad;
 		return zona;
 	}
 

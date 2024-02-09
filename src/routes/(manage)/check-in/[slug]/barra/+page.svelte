@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../../../../../dbr';
-	import { Barinputer } from '$lib/components/Evento';
 	import { onMount } from 'svelte';
 	import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
@@ -33,9 +32,7 @@
 </script>
 
 <section class="container">
-	<div class="modal">
-		<Barinputer on:detected={scanned} on:closed={scanCanceld} />
-	</div>
+	<div class="modal" />
 	<br />
 	<br />
 	<br />

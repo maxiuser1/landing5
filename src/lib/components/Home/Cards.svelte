@@ -13,16 +13,13 @@
 <style lang="scss">
 	@import './static/style.scss';
 	.cards {
-		margin-top: 24px;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(342px, 1fr));
 		gap: 15px;
 
 		@include breakpoint($md) {
-			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-			margin-top: 36px;
-
-			gap: 24px;
+			grid-template-columns: repeat(auto-fill, minmax(398px, 1fr));
+			gap: 25px;
 		}
 	}
 </style>

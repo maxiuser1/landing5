@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Barinputer, Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
+	import { Breadcrumbs, Counter, Counterbox, Counterd, FormasPago, Steps } from '$lib/components/Evento';
 	import { onMount, SvelteComponent } from 'svelte';
 	import { compraData } from '$lib/components/Evento/store';
 	import { applyAction } from '$app/forms';
@@ -27,15 +27,6 @@
 	let barcodeinputter: SvelteComponent;
 
 	onMount(async () => {
-		try {
-			BarcodeReader.license = 'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxOTcxNTM0LVRYbFhaV0pRY205cVgyUmljZyIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAxOTcxNTM0IiwiY2hlY2tDb2RlIjoxMjYxNDAyMjQwfQ==';
-
-			BarcodeReader.engineResourcePath = 'https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.20/dist/';
-			await BarcodeScanner.loadWasm();
-		} catch (ex) {
-			console.error(ex);
-		}
-
 		if (zona.numerado) {
 			if ($compraData.entradas) {
 				compraData.update((current) => ({
@@ -208,13 +199,6 @@
 	}
 </script>
 
-<div class="modal" style:visibility={camara ? 'visible' : 'hidden'}>
-	{#if ticketc}
-		{#key ticketc}
-			<Barinputer on:detected={scanned} on:closed={scanCanceld} />
-		{/key}
-	{/if}
-</div>
 <Breadcrumbs {evento} />
 
 <br />

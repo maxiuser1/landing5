@@ -1,18 +1,19 @@
 <script lang="ts">
-	import { Footer, Header } from '$lib/components/Layout';
+	import { Header } from '$lib/components/Layout';
 	import { Whatsapp } from '$lib/icons';
-	import { compraData } from '$lib/components/Evento/store';
+	import HomeFooter from '$lib/components/Layout/Footer/Home-Footer.svelte';
+	import HomeHeader from '$lib/components/Layout/Header/Home-Header.svelte';
 	export let data;
 
 	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
-<Header />
-
+<HomeHeader />
 <main>
 	<slot />
 </main>
-<Footer />
+<HomeFooter />
+
 <a class="whatsapp-btn" rel="noreferrer" target="_blank" href="https://wa.me/51919293256">
 	<Whatsapp />
 </a>

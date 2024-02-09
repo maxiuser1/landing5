@@ -43,7 +43,7 @@
 							numerado: true,
 							fila: fila.id,
 							asiento: sit.id,
-							cantidad: zona.tope!,
+							cantidad: sit.l!,
 							final: esPromotor ? zona.promotor : zona.online
 						});
 					}
@@ -68,19 +68,19 @@
 	};
 </script>
 
-<Breadcrumbs {evento} />
-<Steps paso={2} {zona} />
-
 <section class="container">
 	<div class="principal">
-		<div class="prota">
+		<Steps paso={2} {zona} />
+
+		<div class="lugar">
 			<div class="titulos">
-				<h4>Entradas</h4>
-				<p>Selecciona tus lugares</p>
+				<h4>Lugar</h4>
+				<p>Selecciona el asiento y luego continua el proceso</p>
 			</div>
+
 			<div class="mapa">
 				<div class="scenario">
-					<Escenario width={200} />
+					<Escenario />
 				</div>
 				<div class="asientos" bind:this={asientos} style:width="{filaWidth} px">
 					{#each filas as fila}
@@ -95,6 +95,7 @@
 											disabled={asiento.s >= 2}
 											width={sitWidth}
 											tomados={asiento.c ?? 0}
+											limite={asiento.l ?? 10}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;
@@ -111,7 +112,7 @@
 					{/each}
 				</div>
 			</div>
-			<div class="scrollers">
+			<!-- <div class="scrollers">
 				<div>
 					<button
 						class="scroller"
@@ -134,7 +135,7 @@
 						<Ranchor />
 					</button>
 				</div>
-			</div>
+			</div> -->
 
 			{#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
 				<div class="legend">
@@ -155,75 +156,17 @@
 				</div>
 			{/if}
 
-			<div class="cta">
-				<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
-			</div>
-
-			<Boxlegend /> <br />
+			<div class="cta" />
 		</div>
+	</div>
+	<div class="detalles">
 		<Resumen {evento} />
+		<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
 	</div>
 </section>
 
 <style lang="scss">
 	@import './static/style.scss';
-	.btn {
-		display: flex;
-		gap: 10px;
-		align-items: center;
-		font-size: 16px;
-	}
-
-	.legend {
-		margin-top: 18px;
-		padding: 0 24px;
-		.box {
-			display: grid;
-			margin-top: 20px;
-			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-			gap: 20px 5px;
-			border: 1px solid #e2e2e2;
-			border-radius: 8px;
-			padding: 16px 32px;
-		}
-
-		.line {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			gap: 8px;
-
-			font-weight: 500;
-			font-size: 14px;
-			line-height: 16px;
-		}
-	}
-
-	.scenario {
-		width: 100%;
-		text-align: center;
-		margin-top: 20px;
-	}
-	.scrollers {
-		margin-top: 10px;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-
-		@include breakpoint($md) {
-			display: none;
-		}
-
-		div {
-			display: flex;
-			gap: 38px;
-		}
-		.scroller {
-			background: none;
-			border: none;
-		}
-	}
 
 	.mapa {
 		margin-left: 20px;
@@ -243,42 +186,43 @@
 		}
 	}
 
-	.cta {
-		display: flex;
-		justify-content: center;
-		margin-top: 32px;
-		margin-bottom: 60px;
-	}
+	.lugar {
+		border-radius: 8px;
+		background: #f9f9f9;
+		padding: 40px 32px;
+		margin-right: 24px;
 
-	.container {
-		padding-right: initial;
-		padding-left: initial;
+		h4 {
+			font-weight: 100;
+			margin-bottom: 10px;
+		}
+
+		.titulos {
+			margin-bottom: 32px;
+		}
 	}
 
 	.principal {
-		display: flex;
-		gap: 8px;
-		margin-bottom: 80px;
-		flex-direction: column;
-		@include breakpoint($md) {
-			flex-direction: row;
-			gap: 24px;
-		}
+		padding-right: 8px;
+		min-height: 90vh;
+	}
+	.container {
+		display: grid;
+		grid-template-columns: 728px 352px;
 	}
 
-	.prota {
-		border-radius: 8px;
-		background: white;
-		.titulos {
-			padding: 20px 20px 0px;
-			@include breakpoint($md) {
-				padding: initial;
-			}
-		}
+	.detalles {
+		padding: 40px 24px;
+		min-width: 100%;
+		border: 1px solid #fff;
+		background: var(--White-White_98, #f9f9f9);
+		box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
 
-		@include breakpoint($md) {
-			width: 60%;
-			padding: 24px 48px;
+		.btn {
+			width: 100%;
+			margin-top: 40px;
+			font-size: 16px;
+			font-weight: 700;
 		}
 	}
 </style>

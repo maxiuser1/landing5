@@ -16,13 +16,32 @@
 		translate = idx * (mini * -1);
 	};
 
+	const handlePrevClick = (idx: number) => {
+		if (idx == 0) {
+			selectedidx = eventos.length - 1;
+			translate = selectedidx * (mini * -1);
+		} else {
+			selectedidx = selectedidx - 1;
+			translate = selectedidx * (mini * -1);
+		}
+	};
+
+	const handleNextClick = (idx: number) => {
+		if (idx == eventos.length - 1) {
+			selectedidx = 0;
+			translate = selectedidx * (mini * -1);
+		} else {
+			selectedidx = selectedidx + 1;
+			translate = selectedidx * (mini * -1);
+		}
+	};
+
 	onMount(async () => {
 		cantidad = eventos.length;
 		ancho = 100 * cantidad;
 		mini = 100 / cantidad;
 		translate = 0;
 		selectedidx = 0;
-		start();
 	});
 
 	const start = () => {
@@ -50,11 +69,22 @@
 
 <section class="carousel" aria-label="carousel">
 	<div class="grande" style:width="{ancho}%" style:transform="translateX({translate}%)">
-		{#each eventos as evento}
+		{#each eventos as evento, idx}
 			<div class="slide-container" style="width: {mini}%">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}');background-size: contain; background-position: center top;">
-					<div class="gradiente" />
+				<div class="slide" style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
+					<div class="gradiente">
+						<button on:click={() => redirigir(evento.slug)} class="ver-mas"> Ver más </button>
+
+						<div class="bnav">
+							<button type="button" class="previo" on:click={() => handlePrevClick(idx)}>
+								<span aria-label="previo"> ‹ </span>
+							</button>
+							<button type="button" class="siguiente" on:click={() => handleNextClick(idx)}>
+								<span aria-label="siguiente">›</span>
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		{/each}
@@ -71,6 +101,26 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.ver-mas {
+		position: absolute;
+		top: 50%;
+		background-color: transparent;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 24px;
+		left: 10%;
+		border: 1px solid #fff;
+		color: #fff;
+		padding: 0.5rem 1rem;
+		border-radius: 0.25rem;
+
+		&:hover {
+			background-color: #fff;
+			color: #1f0045;
+		}
+	}
+
 	.carousel {
 		z-index: 3;
 		width: 100%;
@@ -98,8 +148,8 @@
 			}
 
 			@include breakpoint($md) {
-				min-height: 280px;
-				max-height: 280px;
+				min-height: 22.5rem;
+				max-height: 22.5rem;
 			}
 		}
 
@@ -109,12 +159,45 @@
 			top: 0;
 			height: 100%;
 			left: 0;
+
+			.bnav {
+				position: absolute;
+				top: 50%;
+				height: 3rem;
+				margin-top: -30px;
+				width: 100%;
+			}
+
+			.previo {
+				width: 3rem;
+				height: 3rem;
+				background-color: rgba(211, 14, 209, 0.24);
+				color: white;
+				font-size: 2.5rem;
+				border: none;
+				left: 0;
+				margin-left: 20px;
+				position: absolute;
+				cursor: pointer;
+			}
+
+			.siguiente {
+				width: 3rem;
+				height: 3rem;
+				background-color: rgba(211, 14, 209, 0.24);
+				color: white;
+				font-size: 2.5rem;
+				border: none;
+				right: 0;
+				margin-right: 20px;
+				position: absolute;
+				cursor: pointer;
+			}
 		}
 
 		.botonera {
+			padding-top: 20px;
 			width: 100%;
-			position: absolute;
-			bottom: 0px;
 			display: none;
 			@include breakpoint($md) {
 				display: flex;
@@ -134,12 +217,11 @@
 			height: 12px;
 			background-color: white;
 			border: 1px solid #a809a6;
-			margin-bottom: 52px;
 			border-radius: 50%;
 		}
 
 		.selected {
-			width: 32px;
+			width: 12px;
 			background: #d30ed1;
 			border: 1px solid #ffffff;
 			border-radius: 8px;

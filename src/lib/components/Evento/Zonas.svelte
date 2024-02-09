@@ -19,7 +19,7 @@
 	{@html evento.locacion}
 </div>
 <div class="leyenda">
-	<div>
+	<div class="precios">
 		{#if evento.precios}
 			<table>
 				<tbody>
@@ -49,7 +49,12 @@
 <style lang="scss">
 	@import './static/style.scss';
 	.leyenda {
-		padding: 20px 20px 0px;
+		display: flex;
+		justify-content: center;
+
+		.precios {
+			max-width: 400px;
+		}
 	}
 
 	.tdnombre {
@@ -67,6 +72,8 @@
 
 	.mapa {
 		width: 100%;
+		display: flex;
+		justify-content: center;
 		@include breakpoint($md) {
 			margin: 20px 0px;
 		}
