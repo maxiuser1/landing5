@@ -29,6 +29,7 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
 	.date-info {
 		color: #3b3b3b;
 		display: flex;

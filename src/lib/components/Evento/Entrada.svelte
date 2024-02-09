@@ -7,7 +7,6 @@
 	export let evento: App.Evento;
 
 	const seleccionar = ({ detail }: any) => {
-		console.log('evento entrada', evento);
 		try {
 			const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 			const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona)!;
