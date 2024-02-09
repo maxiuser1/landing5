@@ -202,6 +202,11 @@ declare global {
 			}>;
 		};
 
+		type Contado = {
+			cantidad: number;
+			tipo: string;
+		};
+
 		type Tickete = {
 			c: string;
 			v?: string;

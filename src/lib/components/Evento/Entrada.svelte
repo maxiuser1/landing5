@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { handlee } from '$lib/utils/errorer';
+	import { Tickets } from '.';
 
 	export let evento: App.Evento;
 
@@ -23,11 +24,16 @@
 </script>
 
 <div class="container">
-	<section>
-		<h4>Entrada</h4>
-		<p>Selecciona en que sector deseas adquirir tu entrada.</p>
-		<Zonas {evento} on:seleccionar={seleccionar} />
-	</section>
+	<div>
+		<section>
+			<h4>Entrada</h4>
+			<p>Selecciona en que sector deseas adquirir tu entrada.</p>
+			<Zonas {evento} on:seleccionar={seleccionar} />
+		</section>
+	</div>
+	<div>
+		<Tickets {evento} />
+	</div>
 </div>
 
 <style lang="scss">
@@ -36,15 +42,16 @@
 	.container {
 		display: flex;
 		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 	}
 
 	section {
 		max-width: 728px;
 		width: 728px;
-		padding: 32px;
 		margin-top: 48px;
-		margin-bottom: 24px;
-		border-radius: 8px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
 		background: #f9f9f9;
 	}
 </style>

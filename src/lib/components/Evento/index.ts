@@ -14,3 +14,4 @@ export { default as Total } from './Total.svelte';
 export { default as Counterd } from './Counterd.svelte';
 export { default as MCounterd } from './MCounterd.svelte';
 export { default as Entrada } from './Entrada.svelte';
+export { default as Tickets } from './Tickets.svelte';

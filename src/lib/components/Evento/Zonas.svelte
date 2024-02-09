@@ -57,6 +57,10 @@
 		}
 	}
 
+	.radio {
+		padding-right: 10px;
+	}
+
 	.tdnombre {
 		min-width: 100px;
 	}
