@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { handlee } from '$lib/utils/errorer';
+	import Cuadrado from '$lib/icons/Cuadrado.svelte';
 
 	export let data;
 	let asientos: any;
@@ -91,11 +92,9 @@
 							{#each fila.sits as asiento}
 								<li style:min-width="{sitWidth}px">
 									{#if asiento.s != 0}
-										<Box
+										<Cuadrado
 											disabled={asiento.s >= 2}
-											width={sitWidth}
-											tomados={asiento.c ?? 0}
-											limite={asiento.l ?? 10}
+											numero={1}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;
