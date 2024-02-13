@@ -84,17 +84,17 @@
 					<Escenario />
 				</div>
 				<div class="asientos" bind:this={asientos} style:width="{filaWidth} px">
-					{#each filas as fila}
+					{#each filas as fila, i}
 						<ul class="fila">
 							<li>
 								{letrar(fila.id)}
 							</li>
-							{#each fila.sits as asiento}
+							{#each fila.sits as asiento, j}
 								<li style:min-width="{sitWidth}px">
 									{#if asiento.s != 0}
 										<Cuadrado
 											disabled={asiento.s >= 2}
-											numero={1}
+											numero={fila.sits.length * i + j + 1}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;
