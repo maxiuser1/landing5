@@ -3,7 +3,7 @@
 	import Increase from '$lib/icons/Increase.svelte';
 	import { createEventDispatcher } from 'svelte';
 
-	let count = 0;
+	export let count = 0;
 	let tope = 100;
 
 	const dispatch = createEventDispatcher();
@@ -17,7 +17,7 @@
 	<button
 		type="button"
 		on:click={() => {
-			if (count >= 2) {
+			if (count >= 1) {
 				count -= 1;
 				handleClick(count);
 			}

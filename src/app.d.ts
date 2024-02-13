@@ -212,6 +212,21 @@ declare global {
 			v?: string;
 		};
 
+		type Esto = {
+			evento: {
+				slug?: string;
+			};
+			entradas: Array<Zoneado>;
+			total: number;
+		};
+
+		type Zoneado = {
+			tipo: string;
+			cantidad: number;
+			total: number;
+			precio: number;
+		};
+
 		type Compra = {
 			evento: {
 				id?: string;
