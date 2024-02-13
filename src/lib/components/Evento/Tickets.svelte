@@ -110,7 +110,7 @@
 	</section>
 
 	<section class="continuar">
-		<button class="btn">Continuar &nbsp;<Arrow /></button>
+		<button class="btn">Continuar &nbsp;&nbsp;<Arrow /></button>
 	</section>
 {/if}
 
