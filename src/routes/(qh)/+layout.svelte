@@ -8,13 +8,11 @@
 </script>
 
 <Header />
-
 <main>
 	<slot />
 </main>
 <Footer />
 
-{JSON.stringify($compraData)}
 <a class="whatsapp-btn" rel="noreferrer" target="_blank" href="https://wa.me/51919293256">
 	<Whatsapp />
 </a>

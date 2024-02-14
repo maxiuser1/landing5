@@ -100,16 +100,17 @@
 	</div>
 </section>
 {#if $compraData && $compraData.total > 0}
-	<section class="resumen">
+	<section class="gris compras">
 		<Compras />
-	</section>
-	<section class="continuar">
-		<button class="btn">Continuar &nbsp;&nbsp;<Arrow /></button>
 	</section>
 {/if}
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.compras {
+		padding: 24px;
+	}
 
 	.increaseable {
 		display: flex;

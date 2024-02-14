@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import Entrada from '$lib/components/Evento/Entrada.svelte';
 	import { compraData } from '$lib/components/Evento/esto.js';
+	import { Arrow } from '$lib/icons/index.js';
 
 	export let data;
 	let { evento } = data;
@@ -30,10 +31,26 @@
 	</section>
 
 	<Entrada {evento} />
+
+	<section class="continuar">
+		<a class="btn" href="{evento.general.slug}/consideracion">Continuar <Arrow /></a>
+	</section>
 {/if}
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.continuar {
+		max-width: 728px;
+		width: 728px;
+		margin: 48px auto;
+
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		background: #f9f9f9;
+		text-align: center;
+	}
+
 	.portada {
 		img {
 			width: 100%;

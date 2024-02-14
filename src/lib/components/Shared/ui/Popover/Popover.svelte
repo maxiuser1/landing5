@@ -20,13 +20,7 @@
 	// TODO: Add Effect: Solid
 </script>
 
-<div
-	style={`top: ${mouseY + top}px; left: ${
-		mouseX + left
-	}px; transform: translate(${floatXAxis}%, ${floatYAxis}%); ${style}`}
-	class="svelte-tooltip {type} {place}"
-	transition:slide
->
+<div style={`top: ${mouseY + top}px; left: ${mouseX + left}px; transform: translate(${floatXAxis}%, ${floatYAxis}%); ${style}`} class="svelte-tooltip {type} {place}" transition:slide>
 	{#if body == 'MiniMenu'}
 		<MiniMenu />
 	{:else if bodyAsHTML}
@@ -38,7 +32,7 @@
 
 <style>
 	.svelte-tooltip {
-		--main-bg-color: #5b025a;
+		--main-bg-color: #80057f;
 		--success-bg-color: rgba(40, 167, 70, 0.9);
 		--error-bg-color: rgba(220, 52, 70, 0.9);
 		--warning-bg-color: rgba(252, 200, 34, 0.9);
