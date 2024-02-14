@@ -7,8 +7,12 @@
 	import Trash from '$lib/icons/Trash.svelte';
 	import Entradas from './Entradas.svelte';
 	import Arrow from '$lib/icons/Arrow.svelte';
+	import Compras from './Compras.svelte';
+	import Increase from '$lib/icons/Increase.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let evento: App.Evento;
+	const dispatch = createEventDispatcher();
 
 	onMount(async () => {
 		compraData.update((current) => {
@@ -56,7 +60,7 @@
 			<div class="column">Ticket</div>
 			<div class="columnm">
 				<div class="column">Precio</div>
-				<div class="column cantidad">Cantidad</div>
+				<div class="column cantidad contadores">Cantidad</div>
 			</div>
 		</div>
 
@@ -67,8 +71,26 @@
 						<div class="column precio-nombre">{entrada.tipo}</div>
 						<div class="columnm">
 							<div class="column">S/. {entrada.precio}</div>
-							<div class="column">
+							<div class="column contadores">
 								<Contador count={entrada.cantidad} on:cambiado={(e) => handleCambioCantidad(e.detail.count, entrada.tipo)} />
+							</div>
+						</div>
+					</div>
+				{:else}
+					<div class="row">
+						<div class="column precio-nombre">{entrada.tipo}</div>
+						<div class="columnm">
+							<div class="column">S/. {entrada.precio}</div>
+							<div class="column contadores increaseable">
+								<button
+									class="button-icon"
+									type="button"
+									on:click={() => {
+										dispatch('seleccionar', { zona: entrada.tipo });
+									}}
+								>
+									<Increase />
+								</button>
 							</div>
 						</div>
 					</div>
@@ -79,43 +101,8 @@
 </section>
 {#if $compraData && $compraData.total > 0}
 	<section class="resumen">
-		<h4>Resumen</h4>
-
-		{#each $compraData.entradas as entrada}
-			{#if entrada.cantidad > 0}
-				<div class="row">
-					<div class="column>">
-						{entrada.cantidad} Ticket {entrada.tipo}
-					</div>
-					<div class="columnm">
-						<div class="column">
-							S/.{entrada.total}
-						</div>
-						<div>
-							<button
-								on:click={() => {
-									handleCambioCantidad(0, entrada.tipo);
-								}}
-								class="button-icon"
-							>
-								<Trash />
-							</button>
-						</div>
-					</div>
-				</div>
-			{/if}
-		{/each}
-
-		<div class="row totales">
-			<div class="" />
-			<div class="columnm">
-				<div>
-					Total <b> S/. {$compraData.total} </b>
-				</div>
-			</div>
-		</div>
+		<Compras />
 	</section>
-
 	<section class="continuar">
 		<button class="btn">Continuar &nbsp;&nbsp;<Arrow /></button>
 	</section>
@@ -124,8 +111,14 @@
 <style lang="scss">
 	@import './static/style.scss';
 
-	.totales {
-		margin-top: 32px;
+	.increaseable {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.contadores {
+		min-width: 200px;
+		width: 200px;
 	}
 
 	section.continuar {
@@ -156,15 +149,6 @@
 		border-bottom-right-radius: 8px;
 		margin-bottom: 24px;
 		background: #f9f9f9;
-	}
-
-	section.resumen {
-		max-width: 728px;
-		width: 728px;
-		border-radius: 8px;
-		background: #f9f9f9;
-		margin-bottom: 48px;
-		padding: 32px;
 	}
 
 	.tabla-precios {

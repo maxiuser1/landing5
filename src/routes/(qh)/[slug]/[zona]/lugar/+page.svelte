@@ -7,6 +7,8 @@
 	import { onMount } from 'svelte';
 	import { handlee } from '$lib/utils/errorer';
 	import Cuadrado from '$lib/icons/Cuadrado.svelte';
+	import Compras from '$lib/components/Evento/Compras.svelte';
+	import Entradas from '$lib/components/Evento/Entradas.svelte';
 
 	export let data;
 	let asientos: any;
@@ -17,6 +19,24 @@
 
 	const sitWidth = 24;
 	const filaWidth = 100;
+
+	onMount(() => {
+		compraData.subscribe((value) => {
+			const entradasZona = value.entradas.find((t) => t.tipo == zona.tipo);
+			if (entradasZona) {
+				for (let i = 0; i < filas.length; i++) {
+					for (let j = 0; j < filas[i].sits.length; j++) {
+						const aer = entradasZona.lugares.filter((t) => t.fila == filas[i].id && t.sit == filas[i].sits[j].id);
+						if (aer.length > 0) {
+							filas[i].sits[j].s = 1;
+						} else {
+							filas[i].sits[j].s = -1;
+						}
+					}
+				}
+			}
+		});
+	});
 
 	function letrar(indice: number) {
 		try {
@@ -55,40 +75,6 @@
 		}));
 
 		goto(`../`);
-		// try {
-		// 	let entradas: Array<App.Sentado> = new Array<App.Sentado>();
-
-		// 	filas.forEach((fila) => {
-		// 		fila.sits.forEach((sit) => {
-		// 			if (sit.s == 1) {
-		// 				entradas.push({
-		// 					tipo: zona.tipo,
-		// 					nombre: zona.nombre,
-		// 					numerado: true,
-		// 					fila: fila.id,
-		// 					asiento: sit.id,
-		// 					cantidad: sit.l!,
-		// 					final: esPromotor ? zona.promotor : zona.online
-		// 				});
-		// 			}
-		// 		});
-		// 	});
-
-		// 	if (entradas.length == 0) {
-		// 		alert('Debe seleccionar algún lugar para poder continuar.');
-		// 		return;
-		// 	}
-
-		// 	compraData.update((current) => ({
-		// 		...current,
-		// 		zona: { tipo: zona.tipo },
-		// 		entradas: entradas
-		// 	}));
-
-		// 	esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
-		// } catch (err) {
-		// 	handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
-		// }
 	};
 </script>
 
@@ -118,6 +104,7 @@
 										<Cuadrado
 											disabled={asiento.s >= 2}
 											numero={asiento.id}
+											tomado={asiento.s == 1}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;
@@ -135,31 +122,14 @@
 				</div>
 			</div>
 
-			<!-- {#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
-				<div class="legend">
-					<div class="box">
-						{#each filas as fila}
-							{#each fila.sits as asiento}
-								{#if asiento.s == 1}
-									<div class="line">
-										<Deathbox disabled={false} width={60} tomado={true} />
-										<div>
-											<strong>{`${letrar(fila.id)} ${asiento.id}`}</strong>
-										</div>
-									</div>
-								{/if}
-							{/each}
-						{/each}
-					</div>
-				</div>
-			{/if} -->
-
 			<div class="cta" />
+			<br />
+			<Compras />
 		</div>
 	</div>
 	<div class="detalles">
 		<Resumen {evento} />
-		<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
+		<button on:click|once={continuarClick} class="btn">Reservar lugares <Arrow /> </button>
 	</div>
 </section>
 

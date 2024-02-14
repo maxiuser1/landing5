@@ -30,7 +30,7 @@
 		</section>
 	</div>
 	<div>
-		<Tickets {evento} />
+		<Tickets {evento} on:seleccionar={seleccionar} />
 	</div>
 </div>
 
