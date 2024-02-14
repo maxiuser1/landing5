@@ -14,8 +14,6 @@
 
 			if (zonaEvento.numerado) {
 				goto(`../${evento!.general!.slug}/${zonaEvento.tipo}/lugar${$page.url.search ?? ''}`);
-			} else {
-				esPromotor ? goto(`${zonaEvento.tipo}/venta`) : goto(`${zonaEvento.tipo}/reserva${$page.url.search ?? ''}`);
 			}
 		} catch (err) {
 			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
