@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Boxlegend, Breadcrumbs, Resumen, Steps } from '$lib/components/Evento';
-	import { clearCompradata, compraData } from '$lib/components/Evento/store';
+	import { clearCompradata, compraData } from '$lib/components/Evento/esto';
 	import { Arrow, Box, Deathbox, Escenario, Lanchor, Ranchor } from '$lib/icons';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
@@ -15,12 +15,8 @@
 	let filas: Array<App.Fila> = evento.precios?.find((t: App.Precio) => t.tipo == zona.tipo)?.filas ?? new Array<App.Fila>();
 	const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 
-	const sitWidth = 75;
+	const sitWidth = 24;
 	const filaWidth = 100;
-
-	onMount(() => {
-		clearCompradata();
-	});
 
 	function letrar(indice: number) {
 		try {
@@ -32,40 +28,67 @@
 	}
 
 	const continuarClick = () => {
-		try {
-			let entradas: Array<App.Sentado> = new Array<App.Sentado>();
-
-			filas.forEach((fila) => {
-				fila.sits.forEach((sit) => {
-					if (sit.s == 1) {
-						entradas.push({
-							tipo: zona.tipo,
-							nombre: zona.nombre,
-							numerado: true,
-							fila: fila.id,
-							asiento: sit.id,
-							cantidad: sit.l!,
-							final: esPromotor ? zona.promotor : zona.online
-						});
-					}
-				});
+		let lugares: Array<App.Lugareado> = new Array<App.Lugareado>();
+		filas.forEach((fila) => {
+			fila.sits.forEach((sit) => {
+				if (sit.s == 1) {
+					lugares.push({
+						fila: fila.id,
+						sit: sit.id
+					});
+				}
 			});
+		});
 
-			if (entradas.length == 0) {
-				alert('Debe seleccionar algún lugar para poder continuar.');
-				return;
-			}
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas.map((t) => {
+				if (t.tipo == zona.tipo) {
+					return {
+						...t,
+						cantidad: lugares.length,
+						total: lugares.length * t.precio,
+						lugares: lugares
+					};
+				} else return t;
+			})
+		}));
 
-			compraData.update((current) => ({
-				...current,
-				zona: { tipo: zona.tipo },
-				entradas: entradas
-			}));
+		goto(`../`);
+		// try {
+		// 	let entradas: Array<App.Sentado> = new Array<App.Sentado>();
 
-			esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
-		} catch (err) {
-			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
-		}
+		// 	filas.forEach((fila) => {
+		// 		fila.sits.forEach((sit) => {
+		// 			if (sit.s == 1) {
+		// 				entradas.push({
+		// 					tipo: zona.tipo,
+		// 					nombre: zona.nombre,
+		// 					numerado: true,
+		// 					fila: fila.id,
+		// 					asiento: sit.id,
+		// 					cantidad: sit.l!,
+		// 					final: esPromotor ? zona.promotor : zona.online
+		// 				});
+		// 			}
+		// 		});
+		// 	});
+
+		// 	if (entradas.length == 0) {
+		// 		alert('Debe seleccionar algún lugar para poder continuar.');
+		// 		return;
+		// 	}
+
+		// 	compraData.update((current) => ({
+		// 		...current,
+		// 		zona: { tipo: zona.tipo },
+		// 		entradas: entradas
+		// 	}));
+
+		// 	esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
+		// } catch (err) {
+		// 	handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
+		// }
 	};
 </script>
 
@@ -86,7 +109,7 @@
 				<div class="asientos" bind:this={asientos} style:width="{filaWidth} px">
 					{#each filas as fila, i}
 						<ul class="fila">
-							<li>
+							<li class="letra">
 								{letrar(fila.id)}
 							</li>
 							{#each fila.sits as asiento, j}
@@ -94,7 +117,7 @@
 									{#if asiento.s != 0}
 										<Cuadrado
 											disabled={asiento.s >= 2}
-											numero={fila.sits.length * i + j + 1}
+											numero={asiento.id}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;
@@ -104,39 +127,15 @@
 									{/if}
 								</li>
 							{/each}
-							<li>
+							<li class="letra">
 								{letrar(fila.id)}
 							</li>
 						</ul>
 					{/each}
 				</div>
 			</div>
-			<!-- <div class="scrollers">
-				<div>
-					<button
-						class="scroller"
-						type="button"
-						on:click={() => {
-							asientos.style.scrollBehavior = 'smooth';
-							asientos.scrollLeft -= 40;
-						}}
-					>
-						<Lanchor />
-					</button>
-					<button
-						class="scroller"
-						type="button"
-						on:click={() => {
-							asientos.style.scrollBehavior = 'smooth';
-							asientos.scrollLeft += 40;
-						}}
-					>
-						<Ranchor />
-					</button>
-				</div>
-			</div> -->
 
-			{#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
+			<!-- {#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
 				<div class="legend">
 					<div class="box">
 						{#each filas as fila}
@@ -153,7 +152,7 @@
 						{/each}
 					</div>
 				</div>
-			{/if}
+			{/if} -->
 
 			<div class="cta" />
 		</div>
@@ -166,6 +165,11 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.letra {
+		font-size: 12px;
+		font-weight: 900;
+	}
 
 	.mapa {
 		margin-left: 20px;
@@ -180,7 +184,7 @@
 		.fila {
 			display: flex;
 			flex-wrap: nowrap;
-			gap: 10px;
+			gap: 4px;
 			padding-bottom: 10px;
 		}
 	}

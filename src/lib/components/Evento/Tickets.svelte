@@ -14,15 +14,20 @@
 		compraData.update((current) => {
 			return {
 				...current,
-				total: 0,
-				entradas: evento.precios.map((t) => {
-					return {
-						tipo: t.tipo,
-						cantidad: 0,
-						total: 0,
-						precio: t.onlinei
-					};
-				})
+				entradas:
+					!current?.entradas || current.entradas?.length == 0
+						? evento.precios.map((t) => {
+								return {
+									tipo: t.tipo,
+									cantidad: 0,
+									total: 0,
+									precio: t.onlinei,
+									lugares: [],
+									numerado: t.numerado ? true : false
+								};
+						  })
+						: current.entradas,
+				total: !current?.entradas || current.entradas?.length == 0 ? 0 : current.entradas.reduce((acc, t) => acc + t.total, 0)
 			};
 		});
 	});
@@ -57,15 +62,17 @@
 
 		{#if $compraData && $compraData.entradas}
 			{#each $compraData.entradas as entrada}
-				<div class="row">
-					<div class="column precio-nombre">{entrada.tipo}</div>
-					<div class="columnm">
-						<div class="column">S/. {entrada.precio}</div>
-						<div class="column">
-							<Contador count={entrada.cantidad} on:cambiado={(e) => handleCambioCantidad(e.detail.count, entrada.tipo)} />
+				{#if !entrada.numerado}
+					<div class="row">
+						<div class="column precio-nombre">{entrada.tipo}</div>
+						<div class="columnm">
+							<div class="column">S/. {entrada.precio}</div>
+							<div class="column">
+								<Contador count={entrada.cantidad} on:cambiado={(e) => handleCambioCantidad(e.detail.count, entrada.tipo)} />
+							</div>
 						</div>
 					</div>
-				</div>
+				{/if}
 			{/each}
 		{/if}
 	</div>

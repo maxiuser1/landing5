@@ -225,6 +225,13 @@ declare global {
 			cantidad: number;
 			total: number;
 			precio: number;
+			lugares: Array<Lugareado>;
+			numerado: boolean;
+		};
+
+		type Lugareado = {
+			fila: number;
+			sit: number;
 		};
 
 		type Compra = {

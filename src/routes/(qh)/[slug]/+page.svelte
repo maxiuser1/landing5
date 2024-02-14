@@ -2,6 +2,7 @@
 	import { Entradas, Info } from '$lib/components/Evento';
 	import { page } from '$app/stores';
 	import Entrada from '$lib/components/Evento/Entrada.svelte';
+	import { compraData } from '$lib/components/Evento/esto.js';
 
 	export let data;
 	let { evento } = data;
