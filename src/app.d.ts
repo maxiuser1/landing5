@@ -214,6 +214,7 @@ declare global {
 
 		type Esto = {
 			evento: {
+				id: string;
 				slug?: string;
 			};
 			entradas: Array<Zoneado>;

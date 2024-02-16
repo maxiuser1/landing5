@@ -11,7 +11,7 @@
 			<Step numero="1" titulo="Entrada" subtitulo="Elige el tipo de entrada" seleccionado={true} />
 			<Step numero="2" titulo="" subtitulo="" seleccionado={false} />
 		{:else if paso == 4}
-			<Step numero="3" titulo="Resumen" subtitulo="Lugar reservado" seleccionado={true} />
+			<Step numero="3" titulo="Pagar" subtitulo="Lugar reservado" seleccionado={true} />
 		{/if}
 	</div>
 
@@ -20,7 +20,7 @@
 
 		<Step numero="2" titulo="Lugar" subtitulo="¿Donde quieres?" seleccionado={paso >= 2} />
 
-		<Step numero="3" titulo="Resumen" subtitulo="Estas a un paso" seleccionado={paso >= 4} />
+		<Step numero="3" titulo="Pagar" subtitulo="Método de pago" seleccionado={paso >= 4} />
 	</div>
 </section>
 

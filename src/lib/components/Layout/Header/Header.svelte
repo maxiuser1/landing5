@@ -1,11 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { Lupa, User } from '$lib/icons';
-	import { slide } from 'svelte/transition';
-	import Nav from './Nav.svelte';
-	import Bogo from './Bogo.svelte';
-	import Autenticable from './Autenticable.svelte';
 	import Supevento from './Supevento.svelte';
+
+	export let slug: string;
 
 	let visible = false;
 	let inputph = 'Encuentra tu evento';
@@ -27,7 +23,7 @@
 	};
 </script>
 
-<Supevento />
+<Supevento {slug} />
 
 <style lang="scss">
 	@import './static/style.scss';

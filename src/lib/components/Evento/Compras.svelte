@@ -21,40 +21,43 @@
 	};
 </script>
 
-<h4>Resumen</h4>
+<div class="headings">
+	<h4>Resumen</h4>
+</div>
 
 {#if $compraData && $compraData.entradas}
-	{#each $compraData.entradas as entrada}
-		{#if entrada.cantidad > 0}
-			<div class="row">
-				<div class="column>">
-					{entrada.cantidad} Ticket {entrada.tipo}
-				</div>
-				<div class="columnm">
-					<div class="column">
-						S/.{entrada.total}
-					</div>
+	<div class="cuerpo">
+		{#each $compraData.entradas.filter((t) => t.cantidad > 0) as entrada, idx}
+			<div class="entrada" class:entrada--odd={idx % 2 == 0}>
+				<div>{entrada.cantidad} Ticket {entrada.tipo}</div>
+				<div class="cantidades">
+					<div class="h7 precio negrita">S/.{entrada.total}</div>
 					<div>
 						<button
 							on:click={() => {
 								handleCambioCantidad(0, entrada.tipo);
 							}}
-							class="button-icon"
+							class="button--icon"
 						>
 							<Trash />
 						</button>
 					</div>
 				</div>
 			</div>
-		{/if}
-	{/each}
+		{/each}
+	</div>
 {/if}
 
-<div class="row totales">
+<div class="entrada totales">
 	<div class="" />
-	<div class="columnm">
+	<div class="cantidades">
+		<div class="totales">
+			Total <span class="negrita"> S/. {$compraData.total} </span>
+		</div>
 		<div>
-			Total <b> S/. {$compraData.total} </b>
+			<button class="button--icon">
+				<Trash />
+			</button>
 		</div>
 	</div>
 </div>
@@ -62,48 +65,47 @@
 <style lang="scss">
 	@import './static/style.scss';
 
-	.row {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		flex-wrap: nowrap;
-		justify-content: space-between;
+	.totales {
+		.button--icon {
+			opacity: 0;
+		}
 	}
 
-	.column {
-		padding: 10px;
-	}
-
-	.button-icon {
-		padding: 0;
-		display: flex;
-		align-items: bottom;
-		justify-content: center;
-		background: none;
-		border: none;
-		padding: 0px;
-		touch-action: manipulation;
-	}
-
-	.columnm {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		flex-wrap: nowrap;
-		justify-content: space-between;
-		gap: 40px;
+	.negrita {
+		font-family: 'GothamBolder';
 	}
 
 	.totales {
-		margin-top: 32px;
+		text-align: right;
 	}
 
-	section.resumen {
-		max-width: 728px;
-		width: 728px;
-		border-radius: 8px;
-		background: #f9f9f9;
-		margin-bottom: 48px;
-		padding: 32px;
+	.headings {
+		padding: 32px 24px 13px;
+	}
+
+	.entrada {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 24px;
+
+		.precio {
+			text-align: right;
+		}
+		&--odd {
+			background-color: #fff;
+			border-radius: 8px;
+		}
+	}
+
+	.cantidades {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+
+		gap: 12px;
+		@include breakpoint($md) {
+		}
 	}
 </style>

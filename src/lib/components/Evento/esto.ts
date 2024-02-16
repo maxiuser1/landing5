@@ -6,7 +6,7 @@ export const compraData = writable<App.Esto>(browser && (sessionStorage.getItem(
 compraData.subscribe((val) => browser && sessionStorage.setItem('compra', JSON.stringify(val)));
 
 export const clearCompradata = () => {
-	browser && compraData.set({ evento: {} });
+	browser && compraData.set({ evento: { id: '', slug: '' }, entradas: [], total: 0 });
 	if (browser && sessionStorage) {
 		sessionStorage.clear();
 	}

@@ -1,36 +1,13 @@
 <script lang="ts">
-	import { Arrow } from '$lib/icons';
 	import Autenticable from './Autenticable.svelte';
 	import Logo from './Logo.svelte';
-	import { page } from '$app/stores';
-
-	export let slug: string;
-
-	console.log('qdice', $page.url.pathname);
-
 	let visible = false;
-
-	const toggle = () => {
-		visible = !visible;
-	};
 </script>
 
 <header class="header">
 	<nav class="container">
-		<div class="backlogo">
-			{#if $page.url.pathname == `/${slug}`}
-				<a href="../../../">
-					<Arrow left={true} />
-				</a>
-			{:else}
-				<a href="../../../{slug}">
-					<Arrow left={true} />
-				</a>
-			{/if}
-
-			<Logo />
-		</div>
 		<div />
+		<Autenticable />
 	</nav>
 </header>
 
@@ -41,12 +18,6 @@
 		display: flex;
 		gap: 20px;
 		align-items: center;
-
-		padding-left: 16px;
-
-		@include breakpoint($md) {
-			padding: initial;
-		}
 	}
 
 	.anchormenu {
@@ -60,6 +31,9 @@
 		top: 0;
 		left: 0;
 		background: var(--black);
+		@include breakpoint($md) {
+			display: block;
+		}
 
 		nav {
 			margin: 0 auto;

@@ -80,7 +80,9 @@
 
 <section class="container">
 	<div class="principal">
-		<Steps paso={2} {zona} />
+		<div class="steps">
+			<Steps paso={2} {zona} />
+		</div>
 
 		<div class="lugar">
 			<div class="titulos">
@@ -121,9 +123,8 @@
 					{/each}
 				</div>
 			</div>
-
-			<div class="cta" />
-			<br />
+		</div>
+		<div class="lugar">
 			<Compras />
 		</div>
 	</div>
@@ -136,13 +137,16 @@
 <style lang="scss">
 	@import './static/style.scss';
 
+	.scenario {
+		text-align: center;
+	}
+
 	.letra {
 		font-size: 12px;
 		font-weight: 900;
 	}
 
 	.mapa {
-		margin-left: 20px;
 		@include breakpoint($md) {
 			margin-left: initial;
 		}
@@ -151,20 +155,43 @@
 		padding-top: 30px;
 		width: 99%;
 		overflow-x: auto;
+		max-width: 300px;
 		.fila {
 			display: flex;
 			flex-wrap: nowrap;
 			gap: 4px;
 			padding-bottom: 10px;
 		}
+
+		@include breakpoint($md) {
+			max-width: initial;
+		}
+	}
+
+	.steps {
+		padding: 40px 16px 32px;
+	}
+
+	.consideraciones {
+		padding-left: 20px;
+	}
+	.letra {
+		font-size: 12px;
+		font-weight: 900;
+	}
+
+	ol {
+		li {
+			margin-bottom: 10px;
+		}
 	}
 
 	.lugar {
 		border-radius: 8px;
 		background: #f9f9f9;
-		padding: 40px 32px;
-		margin-right: 24px;
 
+		margin-bottom: 20px;
+		padding: 40px 32px;
 		h4 {
 			font-weight: 100;
 			margin-bottom: 10px;
@@ -173,15 +200,25 @@
 		.titulos {
 			margin-bottom: 32px;
 		}
+
+		@include breakpoint($md) {
+			margin-right: 24px;
+		}
 	}
 
 	.principal {
-		padding-right: 8px;
-		min-height: 90vh;
+		@include breakpoint($md) {
+			padding-right: 8px;
+			min-height: 90vh;
+		}
 	}
+
 	.container {
 		display: grid;
-		grid-template-columns: 728px 352px;
+		grid-template-columns: 1fr;
+		@include breakpoint($md) {
+			grid-template-columns: 728px 352px;
+		}
 	}
 
 	.detalles {

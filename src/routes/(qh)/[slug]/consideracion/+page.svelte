@@ -11,38 +11,65 @@
 </script>
 
 <section class="container">
-	<div class="principal">
-		<Steps paso={2} />
-
-		<div class="lugar">
-			<div class="titulos">
-				<h4>Consideración</h4>
-				<p>
-					El ticket es un comprobante válido de tu compra, por lo que no será canjeado por una entrada tradicional en el punto de venta o boletería. Para descargar el ticket deberás ingresar con tu usuario a "MI CUENTA", ahí encontrarás el detalle de
-					tu compra y tus tickets para descarga. Descárgalo al menos un día antes del evento. Con el ticket puedes acercarte directamente al evento presentándolo de manera virtual o puedes llevarlo impreso. Al elegir ticket, estas aceptando no
-					divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu ingreso al evento. Al igual que una entrada tradicional, el ticket tendrá un sistema de control y seguridad para el acceso al evento, el cual también impedirá que en
-					caso de generarse duplicados ingrese más de una persona con el mismo ticket, permitiendo el ingreso solo a la primera persona registrada.
-				</p>
+	<div>
+		<div class="principal">
+			<div class="steps">
+				<Steps paso={2} />
+			</div>
+			<div class="lugar">
+				<div class="titulos">
+					<h4>Consideración</h4>
+					<div class="consideraciones">
+						<ol>
+							<li>El ticket es un comprobante válido de tu compra, por lo que no será canjeado por una entrada tradicional en el punto de venta o boletería.</li>
+							<li>Para descargar el ticket deberás ingresar con tu usuario a "MI CUENTA", ahí encontrarás el detalle de tu compra y tus tickets para descarga.</li>
+							<li>Descárgalo al menos un día antes del evento.</li>
+							<li>Con el ticket puedes acercarte directamente al evento presentándolo de manera virtual o puedes llevarlo impreso.</li>
+							<li>Al elegir ticket, estas aceptando no divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu ingreso al evento.</li>
+							<li>
+								Al igual que una entrada tradicional, el ticket tendrá un sistema de control y seguridad para el acceso al evento, el cual también impedirá que en caso de generarse duplicados ingrese más de una persona con el mismo ticket,
+								permitiendo el ingreso solo a la primera persona registrada.
+							</li>
+						</ol>
+					</div>
+				</div>
 			</div>
 
-			<div class="cta" />
-			<br />
-			<br />
-			<Compras />
+			<div class="lugar">
+				<Compras />
+			</div>
 		</div>
 	</div>
 	<div class="detalles">
 		<Resumen {evento} />
-		<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
+		<br />
+		<a href="../../{evento.general.slug}/reserva" class="btn">Continuar <Arrow /> </a>
 	</div>
 </section>
 
 <style lang="scss">
 	@import './static/style.scss';
 
+	.btn {
+		width: 300px;
+	}
+
+	.steps {
+		padding: 40px 16px 32px;
+	}
+
+	.consideraciones {
+		padding-left: 20px;
+	}
 	.letra {
 		font-size: 12px;
 		font-weight: 900;
+	}
+
+	ol {
+		li {
+			margin-bottom: 10px;
+		}
 	}
 
 	.mapa {
@@ -66,9 +93,9 @@
 	.lugar {
 		border-radius: 8px;
 		background: #f9f9f9;
-		padding: 40px 32px;
-		margin-right: 24px;
 
+		margin-bottom: 20px;
+		padding: 40px 32px;
 		h4 {
 			font-weight: 100;
 			margin-bottom: 10px;
@@ -77,15 +104,25 @@
 		.titulos {
 			margin-bottom: 32px;
 		}
+
+		@include breakpoint($md) {
+			margin-right: 24px;
+		}
 	}
 
 	.principal {
-		padding-right: 8px;
-		min-height: 90vh;
+		@include breakpoint($md) {
+			padding-right: 8px;
+			min-height: 90vh;
+		}
 	}
+
 	.container {
 		display: grid;
-		grid-template-columns: 728px 352px;
+		grid-template-columns: 1fr;
+		@include breakpoint($md) {
+			grid-template-columns: 728px 352px;
+		}
 	}
 
 	.detalles {

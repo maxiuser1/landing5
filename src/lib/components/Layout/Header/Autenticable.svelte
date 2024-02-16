@@ -57,10 +57,13 @@
 		align-items: center;
 	}
 	.socials {
-		display: flex;
+		display: none;
 		align-items: center;
 		gap: 14px;
 		color: white;
+		@include breakpoint($md) {
+			display: flex;
+		}
 	}
 
 	.item {

@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { handlee } from '$lib/utils/errorer';
 	import { Tickets } from '.';
+	import Compras from './Compras.svelte';
 
 	export let evento: App.Evento;
 
@@ -21,35 +22,40 @@
 	};
 </script>
 
-<div class="container">
-	<div>
-		<section>
-			<h4>Entrada</h4>
-			<p>Selecciona en que sector deseas adquirir tu entrada.</p>
-			<Zonas {evento} on:seleccionar={seleccionar} />
-		</section>
-	</div>
-	<div>
-		<Tickets {evento} on:seleccionar={seleccionar} />
-	</div>
-</div>
+<section class="minicontainer principal">
+	<h4>Entrada</h4>
+	<p>Selecciona en que sector deseas adquirir tu entrada.</p>
+	<Zonas {evento} on:seleccionar={seleccionar} />
+</section>
+
+<Tickets {evento} on:seleccionar={seleccionar} />
+
+<section class="minicontainer compras">
+	<Compras />
+</section>
 
 <style lang="scss">
 	@import './static/style.scss';
 
-	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
+	.minicontainer {
+		background-color: #f9f9f9;
+		padding-bottom: 48px;
+		@include breakpoint($md) {
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+		}
 	}
 
-	section {
-		max-width: 728px;
-		width: 728px;
-		margin-top: 48px;
-		border-top-left-radius: 8px;
-		border-top-right-radius: 8px;
-		background: #f9f9f9;
+	.compras {
+		margin-top: 24px;
+		border-radius: 8px;
+	}
+
+	.principal {
+		margin-top: 24px;
+		h4 {
+			padding-top: 24px;
+			padding-bottom: 8px;
+		}
 	}
 </style>

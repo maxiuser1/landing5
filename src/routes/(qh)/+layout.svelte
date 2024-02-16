@@ -7,7 +7,6 @@
 	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
-<Header />
 <main>
 	<slot />
 </main>
