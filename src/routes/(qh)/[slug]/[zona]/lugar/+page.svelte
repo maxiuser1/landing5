@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Boxlegend, Breadcrumbs, Resumen, Steps } from '$lib/components/Evento';
-	import { clearCompradata, compraData } from '$lib/components/Evento/store';
+	import { clearCompradata, compraData } from '$lib/components/Evento/esto';
 	import { Arrow, Box, Deathbox, Escenario, Lanchor, Ranchor } from '$lib/icons';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { handlee } from '$lib/utils/errorer';
+	import Cuadrado from '$lib/icons/Cuadrado.svelte';
+	import Compras from '$lib/components/Evento/Compras.svelte';
+	import Entradas from '$lib/components/Evento/Entradas.svelte';
 
 	export let data;
 	let asientos: any;
@@ -14,11 +17,25 @@
 	let filas: Array<App.Fila> = evento.precios?.find((t: App.Precio) => t.tipo == zona.tipo)?.filas ?? new Array<App.Fila>();
 	const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 
-	const sitWidth = 75;
+	const sitWidth = 24;
 	const filaWidth = 100;
 
 	onMount(() => {
-		clearCompradata();
+		compraData.subscribe((value) => {
+			const entradasZona = value.entradas.find((t) => t.tipo == zona.tipo);
+			if (entradasZona) {
+				for (let i = 0; i < filas.length; i++) {
+					for (let j = 0; j < filas[i].sits.length; j++) {
+						const aer = entradasZona.lugares.filter((t) => t.fila == filas[i].id && t.sit == filas[i].sits[j].id);
+						if (aer.length > 0) {
+							filas[i].sits[j].s = 1;
+						} else {
+							filas[i].sits[j].s = -1;
+						}
+					}
+				}
+			}
+		});
 	});
 
 	function letrar(indice: number) {
@@ -31,46 +48,41 @@
 	}
 
 	const continuarClick = () => {
-		try {
-			let entradas: Array<App.Sentado> = new Array<App.Sentado>();
-
-			filas.forEach((fila) => {
-				fila.sits.forEach((sit) => {
-					if (sit.s == 1) {
-						entradas.push({
-							tipo: zona.tipo,
-							nombre: zona.nombre,
-							numerado: true,
-							fila: fila.id,
-							asiento: sit.id,
-							cantidad: sit.l!,
-							final: esPromotor ? zona.promotor : zona.online
-						});
-					}
-				});
+		let lugares: Array<App.Lugareado> = new Array<App.Lugareado>();
+		filas.forEach((fila) => {
+			fila.sits.forEach((sit) => {
+				if (sit.s == 1) {
+					lugares.push({
+						fila: fila.id,
+						sit: sit.id
+					});
+				}
 			});
+		});
 
-			if (entradas.length == 0) {
-				alert('Debe seleccionar algún lugar para poder continuar.');
-				return;
-			}
+		compraData.update((current) => ({
+			...current,
+			entradas: current.entradas.map((t) => {
+				if (t.tipo == zona.tipo) {
+					return {
+						...t,
+						cantidad: lugares.length,
+						total: lugares.length * t.precio,
+						lugares: lugares
+					};
+				} else return t;
+			})
+		}));
 
-			compraData.update((current) => ({
-				...current,
-				zona: { tipo: zona.tipo },
-				entradas: entradas
-			}));
-
-			esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
-		} catch (err) {
-			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
-		}
+		goto(`../`);
 	};
 </script>
 
 <section class="container">
 	<div class="principal">
-		<Steps paso={2} {zona} />
+		<div class="steps">
+			<Steps paso={2} {zona} />
+		</div>
 
 		<div class="lugar">
 			<div class="titulos">
@@ -83,19 +95,18 @@
 					<Escenario />
 				</div>
 				<div class="asientos" bind:this={asientos} style:width="{filaWidth} px">
-					{#each filas as fila}
+					{#each filas as fila, i}
 						<ul class="fila">
-							<li>
+							<li class="letra">
 								{letrar(fila.id)}
 							</li>
-							{#each fila.sits as asiento}
+							{#each fila.sits as asiento, j}
 								<li style:min-width="{sitWidth}px">
 									{#if asiento.s != 0}
-										<Box
+										<Cuadrado
 											disabled={asiento.s >= 2}
-											width={sitWidth}
-											tomados={asiento.c ?? 0}
-											limite={asiento.l ?? 10}
+											numero={asiento.id}
+											tomado={asiento.s == 1}
 											on:clickeado={(e) => {
 												if (asiento.s == 1 || asiento.s == -1) {
 													asiento.s = e.detail.state ? 1 : -1;
@@ -105,71 +116,37 @@
 									{/if}
 								</li>
 							{/each}
-							<li>
+							<li class="letra">
 								{letrar(fila.id)}
 							</li>
 						</ul>
 					{/each}
 				</div>
 			</div>
-			<!-- <div class="scrollers">
-				<div>
-					<button
-						class="scroller"
-						type="button"
-						on:click={() => {
-							asientos.style.scrollBehavior = 'smooth';
-							asientos.scrollLeft -= 40;
-						}}
-					>
-						<Lanchor />
-					</button>
-					<button
-						class="scroller"
-						type="button"
-						on:click={() => {
-							asientos.style.scrollBehavior = 'smooth';
-							asientos.scrollLeft += 40;
-						}}
-					>
-						<Ranchor />
-					</button>
-				</div>
-			</div> -->
-
-			{#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
-				<div class="legend">
-					<div class="box">
-						{#each filas as fila}
-							{#each fila.sits as asiento}
-								{#if asiento.s == 1}
-									<div class="line">
-										<Deathbox disabled={false} width={60} tomado={true} />
-										<div>
-											<strong>{`${letrar(fila.id)} ${asiento.id}`}</strong>
-										</div>
-									</div>
-								{/if}
-							{/each}
-						{/each}
-					</div>
-				</div>
-			{/if}
-
-			<div class="cta" />
+		</div>
+		<div class="lugar">
+			<Compras />
 		</div>
 	</div>
 	<div class="detalles">
 		<Resumen {evento} />
-		<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
+		<button on:click|once={continuarClick} class="btn">Reservar lugares <Arrow /> </button>
 	</div>
 </section>
 
 <style lang="scss">
 	@import './static/style.scss';
 
+	.scenario {
+		text-align: center;
+	}
+
+	.letra {
+		font-size: 12px;
+		font-weight: 900;
+	}
+
 	.mapa {
-		margin-left: 20px;
 		@include breakpoint($md) {
 			margin-left: initial;
 		}
@@ -178,20 +155,43 @@
 		padding-top: 30px;
 		width: 99%;
 		overflow-x: auto;
+		max-width: 300px;
 		.fila {
 			display: flex;
 			flex-wrap: nowrap;
-			gap: 10px;
+			gap: 4px;
 			padding-bottom: 10px;
+		}
+
+		@include breakpoint($md) {
+			max-width: initial;
+		}
+	}
+
+	.steps {
+		padding: 40px 16px 32px;
+	}
+
+	.consideraciones {
+		padding-left: 20px;
+	}
+	.letra {
+		font-size: 12px;
+		font-weight: 900;
+	}
+
+	ol {
+		li {
+			margin-bottom: 10px;
 		}
 	}
 
 	.lugar {
 		border-radius: 8px;
 		background: #f9f9f9;
-		padding: 40px 32px;
-		margin-right: 24px;
 
+		margin-bottom: 20px;
+		padding: 40px 32px;
 		h4 {
 			font-weight: 100;
 			margin-bottom: 10px;
@@ -200,15 +200,25 @@
 		.titulos {
 			margin-bottom: 32px;
 		}
+
+		@include breakpoint($md) {
+			margin-right: 24px;
+		}
 	}
 
 	.principal {
-		padding-right: 8px;
-		min-height: 90vh;
+		@include breakpoint($md) {
+			padding-right: 8px;
+			min-height: 90vh;
+		}
 	}
+
 	.container {
 		display: grid;
-		grid-template-columns: 728px 352px;
+		grid-template-columns: 1fr;
+		@include breakpoint($md) {
+			grid-template-columns: 728px 352px;
+		}
 	}
 
 	.detalles {

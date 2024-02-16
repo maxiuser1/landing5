@@ -2,7 +2,7 @@
 	import Carousel from '$lib/components/Home/Carousel.svelte';
 	import Sections from '$lib/components/Home/Sections.svelte';
 	import { onDestroy, onMount } from 'svelte';
-	import { clearCompradata } from '$lib/components/Evento/store';
+	import { clearCompradata } from '$lib/components/Evento/esto';
 	import { createSearchStore, searchHandler } from '$lib/stores/search.js';
 	import { Lupa } from '$lib/icons';
 

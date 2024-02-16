@@ -1,7 +1,5 @@
-
 <script lang="ts">
-	import type { SpinnerTypes } from "./types/spinner.type";
-
+	import type { SpinnerTypes } from './types/spinner.type';
 
 	export let color: SpinnerTypes['color'] = '#FF3E00';
 	export let unit: SpinnerTypes['unit'] = 'px';
@@ -11,15 +9,9 @@
 
 	let moonSize: number = +size / 7;
 	let top: number = +size / 2 - moonSize / 2;
-	
 </script>
 
-
-<div
-	class="wrapper"
-	class:pause-animation={pause}
-	style="--size: {size}{unit}; --color: {color}; --moonSize: {top}{unit}; --duration: {duration};"
->
+<div class="wrapper" class:pause-animation={pause} style="--size: {size}{unit}; --color: {color}; --moonSize: {top}{unit}; --duration: {duration};">
 	<div class="circle-one" class:pause-animation={pause} />
 	<div class="circle-two" class:pause-animation={pause} />
 </div>

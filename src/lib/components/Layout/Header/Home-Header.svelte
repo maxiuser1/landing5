@@ -7,6 +7,7 @@
 	import Hamburger from '$lib/icons/Hamburger.svelte';
 	import Autenticable from './Autenticable.svelte';
 	import Sup from './Sup.svelte';
+	import HomeSup from './Home-Sup.svelte';
 
 	let visible = false;
 	let inputph = 'Encuentra tu evento';
@@ -28,13 +29,7 @@
 	};
 </script>
 
-<Sup />
-<header class="header">
-	<nav class="container">
-		<div />
-		<Autenticable />
-	</nav>
-</header>
+<HomeSup />
 
 <div class="container superheader">
 	<div class="logo">
@@ -204,7 +199,7 @@
 
 	.superheader {
 		margin-top: -64px;
-		padding-top: 20px;
+		padding-top: 60px;
 		padding-bottom: 20px;
 		grid-template-columns: repeat(9, 1fr);
 		display: grid;

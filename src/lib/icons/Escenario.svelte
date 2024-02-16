@@ -1,7 +1,12 @@
-<svg width="615" height="52" viewBox="0 0 615 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<path
-		d="M1.24613 11.7541C-1.58541 6.42563 2.27655 0 8.31061 0H606.139C612.066 0 615.935 6.21968 613.316 11.536L594.477 49.768C593.803 51.1346 592.412 52 590.889 52H25.037C23.5576 52 22.1989 51.1834 21.5047 49.877L1.24613 11.7541Z"
-		fill="#7500FA"
-	/>
-	<text fill="#ffffff" font-family="Arial" font-size="24" id="svg_4" stroke="#ffffff" stroke-width="0" text-anchor="middle" transform="matrix(1 0 0 1 0 0)" x="50%" xml:space="preserve" y="70%">Escenario</text>
+<svg width="280" height="21" xmlns="http://www.w3.org/2000/svg">
+	<g class="layer">
+		<title>Layer 1</title>
+		<path
+			d="m0.72804,4.25504c-1.28165,-1.92893 0.4664,-4.25504 3.19763,-4.25504l270.59811,0c2.68277,0 4.43401,2.25155 3.24856,4.17608l-8.52719,13.84015c-0.30508,0.49472 -0.93469,0.80799 -1.62405,0.80799l-256.12447,0c-0.66963,0 -1.28462,-0.29561 -1.59884,-0.76854l-9.16974,-13.80066z"
+			fill="#7500FA"
+			id="svg_1"
+			transform="matrix(1 0 0 1 0 0)"
+		/>
+		<text fill="#ffffff" font-family="Arial" font-size="16" id="svg_4" stroke="#ffffff" stroke-width="0" text-anchor="middle" x="141" xml:space="preserve" y="14.7">Escenario</text>
+	</g>
 </svg>

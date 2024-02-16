@@ -202,9 +202,37 @@ declare global {
 			}>;
 		};
 
+		type Contado = {
+			cantidad: number;
+			tipo: string;
+		};
+
 		type Tickete = {
 			c: string;
 			v?: string;
+		};
+
+		type Esto = {
+			evento: {
+				id: string;
+				slug?: string;
+			};
+			entradas: Array<Zoneado>;
+			total: number;
+		};
+
+		type Zoneado = {
+			tipo: string;
+			cantidad: number;
+			total: number;
+			precio: number;
+			lugares: Array<Lugareado>;
+			numerado: boolean;
+		};
+
+		type Lugareado = {
+			fila: number;
+			sit: number;
 		};
 
 		type Compra = {

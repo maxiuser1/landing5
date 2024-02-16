@@ -20,8 +20,9 @@
 
 <ul class="socials">
 	{#if $page.data.user}
-		<li class="item">
-			<div class="circle" use:Popover={config}>{$page.data.user.nombre[0]}</div>
+		<li class="item" use:Popover={config}>
+			<div class="circle">{$page.data.user.nombre[0]}</div>
+			Hola, {$page.data.user.nombre}
 		</li>
 	{:else}
 		<li>
@@ -42,8 +43,10 @@
 		width: 24px;
 		height: 24px;
 		padding: 5px;
-		background: #5b025a;
-		color: white;
+		margin-right: 5px;
+		background: white;
+		font-weight: 900;
+		color: #000;
 		text-transform: uppercase;
 		text-align: center;
 		font-size: 12px;
@@ -54,10 +57,13 @@
 		align-items: center;
 	}
 	.socials {
-		display: flex;
+		display: none;
 		align-items: center;
 		gap: 14px;
 		color: white;
+		@include breakpoint($md) {
+			display: flex;
+		}
 	}
 
 	.item {

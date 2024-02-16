@@ -6,33 +6,48 @@
 <div class="menu">
 	{#if $page.data.user}
 		<div class="profile">
-			<div class="circle">J</div>
 			<div class="info">
-				<div class="nombre">
-					{$page.data.user.nombre}
-					{$page.data.user.apellido}
-				</div>
-				<div class="correo">
-					{$page.data.user.correo}
-				</div>
-
-				<div class="links">
-					<a href="../../entradas">Mis entradas</a>
-				</div>
+				<ul>
+					<li>Perfil</li>
+					<li>
+						<a href="../../entradas">Mis entradas</a>
+					</li>
+					<li>
+						<a href="../../entradas">E-tickets</a>
+					</li>
+					<li>
+						<a href="../../logout"> Salir </a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	{/if}
-	<div class="footer">
-		<a href="../../logout" class="salir"> Salir </a>
-	</div>
 </div>
 
-<style>
+<style lang="scss">
+	@import './static/style.scss';
 	.footer {
 		border-top: 1px solid #80057f;
 		padding-top: 20px;
 		width: 100%;
 		text-align: end;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		li {
+			font-size: 14px;
+			font-weight: 500;
+			width: 300px;
+			padding-bottom: 12px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.171);
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
 	}
 
 	.profile {
@@ -50,7 +65,7 @@
 		color: black;
 		height: 44px;
 		border-radius: 50%;
-		background-color: #ff0036;
+		background-color: #80057f;
 	}
 
 	.correo {
@@ -75,6 +90,7 @@
 		flex-direction: column;
 		gap: 20px;
 		min-width: 300px;
+		border-radius: 4px;
 	}
 
 	a {
