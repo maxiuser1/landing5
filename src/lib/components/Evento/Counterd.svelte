@@ -37,7 +37,7 @@
 					...entrada,
 					cantidad: count,
 					regalo,
-					final: total
+					total: total
 				}
 			]
 		}));
@@ -60,7 +60,7 @@
 						...entrada,
 						cantidad: count,
 						regalo,
-						final: total,
+						total: total,
 						descuento: {
 							nombre: descuento?.nombre,
 							valor: descuento?.descuento
@@ -80,7 +80,7 @@
 						...entrada,
 						cantidad: count,
 						regalo,
-						final: total,
+						total: total,
 						descuento: null
 					}
 				]

@@ -183,7 +183,7 @@ declare global {
 		type Sentado = {
 			base?: number;
 			online?: number;
-			final?: number;
+			total?: number;
 			promotor?: number;
 			descuento?: {
 				nombre?: string;
@@ -214,8 +214,12 @@ declare global {
 
 		type Esto = {
 			evento: {
-				id: string;
+				id?: string;
 				slug?: string;
+				nombre?: string;
+				artista?: string;
+				fecha?: string;
+				lugar?: string;
 			};
 			entradas: Array<Zoneado>;
 			total: number;
@@ -223,6 +227,7 @@ declare global {
 
 		type Zoneado = {
 			tipo: string;
+			nombre: string;
 			cantidad: number;
 			total: number;
 			precio: number;

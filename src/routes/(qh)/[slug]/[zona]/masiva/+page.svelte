@@ -41,7 +41,7 @@
 							ticketesBox.push({ c: `${zona.tipo}_${fila!.id}_${asiento!.id}`, v: '' });
 						}
 
-						const final = habilitados == zona.tope ? obj.final : habilitados! * zona.promotori!;
+						const final = habilitados == zona.tope ? obj.total : habilitados! * zona.promotori!;
 
 						return accumulator + (final ?? 0);
 					}, 0),
@@ -65,7 +65,7 @@
 						base: zona.base,
 						promotor: zona.promotor,
 						regalo: zona.regaloIndividual?.una ?? '',
-						final: zona.final,
+						total: zona.final,
 						descuento: zona.descuento,
 						cantidad: 1
 					}
@@ -124,7 +124,7 @@
 			...current,
 			monto: current.entradas
 				? current.entradas.reduce((accumulator, obj) => {
-						return accumulator + (obj.final ?? 0);
+						return accumulator + (obj.total ?? 0);
 				  }, 0)
 				: 0,
 			cantidad: current.entradas
