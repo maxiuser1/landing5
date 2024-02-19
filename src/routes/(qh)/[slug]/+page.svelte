@@ -21,12 +21,18 @@
 					...current,
 					evento: {
 						id: evento.id,
-						slug: evento.slug
+						slug: evento.general.slug,
+						nombre: evento.general.nombre,
+						artista: evento.general.artista,
+						lugar: evento.ubicacion.nombre,
+						fecha: evento.fechas[0].fecha
 					},
 					entradas: evento.precios.map((t: any) => {
 						return {
 							tipo: t.tipo,
+							nombre: t.nombre,
 							cantidad: 0,
+							final: 0,
 							total: 0,
 							precio: t.onlinei,
 							lugares: [],

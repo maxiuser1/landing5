@@ -81,7 +81,7 @@
 	@import './static/style.scss';
 
 	.steps {
-		padding: 40px 16px 32px;
+		padding: 40px 16px 31px;
 	}
 
 	.lugar {

@@ -105,7 +105,7 @@
 						<div>
 							<h6>
 								<strong>
-									S/ {entrada.final?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+									S/ {entrada.total?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 								</strong>
 							</h6>
 						</div>

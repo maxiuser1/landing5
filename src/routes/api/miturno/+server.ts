@@ -7,18 +7,24 @@ import { user } from '$lib/stores/userstore';
 
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const clientIpAddress = getClientAddress();
-	const intencion = (await request.json()) as App.Esto;
+	const estoPayload = (await request.json()) as App.Esto;
 
-	const evento = await locals.eventosRepo.findEvento(intencion.evento.id);
+	const evento = await locals.eventosRepo.findEvento(estoPayload.evento.id);
+	const intencion = {
+		...estoPayload,
+
+		entradas: estoPayload.entradas.filter((t) => t.cantidad > 0)
+	};
+
 	const ventaOnline = new VentaOnline(evento);
 
 	let precioReal: number = 0;
 
-	for (let entrada of intencion.entradas!) {
-		const entradaDb = ventaOnline.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
+	for (let entrada of intencion?.entradas.filter((t) => t?.cantidad > 0) ?? []) {
+		const entradaDb = ventaOnline.tarificarEntrada(entrada.tipo, entrada.cantidad, entrada);
 		if (entradaDb.numerado) {
-			const final = entrada.cantidad! * entradaDb.online;
-			precioReal += final!;
+			const final = entrada.cantidad * entradaDb.online;
+			precioReal += final;
 		} else {
 			precioReal += entradaDb.final!;
 		}
