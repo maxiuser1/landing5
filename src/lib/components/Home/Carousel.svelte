@@ -72,9 +72,9 @@
 		{#each eventos as evento, idx}
 			<div class="slide-container" style="width: {mini}%">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="slide" style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
+				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
 					<div class="gradiente">
-						<button on:click={() => redirigir(evento.slug)} class="ver-mas"> Ver más </button>
+						<button class="ver-mas"> Ver más </button>
 
 						<div class="bnav">
 							<button type="button" class="previo" on:click={() => handlePrevClick(idx)}>
@@ -179,6 +179,7 @@
 				margin-left: 20px;
 				position: absolute;
 				cursor: pointer;
+				z-index: 999;
 			}
 
 			.siguiente {
@@ -192,6 +193,7 @@
 				margin-right: 20px;
 				position: absolute;
 				cursor: pointer;
+				z-index: 999;
 			}
 		}
 
