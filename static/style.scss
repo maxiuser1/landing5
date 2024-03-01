@@ -138,6 +138,24 @@ h6 {
 	}
 }
 
+.titulo--suprayadoalt {
+	position: relative;
+	font-family: 'GothamBolder';
+	color: #3b3b3b;
+	&:before {
+		position: absolute;
+		content: '';
+		height: 4px;
+		top: -4px;
+
+		margin-right: auto;
+		margin-left: 2px;
+		left: 0;
+		width: 2rem;
+		background: #c6c6c6;
+	}
+}
+
 .titulo--subrayado {
 	position: relative;
 	font-weight: 900;
