@@ -14,12 +14,12 @@
 			<div class="content">
 				<div class="info">
 					<div class="encabezado">
-						<div class="titulo--suprayado">
-							{evento.nombre}
+						<div class="titulo--suprayadoalt">
+							<span class="elipsable">{evento.nombre}</span>
 						</div>
 					</div>
 					<div class="h3">
-						{@html evento.lugar}
+						<span class="elipsable"> {@html evento.lugar}</span>
 					</div>
 					<div class="h3">
 						<div class="fechas">
@@ -43,11 +43,11 @@
 				<div class="info">
 					<div class="encabezado">
 						<div class="titulo--suprayado">
-							{evento.artista}
+							<span class="elipsable">{evento.artista}</span>
 						</div>
 					</div>
 					<div class="h3">
-						{@html evento.nombre}
+						<span class="elipsable"> {@html evento.nombre}</span>
 					</div>
 					<div class="h3">
 						<div class="fechas">
@@ -67,7 +67,13 @@
 
 <style lang="scss">
 	@import './static/style.scss';
-
+	.elipsable {
+		display: block;
+		max-width: 380px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
 	.date-info {
 		display: flex;
 		align-items: center;
@@ -75,6 +81,10 @@
 		margin-top: 0.38rem;
 	}
 	.titulo--suprayado {
+		font-size: 1rem;
+	}
+
+	.titulo--suprayadoalt {
 		font-size: 1rem;
 	}
 

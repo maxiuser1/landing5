@@ -5,6 +5,7 @@
 	import { clearCompradata, compraData } from '$lib/components/Evento/esto.js';
 	import { Arrow } from '$lib/icons/index.js';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let data;
 	let { evento } = data;
@@ -13,6 +14,11 @@
 	let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
 
 	onMount(async () => {
+		if ($page.data?.user?.nombre?.length > 0) {
+		} else {
+			goto(urlLogin);
+		}
+
 		if ($compraData.evento?.id != evento.id) {
 			console.log('reiniciara');
 			clearCompradata();
