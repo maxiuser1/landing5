@@ -39,12 +39,16 @@
 
 		li {
 			border: 0.5px solid #fff;
-			width: 3rem;
-			height: 3rem;
+			width: 2rem;
+			height: 2rem;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			border-radius: 0.5rem;
+			@include breakpoint($md) {
+				width: 3rem;
+				height: 3rem;
+			}
 		}
 
 		a {

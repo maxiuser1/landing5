@@ -10,7 +10,9 @@
 {#if evento.redireccion}
 	<a href={evento.redireccion}>
 		<div class="card">
-			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
+			<div class="card-image">
+				<img src={evento.card} alt="t" />
+			</div>
 			<div class="content">
 				<div class="info">
 					<div class="encabezado">
@@ -38,7 +40,9 @@
 {:else}
 	<a href="/{evento.slug}">
 		<div class="card">
-			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
+			<div class="card-image">
+				<img src={evento.card} alt="t" />
+			</div>
 			<div class="content">
 				<div class="info">
 					<div class="encabezado">
@@ -91,9 +95,18 @@
 	a {
 		z-index: 2;
 	}
+
+	.card-image {
+		min-height: 182px;
+		img {
+			width: 100%;
+			height: 182px;
+		}
+	}
+
 	.card {
-		max-width: 398px;
-		width: 398px;
+		max-width: 100dvw;
+		width: 100dvw;
 		overflow: hidden;
 		border-radius: 0.5rem;
 		border: 1px solid #f1f1f1;
