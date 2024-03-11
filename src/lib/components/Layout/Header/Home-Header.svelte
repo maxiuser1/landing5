@@ -70,28 +70,28 @@
 				{/if}
 
 				<li class:active={$page.url.hash.includes('destacados')}>
-					<a href="#destacados">Conciertos</a>
+					<a href="categoria_conciertos">Conciertos</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Teatro</a>
+					<a href="categoria_teatro">Teatro</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Deportes</a>
+					<a href="categoria_deportes">Deportes</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Festivales</a>
+					<a href="categoria_festivales">Festivales</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Arte y Cultura</a>
+					<a href="categoria_arte">Arte y Cultura</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Niños</a>
+					<a href="categoria_ninos">Niños</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Viajes y aventuras</a>
+					<a href="categoria_viajes">Viajes y aventuras</a>
 				</li>
 				<li class:active={$page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Salud y bienestar</a>
+					<a href="categoria_salud">Salud y bienestar</a>
 				</li>
 			</ul>
 		</nav>
@@ -103,8 +103,10 @@
 
 	.anonimo {
 		display: initial;
+		margin-top: 80px;
 		@include breakpoint($md) {
 			display: none;
+			margin-top: initial;
 		}
 	}
 

@@ -95,7 +95,7 @@
 		z-index: 2;
 		top: 0;
 		left: 0;
-		background: linear-gradient(270deg, var(--red) 0%, var(--pink) 100%);
+		background: #d30ed1;
 
 		@include breakpoint($sm) {
 			display: none;
