@@ -8,7 +8,9 @@
 		<div class="profile">
 			<div class="info">
 				<ul>
-					<li>Perfil</li>
+					<li>
+						<a href="../../perfil">Perfil</a>
+					</li>
 					<li>
 						<a href="../../entradas">Mis entradas</a>
 					</li>
