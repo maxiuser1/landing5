@@ -2,12 +2,11 @@
 	import { Resumen, Steps } from '$lib/components/Evento';
 	import Compras from '$lib/components/Evento/Compras.svelte';
 	import { Arrow } from '$lib/icons';
+	import { page } from '$app/stores';
 	export let data;
 	let { evento } = data;
 
-	const continuarClick = () => {
-		alert('jo');
-	};
+	let esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 </script>
 
 <section class="container">
@@ -43,7 +42,7 @@
 	<div class="detalles">
 		<Resumen {evento} />
 		<br />
-		<a href="../../{evento.general.slug}/reserva" class="btn">Continuar <Arrow /> </a>
+		<a href="../../{evento.general.slug}/{esPromotor ? 'venta' : 'reserva'}" class="btn">Continuar <Arrow /> </a>
 	</div>
 </section>
 
