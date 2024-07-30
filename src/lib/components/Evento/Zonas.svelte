@@ -16,7 +16,9 @@
 		dispatch('seleccionar', { zona: detail.tipo });
 	}}
 >
-	{@html evento.locacion}
+	{#if evento.locacion}
+		{@html evento.locacion}
+	{/if}
 </div>
 <div class="leyenda">
 	<div class="precios">

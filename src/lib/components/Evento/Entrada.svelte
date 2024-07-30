@@ -5,6 +5,7 @@
 	import { handlee } from '$lib/utils/errorer';
 	import { Tickets } from '.';
 	import Compras from './Compras.svelte';
+	import Calendario from '../Shared/ui/Calendario/Calendario.svelte';
 
 	export let evento: App.Evento;
 
@@ -22,17 +23,34 @@
 	};
 </script>
 
-<section class="minicontainer principal">
-	<h4>Entrada</h4>
-	<p>Selecciona en que sector deseas adquirir tu entrada.</p>
-	<Zonas {evento} on:seleccionar={seleccionar} />
-</section>
+{#if evento?.general?.categoria == 'Tours'}
+	<section class="minicontainer principal">
+		<Calendario {evento} />
+	</section>
+	<section class="minicontainer principal">
+		<h4>Tour</h4>
+		<p>Seleccione el paquete:</p>
+		<Zonas {evento} on:seleccionar={seleccionar} />
+	</section>
 
-<Tickets {evento} on:seleccionar={seleccionar} />
+	<Tickets {evento} on:seleccionar={seleccionar} />
 
-<section class="minicontainer compras">
-	<Compras />
-</section>
+	<section class="minicontainer compras">
+		<Compras />
+	</section>
+{:else}
+	<section class="minicontainer principal">
+		<h4>Entrada</h4>
+		<p>Selecciona el tipo:</p>
+		<Zonas {evento} on:seleccionar={seleccionar} />
+	</section>
+
+	<Tickets {evento} on:seleccionar={seleccionar} />
+
+	<section class="minicontainer compras">
+		<Compras />
+	</section>
+{/if}
 
 <style lang="scss">
 	@import './static/style.scss';

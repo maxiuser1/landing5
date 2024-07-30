@@ -153,7 +153,7 @@ declare global {
 			descuento?: number;
 			descontado?: number;
 			slug: string;
-			fechas?: any;
+			fechas?: Array<Fecha>;
 			precios: Array<Precio>;
 			mapa?: string;
 			locacion?: string;
@@ -178,6 +178,13 @@ declare global {
 			};
 			searchTerms?: string;
 			publicado?: boolean;
+		};
+
+		type Fecha = {
+			dia: string;
+			hora: string;
+			c: number;
+			t: number;
 		};
 
 		type Sentado = {
@@ -219,6 +226,7 @@ declare global {
 				nombre?: string;
 				artista?: string;
 				fecha?: string;
+				hora?: string;
 				lugar?: string;
 			};
 			entradas: Array<Zoneado>;

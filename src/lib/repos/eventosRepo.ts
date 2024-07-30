@@ -318,25 +318,24 @@ export class EventosRepo implements App.EventosRepoInterface {
 	getEventoConLocacion = async (slug: string): Promise<App.Evento> => {
 		const evento = await this.getEvento(slug);
 
-		const client = new CosmosClient(this.cn);
-		const database = await client.database('quehaydb');
-		const container = await database.container('seccionamientos');
-
-		const querySpec: SqlQuerySpec = {
-			query: 'SELECT * from c where c.id = @id',
-			parameters: [
-				{
-					name: '@id',
-					value: evento.ubicacion!.seccionamiento
-				}
-			]
-		};
-
-		const { resources: items } = await container.items.query(querySpec, { partitionKey: evento.lugar }).fetchAll();
-
-		const resultado = { ...evento, locacion: items[0].general.mapa };
-
-		return resultado;
+		if (evento.ubicacion?.seccionamiento) {
+			const client = new CosmosClient(this.cn);
+			const database = client.database('quehaydb');
+			const container = database.container('seccionamientos');
+			const querySpec: SqlQuerySpec = {
+				query: 'SELECT * from c where c.id = @id',
+				parameters: [
+					{
+						name: '@id',
+						value: evento.ubicacion.seccionamiento
+					}
+				]
+			};
+			const { resources: items } = await container.items.query(querySpec, { partitionKey: evento.lugar }).fetchAll();
+			const resultado = { ...evento, locacion: items[0].general.mapa };
+			return resultado;
+		}
+		return { ...evento };
 	};
 
 	postTurno = async (turno: any): Promise<any> => {

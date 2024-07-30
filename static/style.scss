@@ -201,6 +201,11 @@ h6 {
 	font-weight: 500;
 	line-height: 24px;
 
+	&--desabilitado {
+		background-color: rgb(196, 196, 196);
+		pointer-events: none;
+	}
+
 	&--clean {
 		background: none;
 		color: inherit;
@@ -218,6 +223,10 @@ h6 {
 
 .btn:hover:not([disabled]) {
 	background: linear-gradient(270deg, #cd002b 0%, #b70fb5 100%);
+}
+
+.btn--desabilitado:hover {
+	background-color: rgb(196, 196, 196);
 }
 
 a.btn-outline {

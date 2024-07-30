@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { Fecha, Pin } from '$lib/icons';
+	import { compraData } from '$lib/components/Evento/esto.js';
+
 	export let evento: App.Evento;
+	let laFecha: string | undefined = $compraData?.evento?.fecha ? new Date($compraData.evento.fecha).toLocaleDateString() : undefined;
+	let laHora: string | undefined = $compraData?.evento?.hora ? $compraData.evento.hora : undefined;
 </script>
 
 <div class="banner">
@@ -12,12 +16,10 @@
 		{evento.general?.nombre}
 	</h6>
 
-	{#each evento.fechas as fecha}
-		<div class="date-info">
-			<Fecha />
-			<h6 class="h7 fechas">{new Date(fecha.dia).toLocaleDateString()}</h6>
-		</div>
-	{/each}
+	<div class="date-info">
+		<Fecha />
+		<h6 class="h7 fechas">{laFecha} {laHora ? laHora : ''}</h6>
+	</div>
 
 	<div class="date-info">
 		<Pin />

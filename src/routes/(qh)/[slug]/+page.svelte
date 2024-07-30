@@ -9,15 +9,17 @@
 
 	export let data;
 	let { evento } = data;
+
 	const urlZonas = `${evento.general?.slug}/zonas${$page.url.search ?? ''}`;
 	const urlConsideracion = `${evento.general?.slug}/consideracion${$page.url.search ?? ''}`;
 	const urlLogin = `./login?redirectTo=${encodeURIComponent($page.url.href)}`;
 	let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
 	let redirectConsideracionUrl = $page.data?.user?.nombre?.length > 0 ? urlConsideracion : urlLogin;
 
+	$: habilitado = evento.general.categoria == 'Tours' ? $compraData?.evento?.fecha && $compraData?.evento?.hora : true;
+
 	onMount(async () => {
 		if ($compraData.evento?.id != evento.id) {
-			console.log('reiniciara');
 			clearCompradata();
 			compraData.update((current) => {
 				return {
@@ -67,7 +69,11 @@
 	<Entrada {evento} />
 
 	<section class="continuar">
-		<a class="btn" href={redirectConsideracionUrl}>Continuar <Arrow /></a>
+		{#if habilitado}
+			<a class="btn" href={redirectConsideracionUrl}>Continuar <Arrow /></a>
+		{:else}
+			<a class="btn btn--desabilitado" href="#">Continuar <Arrow /></a>
+		{/if}
 	</section>
 {/if}
 

@@ -34,3 +34,5 @@ export { default as Impresora } from './Impresora.svelte';
 export { default as Fecha } from './Fecha.svelte';
 export { default as Hamburger } from './Hamburger.svelte';
 export { default as Cuadrado } from './Cuadrado.svelte';
+export { default as Circlel } from './Circlel.svelte';
+export { default as Circler } from './Circler.svelte';
