@@ -6,8 +6,6 @@
 
 	export let slug: string;
 
-	console.log('qdice', $page.url.pathname);
-
 	let visible = false;
 
 	const toggle = () => {

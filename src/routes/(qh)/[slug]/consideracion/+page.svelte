@@ -1,4 +1,5 @@
 <script>
+	import * as prismicH from '@prismicio/helpers';
 	import { Resumen, Steps } from '$lib/components/Evento';
 	import Compras from '$lib/components/Evento/Compras.svelte';
 	import { Arrow } from '$lib/icons';
@@ -17,19 +18,9 @@
 			</div>
 			<div class="lugar">
 				<div class="titulos">
-					<h4>Consideración</h4>
+					<h1>Consideraciones</h1>
 					<div class="consideraciones">
-						<ol>
-							<li>El ticket es un comprobante válido de tu compra, por lo que no será canjeado por una entrada tradicional en el punto de venta o boletería.</li>
-							<li>Para descargar el ticket deberás ingresar con tu usuario a "MI CUENTA", ahí encontrarás el detalle de tu compra y tus tickets para descarga.</li>
-							<li>Descárgalo al menos un día antes del evento.</li>
-							<li>Con el ticket puedes acercarte directamente al evento presentándolo de manera virtual o puedes llevarlo impreso.</li>
-							<li>Al elegir ticket, estas aceptando no divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu ingreso al evento.</li>
-							<li>
-								Al igual que una entrada tradicional, el ticket tendrá un sistema de control y seguridad para el acceso al evento, el cual también impedirá que en caso de generarse duplicados ingrese más de una persona con el mismo ticket,
-								permitiendo el ingreso solo a la primera persona registrada.
-							</li>
-						</ol>
+						{@html prismicH.asHTML(data.document.data.texto)}
 					</div>
 				</div>
 			</div>
@@ -57,9 +48,6 @@
 		padding: 40px 16px 32px;
 	}
 
-	.consideraciones {
-		padding-left: 20px;
-	}
 	.letra {
 		font-size: 12px;
 		font-weight: 900;

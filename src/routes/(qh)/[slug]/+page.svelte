@@ -75,6 +75,13 @@
 			<a class="btn btn--desabilitado" href="#">Continuar <Arrow /></a>
 		{/if}
 	</section>
+
+	{#if evento.caratula.thumb}
+		<section class="container fotos">
+			<img src={evento.caratula.thumb} alt="thumb" width="100%" />
+			<p>&nbsp;</p>
+		</section>
+	{/if}
 {/if}
 
 <style lang="scss">
@@ -114,6 +121,19 @@
 
 		@include breakpoint($md) {
 			height: 420px;
+		}
+	}
+
+	.gradiente {
+		&::before {
+			background-color: rgba(0, 0, 0, 0.55);
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 1;
 		}
 	}
 </style>

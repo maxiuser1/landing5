@@ -16,8 +16,6 @@
 	$: horasDisponibles = evento.fechas?.filter((t) => t.dia == laFecha)?.map((t) => t.hora) ?? [];
 
 	function fechaDisponible(fecha: string) {
-		console.log('fecha', fecha);
-		console.log('date', new Date().toISOString());
 		if (new Date(fecha) <= new Date()) return false;
 		return evento.fechas?.some((t) => t.dia == fecha);
 	}

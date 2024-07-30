@@ -63,7 +63,6 @@
 		});
 
 		const datapago = await resp.json();
-		console.log('datapago', datapago);
 
 		VisanetCheckout.configure({
 			sessiontoken: datapago.sessiontoken,

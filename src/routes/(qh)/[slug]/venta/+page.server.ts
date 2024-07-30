@@ -23,8 +23,6 @@ export const actions: Actions = {
 
 		const formData = Object.fromEntries(formulario);
 
-		console.log('formulario', formData);
-
 		const compra = JSON.parse(formData.payload.toString());
 
 		const formDataCliente = { ...formData, payload: '' };

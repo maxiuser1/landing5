@@ -52,3 +52,12 @@ a {
 		display: none !important;
 	}
 }
+
+.consideraciones h2 {
+	margin-top: 40px;
+}
+
+.consideraciones ol {
+	margin-top: 10px;
+	margin-left: 20px;
+}

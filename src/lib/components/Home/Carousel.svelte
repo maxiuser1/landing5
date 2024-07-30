@@ -74,8 +74,11 @@
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
 					<div class="gradiente">
-						<button class="ver-mas"> Ver más </button>
-
+						<div class="titulos">
+							<h4>{evento.nombre}</h4>
+							<h4>{evento.ciudad}</h4>
+							<button class="ver-mas"> Ver más </button>
+						</div>
 						<div class="bnav">
 							<button type="button" class="previo" on:click={() => handlePrevClick(idx)}>
 								<span aria-label="previo"> ‹ </span>
@@ -102,19 +105,25 @@
 <style lang="scss">
 	@import './static/style.scss';
 
-	.ver-mas {
+	.titulos {
 		position: absolute;
+		z-index: 9;
+		left: 10%;
 		top: 50%;
+
+		h4 {
+			color: white;
+		}
+	}
+	.ver-mas {
 		background-color: transparent;
 		font-size: 16px;
 		font-weight: 600;
 		line-height: 24px;
-		left: 10%;
 		border: 1px solid #fff;
 		color: #fff;
 		padding: 0.5rem 1rem;
 		border-radius: 0.25rem;
-
 		&:hover {
 			background-color: #fff;
 			color: #1f0045;
@@ -194,6 +203,17 @@
 				position: absolute;
 				cursor: pointer;
 				z-index: 999;
+			}
+
+			&::before {
+				background-color: rgba(0, 0, 0, 0.55);
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 1;
 			}
 		}
 

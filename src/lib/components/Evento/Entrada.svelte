@@ -25,16 +25,16 @@
 
 {#if evento?.general?.categoria == 'Tours'}
 	<section class="minicontainer principal">
-		<Calendario {evento} />
-	</section>
-	<section class="minicontainer principal">
-		<h4>Tour</h4>
+		<h4>{evento.general.nombre}</h4>
 		<p>Seleccione el paquete:</p>
 		<Zonas {evento} on:seleccionar={seleccionar} />
 	</section>
 
 	<Tickets {evento} on:seleccionar={seleccionar} />
 
+	<section class="minicontainer principal">
+		<Calendario {evento} />
+	</section>
 	<section class="minicontainer compras">
 		<Compras />
 	</section>

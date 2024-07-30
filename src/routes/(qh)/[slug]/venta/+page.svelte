@@ -15,8 +15,6 @@
 	let { evento } = data;
 	let posting = false;
 	async function handleSubmit(event: any) {
-		console.log('as', JSON.stringify({ ...$compraData }));
-
 		const data = new FormData(this);
 		data.append('payload', JSON.stringify({ ...$compraData }));
 		const response = await fetch(this.action, {
