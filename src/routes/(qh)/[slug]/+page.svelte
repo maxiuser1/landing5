@@ -63,7 +63,16 @@
 	</section>
 {:else}
 	<section class="banner">
-		<img src={evento.caratula?.banner} alt="banner" />
+		<div class="slide" style="background-image: url('{evento.caratula?.banner}'); background-position: center top;background-size: 100% 100%;">
+			<div class="gradiente">
+				<div class="titulos">
+					<h1>{evento.general.nombre}</h1>
+					<h4>{evento.general.artista}</h4>
+					<h4>{evento.general.fechas}</h4>
+					<h4>{evento.general.horario}</h4>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<Entrada {evento} />
@@ -75,17 +84,58 @@
 			<a class="btn btn--desabilitado" href="#">Continuar <Arrow /></a>
 		{/if}
 	</section>
-
-	{#if evento.caratula.thumb}
-		<section class="container fotos">
-			<img src={evento.caratula.thumb} alt="thumb" width="100%" />
-			<p>&nbsp;</p>
-		</section>
-	{/if}
 {/if}
 
 <style lang="scss">
 	@import './static/style.scss';
+	.titulos {
+		position: absolute;
+		z-index: 9;
+		left: 10%;
+		top: 50%;
+
+		h4 {
+			font-size: 18px;
+			font-weight: normal;
+		}
+
+		h5 {
+			font-size: 14px;
+			font-weight: normal;
+		}
+
+		h1,
+		h4,
+		h5,
+		h6 {
+			color: white;
+		}
+	}
+	.gradiente {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		height: 100%;
+		left: 0;
+	}
+
+	.slide {
+		background-color: #1f0045;
+		position: relative;
+		background-repeat: no-repeat;
+		min-height: 109px;
+		max-height: 109px;
+
+		@include breakpoint($sm) {
+			min-height: 200px;
+			max-height: 200px;
+		}
+
+		@include breakpoint($md) {
+			min-height: 22.5rem;
+			max-height: 22.5rem;
+		}
+	}
 
 	.continuar {
 		margin: 48px auto;

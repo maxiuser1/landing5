@@ -175,6 +175,8 @@ declare global {
 				artista: string;
 				slug: string;
 				destacado: boolean;
+				fechas?: string;
+				horario?: string;
 			};
 			searchTerms?: string;
 			publicado?: boolean;
@@ -231,6 +233,7 @@ declare global {
 			};
 			entradas: Array<Zoneado>;
 			total: number;
+			comision?: number;
 		};
 
 		type Zoneado = {

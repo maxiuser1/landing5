@@ -75,8 +75,9 @@
 				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
 					<div class="gradiente">
 						<div class="titulos">
-							<h4>{evento.nombre}</h4>
-							<h4>{evento.ciudad}</h4>
+							<h2>{evento.nombre}</h2>
+							<h5>{evento.artista}</h5>
+							<h5>{evento.lugar}</h5>
 							<button class="ver-mas"> Ver más </button>
 						</div>
 						<div class="bnav">
@@ -111,7 +112,14 @@
 		left: 10%;
 		top: 50%;
 
-		h4 {
+		h5 {
+			font-size: 16px;
+		}
+
+		h2,
+		h4,
+		h5,
+		h6 {
 			color: white;
 		}
 	}
