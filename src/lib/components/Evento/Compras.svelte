@@ -52,7 +52,9 @@
 	<div class="" />
 	<div class="cantidades">
 		<div class="totales">
-			Comision: <span>S/ {$compraData.comision}</span> <br />
+			{#if $compraData?.comision}
+				Comision: <span>S/ {$compraData.comision}</span> <br />
+			{/if}
 			Total <span class="negrita"> S/ {$compraData.total} </span>
 		</div>
 		<div>
