@@ -152,6 +152,7 @@ declare global {
 			desde?: number;
 			descuento?: number;
 			descontado?: number;
+			categoria?: string;
 			slug: string;
 			fechas?: Array<Fecha>;
 			precios: Array<Precio>;
