@@ -75,9 +75,11 @@
 				<div class="slide" style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
 					<div class="gradiente">
 						<div class="titulos">
-							<h2>{evento.nombre}</h2>
-							<h5>{evento.artista}</h5>
-							<h5>{evento.lugar}</h5>
+							{#if evento.categoria == 'Tours'}
+								<h2>{evento.nombre}</h2>
+								<h5>{evento.artista}</h5>
+								<h5>{evento.lugar}</h5>
+							{/if}
 							<button class="ver-mas" on:click={() => redirigir(evento.slug)}> Ver más </button>
 						</div>
 						<div class="bnav">

@@ -17,11 +17,19 @@
 			})
 		}));
 
-		compraData.update((current) => ({
-			...current,
-			total: Number((current.entradas.reduce((acc, t) => acc + t.total, 0) * 1.0832).toFixed(1)),
-			comision: Number((current.entradas.reduce((acc, t) => acc + t.total, 0) * 0.0832).toFixed(1))
-		}));
+		if (evento.general?.categoria == 'Tours') {
+			compraData.update((current) => ({
+				...current,
+				total: Number((current.entradas.reduce((acc, t) => acc + t.total, 0) * 1.0832).toFixed(1)),
+				comision: Number((current.entradas.reduce((acc, t) => acc + t.total, 0) * 0.0832).toFixed(1))
+			}));
+		} else {
+			compraData.update((current) => ({
+				...current,
+				total: Number(current.entradas.reduce((acc, t) => acc + t.total, 0)),
+				comision: undefined
+			}));
+		}
 	};
 </script>
 

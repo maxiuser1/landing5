@@ -18,7 +18,7 @@
 
 	<div class="date-info">
 		<Fecha />
-		<h6 class="h7 fechas">{laFecha} {laHora ? laHora : ''}</h6>
+		<h6 class="h7 fechas">{laFecha ? laFecha : ''} {laHora ? laHora : ''}</h6>
 	</div>
 
 	<div class="date-info">
