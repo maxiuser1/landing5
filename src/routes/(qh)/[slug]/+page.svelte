@@ -98,7 +98,7 @@
 		z-index: 9;
 		left: 10%;
 		top: 50%;
-
+		display: none;
 		h4 {
 			font-size: 18px;
 			font-weight: normal;
@@ -114,6 +114,10 @@
 		h5,
 		h6 {
 			color: white;
+		}
+
+		@include breakpoint($md) {
+			display: block;
 		}
 	}
 	.gradiente {
