@@ -24,7 +24,6 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(formulario);
 
 		const compra = JSON.parse(formData.payload.toString());
-
 		const formDataCliente = { ...formData, payload: '' };
 		const compraCliente = { ...compra, cliente: formDataCliente, formaPago: formData.formaPago };
 
@@ -95,7 +94,6 @@ export const actions: Actions = {
 		} catch (err: any) {
 			console.log('err', err);
 		}
-
-		throw redirect(303, `/${evento.slug}/ticket/${entrada.id}`);
+		throw redirect(303, `/${evento.general.slug}/ticket/${entrada.id}`);
 	}
 };

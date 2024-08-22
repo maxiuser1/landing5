@@ -142,7 +142,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const { resource: evento } = await container.item(compra.evento.id, 'quehay').read();
 
 		const ventaManual = new VentaManual(evento);
-
 		let precioReal: number = 0;
 
 		for (let entrada of compra.entradas) {
@@ -159,6 +158,11 @@ export class EventosRepo implements App.EventosRepoInterface {
 				precioReal += entradaDb.final!;
 			}
 		}
+
+		if (evento.general.categoria == 'Tours') {
+			precioReal = Number((precioReal * 1.0832).toFixed(1));
+		}
+
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
 			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);

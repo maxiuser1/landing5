@@ -42,7 +42,6 @@ export const actions: Actions = {
 		};
 
 		const entrada = await locals.eventosRepo.ventaManual(params.slug, compraCliente, vendedor);
-
 		let qrcode = '';
 
 		if (generaQR) {
@@ -89,14 +88,12 @@ export const actions: Actions = {
 		try {
 			sgMail
 				.send(msg)
-				.then(() => {
-					console.log('Email sent');
-				})
+				.then(() => {})
 				.catch((error) => {
 					console.error(error);
 				});
 		} catch (err: any) {
-			console.log('err', err);
+			console.error('err', err);
 		}
 
 		throw redirect(303, `/${evento.slug}/ticket/${entrada.id}`);

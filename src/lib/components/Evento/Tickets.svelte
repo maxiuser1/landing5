@@ -11,7 +11,7 @@
 			...current,
 			entradas: current.entradas.map((t) => {
 				if (t.tipo == tipo) {
-					return { ...t, cantidad: count, total: count * t.precio };
+					return { ...t, cantidad: count, total: count * t.precio, final: count * t.precio };
 				}
 				return t;
 			})
