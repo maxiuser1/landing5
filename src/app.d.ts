@@ -103,6 +103,7 @@ declare global {
 				nombre?: string;
 				fecha?: string;
 				lugar?: string;
+				hora?: string;
 			};
 			qrcode?: string;
 			user?: User;
@@ -327,6 +328,7 @@ declare global {
 
 		interface EntradasRepoInterface {
 			getEntradas(userId, correo): Promise<Array<Entrada>>;
+			getReporte(slug: string): Promise<Array<Entrada>>;
 			traspasar(entradaId: string, transfereableId: string): Promise<void>;
 		}
 	}

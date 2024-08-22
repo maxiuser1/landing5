@@ -8,7 +8,7 @@
 	import { goto } from '$app/navigation';
 
 	export let data;
-	let { evento } = data;
+	let { evento, esPromotor } = data;
 
 	const urlZonas = `${evento.general?.slug}/zonas${$page.url.search ?? ''}`;
 	const urlConsideracion = `${evento.general?.slug}/consideracion${$page.url.search ?? ''}`;
@@ -75,6 +75,11 @@
 		</div>
 	</section>
 
+	{#if esPromotor}
+		<section class="container" style="text-align: center;">
+			<a class="btn" href="{evento.general.slug}/reporte">Reporte</a>
+		</section>
+	{/if}
 	<Entrada {evento} />
 
 	<section class="continuar">

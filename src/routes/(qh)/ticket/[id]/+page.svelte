@@ -60,7 +60,7 @@
 				<h6 class="h7">
 					<strong>
 						{#if ticket.evento && ticket.evento.fecha}
-							{new Date(ticket.evento.fecha).toLocaleDateString('es-PE', options)}
+							{new Date(ticket.evento.fecha).toLocaleDateString('es-PE', options)} {ticket.evento.hora ?? ''}
 						{/if}
 					</strong>
 				</h6>
