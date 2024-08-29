@@ -72,6 +72,18 @@
 					<option value="autopicado">Con picado automatico</option>
 				</select>
 			</div>
+			<div class="form-group">
+				<select name="formaPago" class="form-control">
+					<option value="">Forma pago</option>
+					<option value="Efectivo">Efectivo</option>
+					<option value="Debido">Tarjeta débito</option>
+					<option value="Credito">Tarjeta crédito</option>
+					<option value="Foranea">Tarjeta foránea</option>
+					<option value="Plin">Plin</option>
+					<option value="Yape">Yape</option>
+					<option value="Transferencia">Transferencia</option>
+				</select>
+			</div>
 			<button type="submit" class="btn" disabled={posting}>
 				{#if posting}
 					<Spinner size="20" color="#D30ED1" unit="px" />
