@@ -13,6 +13,7 @@
 	const urlZonas = `${evento.general?.slug}/zonas${$page.url.search ?? ''}`;
 	const urlConsideracion = `${evento.general?.slug}/consideracion${$page.url.search ?? ''}`;
 	const urlLogin = `./login?redirectTo=${encodeURIComponent($page.url.href)}`;
+	let portadaClicked = false;
 	let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
 	let redirectConsideracionUrl = $page.data?.user?.nombre?.length > 0 ? urlConsideracion : urlLogin;
 
@@ -49,17 +50,19 @@
 			});
 		}
 	});
+
+	function onPortadaClick() {
+		portadaClicked = true;
+	}
 </script>
 
 <svelte:head>
 	<title>{evento.general?.nombre}</title>
 </svelte:head>
 
-{#if evento.caratula.portada}
-	<section class="portada">
-		<a href={redirectUrl}>
-			<img src={evento.caratula.portada} alt="portada" />
-		</a>
+{#if evento.caratula.portada && !portadaClicked}
+	<section class="portada" on:click={onPortadaClick}>
+		<img src={evento.caratula.portada} alt="portada" />
 	</section>
 {:else}
 	<section class="banner">
@@ -162,6 +165,7 @@
 	}
 
 	.portada {
+		cursor: pointer;
 		background: #000;
 		display: block;
 		margin: 0 auto;
