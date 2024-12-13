@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as prismicH from '@prismicio/helpers';
 	import { Entradas, Info } from '$lib/components/Evento';
 	import { page } from '$app/stores';
 	import Entrada from '$lib/components/Evento/Entrada.svelte';
@@ -92,10 +93,36 @@
 			<a class="btn btn--desabilitado" href="#">Continuar <Arrow /></a>
 		{/if}
 	</section>
+
+	<section class="container detalles">
+		<div class="bannermini">
+			<img class="img" src={evento?.caratula?.card} alt="banner" />
+		</div>
+
+		{@html prismicH.asHTML(data.document.data.texto)}
+	</section>
 {/if}
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.bannermini {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		margin-bottom: 24px;
+		img {
+			width: 304px;
+		}
+	}
+
+	.detalles {
+		padding: 40px 24px;
+		border: 1px solid #fff;
+		background: var(--White-White_98, #f9f9f9);
+		box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+	}
+
 	.titulos {
 		position: absolute;
 		z-index: 9;
