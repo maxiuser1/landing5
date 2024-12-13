@@ -58,7 +58,7 @@
 {#if evento.caratula.portada}
 	<section class="portada">
 		<a href={redirectUrl}>
-			<img width="100%" src={evento.caratula.portada} alt="portada" />
+			<img src={evento.caratula.portada} alt="portada" />
 		</a>
 	</section>
 {:else}
@@ -162,8 +162,11 @@
 	}
 
 	.portada {
+		background: #000;
+		display: block;
+		margin: 0 auto;
+		text-align: center;
 		img {
-			width: 100%;
 			height: auto;
 		}
 	}
