@@ -50,6 +50,7 @@ declare global {
 			nombre?: string;
 			base: number;
 			online: number;
+			onlineNormal?: number;
 			promotor: number;
 
 			basei?: number;

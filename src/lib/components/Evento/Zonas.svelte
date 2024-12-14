@@ -22,6 +22,14 @@
 	<div class="precios">
 		{#if evento.precios}
 			<table>
+				<thead>
+					<tr>
+						<th />
+						<th />
+						<th class="tdprecio">Pre-venta</th>
+						<th class="tdprecio">Normal</th>
+					</tr>
+				</thead>
 				<tbody>
 					{#if evento.precios}
 						{#each evento.precios as precio, idx}
@@ -37,6 +45,7 @@
 									<td class="tdnombre">{precio.nombre} </td>
 								{/if}
 								<td class="tdprecio"><Soles number={precio.online} /></td>
+								<td class="tdprecio"><Soles number={precio.onlineNormal} /></td>
 							</tr>
 						{/each}
 					{/if}

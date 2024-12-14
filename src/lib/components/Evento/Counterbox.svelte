@@ -16,13 +16,14 @@
 
 	let precio: number = esPromotor ? zona.promotor : zona.online;
 	let precioIndividual: number = esPromotor ? zona.promotori! : zona.onlinei!;
+	let precioGrupal: number = esPromotor ? zona.promotor! : zona.online;
 	let total: number = 0;
 	let tope: number = asiento.c ? asiento.l! - asiento.c : asiento.l!;
 
 	let regalo: string = zona.regalo ?? '';
 
 	export let count: number = tope;
-	total = count * precioIndividual;
+	total = count == 10 ? precioGrupal : count * precioIndividual;
 
 	const dispatch = createEventDispatcher();
 	onMount(() => {
@@ -39,8 +40,7 @@
 	});
 
 	function handleClick(count: number) {
-		console.log('count', count);
-		total = count * precioIndividual;
+		total = count == 10 ? precioGrupal : count * precioIndividual;
 		total = Math.round(total * 100) / 100;
 		if (count <= 0) count = 1;
 
@@ -115,7 +115,7 @@
 			</div>
 		</div>
 	</div>
-	<Regalo {regalo} />
+	<!-- <Regalo {regalo} /> -->
 </div>
 
 <style lang="scss">
