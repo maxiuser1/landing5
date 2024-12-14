@@ -39,8 +39,9 @@
 	});
 
 	function handleClick(count: number) {
+		console.log('count', count);
 		total = count * precioIndividual;
-
+		total = Math.round(total * 100) / 100;
 		if (count <= 0) count = 1;
 
 		if (count == 1) {
@@ -77,8 +78,7 @@
 
 	<div>
 		<div class="counter">
-			<!-- <button
-				disabled
+			<button
 				type="button"
 				on:click={() => {
 					if (count >= 2) {
@@ -89,14 +89,13 @@
 				aria-label="Disminiuir"
 			>
 				<Decrease />
-			</button> -->
+			</button>
 			<div class="counter-viewport">
 				<div class="counter-digits">
 					{count}
 				</div>
 			</div>
-			<!-- <button
-				disabled
+			<button
 				type="button"
 				on:click={() => {
 					if (count < tope) {
@@ -106,8 +105,8 @@
 				}}
 				aria-label="Aumentar"
 			>
-				<Increase /> 
-			</button> -->
+				<Increase />
+			</button>
 		</div>
 
 		<div class="contenedor">

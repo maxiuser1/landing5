@@ -18,7 +18,7 @@
 {#if evento.caratula.portada}
 	<section class="portada">
 		<a href={redirectUrl}>
-			<img width="100%" src="https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-I3ijXCmY/w:auto/h:auto/q:auto/id:333ffed4d9c9f89f751deb234a0b46f9/directUpload/land.jpg" alt="portada" />
+			<img width="100%" src={evento.caratula.portada} alt="portada" />
 		</a>
 	</section>
 {:else}
