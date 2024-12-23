@@ -22,7 +22,7 @@
 	const dispatch = createEventDispatcher();
 	function handleClick(count: number) {
 		total = precio * count;
-
+		total = Math.round(total * 100) / 100;
 		if (count <= 0) count = 1;
 
 		if (count == 1) {

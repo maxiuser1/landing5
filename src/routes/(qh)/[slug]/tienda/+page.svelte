@@ -151,7 +151,7 @@
 						</div>
 
 						<div class="form-group">
-							<input type="text" name="ubicacion" placeholder="Ubicación" bind:this={ubicacion} required />
+							<input type="text" name="ubicacion" placeholder="Indica tu ubicación" bind:this={ubicacion} required />
 						</div>
 					</div>
 
