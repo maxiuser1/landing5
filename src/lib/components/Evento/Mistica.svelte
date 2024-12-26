@@ -14,6 +14,14 @@
 			alert('Seleccione el sector');
 		}
 	}
+
+	function onChangeSelect(event: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
+		if (zona) {
+			dispatch('seleccionar', { zona });
+		} else {
+			alert('Seleccione el sector');
+		}
+	}
 </script>
 
 <div style="background-color: #000;">
@@ -33,7 +41,7 @@
 		<div class="selector">
 			<div>Seleccionar el sector</div>
 			<div>
-				<select id="ddlSector" bind:value={zona}>
+				<select id="ddlSector" bind:value={zona} on:change={onChangeSelect}>
 					<option value="">Zona</option>
 					<option value="BOX">BOX</option>
 					<option value="VIP">VIP</option>
