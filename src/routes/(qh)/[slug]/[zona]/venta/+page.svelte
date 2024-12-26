@@ -209,95 +209,100 @@
 </script>
 
 <Breadcrumbs {evento} />
+<div class="pagina">
+	<br />
+	<section class="container">
+		<div class="principal">
+			<div class="prota">
+				<div class="titulos">
+					<h4>Venta Directa</h4>
+				</div>
+				<form method="POST" on:submit|preventDefault={handleSubmit}>
+					{#if $compraData.entradas && zona}
+						<div class="compras">
+							{#if zona.numerado}
+								{#each $compraData.entradas as entrada, i}
+									<div class="compra" class:odd={i % 2 == 0}>
+										<Counterbox {entrada} {zona} on:cambiado={handleCantidad} />
+									</div>
+								{/each}
+								{#if ticketesBox}
+									<div class="tickets">
+										{#each ticketesBox as ticket, j}
+											<div class="input-group">
+												<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
+												<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>
+											</div>
+										{/each}
+									</div>
+									<br />
+								{/if}
+							{:else}
+								<div class="compra">
+									<Counterd entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
+								</div>
 
-<br />
-<section class="container">
-	<div class="principal">
-		<div class="prota">
-			<div class="titulos">
-				<h4>Venta Directa</h4>
-			</div>
-			<form method="POST" on:submit|preventDefault={handleSubmit}>
-				{#if $compraData.entradas && zona}
-					<div class="compras">
-						{#if zona.numerado}
-							{#each $compraData.entradas as entrada, i}
-								<div class="compra" class:odd={i % 2 == 0}>
-									<Counterbox {entrada} {zona} on:cambiado={handleCantidad} />
-								</div>
-							{/each}
-							{#if ticketesBox}
-								<div class="tickets">
-									{#each ticketesBox as ticket, j}
-										<div class="input-group">
-											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
-											<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>
-										</div>
-									{/each}
-								</div>
-								<br />
+								{#if ticketesGeneral}
+									<div class="tickets">
+										{#each ticketesGeneral as ticket, j}
+											<div class="input-group">
+												<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
+												<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>
+											</div>
+										{/each}
+									</div>
+									<br />
+								{/if}
 							{/if}
-						{:else}
-							<div class="compra">
-								<Counterd entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
-							</div>
+						</div>
+					{/if}
 
-							{#if ticketesGeneral}
-								<div class="tickets">
-									{#each ticketesGeneral as ticket, j}
-										<div class="input-group">
-											<input type="text" name={ticket.c} bind:value={ticket.v} class="form-control" required />
-											<button on:click={() => showDialogClick(ticket)} type="button" class="btn"><Qrcode /></button>
-										</div>
-									{/each}
-								</div>
-								<br />
-							{/if}
-						{/if}
+					<div class="form-group">
+						<label for="nombres">Información del cliente</label>
+						<input type="text" name="nombre" class="form-control" placeholder="Nombre" required />
 					</div>
-				{/if}
+					<div class="form-group">
+						<input type="text" name="apellido" class="form-control" placeholder="Apellido" required />
+					</div>
+					<div class="form-group">
+						<input type="text" name="dni" class="form-control" placeholder="DNI" required />
+					</div>
 
-				<div class="form-group">
-					<label for="nombres">Información del cliente</label>
-					<input type="text" name="nombre" class="form-control" placeholder="Nombre" required />
-				</div>
-				<div class="form-group">
-					<input type="text" name="apellido" class="form-control" placeholder="Apellido" required />
-				</div>
-				<div class="form-group">
-					<input type="text" name="dni" class="form-control" placeholder="DNI" required />
-				</div>
+					<div class="form-group">
+						<input type="email" name="correo" class="form-control" placeholder="Correo" required />
+					</div>
 
-				<div class="form-group">
-					<input type="email" name="correo" class="form-control" placeholder="Correo" required />
-				</div>
+					<div class="form-group">
+						<select name="tipo" class="form-control">
+							<option value="impreso">Con ticket fisico</option>
+							<option value="qr">Con generación de código QR</option>
+							<option value="autopicado">Con picado automatico</option>
+						</select>
+					</div>
 
-				<div class="form-group">
-					<select name="tipo" class="form-control">
-						<option value="impreso">Con ticket fisico</option>
-						<option value="qr">Con generación de código QR</option>
-						<option value="autopicado">Con picado automatico</option>
-					</select>
-				</div>
+					<FormasPago monto={$compraData.monto} />
 
-				<FormasPago monto={$compraData.monto} />
-
-				<div class="cta">
-					<button type="submit" class="btn" disabled={posting}>
-						{#if posting}
-							<Spinner size="20" color="#D30ED1" unit="px" />
-						{:else}
-							Continuar
-						{/if}
-					</button>
-				</div>
-			</form>
+					<div class="cta">
+						<button type="submit" class="btn" disabled={posting}>
+							{#if posting}
+								<Spinner size="20" color="#D30ED1" unit="px" />
+							{:else}
+								Continuar
+							{/if}
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
-</section>
+	</section>
+</div>
 
 <style lang="scss">
 	@import './static/style.scss';
+	.pagina {
+		background-color: #000;
+		color: white;
+	}
 	.tickets {
 		padding: 2px 24px;
 		display: flex;
@@ -368,7 +373,7 @@
 
 	.prota {
 		border-radius: 8px;
-		background: white;
+		background: #000;
 		.titulos {
 			padding: 20px 20px 0px;
 			@include breakpoint($md) {
