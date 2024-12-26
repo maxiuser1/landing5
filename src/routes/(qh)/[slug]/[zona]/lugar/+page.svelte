@@ -68,108 +68,147 @@
 	};
 </script>
 
-<section class="container">
-	<div class="principal">
-		<Steps paso={2} {zona} />
-
-		<div class="lugar">
-			<div class="titulos">
-				<h4>Lugar</h4>
-				<p>Selecciona el asiento y luego continua el proceso</p>
+<div class="pagina">
+	<img style="width: 100%;" class="img" src={evento?.caratula?.banner} alt="banner" />
+	<section class="container zonas">
+		<div style="padding:24px">
+			<div class="tabs">
+				<ul>
+					<li class="active">Elije tu zona</li>
+					<li>Resumen</li>
+					<li>Compra</li>
+				</ul>
 			</div>
+		</div>
+	</section>
+	<section class="container">
+		<div class="principal">
+			<div class="lugar">
+				<div class="titulos">
+					<h4>Box</h4>
+					<p>Selecciona el asiento y luego continua el proceso</p>
+				</div>
 
-			<div class="mapa">
-				<div class="scenario">
-					<Escenario />
-				</div>
-				<div class="asientos" bind:this={asientos} style:width="{filaWidth} px">
-					{#each filas as fila}
-						<ul class="fila">
-							<li>
-								{letrar(fila.id)}
-							</li>
-							{#each fila.sits as asiento}
-								<li style:min-width="{sitWidth}px">
-									{#if asiento.s != 0}
-										<Box
-											disabled={asiento.s >= 2}
-											width={sitWidth}
-											tomados={asiento.c ?? 0}
-											limite={asiento.l ?? 10}
-											on:clickeado={(e) => {
-												if (asiento.s == 1 || asiento.s == -1) {
-													asiento.s = e.detail.state ? 1 : -1;
-												}
-											}}
-										/>
-									{/if}
-								</li>
-							{/each}
-							<li>
-								{letrar(fila.id)}
-							</li>
-						</ul>
-					{/each}
-				</div>
-			</div>
-			<!-- <div class="scrollers">
-				<div>
-					<button
-						class="scroller"
-						type="button"
-						on:click={() => {
-							asientos.style.scrollBehavior = 'smooth';
-							asientos.scrollLeft -= 40;
-						}}
-					>
-						<Lanchor />
-					</button>
-					<button
-						class="scroller"
-						type="button"
-						on:click={() => {
-							asientos.style.scrollBehavior = 'smooth';
-							asientos.scrollLeft += 40;
-						}}
-					>
-						<Ranchor />
-					</button>
-				</div>
-			</div> -->
-
-			{#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
-				<div class="legend">
-					<div class="box">
+				<div class="mapa">
+					<div class="scenario" style="width: 315px; margin:0 auto;">
+						<Escenario />
+					</div>
+					<div class="asientos" bind:this={asientos} style:width="{filaWidth} px">
 						{#each filas as fila}
-							{#each fila.sits as asiento}
-								{#if asiento.s == 1}
-									<div class="line">
-										<Deathbox disabled={false} width={60} tomado={true} />
-										<div>
-											<strong>{`${letrar(fila.id)} ${asiento.id}`}</strong>
-										</div>
-									</div>
-								{/if}
-							{/each}
+							<ul class="fila">
+								<li>
+									{letrar(fila.id)}
+								</li>
+								{#each fila.sits as asiento}
+									<li style:min-width="{sitWidth}px">
+										{#if asiento.s != 0}
+											<Box
+												disabled={asiento.s >= 2}
+												width={sitWidth}
+												tomados={asiento.c ?? 0}
+												limite={asiento.l ?? 10}
+												on:clickeado={(e) => {
+													if (asiento.s == 1 || asiento.s == -1) {
+														asiento.s = e.detail.state ? 1 : -1;
+													}
+												}}
+											/>
+										{/if}
+									</li>
+								{/each}
+								<li>
+									{letrar(fila.id)}
+								</li>
+							</ul>
 						{/each}
 					</div>
 				</div>
-			{/if}
+				<!-- <div class="scrollers">
+					<div>
+						<button
+							class="scroller"
+							type="button"
+							on:click={() => {
+								asientos.style.scrollBehavior = 'smooth';
+								asientos.scrollLeft -= 40;
+							}}
+						>
+							<Lanchor />
+						</button>
+						<button
+							class="scroller"
+							type="button"
+							on:click={() => {
+								asientos.style.scrollBehavior = 'smooth';
+								asientos.scrollLeft += 40;
+							}}
+						>
+							<Ranchor />
+						</button>
+					</div>
+				</div> -->
 
-			<div class="cta" />
+				{#if filas.some((fila) => fila.sits.some((sit) => sit.s == 1))}
+					<div class="legend">
+						<div class="box">
+							{#each filas as fila}
+								{#each fila.sits as asiento}
+									{#if asiento.s == 1}
+										<div class="line">
+											<Deathbox disabled={false} width={60} tomado={true} />
+											<div>
+												<strong>{`${letrar(fila.id)} ${asiento.id}`}</strong>
+											</div>
+										</div>
+									{/if}
+								{/each}
+							{/each}
+						</div>
+					</div>
+				{/if}
+			</div>
+			<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
 		</div>
-	</div>
-	<div class="detalles">
-		<Resumen {evento} />
-		<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
-	</div>
-</section>
+		<!-- <div class="detalles">
+			<Resumen {evento} />
+			<button on:click|once={continuarClick} class="btn">Continuar <Arrow /> </button>
+		</div> -->
+	</section>
+</div>
 
 <style lang="scss">
 	@import './static/style.scss';
 
+	.tabs {
+		background-color: #ededed;
+		border-radius: 60px;
+		padding: 8px;
+		margin-bottom: 35px;
+
+		ul {
+			display: flex;
+			gap: 10px;
+			li {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				color: #000;
+			}
+
+			.active {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				background-color: #e700d8;
+				color: #ffffff;
+			}
+		}
+	}
+
+	.pagina {
+		background: #000;
+	}
 	.mapa {
-		margin-left: 20px;
 		@include breakpoint($md) {
 			margin-left: initial;
 		}
@@ -203,12 +242,16 @@
 	}
 
 	.principal {
-		padding-right: 8px;
 		min-height: 90vh;
 	}
-	.container {
-		display: grid;
-		grid-template-columns: 728px 352px;
+
+	.btn {
+		width: 100%;
+		margin-top: 40px;
+		margin-bottom: 24px;
+		border-radius: 50px;
+		font-size: 16px;
+		font-weight: 700;
 	}
 
 	.detalles {
@@ -217,12 +260,5 @@
 		border: 1px solid #fff;
 		background: var(--White-White_98, #f9f9f9);
 		box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
-
-		.btn {
-			width: 100%;
-			margin-top: 40px;
-			font-size: 16px;
-			font-weight: 700;
-		}
 	}
 </style>

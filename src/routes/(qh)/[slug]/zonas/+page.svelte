@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { handlee } from '$lib/utils/errorer';
+	import Mistica from '$lib/components/Evento/Mistica.svelte';
 
 	export let data;
 	let { evento } = data;
@@ -30,20 +31,24 @@
 </script>
 
 <Breadcrumbs {evento} />
-<Steps paso={1} />
 
-<section class="container">
-	<div class="principal">
-		<div class="prota">
-			<div class="titulos">
-				<h4>Entrada</h4>
-				<p>Selecciona en que sector deseas adquirir y luego continua el proceso</p>
+{#if evento.general.slug == 'mistica'}
+	<Mistica {evento} on:seleccionar={seleccionar} />
+{:else}
+	<Steps paso={1} />
+	<section class="container">
+		<div class="principal">
+			<div class="prota">
+				<div class="titulos">
+					<h4>Entrada</h4>
+					<p>Selecciona en que sector deseas adquirir y luego continua el proceso</p>
+				</div>
+				<Zonas {evento} on:seleccionar={seleccionar} />
 			</div>
-			<Zonas {evento} on:seleccionar={seleccionar} />
+			<Resumen {evento} />
 		</div>
-		<Resumen {evento} />
-	</div>
-</section>
+	</section>
+{/if}
 
 <style lang="scss">
 	@import './static/style.scss';

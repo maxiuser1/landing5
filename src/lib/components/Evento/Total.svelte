@@ -54,8 +54,10 @@
 		}
 	}
 	.totales {
+		margin-top: 24px;
+		border-top: 1px solid rgba(255, 0, 0, 0.3);
 		border-radius: 0px;
-		background-color: #dbdbdb;
+		background-color: #000;
 
 		@include breakpoint($md) {
 			border-top-left-radius: 0px;

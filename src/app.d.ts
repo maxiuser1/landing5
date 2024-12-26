@@ -169,6 +169,7 @@ declare global {
 				thumb?: string;
 				detalles?: string;
 				card?: string;
+				banner?: string;
 			};
 			general?: {
 				categoria: string;

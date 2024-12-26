@@ -20,6 +20,10 @@
 		<a href={redirectUrl}>
 			<img width="100%" src={evento.caratula.portada} alt="portada" />
 		</a>
+		<br />
+		<div style="display:flex; justify-content: center; padding-bottom: 24px;">
+			<a href={redirectUrl} class="btn"> Continuar </a>
+		</div>
 	</section>
 {:else}
 	<section class="banner" style:background-image="url('{evento.caratula?.banner}')">
@@ -33,7 +37,15 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+	.btn {
+		width: 90vw;
+		display: block;
+		text-align: center;
+		border-radius: 50px;
+	}
+
 	.portada {
+		background-color: #000;
 		img {
 			width: 100%;
 			height: auto;

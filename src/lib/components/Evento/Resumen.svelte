@@ -3,7 +3,7 @@
 	export let evento: App.Evento;
 </script>
 
-<div style="display:flex;flex-direction: column;">
+<div style="display:flex;flex-direction: column; padding:24px">
 	<div class="banner">
 		<img class="img" src={evento?.caratula?.card} alt="banner" />
 	</div>
@@ -39,6 +39,11 @@
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.h7,
+	.titulo--suprayado {
+		color: #ffffff;
+	}
 
 	.date-info {
 		color: #3b3b3b;

@@ -166,97 +166,144 @@
 </svelte:head>
 
 <Breadcrumbs {evento} />
-<Steps paso={4} />
+<!-- <Steps paso={4} /> -->
 
 {#if posting || $navigating != null}
 	<div class="progreso">
 		<Spinner size="60" color="#D30ED1" unit="px" />
 	</div>
 {/if}
-
-<section class="container">
-	<div class="principal">
-		<div class="prota">
-			<div class="titulos">
-				<h4>Resumen</h4>
+<div class="pagina">
+	<section class="container">
+		<img style="width: 100%;" class="img" src={evento?.caratula?.banner} alt="banner" />
+	</section>
+	<section class="container zonas">
+		<div style="padding:24px">
+			<div class="tabs">
+				<ul>
+					<li>Elije tu zona</li>
+					<li class="active">Resumen</li>
+					<li>Compra</li>
+				</ul>
 			</div>
-			{#if mostrarFormulario}
-				<div class="compras">
-					<div on:click={volverDetalle}>
-						<Total volver={true} cantidad={$compraData.cantidad} monto={$compraData.monto ?? 0} />
-					</div>
-					<form method="POST" on:submit|preventDefault={pagarClick}>
-						<div class="formulario">
-							<h5>Tus datos</h5>
-							<div class="form-group">
-								<input name="correo" placeholder="Correo" bind:this={correo} type="email" required />
-							</div>
-
-							<div class="form-group">
-								<input type="text" name="nombre" placeholder="Nombre" bind:this={nombre} required />
-							</div>
-
-							<div class="form-group">
-								<input type="text" name="apellido" placeholder="Apellidos" bind:this={apellido} required />
-							</div>
-
-							<div class="form-group">
-								<input type="text" name="dni" placeholder="Documento de identidad" bind:this={dni} required />
-							</div>
-
-							<div class="form-group">
-								<input type="text" name="telefono" placeholder="Teléfono / Movil" bind:this={telefono} required />
-							</div>
+		</div>
+	</section>
+	<section class="container">
+		<div class="principal">
+			<div class="prota">
+				<div class="titulos">
+					<h4>Resumen</h4>
+				</div>
+				{#if mostrarFormulario}
+					<div class="compras">
+						<div on:click={volverDetalle}>
+							<Total volver={true} cantidad={$compraData.cantidad} monto={$compraData.monto ?? 0} />
 						</div>
-						<div class="cta">
-							<button type="submit" class="btn" disabled={posting || $navigating != null}>
+						<form method="POST" on:submit|preventDefault={pagarClick}>
+							<div class="formulario">
+								<h5>Tus datos</h5>
+								<div class="form-group">
+									<input name="correo" placeholder="Correo" bind:this={correo} type="email" required />
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="nombre" placeholder="Nombre" bind:this={nombre} required />
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="apellido" placeholder="Apellidos" bind:this={apellido} required />
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="dni" placeholder="Documento de identidad" bind:this={dni} required />
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="telefono" placeholder="Teléfono / Movil" bind:this={telefono} required />
+								</div>
+							</div>
+							<div class="cta">
+								<button type="submit" class="btn" disabled={posting || $navigating != null}>
+									{#if posting || $navigating}
+										<Spinner size="20" color="#D30ED1" unit="px" />
+									{:else}
+										Pagar <Tarjeta />
+									{/if}
+								</button>
+							</div>
+						</form>
+					</div>
+				{:else if $compraData.entradas && zona}
+					<div class="compras">
+						{#if zona.numerado}
+							{#each $compraData.entradas as entrada, i}
+								<div class="compra" class:odd={i % 2 == 0}>
+									<Counterbox {entrada} {zona} on:cambiado={handleCantidad} />
+								</div>
+							{/each}
+						{:else}
+							<div class="compra">
+								<Counter entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
+							</div>
+						{/if}
+
+						<Total cantidad={$compraData.cantidad} monto={$compraData.monto ?? 0} />
+					</div>
+
+					<div class="cta">
+						{#if $page.data.user}
+							<button on:click={pagarClick} class="btn" disabled={posting || $navigating != null}>
 								{#if posting || $navigating}
 									<Spinner size="20" color="#D30ED1" unit="px" />
 								{:else}
 									Pagar <Tarjeta />
 								{/if}
 							</button>
-						</div>
-					</form>
-				</div>
-			{:else if $compraData.entradas && zona}
-				<div class="compras">
-					{#if zona.numerado}
-						{#each $compraData.entradas as entrada, i}
-							<div class="compra" class:odd={i % 2 == 0}>
-								<Counterbox {entrada} {zona} on:cambiado={handleCantidad} />
-							</div>
-						{/each}
-					{:else}
-						<div class="compra">
-							<Counter entrada={$compraData.entradas[0]} {zona} on:cambiado={handleCantidad} />
-						</div>
-					{/if}
-
-					<Total cantidad={$compraData.cantidad} monto={$compraData.monto ?? 0} />
-				</div>
-
-				<div class="cta">
-					{#if $page.data.user}
-						<button on:click={pagarClick} class="btn" disabled={posting || $navigating != null}>
-							{#if posting || $navigating}
-								<Spinner size="20" color="#D30ED1" unit="px" />
-							{:else}
-								Pagar <Tarjeta />
-							{/if}
-						</button>
-					{:else}
-						<button class="btn" on:click={continuarClick} type="button">Continuar</button>
-					{/if}
-				</div>
-			{/if}
+						{:else}
+							<button class="btn" on:click={continuarClick} type="button">Continuar</button>
+						{/if}
+					</div>
+				{/if}
+			</div>
+			<Resumen {evento} />
 		</div>
-		<Resumen {evento} />
-	</div>
-</section>
+	</section>
+</div>
 
 <style lang="scss">
 	@import './static/style.scss';
+
+	.tabs {
+		background-color: #ededed;
+		border-radius: 60px;
+		padding: 8px;
+		margin-bottom: 35px;
+
+		ul {
+			display: flex;
+			gap: 10px;
+			li {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				color: #000;
+			}
+
+			.active {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				background-color: #e700d8;
+				color: #ffffff;
+			}
+		}
+	}
+
+	.pagina {
+		background-color: #000;
+		color: #ffffff;
+	}
+
 	.formulario {
 		h5 {
 			padding: 12px 24px;
@@ -324,7 +371,6 @@
 
 	.prota {
 		border-radius: 8px;
-		background: white;
 		.titulos {
 			display: none;
 			@include breakpoint($md) {
@@ -336,7 +382,6 @@
 		.compras {
 			margin-top: 10px;
 			margin-bottom: 10px;
-			background-color: #f9f9f9;
 		}
 
 		@include breakpoint($md) {
