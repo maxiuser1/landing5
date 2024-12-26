@@ -18,6 +18,7 @@
 	let dialog: any;
 
 	onMount(async () => {
+		console.log('ticket', ticket);
 		clearCompradata();
 		await loadFull(tsParticles);
 		await tsParticles.load('tsparticles', confetiConfig);
@@ -151,13 +152,17 @@
 		</button>
 		<button
 			type="button"
-			class="btn"
+			class="btn-outline"
 			on:click={() => {
 				dialog.showModal();
 			}}
 		>
 			Enviar al correo
 		</button>
+	</div>
+	<br />
+	<div>
+		<a href={ticket.id + '/invitados'} class="btn"> Registrar invitados </a>
 	</div>
 	<div class="footer">
 		<br />
