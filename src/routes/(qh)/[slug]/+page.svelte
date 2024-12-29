@@ -17,12 +17,11 @@
 
 {#if evento.caratula.portada}
 	<section class="portada">
-		<a href={redirectUrl}>
+			<img width="100%" src="https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-wBB99eof/w:auto/h:auto/q:auto/id:a46bf3dafd29c1b6d4fce7aca8ad0494/directUpload/comunicado.jpg" alt="portada" />
+
 			<img width="100%" src={evento.caratula.portada} alt="portada" />
-		</a>
 		<br />
 		<div style="display:flex; justify-content: center; padding-bottom: 24px;">
-			<a href={redirectUrl} class="btn"> Continuar </a>
 		</div>
 	</section>
 {:else}

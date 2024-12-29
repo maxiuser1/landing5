@@ -16,11 +16,7 @@
 	}
 
 	function onChangeSelect(event: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
-		if (zona) {
-			dispatch('seleccionar', { zona });
-		} else {
-			alert('Seleccione el sector');
-		}
+		
 	}
 </script>
 
@@ -101,7 +97,6 @@
 			<p>Preventa exclusiva del 25% de descuento en zonas General y VIP, y 10% en zona BOX (stock limitado), hasta agotar stock</p>
 		</div>
 		<div>
-			<button class="btn" on:click={continuarHandler}>Continuar</button>
 		</div>
 	</section>
 </div>
