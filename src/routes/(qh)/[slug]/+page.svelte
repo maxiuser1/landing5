@@ -5,7 +5,7 @@
 
 	export let data;
 	let { evento } = data;
-	const urlZonas = `${evento.general?.slug}/zonas${$page.url.search ?? ''}`;
+	const urlZonas = `zonas${$page.url.search ?? ''}`;
 	const urlLogin = `./login?redirectTo=${encodeURIComponent($page.url.href)}`;
 	// let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
 	let redirectUrl = urlZonas;
