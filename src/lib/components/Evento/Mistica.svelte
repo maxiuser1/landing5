@@ -16,14 +16,16 @@
 	}
 
 	function onChangeSelect(event: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
-		
+		if (zona) {
+			dispatch('seleccionar', { zona });
+		} else {
+			alert('Seleccione el sector');
+		}
 	}
 </script>
 
 <div style="background-color: #000;">
-	<section>
-		<img style="width:100%" src="https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-FxiQMTOt/w:auto/h:auto/q:auto/id:6cc53d24d5c2f861fbf8f3d07541ad7e/directUpload/card.png" alt="banner" />
-	</section>
+	
 	<section class="zona">
 		<div class="tabs">
 			<ul>
@@ -97,6 +99,7 @@
 			<p>Preventa exclusiva del 25% de descuento en zonas General y VIP, y 10% en zona BOX (stock limitado), hasta agotar stock</p>
 		</div>
 		<div>
+			<button class="btn" on:click={continuarHandler}>Continuar</button>
 		</div>
 	</section>
 </div>
