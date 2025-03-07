@@ -3,4 +3,15 @@
 	let { data }: PageProps = $props();
 </script>
 
-<h1>{data.eventos?.length}</h1>
+<h1 class="item">{data.eventos?.length}</h1>
+
+<style lang="scss">
+	@use '../../../static/style.scss' as mixin;
+
+	.item {
+		color: yellow;
+		@include mixin.breakpoint(mixin.$md) {
+			color: red;
+		}
+	}
+</style>
