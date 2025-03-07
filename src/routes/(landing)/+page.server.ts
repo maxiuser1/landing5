@@ -1,0 +1,8 @@
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ params, locals }) => {
+	const eventos = await locals.eventosRepo.getEventosDestacados();
+	return {
+		eventos
+	};
+};
