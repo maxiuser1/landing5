@@ -34,7 +34,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.compra {
 		min-width: 300px;
 		padding: 32px;
@@ -45,11 +45,11 @@
 		align-items: center;
 		gap: 10px;
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			min-width: 400px;
 		}
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			min-width: 500px;
 		}
 	}
@@ -59,7 +59,7 @@
 		border-radius: 0px;
 		background-color: #000;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			border-top-left-radius: 0px;
 			border-top-right-radius: 0px;
 		}

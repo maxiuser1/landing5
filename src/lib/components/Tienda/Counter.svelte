@@ -60,7 +60,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.precio {
 		font-weight: 900;

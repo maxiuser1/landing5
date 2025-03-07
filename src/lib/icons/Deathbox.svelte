@@ -57,8 +57,7 @@
 {/if}
 
 <style lang="scss">
-	@import './static/style.scss';
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.ocupado rect {
 		fill: #d4d4d4;
 	}

@@ -11,7 +11,7 @@
 	let asientos: any;
 	let { evento, zona }: { evento: App.Evento; zona: App.Precio } = data;
 
-	let filas: Array<App.Fila> = evento.precios?.find((t: App.Precio) => t.tipo == zona.tipo)?.filas ?? new Array<App.Fila>();
+	let filas: Array<App.Fila> = evento.precios?.find((t: App.Precio) => t.codigo == zona.codigo)?.filas ?? new Array<App.Fila>();
 	const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
 
 	const sitWidth = 75;
@@ -39,6 +39,7 @@
 					if (sit.s == 1) {
 						entradas.push({
 							tipo: zona.tipo,
+							codigo: zona.codigo,
 							nombre: zona.nombre,
 							numerado: true,
 							fila: fila.id,
@@ -57,11 +58,11 @@
 
 			compraData.update((current) => ({
 				...current,
-				zona: { tipo: zona.tipo },
+				zona: { codigo: zona.codigo ?? '' },
 				entradas: entradas
 			}));
 
-			esPromotor ? goto(`./venta`) : goto(`./reserva${$page.url.search ?? ''}`);
+			esPromotor ? goto(`../venta`) : goto(`../reserva${$page.url.search ?? ''}`);
 		} catch (err) {
 			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
 		}
@@ -177,7 +178,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.tabs {
 		background-color: #ededed;
@@ -209,7 +210,7 @@
 		background: #000;
 	}
 	.mapa {
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-left: initial;
 		}
 	}

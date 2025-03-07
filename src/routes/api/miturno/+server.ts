@@ -8,7 +8,7 @@ import { user } from '$lib/stores/userstore';
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const clientIpAddress = getClientAddress();
 	const intencion = (await request.json()) as App.Compra;
-
+	console.log('intencion', intencion);
 	if (intencion.invitado != undefined && intencion.invitado && !locals.user) {
 		const usersearch = await locals.usuariosRepo.findByCorreo(intencion.invitado.correo);
 		if (usersearch) {
@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 
 	for (let entrada of intencion.entradas!) {
 		const entradaDb = ventaOnline.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
-		if (entradaDb.numerado) {
+		if (entradaDb.tipo == 'BOX' || entradaDb.tipo == 'Asiento') {
 			const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
 			const asiento = fila?.sits.find((t) => t.id == entrada.asiento);
 			const habilitados = asiento.c ? entradaDb.tope! - asiento.c : entradaDb.tope;

@@ -23,15 +23,14 @@
 </svg>
 
 <style lang="scss">
-	@import './static/style.scss';
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	svg {
 		z-index: 1;
 
 		width: 128px;
 		height: 128px;
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			width: 180px;
 			height: 180px;
 		}

@@ -41,7 +41,7 @@
 		</div>
 		<div class="headings">
 			{#if ticket.entradas}
-				<h1>Entrada {ticket.entradas[0].tipo}</h1>
+				<h1>Entrada {ticket.entradas[0].nombre}</h1>
 			{/if}
 			<h1>Compradas: {cantidad}</h1>
 			<h1>Picadas: {picados}</h1>
@@ -71,7 +71,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.txtcantidad {
 		font-size: 40px;
@@ -142,7 +142,7 @@
 		border-radius: 8px;
 		background: white;
 		padding: 60px 24px 0px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-bottom: 400px;
 			padding: 48px 24px 40px;
 		}
@@ -164,11 +164,11 @@
 				gap: 10px;
 				margin-top: 20px;
 
-				@include breakpoint($sm) {
+				@include mixin.breakpoint(mixin.$sm) {
 					min-width: 400px;
 				}
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					min-width: 500px;
 				}
 
@@ -191,7 +191,7 @@
 				}
 			}
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				margin: 0 auto;
 				max-width: 632px;
 			}
@@ -202,7 +202,7 @@
 		margin-bottom: 60px;
 		text-align: center;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-top: 100px;
 			margin-bottom: 79px;
 		}
@@ -210,7 +210,7 @@
 		h1 {
 			margin-top: 32px;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				margin-top: 42px;
 			}
 		}

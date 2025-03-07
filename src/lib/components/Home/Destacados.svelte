@@ -36,7 +36,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.tarjetas {
 		display: flex;
@@ -45,7 +45,7 @@
 		white-space: nowrap;
 		gap: 16px;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: column;
 			flex-wrap: wrap;
 		}

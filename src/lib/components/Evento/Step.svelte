@@ -14,7 +14,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.paso {
 		display: flex;
 		align-items: center;
@@ -32,7 +32,7 @@
 			justify-content: center;
 			border-radius: 50%;
 			background-color: #e2e2e2;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				width: 54px;
 				height: 54px;
 				font-size: 24px;
@@ -44,7 +44,7 @@
 			font-size: 14px;
 			line-height: 14px;
 			color: #c6c6c6;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				font-size: 18px;
 				line-height: 22px;
 			}
@@ -55,7 +55,7 @@
 			font-size: 10px;
 			line-height: 12px;
 			color: #c6c6c6;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				font-size: 14px;
 				line-height: 17px;
 			}

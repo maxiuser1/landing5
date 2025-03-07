@@ -9,12 +9,12 @@
 	const seleccionar = ({ detail }: any) => {
 		try {
 			const esPromotor = $page.data.user?.rol != undefined && $page.data.user?.rol == 'promotor';
-			const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == detail.zona)!;
+			const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.codigo == detail.zona)!;
 
 			if (zonaEvento.numerado) {
-				goto(`../${evento!.general!.slug}/${zonaEvento.tipo}/lugar${$page.url.search ?? ''}`);
+				goto(`../${evento!.general!.slug}/${zonaEvento.codigo}/lugar${$page.url.search ?? ''}`);
 			} else {
-				esPromotor ? goto(`${zonaEvento.tipo}/venta`) : goto(`${zonaEvento.tipo}/reserva${$page.url.search ?? ''}`);
+				esPromotor ? goto(`${zonaEvento.codigo}/venta`) : goto(`${zonaEvento.codigo}/reserva${$page.url.search ?? ''}`);
 			}
 		} catch (err) {
 			handlee(JSON.stringify(err, Object.getOwnPropertyNames(err)));
@@ -31,7 +31,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.container {
 		display: flex;

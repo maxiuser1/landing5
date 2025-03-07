@@ -26,7 +26,7 @@
 </section>
 
 <section class="container">
-	<div class="info ">
+	<div class="info">
 		<div>
 			<h1>Nosotros</h1>
 			<p>
@@ -41,7 +41,7 @@
 </section>
 
 <section class="container">
-	<div class="valores ">
+	<div class="valores">
 		<div>
 			<h1>Valores</h1>
 		</div>
@@ -49,7 +49,7 @@
 </section>
 
 <section class="container">
-	<div class="valores ">
+	<div class="valores">
 		<div>
 			<video playsinline autoplay muted loop class="exvideo">
 				<source src="https://res.cloudinary.com/maxitech/video/upload/v1667263152/ticketera/banners/Innovacion_xzpkic.webm" type="video/webm" />
@@ -74,7 +74,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	#video {
 		object-fit: cover;
 		width: 100%;
@@ -121,14 +121,14 @@
 		padding-right: 24px;
 		flex-direction: column;
 		gap: 20px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 			margin-top: 20px;
 		}
 		h1 {
 			margin-top: 20px;
 			margin-bottom: 20px;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				margin-top: 10px;
 			}
 		}
@@ -147,7 +147,7 @@
 		padding-right: 24px;
 		flex-direction: column;
 		gap: 20px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 			margin-top: 30px;
 		}
@@ -162,11 +162,11 @@
 		width: 100%;
 		position: relative;
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			height: 250px;
 		}
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			height: 350px;
 		}
 	}
@@ -180,7 +180,7 @@
 		align-items: center;
 		justify-content: center;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			height: 315px;
 		}
 
@@ -189,7 +189,7 @@
 
 			color: #ffffff;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding: 0 0 32px 88px;
 			}
 
@@ -198,7 +198,7 @@
 				font-size: 32px;
 				line-height: 38px;
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					font-size: 42px;
 					line-height: 50px;
 				}
@@ -209,7 +209,7 @@
 				font-size: 24px;
 				line-height: 29px;
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					font-size: 32px;
 					line-height: 38px;
 				}

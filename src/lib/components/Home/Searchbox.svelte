@@ -15,7 +15,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.bind {
 		position: relative;
 		z-index: 4;
@@ -38,7 +38,7 @@
 				border-radius: 4px;
 				background-color: #310b6b;
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					height: 56px;
 				}
 			}

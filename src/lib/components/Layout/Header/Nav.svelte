@@ -28,7 +28,7 @@
 </button>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	button {
 		border: none;
@@ -61,7 +61,7 @@
 
 	.item {
 		display: none;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: flex;
 			align-items: center;
 		}
@@ -70,7 +70,7 @@
 	.last {
 		display: none;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: initial;
 			cursor: pointer;
 			border-left: 2px solid #ff888f;

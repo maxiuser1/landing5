@@ -45,7 +45,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 	findEvento = async (id: string): Promise<App.Evento> => {
 		const container = await this.getContainer('ensallos');
-		const { resource: evento } = await container.item(id, 'quehay').read();
+		const { resource: evento } = await container.item(id, id).read();
 		return evento;
 	};
 
@@ -54,11 +54,11 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const database = await client.database('quehaydb');
 		const container = await database.container('entradas');
 
-		const { resource: entrada } = await container.item(id, 'quehay').read();
+		const { resource: entrada } = await container.item(id, id).read();
 		return entrada;
 	};
 
-	getEntradasPorNumero = async (slug: string, tipo: string, numero: string): Promise<App.Entrada | null> => {
+	getEntradasPorNumero = async (slug: string, codigo: string, numero: string): Promise<App.Entrada | null> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('entradas');
@@ -69,7 +69,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 			join f in c.entradas
 			join t in c.impresos
 			where 
-			f.tipo = @tipo 
+			f.codigo = @codigo 
 			and c.slug = @slug
 			and contains(t.n, @numero)`,
 			parameters: [
@@ -78,8 +78,8 @@ export class EventosRepo implements App.EventosRepoInterface {
 					value: slug
 				},
 				{
-					name: '@tipo',
-					value: tipo
+					name: '@codigo',
+					value: codigo
 				},
 				{
 					name: '@numero',
@@ -130,7 +130,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 			value: cantidad
 		});
 
-		await container.item(id, 'quehay').patch(replaceOperation);
+		await container.item(id, id).patch(replaceOperation);
 	};
 
 	ventaManual = async (slug: string, compra: any, vendedor: any): Promise<any> => {
@@ -146,7 +146,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		let precioReal: number = 0;
 
 		for (let entrada of compra.entradas) {
-			const entradaDb = ventaManual.tarificarEntrada(entrada.tipo!, entrada.cantidad, entrada);
+			const entradaDb = ventaManual.tarificarEntrada(entrada.codigo!, entrada.cantidad, entrada);
 
 			if (entradaDb.numerado) {
 				const fila = entradaDb.filas.find((t) => t.id == entrada.fila);
@@ -161,11 +161,11 @@ export class EventosRepo implements App.EventosRepoInterface {
 		}
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
-			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);
-			const currentPrecio = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+			const indexPrecio = evento.precios.findIndex((t: any) => t.codigo == entrada.codigo);
+			const currentPrecio = evento.precios.find((t: any) => t.codigo == entrada.codigo);
 
 			if (entrada.numerado) {
-				const currentPrecio = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+				const currentPrecio = evento.precios.find((t: any) => t.codigo == entrada.codigo);
 				const indexFila = currentPrecio!.filas.findIndex((t: any) => t.id == entrada.fila);
 
 				const fila = currentPrecio!.filas.find((t: any) => t.id == entrada.fila);
@@ -242,8 +242,8 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 		const replaceOperation: PatchOperation[] = [];
 		compra.entradas.forEach((entrada: any) => {
-			const indexPrecio = evento.precios.findIndex((t: any) => t.tipo == entrada.tipo);
-			const zona = evento.precios.find((t: any) => t.tipo == entrada.tipo);
+			const indexPrecio = evento.precios.findIndex((t: any) => t.codigo == entrada.codigo);
+			const zona = evento.precios.find((t: any) => t.codigo == entrada.codigo);
 
 			if (entrada.numerado) {
 				const indexFila = zona!.filas.findIndex((t: any) => t.id == entrada.fila);
@@ -299,43 +299,31 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('ensallos');
-
-		const querySpec: SqlQuerySpec = {
-			query: 'SELECT * from c where c.general.slug = @slug',
-			parameters: [
-				{
-					name: '@slug',
-					value: slug
-				}
-			]
-		};
-
-		const { resources: results } = await container.items.query<App.Evento>(querySpec).fetchAll();
-
-		return results[0];
+		const { resource: evento } = await container.item(slug, slug).read<App.Evento>();
+		return evento!;
 	};
 
 	getEventoConLocacion = async (slug: string): Promise<App.Evento> => {
-		const evento = await this.getEvento(slug);
-
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
-		const container = await database.container('seccionamientos');
+
+		const container = await database.container('ensallos');
+		const { resource: evento } = await container.item(slug, slug).read<App.Evento>();
+
+		const containerSeccionamientos = await database.container('seccionamientos');
 
 		const querySpec: SqlQuerySpec = {
 			query: 'SELECT * from c where c.id = @id',
 			parameters: [
 				{
 					name: '@id',
-					value: evento.ubicacion!.seccionamiento
+					value: evento!.ubicacion!.seccionamiento
 				}
 			]
 		};
 
-		const { resources: items } = await container.items.query(querySpec, { partitionKey: evento.lugar }).fetchAll();
-
-		const resultado = { ...evento, locacion: items[0].general.mapa };
-
+		const { resources: items } = await containerSeccionamientos.items.query(querySpec, { partitionKey: evento!.lugar }).fetchAll();
+		const resultado = { ...evento!, locacion: items[0].general.mapa };
 		return resultado;
 	};
 

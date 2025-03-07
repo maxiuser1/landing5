@@ -11,7 +11,7 @@ import { letrar } from '$lib/utils/letrador';
 export const load = async ({ locals, params }: { locals: App.Locals; params: Record<string, string> }) => {
 	if (locals.user.rol == 'promotor') {
 		const evento = await locals.eventosRepo.getEvento(params.slug);
-		const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.tipo == params.zona);
+		const zonaEvento: App.Precio = evento.precios.find((t: App.Precio) => t.codigo == params.zona);
 
 		const ventaManual = new VentaManual(evento);
 		const zona: App.Precio = ventaManual.tarificar(params.zona, zonaEvento.numerado ? zonaEvento.tope! : 1);
@@ -32,7 +32,7 @@ export const actions: Actions = {
 		const compraCliente = { ...compra, cliente: formDataCliente, formaPago: formData.formaPago };
 
 		const evento = await locals.eventosRepo.findEvento(compra.evento.id);
-		const generaQR = new VentaManual(evento).debeGenerarQR(compra.entradas[0].tipo, compra.entradas[0].cantidad);
+		const generaQR = new VentaManual(evento).debeGenerarQR(compra.entradas[0].codigo, compra.entradas[0].cantidad);
 		const vendedor = {
 			nombre: locals.user.nombre,
 			correo: locals.user.correo,

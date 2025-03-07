@@ -100,7 +100,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.ver-mas {
 		position: absolute;
@@ -142,12 +142,12 @@
 			min-height: 109px;
 			max-height: 109px;
 
-			@include breakpoint($sm) {
+			@include mixin.breakpoint(mixin.$sm) {
 				min-height: 200px;
 				max-height: 200px;
 			}
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				min-height: 22.5rem;
 				max-height: 22.5rem;
 			}
@@ -199,7 +199,7 @@
 			padding-top: 20px;
 			width: 100%;
 			display: none;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: flex;
 				justify-content: center;
 			}

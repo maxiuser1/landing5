@@ -8,10 +8,10 @@ import { VentaManual } from '$lib/aplicacion/ventamanual';
 export const load = async ({ locals, params }) => {
 	let ticket: App.Entrada = await locals.eventosRepo.getEntrada(params.id);
 	const evento = await locals.eventosRepo.findEvento(ticket.evento.id);
-	const zona = evento.precios.find((t: App.Precio) => t.tipo == ticket.entradas![0].tipo);
+	const zona = evento.precios.find((t: App.Precio) => t.codigo == ticket.entradas![0].codigo);
 
 	const vieneTipoQR = ticket.cliente && ticket.cliente.tipo && ticket.cliente.tipo == 'qr';
-	const generaQR = ticket.canal === 'WEB' || vieneTipoQR ? true : new VentaManual(evento).debeGenerarQR(ticket.entradas![0].tipo!, ticket.entradas![0].cantidad);
+	const generaQR = ticket.canal === 'WEB' || vieneTipoQR ? true : new VentaManual(evento).debeGenerarQR(ticket.entradas![0].codigo!, ticket.entradas![0].cantidad);
 
 	if (generaQR) {
 		var opts: any = {

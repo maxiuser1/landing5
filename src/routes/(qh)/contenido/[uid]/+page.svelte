@@ -27,7 +27,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	section {
 		margin-top: 30px;
 	}

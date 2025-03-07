@@ -42,7 +42,6 @@
 				}
 			]
 		}));
-
 		dispatch('cambiado', { count });
 	}
 
@@ -135,7 +134,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.adiconales {
 		margin-top: 10px;
 	}
@@ -146,7 +145,7 @@
 		align-items: center;
 		gap: 10px;
 		justify-content: space-between;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 		}
 

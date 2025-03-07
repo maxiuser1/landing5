@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { Header } from '$lib/components/Layout';
 	import { Whatsapp } from '$lib/icons';
 	import HomeFooter from '$lib/components/Layout/Footer/Home-Footer.svelte';
 	import HomeHeader from '$lib/components/Layout/Header/Home-Header.svelte';
-	export let data;
 
-	let categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
+	const categories: Array<string> = ['Destacados', 'Conciertos', 'Teatro', 'Deportes', 'Festrivales', 'Arte y Cultura', 'Niños'];
 </script>
 
 <HomeHeader />
@@ -19,10 +17,6 @@
 </a>
 
 <style lang="scss">
-	@import './static/style.scss';
-	@import './static/style.scss';
-	@import './static/style.scss';
-
 	.whatsapp-btn {
 		position: fixed;
 		right: 0;

@@ -184,7 +184,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.descto {
 		width: 100%;
 	}
@@ -207,7 +207,7 @@
 		align-items: center;
 		gap: 10px;
 		justify-content: space-between;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 		}
 

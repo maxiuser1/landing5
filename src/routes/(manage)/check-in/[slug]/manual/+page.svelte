@@ -71,7 +71,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.formulario {
 		margin: 120px 0px;

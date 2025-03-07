@@ -76,7 +76,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.exitoso {
 		text-align: center;
 		margin-top: 100px;

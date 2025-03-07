@@ -40,10 +40,10 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.derechos {
 		font-size: 16px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			font-size: 12px;
 		}
 	}
@@ -70,7 +70,7 @@
 		flex-direction: column;
 		text-align: center;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			text-align: initial;
 			flex-direction: row;
 			justify-content: space-between;
@@ -86,7 +86,7 @@
 			font-size: 18px;
 			font-weight: normal;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				font-size: 14px;
 			}
 		}

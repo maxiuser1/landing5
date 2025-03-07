@@ -25,13 +25,13 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.wizard {
 		.mpasos {
 			margin: 10px 0px;
 			display: flex;
 			justify-content: space-between;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: none;
 			}
 		}
@@ -43,7 +43,7 @@
 			gap: 24px;
 			justify-content: space-between;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: flex;
 			}
 		}

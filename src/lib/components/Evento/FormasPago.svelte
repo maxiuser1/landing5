@@ -60,7 +60,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	button {
 		padding: 4px 6px;
 		background: transparent;

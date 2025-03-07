@@ -48,6 +48,7 @@ declare global {
 			tipo: string;
 			color?: string;
 			nombre?: string;
+			codigo?: string;
 			base: number;
 			online: number;
 			onlineNormal?: number;
@@ -89,6 +90,9 @@ declare global {
 			online: number;
 			promotor: number;
 			tipo: string;
+			fechaInicio: string;
+			fechaLimite: string;
+			habilitado: boolean;
 		};
 
 		type Entrada = {
@@ -192,6 +196,7 @@ declare global {
 				valor?: number;
 			} | null;
 			tipo?: string;
+			codigo?: string;
 			nombre?: string;
 			regalo?: string;
 			fila?: number;
@@ -219,7 +224,7 @@ declare global {
 				lugar?: string;
 			};
 			zona?: {
-				tipo: string;
+				codigo: string;
 				nombre?: string;
 			};
 			user?: any;
@@ -239,6 +244,24 @@ declare global {
 				slug?: string;
 			};
 			total: number;
+		};
+
+		type ParrillaPrecio = {
+			titulos: Array<{
+				desde: string;
+				hasta: string;
+				label: string;
+			}>;
+			items: ItemParrillaPrecio[];
+		};
+
+		type ItemParrillaPrecio = {
+			zona: string;
+
+			items: Array<{
+				habilitado: boolean;
+				precio: number | null;
+			}>;
 		};
 
 		interface EventosRepoInterface {

@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { signInWithPopup, GoogleAuthProvider, type User, FacebookAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
-	import { applyAction, enhance } from '$app/forms';
+	import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
+	import { applyAction } from '$app/forms';
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
 	import { Facebook, Google } from '$lib/icons';
 	import { z } from 'zod';
 	import { page } from '$app/stores';
-	import { user } from '$lib/stores/userstore';
 	import Arrow from '$lib/icons/Arrow.svelte';
 
 	let mensaje = '';
@@ -197,7 +196,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.checkboxes {
 		display: flex;

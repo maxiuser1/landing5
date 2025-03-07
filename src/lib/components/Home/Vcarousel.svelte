@@ -60,7 +60,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.carousel {
 		z-index: 3;
 		width: 100%;
@@ -84,11 +84,11 @@
 			background-position: center center;
 			height: 149px;
 
-			@include breakpoint($sm) {
+			@include mixin.breakpoint(mixin.$sm) {
 				height: 318px;
 			}
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				height: 440px;
 			}
 		}
@@ -98,7 +98,7 @@
 			position: absolute;
 			bottom: 0px;
 			display: none;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: flex;
 				justify-content: center;
 			}

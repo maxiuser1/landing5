@@ -49,7 +49,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.entradas {
 		table {
 			border-spacing: 0px;

@@ -16,7 +16,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.proximamente {
 		h1 {
@@ -33,7 +33,7 @@
 		min-width: 16.25rem;
 		grid-area: side;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			border-radius: 0.5rem;
 			border: 1px solid #fff;
 			background: #f9f9f9;
@@ -46,7 +46,7 @@
 	.eventos {
 		grid-area: eventos;
 		margin-top: 24px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-top: initial;
 		}
 	}
@@ -61,21 +61,21 @@
 			'side'
 			'eventos';
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			grid-template-columns: 821px 260px;
 			grid-template-areas: 'eventos side';
 		}
 	}
 
 	.destacados {
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 		}
 	}
 
 	.tarjetas {
 		gap: 15px;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 			margin-top: 36px;
 

@@ -15,7 +15,7 @@
 <iframe id="registro" src={'https://quehay-web.blackoffice360.com/registrar-asistentes/' + ticketid} title="Registro" />
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	iframe {
 		width: 100%;
 		height: 100vh;

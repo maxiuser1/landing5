@@ -33,7 +33,7 @@
 <Sections eventos={$searchStore.filtered} />
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.bind {
 		position: relative;

@@ -71,7 +71,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	button[disabled='disabled'],
 	button:disabled {
 		background: #d30ed038 !important;

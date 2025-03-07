@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { Close, Menu, User } from '$lib/icons';
 	import { createEventDispatcher } from 'svelte';
 	import { page } from '$app/stores';
 	import type { TooltipConifg } from '$lib/components/Shared/ui/Tooltip/types';
 	import Popover from '$lib/components/Shared/ui/Popover';
-	export let closable = false;
 	const dispatch = createEventDispatcher();
 	const toggleMenu = () => dispatch('togglemenu');
 
@@ -35,7 +33,7 @@
 </ul>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.circle {
 		cursor: pointer;
 		border-radius: 50%;
@@ -62,7 +60,7 @@
 
 	.item {
 		display: none;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: flex;
 			align-items: center;
 		}
@@ -71,7 +69,7 @@
 	.last {
 		display: none;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: initial;
 			cursor: pointer;
 			border-left: 2px solid #ff888f;

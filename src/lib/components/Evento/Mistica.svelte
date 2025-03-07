@@ -4,6 +4,8 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let evento: App.Evento;
+	export let parrilla: App.ParrillaPrecio;
+
 	let zona = '';
 	const dispatch = createEventDispatcher();
 
@@ -25,7 +27,6 @@
 </script>
 
 <div style="background-color: #000;">
-	
 	<section class="zona">
 		<div class="tabs">
 			<ul>
@@ -41,9 +42,9 @@
 			<div>
 				<select id="ddlSector" bind:value={zona} on:change={onChangeSelect}>
 					<option value="">Zona</option>
-					<option value="BOX">BOX</option>
-					<option value="VIP">VIP</option>
-					<option value="GENERAL">GENERAL</option>
+					{#each evento.precios as precio, idx}
+						<option value={precio.nombre}>{precio.nombre}</option>
+					{/each}
 				</select>
 			</div>
 		</div>
@@ -53,22 +54,32 @@
 				<thead>
 					<tr>
 						<th class="nada" />
-						<th>PREVENTA</th>
-						<th>NORMAL</th>
+						{#each parrilla.titulos as titulo, idx}
+							<th
+								>{titulo.label}
+								<span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span>
+							</th>
+						{/each}
+						<th>Regular</th>
 					</tr>
 				</thead>
 				<tbody>
-					{#if evento.precios}
-						{#each evento.precios as precio, idx}
-							<tr class:white={idx % 2 == 0}>
+					{#if parrilla.items}
+						{#each parrilla.items as precio, idx}
+							<tr>
 								<td class="radio">
 									<div class="radio">
-										<Radio color={precio.color ? precio.color : ''} />
-										{precio.nombre}
+										<!-- <Radio color={precio.color ? precio.color : ''} /> -->
+										{precio.zona}
 									</div>
 								</td>
-								<td><Soles number={precio.online} /></td>
-								<td><Soles number={precio.onlineNormal} /></td>
+								{#each precio.items as item, idy}
+									<td>
+										{#if item.precio && item.precio > 0}
+											<Soles number={item.precio} />
+										{/if}
+									</td>
+								{/each}
 							</tr>
 						{/each}
 					{/if}
@@ -105,7 +116,11 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
+	.fecha-valido {
+		font-size: 0.5rem;
+	}
+
 	.btn {
 		margin-top: 35px;
 		margin-bottom: 35px;
@@ -257,7 +272,7 @@
 		display: flex;
 		align-items: flex-end;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			height: 420px;
 		}
 
@@ -266,7 +281,7 @@
 
 			color: #ffffff;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding: 0 0 32px 88px;
 			}
 		}

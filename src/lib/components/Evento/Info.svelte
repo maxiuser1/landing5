@@ -5,7 +5,7 @@
 </script>
 
 <section class="container">
-	<div class="info ">
+	<div class="info">
 		<div>
 			<h4>Fechas</h4>
 			<h6>
@@ -24,7 +24,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.info {
 		display: flex;
 		justify-content: space-between;
@@ -32,7 +32,7 @@
 
 		flex-direction: column;
 		gap: 20px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 		}
 

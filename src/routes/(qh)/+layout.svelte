@@ -18,9 +18,7 @@
 </a>
 
 <style lang="scss">
-	@import './static/style.scss';
-	@import './static/style.scss';
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.whatsapp-btn {
 		position: fixed;

@@ -58,18 +58,18 @@
 </ul>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	ul {
 		display: flex;
 		gap: 32px;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: none;
 		}
 
 		li.menu {
 			display: initial;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: none;
 			}
 		}

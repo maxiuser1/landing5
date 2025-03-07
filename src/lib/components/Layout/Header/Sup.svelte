@@ -15,7 +15,7 @@
 </header>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.backlogo {
 		display: flex;
@@ -37,7 +37,7 @@
 
 		display: none;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: initial;
 		}
 

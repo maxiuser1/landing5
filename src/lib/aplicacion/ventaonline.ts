@@ -10,22 +10,12 @@ export class VentaOnline {
 	}
 
 	public tarificarGeneral(zona: App.Precio, cantidad: number) {
-		if (zona.descuentos && zona.descuentos[0] && zona.descuentos[0].tipo == 'auto') {
-			const descuento = zona.descuentos[0];
-			zona.final = descuento.online * cantidad;
-			zona.descuento = {
-				nombre: descuento.nombre,
-				descuento: descuento.descuento
-			};
-		} else {
-			zona.final = zona.online * cantidad;
-		}
-
+		zona.final = zona.online * cantidad;
 		return zona;
 	}
 
 	public tarificar(tipoZona: string, cantidad: number): App.Precio {
-		const zona: App.Precio | undefined = this.evento.precios.find((t: App.Precio) => t.tipo == tipoZona);
+		const zona: App.Precio | undefined = this.evento.precios.find((t: App.Precio) => t.codigo == tipoZona);
 
 		if (!zona) throw new Error('Zona no válida');
 
@@ -34,7 +24,8 @@ export class VentaOnline {
 	}
 
 	public tarificarEntrada(tipoZona: string, cantidad: number, entrada: any): App.Precio {
-		const zona: App.Precio | undefined = this.evento.precios.find((t: App.Precio) => t.tipo == tipoZona);
+		console.log('tipoZona', tipoZona, entrada);
+		const zona: App.Precio | undefined = this.evento.precios.find((t: App.Precio) => t.codigo == tipoZona);
 
 		if (!zona) throw new Error('Zona no válida');
 

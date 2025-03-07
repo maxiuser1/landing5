@@ -34,7 +34,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.logo--nav {
 		height: 20px;
 	}
@@ -51,7 +51,7 @@
 		min-width: 37%;
 		height: 100vh;
 		background: #d30ed1;
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			display: initial;
 		}
 	}
@@ -97,7 +97,7 @@
 		left: 0;
 		background: linear-gradient(270deg, var(--red) 0%, var(--pink) 100%);
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			display: none;
 		}
 
@@ -116,13 +116,13 @@
 		margin-right: auto;
 		margin-left: auto;
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			margin-top: initial;
 		}
 
 		.contenido {
 			margin-top: 32px;
-			@include breakpoint($sm) {
+			@include mixin.breakpoint(mixin.$sm) {
 				margin-top: 102px;
 				margin-top: initial;
 				max-height: 100vh;

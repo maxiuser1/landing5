@@ -18,7 +18,6 @@
 	let dialog: any;
 
 	onMount(async () => {
-		console.log('ticket', ticket);
 		clearCompradata();
 		await loadFull(tsParticles);
 		await tsParticles.load('tsparticles', confetiConfig);
@@ -201,7 +200,7 @@
 <div id="tsparticles" />
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.footer {
 		p {
 			font-size: 12px;
@@ -263,7 +262,7 @@
 		border-radius: 8px;
 		background: white;
 		padding: 60px 24px 0px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			padding: 48px 24px 0px;
 		}
 
@@ -284,11 +283,11 @@
 				gap: 10px;
 				margin-top: 20px;
 
-				@include breakpoint($sm) {
+				@include mixin.breakpoint(mixin.$sm) {
 					min-width: 400px;
 				}
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					min-width: 500px;
 				}
 
@@ -311,7 +310,7 @@
 				}
 			}
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				margin: 0 auto;
 				max-width: 632px;
 			}
@@ -322,7 +321,7 @@
 		margin-bottom: 60px;
 		text-align: center;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-top: 100px;
 			margin-bottom: 79px;
 		}
@@ -330,7 +329,7 @@
 		h1 {
 			margin-top: 32px;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				margin-top: 42px;
 			}
 		}

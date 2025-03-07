@@ -5,7 +5,7 @@
 
 	export let data;
 	let { evento } = data;
-	const urlZonas = `zonas${$page.url.search ?? ''}`;
+	const urlZonas = `/${evento.id}/zonas${$page.url.search ?? ''}`;
 	const urlLogin = `./login?redirectTo=${encodeURIComponent($page.url.href)}`;
 	// let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
 	let redirectUrl = urlZonas;
@@ -36,7 +36,7 @@
 {/if}
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.btn {
 		width: 90vw;
 		display: block;
@@ -83,7 +83,7 @@
 		display: flex;
 		align-items: flex-end;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			height: 420px;
 		}
 
@@ -92,7 +92,7 @@
 
 			color: #ffffff;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding: 0 0 32px 88px;
 			}
 		}

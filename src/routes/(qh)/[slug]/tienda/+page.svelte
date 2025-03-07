@@ -175,7 +175,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.btn-arrow {
 		border: none;
@@ -226,7 +226,7 @@
 		gap: 8px;
 		margin-bottom: 80px;
 		flex-direction: column;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 			gap: 24px;
 		}
@@ -237,12 +237,12 @@
 		background: white;
 		.titulos {
 			padding: 20px 20px 0px;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding: initial;
 			}
 		}
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			width: 60%;
 			padding: 24px 48px;
 		}

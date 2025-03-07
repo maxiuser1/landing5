@@ -177,7 +177,7 @@
 {/if}
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.mensaje {
 		margin: 50px;
@@ -318,7 +318,7 @@
 				display: block;
 				padding: 18px;
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					display: table-cell;
 				}
 			}

@@ -15,7 +15,7 @@
 				<div class="info">
 					<div class="encabezado">
 						<div class="titulo--suprayado">
-							{evento.nombre}
+							{evento.nombre} xx
 						</div>
 					</div>
 					<div class="h3">
@@ -23,12 +23,10 @@
 					</div>
 					<div class="h3">
 						<div class="fechas">
-							{#each evento.fechas as fecha}
-								<div class="date-info">
-									<Fecha />
-									<h4>{fecha}</h4>
-								</div>
-							{/each}
+							<div class="date-info">
+								<Fecha />
+								<h4>test</h4>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -51,12 +49,10 @@
 					</div>
 					<div class="h3">
 						<div class="fechas">
-							{#each evento.fechas as fecha}
-								<div class="date-info">
-									<Fecha />
-									<h4>{fecha}</h4>
-								</div>
-							{/each}
+							<div class="date-info">
+								<Fecha />
+								<h4>{evento.fechas}</h4>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -66,7 +62,7 @@
 {/if}
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.date-info {
 		display: flex;
@@ -89,7 +85,7 @@
 		border: 1px solid #f1f1f1;
 		background: #f9f9f9;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			width: 24.8rem;
 			max-width: 24.8rem;
 		}

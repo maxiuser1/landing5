@@ -25,14 +25,14 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.breacrumbs {
 		background: white;
 		ul {
 			padding: 12px 0px;
 			display: flex;
 			gap: 14px;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding: 24px 0px;
 			}
 

@@ -43,7 +43,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.modal {
 		width: 100%;
 		height: 90vh;

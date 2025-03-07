@@ -104,11 +104,11 @@
 {/if}
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use 'static/style.scss' as mixin;
 
 	.anonimo {
 		display: initial;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: none;
 		}
 	}
@@ -121,7 +121,7 @@
 		grid-area: logo;
 		margin: 0 auto;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin: initial;
 		}
 	}
@@ -140,7 +140,7 @@
 		display: flex;
 		justify-content: center;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-top: -12px;
 		}
 
@@ -156,7 +156,7 @@
 			border-radius: 4px;
 			background-color: #f1f1f1;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				height: 56px;
 			}
 		}
@@ -214,7 +214,7 @@
 		padding-left: 0px;
 		padding-right: 0px;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin-top: -32px;
 			grid-template-areas: 'logo logo sb sb sb sb sb sb hb';
 		}
@@ -237,7 +237,7 @@
 		left: 0;
 		background-color: #5b025a;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			top: 9rem;
 			width: 100%;
 			height: initial;
@@ -247,7 +247,7 @@
 			margin: 0 auto;
 			padding-left: 24px;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding-left: initial;
 				height: 50px;
 				display: flex;
@@ -268,7 +268,7 @@
 					line-height: 18px;
 					gap: 10px;
 				}
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					display: none !important;
 				}
 			}
@@ -279,7 +279,7 @@
 				align-items: flex-start;
 				gap: 32px;
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					margin-top: initial;
 					flex-direction: row;
 					align-items: center;
@@ -294,7 +294,7 @@
 					}
 
 					&.active {
-						@include breakpoint($md) {
+						@include mixin.breakpoint(mixin.$md) {
 							padding: 20px;
 							background-color: #80057f;
 						}

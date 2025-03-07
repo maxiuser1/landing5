@@ -101,7 +101,7 @@
 					fecha: evento.fechas[0].dia
 				},
 				zona: {
-					tipo: zona.tipo,
+					codigo: zona.codigo ?? '',
 					nombre: zona.nombre
 				}
 			}));
@@ -271,7 +271,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 
 	.tabs {
 		background-color: #ededed;
@@ -319,11 +319,11 @@
 		align-items: center;
 		gap: 10px;
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			min-width: 400px;
 		}
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			min-width: 500px;
 		}
 	}
@@ -363,7 +363,7 @@
 		gap: 8px;
 		margin-bottom: 80px;
 		flex-direction: column;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 			gap: 24px;
 		}
@@ -373,7 +373,7 @@
 		border-radius: 8px;
 		.titulos {
 			display: none;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: block;
 				padding: initial;
 			}
@@ -384,7 +384,7 @@
 			margin-bottom: 10px;
 		}
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			width: 60%;
 			padding: 24px 48px;
 		}

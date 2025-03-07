@@ -13,7 +13,7 @@
 	class="mapa"
 	use:zonas={evento.precios}
 	on:zonned={({ detail }) => {
-		dispatch('seleccionar', { zona: detail.tipo });
+		dispatch('seleccionar', { zona: detail.codigo });
 	}}
 >
 	{@html evento.locacion}
@@ -56,7 +56,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.leyenda {
 		display: flex;
 		justify-content: center;
@@ -83,7 +83,7 @@
 		width: 100%;
 		display: flex;
 		justify-content: center;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			margin: 20px 0px;
 		}
 	}

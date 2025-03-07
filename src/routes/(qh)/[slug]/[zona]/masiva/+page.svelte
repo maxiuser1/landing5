@@ -38,7 +38,7 @@
 						const habilitados = asiento.c ? zona.tope! - asiento.c : zona.tope;
 
 						if (habilitados == zona.tope) {
-							ticketesBox.push({ c: `${zona.tipo}_${fila!.id}_${asiento!.id}`, v: '' });
+							ticketesBox.push({ c: `${zona.codigo}_${fila!.id}_${asiento!.id}`, v: '' });
 						}
 
 						const final = habilitados == zona.tope ? obj.final : habilitados! * zona.promotori!;
@@ -52,7 +52,7 @@
 			}
 		} else {
 			if (!zona.qrcode) {
-				ticketesGeneral.push({ c: `${zona.tipo}_1`, v: '' });
+				ticketesGeneral.push({ c: `${zona.codigo}_1`, v: '' });
 			}
 
 			compraData.update((current) => ({
@@ -60,6 +60,7 @@
 				entradas: [
 					{
 						tipo: zona.tipo,
+						codigo: zona.codigo,
 						nombre: zona.nombre,
 						numerado: false,
 						base: zona.base,
@@ -92,7 +93,7 @@
 				fecha: evento.fechas[0].dia
 			},
 			zona: {
-				tipo: zona.tipo,
+				codigo: zona.codigo ?? '',
 				nombre: zona.nombre
 			}
 		}));
@@ -115,7 +116,7 @@
 
 	const showDialogClick = (ticket: any) => {
 		camara = true;
-		zonaTipo = zona.tipo;
+		zonaTipo = zona.codigo;
 		ticketc = ticket.c;
 	};
 
@@ -135,7 +136,7 @@
 							if (obj.cantidad == zona.tope) {
 								ticketesBox = [
 									{
-										c: `${zona.tipo}_${fila!.id}_${asiento!.id}`,
+										c: `${zona.codigo}_${fila!.id}_${asiento!.id}`,
 										v: ''
 									}
 								];
@@ -146,7 +147,7 @@
 							if (!zona.qrcode) {
 								if (ticketesGeneral.length < obj.cantidad) {
 									for (let i = 1; i <= obj.cantidad; i++) {
-										const tcode = `${zona.tipo}_${i}`;
+										const tcode = `${zona.codigo}_${i}`;
 
 										if (!ticketesGeneral.some((t) => t.c == tcode)) {
 											ticketesGeneral = [...ticketesGeneral, { c: tcode, v: '' }];
@@ -265,7 +266,7 @@
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use './static/style.scss' as mixin;
 	.tickets {
 		padding: 2px 24px;
 		display: flex;
@@ -328,7 +329,7 @@
 		gap: 8px;
 		margin-bottom: 80px;
 		flex-direction: column;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: row;
 			gap: 24px;
 		}
@@ -339,7 +340,7 @@
 		background: white;
 		.titulos {
 			padding: 20px 20px 0px;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				padding: initial;
 			}
 		}
@@ -357,11 +358,11 @@
 				align-items: center;
 				gap: 10px;
 
-				@include breakpoint($sm) {
+				@include mixin.breakpoint(mixin.$sm) {
 					min-width: 400px;
 				}
 
-				@include breakpoint($md) {
+				@include mixin.breakpoint(mixin.$md) {
 					min-width: 500px;
 				}
 			}
@@ -387,12 +388,12 @@
 				background-color: #f9f9f97f;
 			}
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				margin-top: 60px;
 			}
 		}
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			width: 100%;
 			padding: 24px 48px;
 		}
