@@ -16,7 +16,6 @@
 				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
 				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
 				<li><a href="/contenido/politicas-de-cookies">Políticas de Cookies</a></li>
-				<li><a href="/contenido/contacto">Contacto</a></li>
 			</ul>
 		</div>
 		<div>
