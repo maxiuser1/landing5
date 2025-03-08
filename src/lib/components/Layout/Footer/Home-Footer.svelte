@@ -34,7 +34,7 @@
 <section class="infrafooter">
 	<div class="container">
 		<div class="derechos">
-			Derechos reservados © {anio}, Que Hay
+			Derechos reservados © {anio}, QueHay
 		</div>
 	</div>
 </section>

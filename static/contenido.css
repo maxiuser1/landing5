@@ -1,0 +1,49 @@
+body {
+	margin-top: 44px !important;
+}
+
+.prismic-content {
+	padding-top: 24px;
+	padding-bottom: 40px;
+}
+
+h1:not(:first-child) {
+	margin: 40px 0px 10px;
+}
+
+h1 {
+	position: relative;
+	color: #3b3b3b;
+}
+
+h1:before {
+	position: absolute;
+	content: '';
+	height: 4px;
+	top: -4px;
+	margin-right: auto;
+	margin-left: 2px;
+	left: 0;
+	width: 2rem;
+	background: #d30ed1;
+}
+
+h2 {
+	margin: 36px 0px 10px;
+	font-size: 24px;
+}
+
+h5 {
+	margin: 22px 0px 8px;
+}
+
+p {
+	margin-bottom: 8px;
+	width: unset;
+}
+
+a {
+	display: block;
+	color: #007bdb;
+	text-decoration: underline;
+}

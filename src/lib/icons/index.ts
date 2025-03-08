@@ -9,3 +9,4 @@ export { default as Face } from './Face.svelte';
 export { default as Instagram } from './Instagram.svelte';
 export { default as Tiktok } from './Tiktok.svelte';
 export { default as Twitter } from './Twitter.svelte';
+export { default as Arrow } from './Arrow.svelte';

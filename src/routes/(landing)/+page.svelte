@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Cards from '$lib/components/Home/Cards.svelte';
 	import Carousel from '$lib/components/Home/Carousel.svelte';
+	import Destacados from '$lib/components/Home/Destacados.svelte';
 	import type { PageProps } from './$types';
 	let { data }: PageProps = $props();
 </script>
@@ -13,7 +14,9 @@
 			<Cards eventos={data.eventos ?? []} />
 		</section>
 	</div>
-	<div class="side">asd</div>
+	<div class="side">
+		<Destacados />
+	</div>
 </div>
 
 <style lang="scss">
