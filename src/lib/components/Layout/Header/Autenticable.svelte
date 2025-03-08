@@ -51,15 +51,4 @@
 			align-items: center;
 		}
 	}
-
-	.last {
-		display: none;
-
-		@include mixin.breakpoint(mixin.$md) {
-			display: initial;
-			cursor: pointer;
-			border-left: 2px solid #ff888f;
-			padding-left: 24px;
-		}
-	}
 </style>
