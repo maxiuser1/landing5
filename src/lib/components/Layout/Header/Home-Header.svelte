@@ -241,7 +241,7 @@
 		background-color: #5b025a;
 
 		@include mixin.breakpoint(mixin.$md) {
-			top: 9rem;
+			top: 7rem;
 			width: 100%;
 			height: initial;
 		}

@@ -11,6 +11,7 @@
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
+	@forward '../../../../../static/container.scss';
 
 	.header {
 		width: 100%;

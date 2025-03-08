@@ -1,4 +1,4 @@
-<a href="https://www.quehay.pe" aria-label="Ir a la página principalde quehay.pe">
+<a href="/" aria-label="Ir a la página principalde quehay.pe">
 	<svg width="165" height="46" viewBox="0 0 165 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="M43.8205 30.6399C43.8205 34.9365 40.5736 37.0882 34.0813 37.0992C27.6047 37.0992 24.3664 34.9461 24.3664 30.6399V5.91252H31.1384V30.6399C31.1384 32.0263 32.1189 32.7202 34.0813 32.7202C36.0437 32.7202 37.0484 32.0263 37.0484 30.6399V5.91252H43.8205V30.6399Z"

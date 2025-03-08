@@ -1,17 +1,11 @@
 <script lang="ts">
+	import Carousel from '$lib/components/Home/Carousel.svelte';
 	import type { PageProps } from './$types';
 	let { data }: PageProps = $props();
 </script>
 
-<h1 class="item">{data.eventos?.length}</h1>
+<Carousel eventos={data.banners} />
 
 <style lang="scss">
 	@use '../../../static/style.scss' as mixin;
-
-	.item {
-		color: yellow;
-		@include mixin.breakpoint(mixin.$md) {
-			color: red;
-		}
-	}
 </style>
