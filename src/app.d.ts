@@ -27,6 +27,7 @@ declare global {
 			artista: string;
 			nombre: string;
 			lugar: string;
+			fechas: string;
 			id: string;
 		};
 

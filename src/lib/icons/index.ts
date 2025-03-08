@@ -4,3 +4,8 @@ export { default as Close } from './Close.svelte';
 export { default as User } from './User.svelte';
 export { default as Google } from './Google.svelte';
 export { default as Facebook } from './Facebook.svelte';
+export { default as Fecha } from './Fecha.svelte';
+export { default as Face } from './Face.svelte';
+export { default as Instagram } from './Instagram.svelte';
+export { default as Tiktok } from './Tiktok.svelte';
+export { default as Twitter } from './Twitter.svelte';
