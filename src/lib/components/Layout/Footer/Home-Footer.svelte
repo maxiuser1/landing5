@@ -23,7 +23,7 @@
 			<Socials />
 			<div class="libro">
 				<a href="/">
-					<img src="https://i.postimg.cc/HLTtb0cw/image-7.png" alt="libro" />
+					<img src="https://epcdnqhprd.azureedge.net/images/site/image-7.png" alt="libro" />
 				</a>
 			</div>
 		</div>
