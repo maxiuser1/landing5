@@ -1,5 +1,6 @@
 <script lang="ts">
 	let { data } = $props();
+	const { general } = data.evento;
 </script>
 
-<h1>{data.evento.general.nombre}</h1>
+<h1>{general.nombre}</h1>
