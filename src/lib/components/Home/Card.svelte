@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Fecha } from '$lib/icons';
 
-	let { evento = null }: { evento: App.Evento | null } = $props();
+	let { evento = null }: { evento: App.HomeEvento | null } = $props();
 </script>
 
 {#if evento}

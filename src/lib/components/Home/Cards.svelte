@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Card from './Card.svelte';
-	let { eventos = [] }: { eventos: App.Evento[] } = $props();
+	let { eventos = [] }: { eventos: App.HomeEvento[] } = $props();
 </script>
 
 <div class="cards">

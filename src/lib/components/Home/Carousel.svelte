@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let { eventos = [] }: { eventos: App.Evento[] } = $props();
+	let { eventos = [] }: { eventos: App.HomeEvento[] } = $props();
 	let cantidad = $state(0);
 	let ancho = $state(0);
 	let mini = $state(0);

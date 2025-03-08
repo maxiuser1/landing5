@@ -20,7 +20,7 @@ declare global {
 			user: User;
 		}
 
-		type Evento = {
+		type HomeEvento = {
 			slug: string;
 			banner: string;
 			card: string;
@@ -31,8 +31,39 @@ declare global {
 			id: string;
 		};
 
+		type Evento = {
+			id: string;
+			general: {
+				categoria: string;
+				nombre: string;
+				artista: string;
+				slug: string;
+				destacado: boolean;
+			};
+			caratulas: {
+				banner: string;
+				card: string;
+				portada: string;
+			};
+			precios: Precio[];
+		};
+
+		type Precio = {
+			tipo: string;
+			codigo: string;
+			online?: number;
+			onlinei?: number;
+			color?: string;
+			nombre?: string;
+			disponibles?: number;
+			tope?: number;
+			numerado?: boolean;
+			promo?: string;
+		};
+
 		interface EventosRepoInterface {
-			getEventosDestacados(): Promise<Array<Evento> | undefined>;
+			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
+			getEvento(slug): Promise<Evento>;
 		}
 
 		interface UsuariosRepoInterface {
