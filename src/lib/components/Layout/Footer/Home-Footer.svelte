@@ -22,7 +22,7 @@
 			<h1 class="sigue">Sigue a QueHay</h1>
 			<Socials />
 			<div class="libro">
-				<a href="/contenido/libro-de-reclamaciones">
+				<a href="/">
 					<img src="https://i.postimg.cc/HLTtb0cw/image-7.png" alt="libro" />
 				</a>
 			</div>
