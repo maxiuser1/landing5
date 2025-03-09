@@ -98,6 +98,18 @@ declare global {
 			}>;
 		};
 
+		type IntencionCompra = {
+			total: number;
+		};
+
+		type ItemCompra = {
+			nombre: string;
+			tipo: string;
+			codigo: string;
+			cantidad: number;
+			precio: number;
+		};
+
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;

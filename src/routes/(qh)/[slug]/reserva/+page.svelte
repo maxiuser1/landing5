@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Banner from '$lib/components/Evento/Reserva/Banner.svelte';
+	import CompraGeneral from '$lib/components/Evento/Reserva/Compra-General.svelte';
 	import Zonas from '$lib/components/Evento/Reserva/Zonas.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
+	import { getReserva } from './reserva.svelte.js';
 
 	let { data } = $props();
 	const { evento }: { evento: App.Evento } = data;
+
+	const reserva = getReserva(evento);
 
 	function volver() {
 		goto(`/${evento.id}`);
@@ -13,10 +16,15 @@
 </script>
 
 <Header {volver}></Header>
-<Banner banner={evento.caratula.banner} />
+<!-- <Banner banner={evento.caratula.banner} /> -->
 
 <section class="minicontainer">
-	<Zonas {evento} />
+	{#each reserva.compras as compra, idx}
+		<CompraGeneral {compra} {idx} />
+	{/each}
+
+	{reserva.total}
+	<!-- <Zonas {evento} /> -->
 </section>
 
 <style lang="scss">

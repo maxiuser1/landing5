@@ -77,6 +77,7 @@
 		justify-content: center;
 		img {
 			max-width: 250px;
+			display: none;
 		}
 	}
 </style>

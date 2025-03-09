@@ -11,7 +11,6 @@
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
-	@forward '../../../../../static/container.scss';
 
 	.slide {
 		background-color: #1f0045;
