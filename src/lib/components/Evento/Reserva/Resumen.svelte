@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Trash from '$lib/icons/Trash.svelte';
 	import { soles } from '$lib/shared/formatos';
-	import Soles from '$lib/shared/Soles.svelte';
 
 	let { evento, reserva } = $props();
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Radio } from '$lib/icons';
-	import Soles from '$lib/shared/Soles.svelte';
+	import { soles } from '$lib/shared/formatos';
 	import CompraGeneral from './Compra-General.svelte';
 
 	let { evento, reserva } = $props();
@@ -18,8 +18,8 @@
 </div>
 {#each reserva.compras as compra, idx}
 	<div class="compra" class:compra--odd={idx % 2 == 0}>
-		<h6>{compra.nombre} {compra.total}</h6>
-		<Soles number={compra.precio} />
+		<h6>{compra.nombre}</h6>
+		{soles(compra.precio)}
 		<CompraGeneral {compra} inc={() => reserva.inc(compra)} dec={() => reserva.dec(compra)} />
 	</div>
 {/each}
