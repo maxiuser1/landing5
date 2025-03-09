@@ -19,9 +19,11 @@
 	<Zonas {evento} {reserva} />
 </section>
 
-<section class="minicontainer">
-	<Resumen {evento} {reserva} />
-</section>
+{#if reserva.total > 0}
+	<section class="minicontainer">
+		<Resumen {evento} {reserva} />
+	</section>
+{/if}
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;

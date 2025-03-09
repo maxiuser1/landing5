@@ -1,7 +1,11 @@
 <script lang="ts">
-	import { Radio } from '$lib/icons';
+	import Silla from '$lib/icons/Silla.svelte';
+	import { EventosRepo } from '$lib/repos/eventosRepo';
 	import { soles } from '$lib/shared/formatos';
+	import AsientoPicker from './Asiento-Picker.svelte';
+	import BoxPicker from './Box-Picker.svelte';
 	import CompraGeneral from './Compra-General.svelte';
+	import Tickets from './Tickets.svelte';
 
 	let { evento, reserva } = $props();
 </script>
@@ -11,35 +15,24 @@
 <div class="mapa">
 	<!-- <img src={evento.caratula.mapa} alt="mapa" /> -->
 </div>
+{reserva.mapa}
+{reserva.tab}
+{#if reserva.tab == 'inicio'}
+	<Tickets {reserva} />
+{/if}
 
-<div class="compra compra--title">
-	<h5>Ticket</h5>
-	<h5>Precio</h5>
-</div>
-{#each reserva.compras as compra, idx}
-	<div class="compra" class:compra--odd={idx % 2 == 0}>
-		<h6>{compra.nombre}</h6>
-		{soles(compra.precio)}
-		<CompraGeneral {compra} inc={() => reserva.inc(compra)} dec={() => reserva.dec(compra)} />
-	</div>
+{#each evento.precios as precio}
+	{#if precio.tipo == 'BOX' && reserva.mapa == precio.codigo}
+		<BoxPicker {reserva} {precio} />
+	{/if}
+	{#if precio.tipo == 'Asientos' && reserva.mapa == precio.codigo}
+		<AsientoPicker {reserva} {precio} />
+	{/if}
 {/each}
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
-	.compra {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		align-items: center;
-		padding: 18px 32px;
 
-		&--title {
-			padding-bottom: 0px;
-		}
-		&--odd {
-			background-color: #fff;
-			border-radius: 8px;
-		}
-	}
 	.mapa {
 		display: flex;
 		justify-content: center;

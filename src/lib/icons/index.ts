@@ -13,3 +13,6 @@ export { default as Arrow } from './Arrow.svelte';
 export { default as Ticket } from './Ticket.svelte';
 export { default as Radio } from './Radio.svelte';
 export { default as Trash } from './Trash.svelte';
+export { default as Box } from './Box.svelte';
+export { default as Cuadrado } from './Cuadrado.svelte';
+export { default as Silla } from './Silla.svelte';

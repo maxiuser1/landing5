@@ -1,6 +1,7 @@
 class ReservaState {
 	slug = $state();
 	tab = $state('inicio');
+	mapa = $state('');
 	compras = $state<App.ItemCompra[]>([]);
 	reservadas = $derived.by(() => this.compras.filter((t) => t.cantidad > 0));
 
@@ -25,6 +26,11 @@ class ReservaState {
 	del(compra: App.ItemCompra) {
 		compra.cantidad = 0;
 		compra.total = 0;
+	}
+
+	setMapa(mapa: string) {
+		this.mapa = mapa;
+		this.tab = 'mapa';
 	}
 
 	constructor(evento: App.Evento) {
