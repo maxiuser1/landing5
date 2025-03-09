@@ -12,3 +12,4 @@ export { default as Twitter } from './Twitter.svelte';
 export { default as Arrow } from './Arrow.svelte';
 export { default as Ticket } from './Ticket.svelte';
 export { default as Radio } from './Radio.svelte';
+export { default as Trash } from './Trash.svelte';

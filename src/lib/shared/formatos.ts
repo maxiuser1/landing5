@@ -6,3 +6,12 @@ export const formatDate = (date: Date | null | undefined): string => {
 
 	return `${day}/${month}/${year}`;
 };
+
+export const soles = (n: number): string => {
+	const currencyFormatter = new Intl.NumberFormat('es-PE', {
+		style: 'currency',
+		currency: 'PEN'
+	});
+
+	return currencyFormatter.format(n).replace(/\u00A0/g, '');
+};

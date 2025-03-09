@@ -1,5 +1,5 @@
 import createClient from '$lib/repos/prismic';
-import { formatDate } from '$lib/shared/fechas';
+import { formatDate } from '$lib/shared/formatos';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, params, fetch, request }) => {

@@ -1,77 +1,45 @@
 <script lang="ts">
 	import { Radio } from '$lib/icons';
 	import Soles from '$lib/shared/Soles.svelte';
+	import CompraGeneral from './Compra-General.svelte';
 
-	let { evento } = $props();
+	let { evento, reserva } = $props();
 </script>
 
 <h4>Entrada</h4>
 <p>Selecciona sus entradas:</p>
 <div class="mapa">
-	<img src={evento.caratula.mapa} alt="mapa" />
+	<!-- <img src={evento.caratula.mapa} alt="mapa" /> -->
 </div>
 
-<div class="leyenda">
-	<div class="precios">
-		{#if evento.precios}
-			<table>
-				<tbody>
-					{#if evento.precios}
-						{#each evento.precios as precio, idx}
-							<tr class:white={idx % 2 == 0}>
-								<td class="radio">
-									<div class="radio">
-										<Radio color={precio.color ? precio.color : ''} />
-									</div>
-								</td>
-								{#if precio.c && precio.disponibles && precio.c >= precio.disponibles}
-									<td class="tdnombre agotado"
-										>{precio.nombre} {precio.disponibles} {precio.c} (Agotado)
-									</td>
-								{:else}
-									<td class="tdnombre">{precio.nombre} </td>
-								{/if}
-								<td class="tdprecio"><Soles number={precio.online} /></td>
-							</tr>
-						{/each}
-					{/if}
-				</tbody>
-			</table>
-		{/if}
-	</div>
+<div class="compra compra--title">
+	<h5>Ticket</h5>
+	<h5>Precio</h5>
 </div>
+{#each reserva.compras as compra, idx}
+	<div class="compra" class:compra--odd={idx % 2 == 0}>
+		<h6>{compra.nombre} {compra.total}</h6>
+		<Soles number={compra.precio} />
+		<CompraGeneral {compra} inc={() => reserva.inc(compra)} dec={() => reserva.dec(compra)} />
+	</div>
+{/each}
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
+	.compra {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		align-items: center;
+		padding: 18px 32px;
 
-	.leyenda {
-		display: flex;
-		justify-content: center;
-
-		.precios {
-			tr.white {
-				background-color: white;
-				border-radius: 8px;
-			}
-
-			td {
-				padding: 11px 32px;
-			}
+		&--title {
+			padding-bottom: 0px;
+		}
+		&--odd {
+			background-color: #fff;
+			border-radius: 8px;
 		}
 	}
-
-	.radio {
-		padding-right: 10px;
-	}
-
-	.agotado {
-		text-decoration: line-through;
-	}
-
-	.tdprecio {
-		text-align: right;
-	}
-
 	.mapa {
 		display: flex;
 		justify-content: center;

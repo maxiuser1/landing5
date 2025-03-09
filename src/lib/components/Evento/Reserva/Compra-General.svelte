@@ -1,42 +1,19 @@
 <script lang="ts">
-	import Soles from '$lib/shared/Soles.svelte';
-	let { compra, idx } = $props();
-	const add = () => compra.cantidad++;
-	const substract = () => compra.cantidad--;
+	let { compra, inc, dec } = $props();
 </script>
 
-<div class="compra" class:compra--odd={idx % 2 == 0}>
-	{compra.nombre}
-	<div class="precio">
-		<Soles number={compra.precio} />
-		<div class="botonera">
-			<button onclick={substract} disabled={compra.cantidad == 0} class="subs"><span class="min">-</span></button>
-			<div>{compra.cantidad}</div>
-			<button onclick={add}>+</button>
-		</div>
-	</div>
+<div class="botonera">
+	<button onclick={dec} disabled={compra.cantidad == 0} class="subs"><span class="min">-</span></button>
+	<div>{compra.cantidad}</div>
+	<button onclick={inc}>+</button>
 </div>
 
 <style lang="scss">
-	.compra {
-		display: flex;
-		justify-content: space-between;
-		padding: 18px 32px;
-		&--odd {
-			background-color: #fff;
-			border-radius: 8px;
-		}
-	}
-
-	.precio {
-		display: flex;
-		gap: 24px;
-	}
-
 	.botonera {
 		display: flex;
 		align-items: center;
-		justify-content: space-evenly;
+
+		justify-content: flex-end;
 		div {
 			font-size: 18px;
 			line-height: 16px;

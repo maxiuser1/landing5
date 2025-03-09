@@ -108,6 +108,7 @@ declare global {
 			codigo: string;
 			cantidad: number;
 			precio: number;
+			total: number;
 		};
 
 		interface EventosRepoInterface {
