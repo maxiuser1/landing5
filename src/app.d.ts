@@ -55,17 +55,27 @@ declare global {
 		};
 
 		type Precio = {
-			tipo: string;
+			nombre: string;
+			color: string;
 			codigo: string;
+			tipo: string;
 			online: number;
 			onlinei: number;
-			color?: string;
-			nombre: string;
 			disponibles: number;
-			tope: number;
-			numerado: boolean;
-			promo: string;
 			descuentos: Descuento[];
+			filas: Fila[];
+			// precios: ParrillaPrecio
+		};
+
+		type Fila = {
+			id: string;
+			sits: Sit[];
+			tag: string;
+		};
+
+		type Sit = {
+			id: string;
+			s: number; //status -1: no disponible, 0: disponible
 		};
 
 		type Descuento = {
@@ -104,11 +114,12 @@ declare global {
 
 		type ItemCompra = {
 			nombre: string;
-			tipo: string;
 			codigo: string;
 			cantidad: number;
 			precio: number;
 			total: number;
+			fila?: string;
+			sit?: string;
 		};
 
 		interface EventosRepoInterface {

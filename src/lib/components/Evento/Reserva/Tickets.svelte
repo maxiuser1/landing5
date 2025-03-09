@@ -3,25 +3,26 @@
 	import { soles } from '$lib/shared/formatos';
 	import CompraGeneral from './Compra-General.svelte';
 
-	let { reserva } = $props();
+	let { reserva, evento } = $props();
 </script>
 
 <div class="compra compra--title">
 	<h5>Ticket</h5>
 	<h5 class="precios">Precio</h5>
 </div>
-{#each reserva.compras as compra, idx}
+{#each evento.precios as precio, idx}
 	<div class="compra" class:compra--odd={idx % 2 == 0}>
-		<h6>{compra.nombre}</h6>
+		<h6>{precio.nombre}</h6>
 		<div class="precios">
-			{soles(compra.precio)}
+			{soles(precio.online)}
 		</div>
-		{#if compra.tipo == 'General'}
-			<CompraGeneral {compra} inc={() => reserva.inc(compra)} dec={() => reserva.dec(compra)} />
+		{#if precio.tipo == 'General'}
+			{@const cantidad = reserva.count(precio.codigo)}
+			<CompraGeneral {cantidad} inc={() => reserva.inc(precio)} dec={() => reserva.dec(precio.codigo)} />
 		{/if}
-		{#if compra.tipo == 'Asientos'}
+		{#if precio.tipo == 'Asientos'}
 			<div class="botonera">
-				<button class="button--icon" onclick={() => reserva.setMapa(compra.codigo)}>
+				<button class="button--icon" onclick={() => reserva.setMapa(precio.codigo)}>
 					<Silla />
 				</button>
 			</div>

@@ -6,7 +6,7 @@
 </script>
 
 <h4>Resumen</h4>
-{#each reserva.reservadas as compra, idx}
+{#each reserva.compras as compra, idx}
 	<div class="compra" class:compra--odd={idx % 2 == 0}>
 		<h6>{compra.nombre}</h6>
 		<div class="precio">

@@ -1,10 +1,10 @@
 <script lang="ts">
-	let { compra, inc, dec } = $props();
+	let { cantidad, inc, dec } = $props();
 </script>
 
 <div class="botonera">
-	<button onclick={dec} disabled={compra.cantidad == 0} class="subs"><span class="min">-</span></button>
-	<div>{compra.cantidad}</div>
+	<button onclick={dec} disabled={cantidad == 0} class="subs"><span class="min">-</span></button>
+	<div>{cantidad}</div>
 	<button onclick={inc}>+</button>
 </div>
 

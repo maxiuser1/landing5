@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { numero, tomado = false, disabled = false, clicked } = $$props;
+	let { numero, tomado, disabled = false, clicked } = $$props;
 	function handleClick() {
 		if (!disabled) {
 			tomado = !tomado;

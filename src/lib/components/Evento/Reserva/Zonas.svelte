@@ -18,7 +18,7 @@
 {reserva.mapa}
 {reserva.tab}
 {#if reserva.tab == 'inicio'}
-	<Tickets {reserva} />
+	<Tickets {evento} {reserva} />
 {/if}
 
 {#each evento.precios as precio}
