@@ -40,10 +40,16 @@ declare global {
 				slug: string;
 				destacado: boolean;
 			};
-			caratulas: {
+			caratula: {
 				banner: string;
 				card: string;
 				portada: string;
+				textura: string;
+				mapa: string;
+				legalHeader: string;
+				legalFooter: string;
+				colorPrincipal: string;
+				colorContrastePrincipal: string;
 			};
 			precios: Precio[];
 		};
@@ -51,14 +57,45 @@ declare global {
 		type Precio = {
 			tipo: string;
 			codigo: string;
-			online?: number;
-			onlinei?: number;
+			online: number;
+			onlinei: number;
 			color?: string;
-			nombre?: string;
-			disponibles?: number;
-			tope?: number;
-			numerado?: boolean;
-			promo?: string;
+			nombre: string;
+			disponibles: number;
+			tope: number;
+			numerado: boolean;
+			promo: string;
+			descuentos: Descuento[];
+		};
+
+		type Descuento = {
+			nombre: string;
+			codigo: string;
+			descuento: number;
+			online: number;
+			promotor: number;
+			tipo: string;
+			fechaInicio: string;
+			fechaLimite: string;
+			habilitado: boolean;
+		};
+
+		type ParrillaPrecio = {
+			titulos: Array<{
+				desde: string;
+				hasta: string;
+				label: string;
+			}>;
+			items: ItemParrillaPrecio[];
+		};
+
+		type ItemParrillaPrecio = {
+			zona: string;
+
+			items: Array<{
+				habilitado: boolean;
+				precio: number | null;
+			}>;
 		};
 
 		interface EventosRepoInterface {

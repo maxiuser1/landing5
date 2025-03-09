@@ -10,3 +10,5 @@ export { default as Instagram } from './Instagram.svelte';
 export { default as Tiktok } from './Tiktok.svelte';
 export { default as Twitter } from './Twitter.svelte';
 export { default as Arrow } from './Arrow.svelte';
+export { default as Ticket } from './Ticket.svelte';
+export { default as Radio } from './Radio.svelte';
