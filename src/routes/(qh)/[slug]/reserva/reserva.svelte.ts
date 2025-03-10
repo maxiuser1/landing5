@@ -19,7 +19,9 @@ class ReservaState {
 
 	addBox(precio: App.Precio, fila: App.Fila, sit: App.Sit, tagFila: string, tagSit: string) {
 		this.compras.push({
-			codigo: `${precio.codigo}-${tagFila}-${tagSit}`,
+			id: `${precio.codigo}-${tagFila}-${tagSit}`,
+			codigo: precio.codigo,
+			tipo: 'entrada',
 			nombre: `${precio.nombre}, box ${tagFila}-${tagSit}`,
 			precio: precio.online,
 			cantidad: 1,
@@ -30,13 +32,15 @@ class ReservaState {
 	}
 
 	delBox(precio: App.Precio, tagFila: string, tagSit: string) {
-		const index = this.compras.findIndex((t) => t.codigo === `${precio.codigo}-${tagFila}-${tagSit}`);
+		const index = this.compras.findIndex((t) => t.id === `${precio.codigo}-${tagFila}-${tagSit}`);
 		this.compras.splice(index, 1);
 	}
 
 	addSit(precio: App.Precio, fila: App.Fila, sit: App.Sit, tagFila: string, tagSit: string) {
 		this.compras.push({
-			codigo: `${precio.codigo}-${tagFila}-${tagSit}`,
+			id: `${precio.codigo}-${tagFila}-${tagSit}`,
+			codigo: precio.codigo,
+			tipo: 'entrada',
 			nombre: `${precio.nombre}, asiento ${tagFila}-${tagSit}`,
 			precio: precio.online,
 			cantidad: 1,
@@ -47,7 +51,7 @@ class ReservaState {
 	}
 
 	delSit(precio: App.Precio, tagFila: string, tagSit: string) {
-		const index = this.compras.findIndex((t) => t.codigo === `${precio.codigo}-${tagFila}-${tagSit}`);
+		const index = this.compras.findIndex((t) => t.id === `${precio.codigo}-${tagFila}-${tagSit}`);
 		this.compras.splice(index, 1);
 	}
 
@@ -57,11 +61,11 @@ class ReservaState {
 	}
 
 	sitted(precio: App.Precio, fila: string, sit: string) {
-		return this.compras.some((t) => t.codigo === `${precio.codigo}-${fila}-${sit}`);
+		return this.compras.some((t) => t.id === `${precio.codigo}-${fila}-${sit}`);
 	}
 
 	count(codigo: string): number {
-		const compra = this.compras.find((t) => t.codigo === codigo);
+		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
 			return compra.cantidad;
 		}
@@ -69,12 +73,14 @@ class ReservaState {
 	}
 
 	inc({ codigo, nombre, online }: App.Precio) {
-		const compra = this.compras.find((t) => t.codigo === codigo);
+		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
 			compra.cantidad++;
 			compra.total = compra.cantidad * compra.precio;
 		} else {
 			this.compras.push({
+				id: codigo,
+				tipo: 'entrada',
 				codigo,
 				nombre,
 				precio: online,
@@ -85,7 +91,7 @@ class ReservaState {
 	}
 
 	dec(codigo: string) {
-		const compra = this.compras.find((t) => t.codigo === codigo);
+		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
 			compra.cantidad--;
 			compra.total = compra.cantidad * compra.precio;

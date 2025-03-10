@@ -16,7 +16,7 @@
 					<li style:min-width="{sitWidth}px">
 						{#if sit.s != 0}
 							{@const tomado = reserva.compras.some(
-								(t: App.ItemCompra) => t.codigo === `${precio.codigo}-${tagFila}-${tagSits[j]}`
+								(t: App.ItemCompra) => t.id === `${precio.codigo}-${tagFila}-${tagSits[j]}`
 							)}
 							{#if tomado}
 								<Box

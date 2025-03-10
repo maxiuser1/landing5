@@ -1,3 +1,4 @@
+import { removeCosmosFields } from '$lib/shared/cosmos-helpers';
 import { CosmosClient, type PatchOperation, type SqlQuerySpec } from '@azure/cosmos';
 
 export class EventosRepo implements App.EventosRepoInterface {
@@ -35,7 +36,15 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return turno!;
 	};
 
-	postTurno = async (turno: App.Turno): Promise<string> => {
+	getEntrada = async (id: string): Promise<App.Entrada> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('entradas');
+		const { resource: turno } = await container.item(id, id).read<App.Entrada>();
+		return turno!;
+	};
+
+	postTurno = async (turno: App.Turno): Promise<App.Turno> => {
 		const client = new CosmosClient(this.cn);
 		const database = client.database('quehaydb');
 		const container = database.container('turnos');
@@ -44,10 +53,66 @@ export class EventosRepo implements App.EventosRepoInterface {
 			resource: { va }
 		} = await secuencias.item('1', '1').patch([{ op: 'incr', path: '/va', value: 1 }]);
 
-		// turno.numeroCompra = va.toString();
-		turno.numeroCompra = Math.floor(new Date().getTime() / 10).toString();
+		turno.numeroCompra = va.toString();
+		const { resource: createdItem } = await container.items.create<App.Turno>(turno);
+		return { ...turno, id: createdItem!.id };
+	};
 
-		const { resource: createdItem } = await container.items.create(turno);
-		return createdItem!.id!;
+	confirmar = async (turno: App.Turno, authorization: any): Promise<string> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('ensallos');
+		const entradas = database.container('entradas');
+		const { resource: evento } = await container.item(turno.slug, turno.slug).read<App.Evento>();
+
+		const replaceOperation: PatchOperation[] = [];
+		if (!evento) throw new Error('Evento no encontrado');
+		for (let i = 0; i < turno.compras.length; i++) {
+			const compra = turno.compras[i];
+			if (compra.tipo == 'entrada') {
+				const indexPrecio = evento.precios.findIndex((t: any) => t.codigo == compra.codigo);
+				const zona = evento.precios.find((t: any) => t.codigo == compra.codigo);
+
+				console.log('indexPrecio', indexPrecio);
+				console.log('zona', zona);
+				replaceOperation.push({
+					op: 'incr',
+					path: `/precios/${indexPrecio}/van`,
+					value: compra.cantidad
+				});
+
+				if (zona!.tipo == 'Asientos' || zona!.tipo == 'BOX') {
+					const indexFila = zona!.filas.findIndex((t: any) => t.id == compra.fila);
+					const fila = zona!.filas.find((t: any) => t.id == compra.fila);
+					const indexAsiento = fila!.sits.findIndex((t: any) => t.id == compra.sit);
+					const sit = fila!.sits.find((t: any) => t.id == compra.sit);
+
+					console.log('indexFila', indexFila);
+					console.log('fila', fila);
+					console.log('indexAsiento', indexAsiento);
+					console.log('sit', sit);
+
+					replaceOperation.push({
+						op: 'replace',
+						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
+						value: 3
+					});
+				}
+			}
+		}
+
+		const cleanTurno = removeCosmosFields<App.Turno>(turno);
+		console.log('cleanTurno', cleanTurno);
+		const entrada: App.Entrada = {
+			...cleanTurno,
+			authorization,
+			tipoPago: 'niubiz',
+			fecha: new Date().toISOString(),
+			canal: 'web'
+		};
+
+		if (replaceOperation.length > 0) await container.item(turno.slug, turno.slug).patch(replaceOperation);
+		const { resource: createdItem } = await entradas.items.create<App.Entrada>(entrada);
+		return createdItem!.id;
 	};
 }

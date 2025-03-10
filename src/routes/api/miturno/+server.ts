@@ -1,5 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import { NiubizHandler } from '$lib/shared/niubiz';
+
 export const POST: RequestHandler = async ({ locals, request, getClientAddress }) => {
 	const intencion = (await request.json()) as App.IntencionCompra;
 	const turno: App.Turno = {
@@ -17,6 +19,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		fecha: new Date().toISOString(),
 		clientIpAddress: getClientAddress()
 	};
-	const id = await locals.eventosRepo.postTurno(turno);
-	return json(id);
+	const newTurno = await locals.eventosRepo.postTurno(turno);
+	const niubizConfig = await new NiubizHandler().getSession(newTurno, locals.user);
+	return json(niubizConfig);
 };

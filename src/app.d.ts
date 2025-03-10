@@ -20,6 +20,12 @@ declare global {
 			user: User;
 		}
 
+		type Entrada = Turno & {
+			canal: string;
+			tipoPago: string;
+			authorization?: any;
+		};
+
 		type HomeEvento = {
 			slug: string;
 			banner: string;
@@ -131,15 +137,36 @@ declare global {
 			cantidad: number;
 			precio: number;
 			total: number;
+			tipo: string;
+			id: string;
 			fila?: string;
 			sit?: string;
+		};
+
+		type NiubizConfig = {
+			sessiontoken: string;
+			channel: string;
+			merchantid: string;
+			purchasenumber: string;
+			amount: number;
+			cardholdername: string;
+			cardholderlastname: string;
+			cardholderemail: string;
+			usertoken: string;
+			expirationminutes: string;
+			timeouturl: string;
+			merchantlogo: string;
+			formbuttoncolor: string;
+			action: string;
 		};
 
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;
-			postTurno(turno: App.IntencionCompra): Promise<string>;
+			postTurno(turno: App.IntencionCompra): Promise<App.Turno>;
 			getTurno(id: string): Promise<App.Turno>;
+			confirmar(turno: App.Turno, authorization: any): Promise<string>;
+			getEntrada(id: string): Promise<App.Entrada>;
 		}
 
 		interface UsuariosRepoInterface {

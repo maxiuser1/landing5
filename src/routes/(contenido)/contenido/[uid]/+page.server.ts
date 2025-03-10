@@ -1,4 +1,4 @@
-import createClient from '$lib/repos/prismic';
+import createClient from '$lib/shared/prismic';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
