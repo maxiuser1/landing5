@@ -46,6 +46,12 @@ declare global {
 				slug: string;
 				destacado: boolean;
 			};
+			fechas: {
+				fechaUnica: string;
+			};
+			ubicacion: {
+				nombre: string;
+			};
 			caratula: {
 				banner: string;
 				card: string;

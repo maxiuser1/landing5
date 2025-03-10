@@ -59,19 +59,4 @@
 		display: flex;
 		justify-content: center;
 	}
-
-	.minicontainer {
-		margin: 0 auto 24px;
-		width: 100%;
-		padding-right: 16px;
-		padding-left: 16px;
-		background-color: #f9f9f9;
-
-		@include mixin.breakpoint(mixin.$md) {
-			padding: 40px;
-			max-width: 728px;
-			border-top-left-radius: 8px;
-			border-top-right-radius: 8px;
-		}
-	}
 </style>
