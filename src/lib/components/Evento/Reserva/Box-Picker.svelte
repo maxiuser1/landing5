@@ -27,7 +27,6 @@
 									limite={sit.l ?? 10}
 									tomado={true}
 									clicked={(e: boolean) => {
-										console.log('tomado true', e);
 										if (e) {
 											reserva.addBox(precio, fila, sit, tagFila, tagSits[j]);
 										} else {
@@ -44,7 +43,6 @@
 									tomado={false}
 									limite={sit.l ?? 10}
 									clicked={(e: boolean) => {
-										console.log('tomado false', e);
 										if (e) {
 											reserva.addBox(precio, fila, sit, tagFila, tagSits[j]);
 										} else {

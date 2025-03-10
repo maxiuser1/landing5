@@ -41,9 +41,7 @@
 		}
 	};
 
-	const redirigir = (slug: string) => {
-		console.log('slug', slug);
-	};
+	const redirigir = (slug: string) => {};
 </script>
 
 <section class="carousel" aria-label="carousel">
@@ -74,12 +72,7 @@
 		<ul class="puntos" role="menu">
 			{#each eventos as item, idx}
 				<li class="punto" role="none" class:selected={selectedidx === idx}>
-					<button
-						role="menuitem"
-						type="button"
-						onclick={() => handleClick(idx)}
-						aria-label="siguiente"
-					></button>
+					<button role="menuitem" type="button" onclick={() => handleClick(idx)} aria-label="siguiente"></button>
 				</li>
 			{/each}
 		</ul>

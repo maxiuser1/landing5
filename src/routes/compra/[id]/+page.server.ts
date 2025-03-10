@@ -8,6 +8,6 @@ export const actions = {
 		const turno = await locals.eventosRepo.getTurno(params.id!);
 		const authorization = await new NiubizHandler().authorize(transaction.transactionToken, turno);
 		const entradaId = await locals.eventosRepo.confirmar(turno, authorization);
-		redirect(303, `/exito/${entradaId}`);
+		redirect(303, `/entrada/${entradaId}`);
 	}
 } satisfies Actions;
