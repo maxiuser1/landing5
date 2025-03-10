@@ -12,6 +12,28 @@ class ReservaState {
 		return total;
 	});
 
+	goInicio() {
+		this.tab = 'inicio';
+		this.mapa = '';
+	}
+
+	addBox(precio: App.Precio, fila: App.Fila, sit: App.Sit, tagFila: string, tagSit: string) {
+		this.compras.push({
+			codigo: `${precio.codigo}-${tagFila}-${tagSit}`,
+			nombre: `${precio.nombre}, box ${tagFila}-${tagSit}`,
+			precio: precio.online,
+			cantidad: 1,
+			total: precio.online,
+			fila: fila.id,
+			sit: sit.id
+		});
+	}
+
+	delBox(precio: App.Precio, tagFila: string, tagSit: string) {
+		const index = this.compras.findIndex((t) => t.codigo === `${precio.codigo}-${tagFila}-${tagSit}`);
+		this.compras.splice(index, 1);
+	}
+
 	addSit(precio: App.Precio, fila: App.Fila, sit: App.Sit, tagFila: string, tagSit: string) {
 		this.compras.push({
 			codigo: `${precio.codigo}-${tagFila}-${tagSit}`,

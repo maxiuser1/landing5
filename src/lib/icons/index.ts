@@ -16,3 +16,4 @@ export { default as Trash } from './Trash.svelte';
 export { default as Box } from './Box.svelte';
 export { default as Cuadrado } from './Cuadrado.svelte';
 export { default as Silla } from './Silla.svelte';
+export { default as Sillon } from './Sillon.svelte';

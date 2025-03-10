@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Silla } from '$lib/icons';
+	import { Silla, Sillon } from '$lib/icons';
 	import { soles } from '$lib/shared/formatos';
 	import CompraGeneral from './Compra-General.svelte';
 
@@ -20,9 +20,17 @@
 			{@const cantidad = reserva.count(precio.codigo)}
 			<CompraGeneral {cantidad} inc={() => reserva.inc(precio)} dec={() => reserva.dec(precio.codigo)} />
 		{/if}
+		{#if precio.tipo == 'BOX'}
+			<div class="botonera">
+				<button class="btn--icon" onclick={() => reserva.setMapa(precio.codigo)}>
+					<Sillon />
+				</button>
+			</div>
+		{/if}
+
 		{#if precio.tipo == 'Asientos'}
 			<div class="botonera">
-				<button class="button--icon" onclick={() => reserva.setMapa(precio.codigo)}>
+				<button class="btn--icon" onclick={() => reserva.setMapa(precio.codigo)}>
 					<Silla />
 				</button>
 			</div>

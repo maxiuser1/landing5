@@ -1,7 +1,8 @@
 <script lang="ts">
+	import Arrow from '$lib/icons/Arrow.svelte';
 	import Cuadrado from '$lib/icons/Cuadrado.svelte';
 
-	let { reserva, precio } = $props();
+	let { reserva, precio, confirmar } = $props();
 	let sitWidth = $state(24);
 </script>
 
@@ -52,12 +53,18 @@
 		{/each}
 	</div>
 </div>
+<div class="wrapper">
+	<button type="button" class="btn" onclick={confirmar}>Resumen <Arrow /></button>
+</div>
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
 	.wrapper {
 		display: flex;
 		justify-content: center;
+		button {
+			margin-top: 24px;
+		}
 	}
 
 	.asientos {

@@ -13,6 +13,19 @@
 	function volver() {
 		goto(`/${evento.id}`);
 	}
+
+	const pagar = async () => {
+		const resp = await fetch('/api/miturno', {
+			method: 'POST',
+			body: JSON.stringify({
+				total: reserva.total,
+				slug: evento.id,
+				compras: reserva.compras
+			})
+		});
+		const response = await resp.json();
+		goto(`/pagar/${response}`);
+	};
 </script>
 
 <section class="minicontainer">
@@ -22,6 +35,8 @@
 {#if reserva.total > 0}
 	<section class="minicontainer">
 		<Resumen {evento} {reserva} />
+
+		<button type="button" class="btn" onclick={pagar}>Pagar</button>
 	</section>
 {/if}
 

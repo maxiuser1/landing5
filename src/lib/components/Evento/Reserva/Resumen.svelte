@@ -8,12 +8,17 @@
 <h4>Resumen</h4>
 {#each reserva.compras as compra, idx}
 	<div class="compra" class:compra--odd={idx % 2 == 0}>
-		<h6>{compra.nombre}</h6>
+		<div>
+			{compra.nombre}
+			{#if compra.cantidad > 1}
+				<small>x{compra.cantidad}</small>
+			{/if}
+		</div>
 		<div class="precio">
 			{soles(compra.total)}
 		</div>
 		<div class="botonera">
-			<button onclick={() => reserva.del(compra)} class="button--icon">
+			<button onclick={() => reserva.del(compra)} class="btn--icon">
 				<Trash />
 			</button>
 		</div>

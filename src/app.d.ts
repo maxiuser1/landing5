@@ -76,6 +76,9 @@ declare global {
 		type Sit = {
 			id: string;
 			s: number; //status -1: no disponible, 0: disponible
+			c: number; //cantidad
+			l: number; //limite
+			o: any;
 		};
 
 		type Descuento = {
@@ -108,8 +111,18 @@ declare global {
 			}>;
 		};
 
+		type Turno = IntencionCompra & {
+			id: '';
+			numeroCompra: string;
+			user: User;
+			fecha: string;
+			clientIpAddress: string;
+		};
+
 		type IntencionCompra = {
+			slug: string;
 			total: number;
+			compras: ItemCompra[];
 		};
 
 		type ItemCompra = {
@@ -125,6 +138,8 @@ declare global {
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;
+			postTurno(turno: App.IntencionCompra): Promise<string>;
+			getTurno(id: string): Promise<App.Turno>;
 		}
 
 		interface UsuariosRepoInterface {

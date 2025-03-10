@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { disabled = false, width, tomados = 2, tomado = false, limite = 10, clickeado } = $$props;
+	let { numero, disabled = false, width, tomados = 2, tomado = false, limite = 10, clicked } = $$props;
 
 	function evaluar(indice: number) {
 		if (indice >= tomados) return 'blue';
@@ -8,14 +8,13 @@
 
 	function handleClick() {
 		tomado = !tomado;
-		clickeado(tomado);
+		clicked(tomado);
 	}
 </script>
 
 {#if disabled}
 	<svg viewBox="0 0 112 60" class="ocupado" {width} xmlns="http://www.w3.org/2000/svg">
 		<g class="layer">
-			<title />
 			<rect height="8" id="svg_2" rx="4" transform="matrix(1 0 0 1 0 0)" width="22.75" x="15.44" y="51" />
 			<rect height="8" id="svg_8" rx="4" width="22.75" x="44.75" y="51" />
 			<rect height="8" id="svg_9" rx="4" width="22.75" x="73.75" y="51" />
@@ -62,15 +61,9 @@
 		</g>
 	</svg>
 {:else}
-	<!-- <svg on:click={handleClick} {width} viewBox="0 0 14 12"  xmlns="http://www.w3.org/2000/svg" fill={color}>
-		<path
-			d="M1 0 3 0A1 1 90 013 2L1 2A1 1 90 011 0ZM6 0 8 0A1 1 90 018 2L6 2A1 1 90 016 0ZM11 0 13 0A1 1 90 0113 2L11 2A1 1 90 0111 0ZM3 3 11 3A1 1 90 0111 9L3 9A1 1 90 013 3ZM1 10 3 10A1 1 90 013 12L1 12A1 1 90 011 10ZM6 10 8 10A1 1 90 018 12L6 12A1 1 90 016 10ZM11 10 13 10A1 1 90 0113 12L11 12A1 1 90 0111 10Z"
-		/>
-	</svg> -->
-	<button on:click={handleClick} type="button" class="box">
+	<button onclick={handleClick} type="button" class="box">
 		<svg viewBox="0 0 112 60" {width} xmlns="http://www.w3.org/2000/svg" class={tomado ? 'tomado' : 'vacio'}>
 			<g class="layer">
-				<title />
 				<rect
 					height="8"
 					id="s1"
@@ -171,7 +164,9 @@
 				{/if}
 
 				<rect height="36" id="mesa" rx="4" width="81.62" x="15.44" y="11.63" />
-				<!-- <text fill="#777777" font-family="Gotham" font-size="18" id="svg_3" stroke-width="0" text-anchor="middle" x="51.22" xml:space="preserve" y="40.5">{tomados}/10</text> -->
+				<text x="56.25" y="29.63" fill="black" font-size="16" text-anchor="middle" dominant-baseline="middle">
+					{numero}
+				</text>
 			</g>
 		</svg>
 	</button>

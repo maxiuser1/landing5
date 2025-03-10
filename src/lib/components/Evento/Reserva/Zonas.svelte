@@ -15,18 +15,17 @@
 <div class="mapa">
 	<!-- <img src={evento.caratula.mapa} alt="mapa" /> -->
 </div>
-{reserva.mapa}
-{reserva.tab}
+
 {#if reserva.tab == 'inicio'}
 	<Tickets {evento} {reserva} />
 {/if}
 
 {#each evento.precios as precio}
 	{#if precio.tipo == 'BOX' && reserva.mapa == precio.codigo}
-		<BoxPicker {reserva} {precio} />
+		<BoxPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
 	{/if}
 	{#if precio.tipo == 'Asientos' && reserva.mapa == precio.codigo}
-		<AsientoPicker {reserva} {precio} />
+		<AsientoPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
 	{/if}
 {/each}
 
