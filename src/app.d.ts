@@ -23,6 +23,7 @@ declare global {
 		type Entrada = Turno & {
 			canal: string;
 			tipoPago: string;
+			tickets: Ticket[];
 			authorization?: any;
 		};
 
@@ -147,6 +148,15 @@ declare global {
 			id: string;
 			fila?: string;
 			sit?: string;
+		};
+
+		type Ticket = {
+			id: number;
+			paraMi: boolean;
+			cantidad: number;
+			invitado: User | null;
+			estado: string;
+			compraId: string;
 		};
 
 		type NiubizConfig = {

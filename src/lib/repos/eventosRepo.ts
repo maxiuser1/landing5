@@ -73,6 +73,8 @@ export class EventosRepo implements App.EventosRepoInterface {
 				const indexPrecio = evento.precios.findIndex((t: any) => t.codigo == compra.codigo);
 				const zona = evento.precios.find((t: any) => t.codigo == compra.codigo);
 
+				console.log('indexPrecio', indexPrecio);
+
 				replaceOperation.push({
 					op: 'incr',
 					path: `/precios/${indexPrecio}/van`,
@@ -84,6 +86,9 @@ export class EventosRepo implements App.EventosRepoInterface {
 					const fila = zona!.filas.find((t: any) => t.id == compra.fila);
 					const indexAsiento = fila!.sits.findIndex((t: any) => t.id == compra.sit);
 					const sit = fila!.sits.find((t: any) => t.id == compra.sit);
+
+					console.log('indexFila', indexFila);
+					console.log('indexAsiento', indexAsiento);
 					replaceOperation.push({
 						op: 'replace',
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
@@ -99,10 +104,13 @@ export class EventosRepo implements App.EventosRepoInterface {
 			authorization,
 			tipoPago: 'niubiz',
 			fecha: new Date().toISOString(),
-			canal: 'web'
+			canal: 'web',
+			tickets: []
 		};
 
 		if (replaceOperation.length > 0) await container.item(turno.slug, turno.slug).patch(replaceOperation);
+
+		console.log('crearar item');
 		const { resource: createdItem } = await entradas.items.create<App.Entrada>(entrada);
 		return createdItem!.id;
 	};

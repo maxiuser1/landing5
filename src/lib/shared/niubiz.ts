@@ -59,6 +59,7 @@ export class NiubizHandler {
 
 	async authorize(transactionToken: string, turno: App.Turno): Promise<any> {
 		const token = await this.getToken();
+		console.log('token', token);
 		const resultado = await axios.post(
 			`${SECRET_NIUBIZ_NIUBIZAPI}/api.authorization/v3/authorization/ecommerce/${SECRET_NIUBIZ_MERCHANTID}`,
 			{
@@ -79,6 +80,7 @@ export class NiubizHandler {
 				}
 			}
 		);
+		console.log('result auth', resultado?.data);
 		return resultado.data;
 	}
 }

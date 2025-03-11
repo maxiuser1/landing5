@@ -17,3 +17,4 @@ export { default as Box } from './Box.svelte';
 export { default as Cuadrado } from './Cuadrado.svelte';
 export { default as Silla } from './Silla.svelte';
 export { default as Sillon } from './Sillon.svelte';
+export { default as Qrcode } from './Qrcode.svelte';

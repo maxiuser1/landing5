@@ -113,10 +113,11 @@ class ReservaState {
 	}
 }
 
-const reserva: ReservaState | null = null;
+let reserva: ReservaState | null = null;
 export function getReserva(evento: App.Evento) {
 	if (!reserva) {
-		return new ReservaState(evento);
+		reserva = new ReservaState(evento);
+		return reserva;
 	}
 	return reserva;
 }

@@ -1,11 +1,11 @@
 <script lang="ts">
-	let { cantidad, inc, dec } = $props();
+	let { cantidad, inc, dec, disabledAdd = false } = $props();
 </script>
 
 <div class="botonera">
 	<button onclick={dec} disabled={cantidad == 0} class="subs"><span class="min">-</span></button>
 	<div>{cantidad}</div>
-	<button onclick={inc}>+</button>
+	<button onclick={inc} disabled={disabledAdd}>+</button>
 </div>
 
 <style lang="scss">
