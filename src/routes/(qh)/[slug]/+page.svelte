@@ -47,7 +47,9 @@
 		<section id="legal" style="background-image:url({evento.caratula.textura})">
 			<div class="container legal">
 				<div class="center-box">
-					{@html prismicH.asHTML(data.document.data.legal)}
+					{#await data.document then document}
+						{@html prismicH.asHTML(document.data.legal)}
+					{/await}
 				</div>
 			</div>
 		</section>
