@@ -1,3 +1,5 @@
+import { formatDate } from '$lib/shared/formatos';
+
 export function getParrilla(evento: App.Evento) {
 	let parrilla: App.ParrillaPrecio = {
 		titulos: [],
