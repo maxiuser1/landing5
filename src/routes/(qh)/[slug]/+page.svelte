@@ -3,7 +3,6 @@
 	import Precios from '$lib/components/Evento/Portada/Precios.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
 	import Ticket from '$lib/icons/Ticket.svelte';
-	import { EventosRepo } from '$lib/repos/eventosRepo';
 	import * as prismicH from '@prismicio/helpers';
 	let { data } = $props();
 	const { parrilla } = data;
