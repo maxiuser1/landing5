@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { getParrilla } from '$lib/components/Evento/Portada/parrilla';
 	import Precios from '$lib/components/Evento/Portada/Precios.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
-	import Logo from '$lib/components/Layout/Header/Logo.svelte';
 	import Ticket from '$lib/icons/Ticket.svelte';
+	import { EventosRepo } from '$lib/repos/eventosRepo';
 	import * as prismicH from '@prismicio/helpers';
 	let { data } = $props();
+	const { parrilla } = data;
+	const { general, caratula } = data.evento;
 	function volver() {
 		goto('/');
 	}
@@ -19,54 +20,36 @@
 		<li role="none"><a role="menuitem" href="#legal">Legal</a></li>
 	</ul>
 </Header>
-
-{#await data.evento}
-	<div class="awaiting">
-		<Logo />
-	</div>
-{:then evento}
-	{@const { caratula, general } = evento}
-	{@const parrilla = getParrilla(evento)}
-	<span style="--theme-principal: {caratula.colorPrincipal}; --theme-contraste: {caratula.colorContrastePrincipal}">
-		<section id="inicio">
-			<img class="portada" src={caratula.portada} alt="Portada" />
-		</section>
-		<section id="Precios" style="background-image:url({caratula.textura})">
-			<div class="container legal">
-				<div class="center-box">
-					<Precios {parrilla} {caratula} />
-					<div class="botonera">
-						<a class="continuar" href="./{evento.id}/reserva">
-							Regular <Ticket />
-						</a>
-					</div>
+<span style="--theme-principal: {caratula.colorPrincipal}; --theme-contraste: {caratula.colorContrastePrincipal}">
+	<section id="inicio">
+		<img class="portada" src={caratula.portada} alt="Portada" />
+	</section>
+	<section id="Precios" style="background-image:url({caratula.textura})">
+		<div class="container legal">
+			<div class="center-box">
+				<Precios {parrilla} {caratula} />
+				<div class="botonera">
+					<a class="continuar" href="./{data.evento.id}/reserva">
+						Regular <Ticket />
+					</a>
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
 
-		<section id="legal" style="background-image:url({evento.caratula.textura})">
-			<div class="container legal">
-				<div class="center-box">
-					{#await data.document then document}
-						{@html prismicH.asHTML(document.data.legal)}
-					{/await}
-				</div>
+	<section id="legal" style="background-image:url({data.evento.caratula.textura})">
+		<div class="container legal">
+			<div class="center-box">
+				{@html prismicH.asHTML(data.document.data.legal)}
 			</div>
-		</section>
-	</span>
-{/await}
+		</div>
+	</section>
+</span>
 
 <style lang="scss">
 	@use '../../../../static/style.scss' as mixin;
 	@forward '../../../../static/container.scss';
-	.awaiting {
-		background: black;
-		width: 100%;
-		height: 100vh;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+
 	.botonera {
 		display: flex;
 		justify-content: center;
