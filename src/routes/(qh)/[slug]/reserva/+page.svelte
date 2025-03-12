@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
+	import Comercios from '$lib/components/Evento/Reserva/Comercios.svelte';
+	import Pago from '$lib/components/Evento/Reserva/Pago.svelte';
 	import Resumen from '$lib/components/Evento/Reserva/Resumen.svelte';
 	import Zonas from '$lib/components/Evento/Reserva/Zonas.svelte';
+	import Header from '$lib/components/Layout/Header/Header.svelte';
 	import Boton from '$lib/components/Shared/ui/Boton.svelte';
 	import Spinner from '$lib/components/Shared/ui/Spinner.svelte';
 	import { getReserva } from './reserva.svelte.js';
 
 	let { data } = $props();
-	const { evento }: { evento: App.Evento } = data;
+	const { evento, comercios }: { evento: App.Evento; comercios: App.Comercio[] } = data;
 	let loading = $state(false);
-	const reserva = getReserva(evento);
+	const reserva = getReserva(evento, comercios);
 	const volver = () => goto(`/${evento.id}`);
 
 	const pagar = async () => {
@@ -36,19 +39,15 @@
 <svelte:head>
 	<script type="text/javascript" src={PUBLIC_NIUBIZ_LIBRE}></script>
 </svelte:head>
-<section class="minicontainer">
-	<Zonas {evento} {reserva} />
-</section>
+<Header {volver} />
+
+<Zonas {evento} {reserva} />
+<Comercios {reserva} {comercios} />
+<Pago {reserva} {pagar} />
 
 {#if reserva.total > 0 && !loading}
 	<section class="minicontainer">
 		<Resumen {evento} {reserva} />
-	</section>
-{/if}
-
-{#if reserva.total > 0}
-	<section class="minicontainer pagar">
-		<Boton {loading} onclick={pagar}>Pagar</Boton>
 	</section>
 {/if}
 

@@ -1,6 +1,7 @@
 class ReservaState {
 	slug = $state();
 	tab = $state('inicio');
+	comercio = $state('');
 	mapa = $state('');
 	compras = $state<App.ItemCompra[]>([]);
 
@@ -64,6 +65,14 @@ class ReservaState {
 		return this.compras.some((t) => t.id === `${precio.codigo}-${fila}-${sit}`);
 	}
 
+	countProductos(id: string): number {
+		const compra = this.compras.find((t) => t.id === id);
+		if (compra) {
+			return compra.cantidad;
+		}
+		return 0;
+	}
+
 	count(codigo: string): number {
 		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
@@ -102,21 +111,52 @@ class ReservaState {
 		}
 	}
 
+	incProducto(producto: App.Producto) {
+		const compra = this.compras.find((t) => t.id === producto.id);
+		if (compra) {
+			compra.cantidad++;
+			compra.total = compra.cantidad * compra.precio;
+		} else {
+			this.compras.push({
+				id: producto.id,
+				tipo: 'producto',
+				codigo: producto.id,
+				nombre: producto.nombre,
+				precio: producto.precio,
+				cantidad: 1,
+				total: producto.precio
+			});
+		}
+	}
+
+	decProducto(id: string) {
+		const compra = this.compras.find((t) => t.id === id);
+		if (compra) {
+			compra.cantidad--;
+			compra.total = compra.cantidad * compra.precio;
+
+			if (compra.cantidad == 0) {
+				this.del(compra);
+			}
+		}
+	}
+
 	setMapa(mapa: string) {
 		this.mapa = mapa;
 		this.tab = 'mapa';
 	}
 
-	constructor(evento: App.Evento) {
+	constructor(evento: App.Evento, comercios: App.Comercio[]) {
 		this.slug = evento.id;
+		this.comercio = comercios[0].id;
 		this.compras = [];
 	}
 }
 
 let reserva: ReservaState | null = null;
-export function getReserva(evento: App.Evento) {
+export function getReserva(evento: App.Evento, comercios: App.Comercio[]) {
 	if (!reserva) {
-		reserva = new ReservaState(evento);
+		reserva = new ReservaState(evento, comercios);
 		return reserva;
 	}
 	return reserva;

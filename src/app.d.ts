@@ -150,6 +150,20 @@ declare global {
 			sit?: string;
 		};
 
+		type Comercio = {
+			id: string;
+			tipo: string;
+			productos: Producto[];
+		};
+
+		type Producto = {
+			id: string;
+			nombre: string;
+			precio: number;
+			img: string;
+			stock: number;
+		};
+
 		type Ticket = {
 			id: number;
 			paraMi: boolean;
@@ -183,6 +197,7 @@ declare global {
 			getTurno(id: string): Promise<App.Turno>;
 			confirmar(turno: App.Turno, authorization: any): Promise<string>;
 			getEntrada(id: string): Promise<App.Entrada>;
+			getComercios(comerciosIds: string[]): Promise<App.Comercio[]>;
 		}
 
 		interface UsuariosRepoInterface {

@@ -54,7 +54,7 @@
 	</div>
 </div>
 <div class="wrapper">
-	<button type="button" class="btn" onclick={confirmar}>Resumen <Arrow /></button>
+	<button type="button" class="btn" onclick={confirmar}> <Arrow left={true} /> Resumen </button>
 </div>
 
 <style lang="scss">

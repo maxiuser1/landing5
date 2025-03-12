@@ -1,36 +1,44 @@
 <script lang="ts">
-	import Silla from '$lib/icons/Silla.svelte';
-	import { EventosRepo } from '$lib/repos/eventosRepo';
-	import { soles } from '$lib/shared/formatos';
+	import Arrow from '$lib/icons/Arrow.svelte';
 	import AsientoPicker from './Asiento-Picker.svelte';
 	import BoxPicker from './Box-Picker.svelte';
-	import CompraGeneral from './Compra-General.svelte';
 	import Tickets from './Tickets.svelte';
 
 	let { evento, reserva } = $props();
 </script>
 
-<h4>Entrada</h4>
-<p>Selecciona sus entradas:</p>
-<div class="mapa">
-	<!-- <img src={evento.caratula.mapa} alt="mapa" /> -->
-</div>
-
 {#if reserva.tab == 'inicio'}
-	<Tickets {evento} {reserva} />
-{/if}
+	<section class="minicontainer">
+		<h4>Entrada</h4>
+		<p>Selecciona sus entradas:</p>
+		<div class="mapa">
+			<!-- <img src={evento.caratula.mapa} alt="mapa" /> -->
+		</div>
 
-{#each evento.precios as precio}
-	{#if precio.tipo == 'BOX' && reserva.mapa == precio.codigo}
-		<BoxPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
-	{/if}
-	{#if precio.tipo == 'Asientos' && reserva.mapa == precio.codigo}
-		<AsientoPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
-	{/if}
-{/each}
+		<Tickets {evento} {reserva} />
+
+		{#each evento.precios as precio}
+			{#if precio.tipo == 'BOX' && reserva.mapa == precio.codigo}
+				<BoxPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
+			{/if}
+			{#if precio.tipo == 'Asientos' && reserva.mapa == precio.codigo}
+				<AsientoPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
+			{/if}
+		{/each}
+
+		<div class="botonera">
+			<button class="btn mt-40" onclick={() => (reserva.tab = 'comercios')}>Continuar <Arrow /></button>
+		</div>
+	</section>
+{/if}
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
+
+	.botonera {
+		display: flex;
+		justify-content: flex-end;
+	}
 
 	.mapa {
 		display: flex;

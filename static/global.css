@@ -130,6 +130,15 @@ h6 {
 	line-height: 24px;
 }
 
+.btn--lessline {
+	padding: 8px 8px;
+	background: transparent;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	font-weight: 700;
+	line-height: 24px;
+}
+
 .btn {
 	padding: 12px 16px;
 	background: #d30ed1;
@@ -161,4 +170,8 @@ h6 {
 
 .mt-40 {
 	margin-top: 40px;
+}
+
+.mt-20 {
+	margin-top: 20px;
 }

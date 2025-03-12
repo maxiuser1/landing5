@@ -28,6 +28,18 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return evento!;
 	};
 
+	getComercios = async (comerciosIds: string[]): Promise<App.Comercio[]> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('comercios');
+
+		const querySpec: SqlQuerySpec = {
+			query: `SELECT c.id, c.productos, c.tipo FROM c WHERE  c.id in (${comerciosIds.map((id) => `'${id}'`).join(',')})`
+		};
+		const { resources: items } = await container.items.query<App.Comercio>(querySpec).fetchAll();
+		return items;
+	};
+
 	getTurno = async (id: string): Promise<App.Turno> => {
 		const client = new CosmosClient(this.cn);
 		const database = client.database('quehaydb');
