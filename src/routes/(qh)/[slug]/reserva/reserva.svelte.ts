@@ -81,6 +81,14 @@ class ReservaState {
 		return 0;
 	}
 
+	sum(codigo: string): number {
+		const compra = this.compras.find((t) => t.id === codigo);
+		if (compra) {
+			return compra.total;
+		}
+		return 0;
+	}
+
 	inc({ codigo, nombre, online }: App.Precio) {
 		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {

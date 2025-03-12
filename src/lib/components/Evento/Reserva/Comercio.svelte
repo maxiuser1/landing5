@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { soles } from '$lib/shared/formatos';
 	import CompraGeneral from './Compra-General.svelte';
 
 	let { reserva, comercio } = $props();
@@ -7,12 +8,21 @@
 <div class="vitrina mt-20">
 	{#each comercio.productos as producto}
 		{@const cantidad = reserva.count(producto.id)}
+		{@const total = reserva.sum(producto.id)}
 
 		<div class="caja">
 			<img src={producto.img} alt={producto.nombre} />
 
 			<p>{producto.nombre}</p>
-			<div>
+			<div class="controles">
+				<div class="total">
+					{#if total > 0}
+						{soles(total)}
+					{:else}
+						{soles(producto.precio)}
+					{/if}
+				</div>
+
 				<CompraGeneral
 					{cantidad}
 					inc={() => reserva.incProducto(producto)}
@@ -25,6 +35,19 @@
 
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
+
+	.controles {
+		display: flex;
+		gap: 24px;
+		flex-direction: column;
+		align-items: center;
+	}
+	.total {
+		color: var(--pink);
+		margin-top: 8px;
+		display: flex;
+		justify-content: center;
+	}
 
 	.caja {
 		margin: 12px 0;
