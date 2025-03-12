@@ -5,7 +5,6 @@
 	import Header from '$lib/components/Layout/Header/Header.svelte';
 	import Logo from '$lib/components/Layout/Header/Logo.svelte';
 	import Ticket from '$lib/icons/Ticket.svelte';
-	import { EventosRepo } from '$lib/repos/eventosRepo';
 	import * as prismicH from '@prismicio/helpers';
 	let { data } = $props();
 	function volver() {
@@ -22,9 +21,7 @@
 </Header>
 
 {#await data.evento}
-	<div
-		style="background:black; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;"
-	>
+	<div class="awaiting">
 		<Logo />
 	</div>
 {:then evento}
@@ -60,7 +57,14 @@
 <style lang="scss">
 	@use '../../../../static/style.scss' as mixin;
 	@forward '../../../../static/container.scss';
-
+	.awaiting {
+		background: black;
+		width: 100%;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	.botonera {
 		display: flex;
 		justify-content: center;
