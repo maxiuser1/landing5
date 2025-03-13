@@ -52,8 +52,8 @@
 		z-index: 2;
 	}
 	.card {
-		max-width: 398px;
-		width: 398px;
+		max-width: 100%;
+		width: 100%;
 		overflow: hidden;
 		border-radius: 0.5rem;
 		border: 1px solid #f1f1f1;

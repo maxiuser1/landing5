@@ -11,11 +11,11 @@
 		</div>
 		<div>
 			<ul class="links">
-				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
-				<li><a href="/contenido/preguntas-frecuentes">Preguntas frecuentes</a></li>
-				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
-				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
-				<li><a href="/contenido/politicas-de-cookies">Políticas de Cookies</a></li>
+				<li><a href="/i/acerca-de-nosotros">Acerca de nosotros</a></li>
+				<li><a href="/i/preguntas-frecuentes">Preguntas frecuentes</a></li>
+				<li><a href="/i/terminos_y_condiciones">Términos y condiciones</a></li>
+				<li><a href="/i/politicas-de-privacidad">Políticas de privacidad</a></li>
+				<li><a href="/i/politicas-de-cookies">Políticas de Cookies</a></li>
 			</ul>
 		</div>
 		<div>

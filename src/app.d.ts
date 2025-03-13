@@ -190,6 +190,11 @@ declare global {
 			action: string;
 		};
 
+		type TicketsSet = {
+			entradaId:string;
+			tickets:[]
+		}
+
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;

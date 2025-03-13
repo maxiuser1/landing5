@@ -43,6 +43,10 @@
 </div>
 
 <style lang="scss">
+	.portada {
+		width: 100%;
+	}
+
 	.tabla {
 		margin-top: 35px;
 

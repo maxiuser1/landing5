@@ -1,32 +1,32 @@
 <div class="titulo--suprayado">Destacados</div>
 <div class="tarjetas">
 	<div>
-		<a href="../">
+		<a href="/">
 			<img src="https://epcdnqhprd.azureedge.net/images/Mistica/card1740841451690.png" alt="img1" />
 		</a>
 	</div>
 	<div>
-		<a href="../">
+		<a href="/">
 			<img src="https://epcdnqhprd.azureedge.net/images/Mistica/card1740841451690.png" alt="img1" />
 		</a>
 	</div>
 	<div>
-		<a href="../">
+		<a href="/">
 			<img src="https://epcdnqhprd.azureedge.net/images/Mistica/card1740841451690.png" alt="img1" />
 		</a>
 	</div>
 	<div>
-		<a href="../">
+		<a href="/">
 			<img src="https://epcdnqhprd.azureedge.net/images/Mistica/card1740841451690.png" alt="img1" />
 		</a>
 	</div>
 	<div>
-		<a href="../">
+		<a href="/">
 			<img src="https://epcdnqhprd.azureedge.net/images/Mistica/card1740841451690.png" alt="img1" />
 		</a>
 	</div>
 	<div>
-		<a href="../">
+		<a href="/">
 			<img src="https://epcdnqhprd.azureedge.net/images/Mistica/card1740841451690.png" alt="img1" />
 		</a>
 	</div>
@@ -45,6 +45,10 @@
 		@include mixin.breakpoint(mixin.$md) {
 			flex-direction: column;
 			flex-wrap: wrap;
+		}
+
+		img {
+			width: 226px;
 		}
 	}
 
