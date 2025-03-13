@@ -17,6 +17,16 @@
 
 		<Tickets {evento} {reserva} />
 
+		<div class="botonera">
+			<button class="btn mt-40" onclick={() => (reserva.tab = 'comercios')}>Continuar <Arrow /></button>
+		</div>
+	</section>
+{/if}
+
+{#if reserva.tab == 'mapa'}
+	<section class="minicontainer">
+		<h4>Lugar</h4>
+		<p>Seleccione su lugar:</p>
 		{#each evento.precios as precio}
 			{#if precio.tipo == 'BOX' && reserva.mapa == precio.codigo}
 				<BoxPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
@@ -25,10 +35,6 @@
 				<AsientoPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
 			{/if}
 		{/each}
-
-		<div class="botonera">
-			<button class="btn mt-40" onclick={() => (reserva.tab = 'comercios')}>Continuar <Arrow /></button>
-		</div>
 	</section>
 {/if}
 

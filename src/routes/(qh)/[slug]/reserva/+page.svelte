@@ -51,6 +51,9 @@
 	</section>
 {/if}
 
+{reserva.tab}
+{reserva.mapa}
+
 <style lang="scss">
 	@use '../../../../../static/style.scss' as mixin;
 

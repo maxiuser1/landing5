@@ -13,6 +13,10 @@ class ReservaState {
 		return total;
 	});
 
+	has(codigo: string): boolean {
+		return this.compras.some((t) => t.codigo === codigo || t.id == codigo);
+	}
+
 	goInicio() {
 		this.tab = 'inicio';
 		this.mapa = '';
@@ -161,11 +165,6 @@ class ReservaState {
 	}
 }
 
-let reserva: ReservaState | null = null;
 export function getReserva(evento: App.Evento, comercios: App.Comercio[]) {
-	if (!reserva) {
-		reserva = new ReservaState(evento, comercios);
-		return reserva;
-	}
-	return reserva;
+	return new ReservaState(evento, comercios);
 }

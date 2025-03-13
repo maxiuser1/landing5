@@ -21,16 +21,18 @@
 			<CompraGeneral {cantidad} inc={() => reserva.inc(precio)} dec={() => reserva.dec(precio.codigo)} />
 		{/if}
 		{#if precio.tipo == 'BOX'}
+			{@const activated = reserva.has(precio.codigo)}
 			<div class="botonera">
-				<button class="btn--icon" onclick={() => reserva.setMapa(precio.codigo)}>
+				<button onclick={() => reserva.setMapa(precio.codigo)} class="btn--icon" class:acitivated={activated}>
 					<Sillon />
 				</button>
 			</div>
 		{/if}
 
 		{#if precio.tipo == 'Asientos'}
+			{@const activated = reserva.has(precio.codigo)}
 			<div class="botonera">
-				<button class="btn--icon" onclick={() => reserva.setMapa(precio.codigo)}>
+				<button class="btn--icon" onclick={() => reserva.setMapa(precio.codigo)} class:acitivated={activated}>
 					<Silla />
 				</button>
 			</div>
@@ -42,6 +44,10 @@
 	.botonera {
 		display: flex;
 		justify-content: flex-end;
+
+		.acitivated {
+			color: var(--red);
+		}
 		button {
 			color: #777777;
 			&:hover {
