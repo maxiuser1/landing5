@@ -59,26 +59,31 @@ export class NiubizHandler {
 
 	async authorize(transactionToken: string, turno: App.Turno): Promise<any> {
 		const token = await this.getToken();
-		const resultado = await axios.post(
-			`${SECRET_NIUBIZ_NIUBIZAPI}/api.authorization/v3/authorization/ecommerce/${SECRET_NIUBIZ_MERCHANTID}`,
-			{
-				channel: 'web',
-				captureType: 'manual',
-				countable: true,
-				order: {
-					tokenId: transactionToken,
-					purchaseNumber: turno.numeroCompra,
-					amount: turno.total,
-					currency: 'PEN'
+		try {
+			const resultado = await axios.post(
+				`${SECRET_NIUBIZ_NIUBIZAPI}/api.authorization/v3/authorization/ecommerce/${SECRET_NIUBIZ_MERCHANTID}`,
+				{
+					channel: 'web',
+					captureType: 'manual',
+					countable: true,
+					order: {
+						tokenId: transactionToken,
+						purchaseNumber: turno.numeroCompra,
+						amount: turno.total,
+						currency: 'PEN'
+					}
+				},
+				{
+					headers: {
+						Authorization: token,
+						'Content-Type': 'application/json'
+					}
 				}
-			},
-			{
-				headers: {
-					Authorization: token,
-					'Content-Type': 'application/json'
-				}
-			}
-		);
-		return resultado.data;
+			);
+			return resultado.data;
+		} catch (err: any) {
+			console.log('errm', err);
+			console.log('midumi', err.response.data);
+		}
 	}
 }

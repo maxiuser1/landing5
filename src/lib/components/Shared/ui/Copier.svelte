@@ -33,14 +33,16 @@
 			max-width: 150px;
 			border-top-right-radius: 0px !important;
 			border-bottom-right-radius: 0px !important;
-			border-top: 1px solid #d30ed1;
-			border-bottom: 1px solid #d30ed1;
-			border-left: 1px solid #d30ed1;
+			background-color: #f9f9f9;
 		}
+
 		.btn--outline {
 			border-top-left-radius: 0px !important;
 			border-bottom-left-radius: 0px !important;
-			border-left: none;
+			border: none;
+			font-weight: normal;
+			background-color: #e2e2e2;
+			color: var(--black);
 			line-height: initial;
 			position: relative;
 			z-index: 2;

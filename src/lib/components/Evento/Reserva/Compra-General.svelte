@@ -1,11 +1,11 @@
 <script lang="ts">
-	let { cantidad, inc, dec, disabledAdd = false } = $props();
+	let { cantidad, inc, dec, disabledInc = false, disabledDec = false } = $props();
 </script>
 
 <div class="botonera">
-	<button onclick={dec} disabled={cantidad == 0} class="subs"><span class="min">-</span></button>
+	<button onclick={dec} disabled={cantidad == 0 || disabledDec}>-</button>
 	<div>{cantidad}</div>
-	<button onclick={inc} disabled={disabledAdd}>+</button>
+	<button onclick={inc} disabled={disabledInc}>+</button>
 </div>
 
 <style lang="scss">
@@ -18,7 +18,7 @@
 			font-size: 18px;
 			line-height: 16px;
 			font-weight: 425;
-			width: 50px;
+			width: 40px;
 			text-align: center;
 		}
 		button {
@@ -34,14 +34,9 @@
 			font-size: 20px;
 			text-align: center;
 			cursor: pointer;
-		}
-
-		.subs {
-			padding-bottom: 4px;
-		}
-		.min {
-			transform: scale(2);
-			color: black;
+			&:disabled {
+				border-color: rgb(211, 211, 211);
+			}
 		}
 	}
 </style>

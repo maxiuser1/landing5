@@ -18,3 +18,5 @@ export { default as Cuadrado } from './Cuadrado.svelte';
 export { default as Silla } from './Silla.svelte';
 export { default as Sillon } from './Sillon.svelte';
 export { default as Qrcode } from './Qrcode.svelte';
+export { default as Impresora } from './Impresora.svelte';
+export { default as Redem } from './Redem.svelte';

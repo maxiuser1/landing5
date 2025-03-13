@@ -120,13 +120,22 @@ h6 {
 	touch-action: manipulation;
 }
 
+.error {
+	background-color: #ffdadb;
+	padding: 12px;
+	color: #ff888f;
+	border-radius: 8px;
+	margin-top: 8px;
+}
+
 .btn--outline {
 	padding: 8px 8px;
 	background: transparent;
 	border-radius: 4px;
 	border: 1px solid #d30ed1;
 	color: #d30ed1;
-	font-weight: 700;
+	font-size: 16px;
+	font-weight: 350;
 	line-height: 24px;
 }
 
@@ -149,6 +158,15 @@ h6 {
 	border-radius: 4px;
 	border: none;
 	color: #fff;
+	font-weight: 600;
+}
+
+.derecha {
+	text-align: right;
+}
+
+.alcentro {
+	text-align: center;
 }
 
 .minicontainer {
@@ -174,4 +192,20 @@ h6 {
 
 .mt-20 {
 	margin-top: 20px;
+}
+
+.mr-12 {
+	margin-right: 12px;
+}
+
+.flexed {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.centrado {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
