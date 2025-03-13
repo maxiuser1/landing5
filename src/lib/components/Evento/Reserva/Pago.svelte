@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { Arrow } from '$lib/icons';
-
-	let { reserva, pagar } = $props();
+	import Boton from '$lib/components/Shared/ui/Boton.svelte';
+	let { reserva, pagar, loading } = $props();
 </script>
 
 {#if reserva.tab == 'pago'}
 	<section class="minicontainer">
 		<h4>Pago</h4>
 		<p>Confirmar compra</p>
-
 		<div class="botonera mt-40">
 			<button class="btn--outline" onclick={() => (reserva.tab = 'comercios')}>Volver</button>
-			<button class="btn" onclick={pagar}>Pagar</button>
+			<Boton onclick={pagar} {loading}>Pagar</Boton>
 		</div>
 	</section>
 {/if}

@@ -6,8 +6,6 @@
 	import Resumen from '$lib/components/Evento/Reserva/Resumen.svelte';
 	import Zonas from '$lib/components/Evento/Reserva/Zonas.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
-	import Boton from '$lib/components/Shared/ui/Boton.svelte';
-	import Spinner from '$lib/components/Shared/ui/Spinner.svelte';
 	import { getReserva } from './reserva.svelte.js';
 
 	let { data } = $props();
@@ -43,7 +41,7 @@
 
 <Zonas {evento} {reserva} />
 <Comercios {reserva} {comercios} />
-<Pago {reserva} {pagar} />
+<Pago {reserva} {pagar} {loading} />
 
 {#if reserva.total > 0 && !loading}
 	<section class="minicontainer">

@@ -10,8 +10,23 @@
 	const productos = entrada.compras.filter((t) => t.tipo == 'producto');
 
 	const volver = () => goto('/');
-	const imprimir = () => {
-		console.log('aer', entradas[0].ticketing.tickets);
+	const imprimir = async () => {
+		const payload = JSON.stringify({
+			id: entrada.id,
+			slug: evento.id,
+			productos: productos,
+			entradas: entradas.map((t) => {
+				return {
+					tickets: t.ticketing.tickets,
+					reventas: t.ticketing.reventas,
+					traspasos: t.ticketing.traspasos,
+					paraMi: t.ticketing.paraMi
+				};
+			})
+		});
+		const resp = await fetch('/api/tickets', { method: 'POST', body: payload });
+		const datapago = await resp.json();
+		console.log('datapago', datapago);
 	};
 </script>
 
