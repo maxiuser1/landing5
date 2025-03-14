@@ -3,6 +3,7 @@
 	import Carousel from '$lib/components/Home/Carousel.svelte';
 	import Destacados from '$lib/components/Home/Destacados.svelte';
 	import type { PageProps } from './$types';
+	import { getEventosState } from './eventos.svelte';
 	let { data }: PageProps = $props();
 </script>
 

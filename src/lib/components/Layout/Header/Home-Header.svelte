@@ -6,24 +6,45 @@
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
 
+	let { eventos } = $props();
 	let visible = $state(false);
 	let inputph = $state('Encuentra tu evento');
-	let active = $state(false);
-
-	const active_class = $derived(active ? 'searchbox searchbox-focus' : 'searchbox');
-
+	let eventosResult = $state<App.HomeEvento[]>([]);
+	let active_class = $state('searchbox');
 	const toggle = () => {
 		visible = !visible;
 	};
 
 	const handleInputer = () => {
 		inputph = '';
-		active = true;
+		active_class = 'searchbox searchbox-focus';
 	};
 
 	const handleOutInputer = () => {
 		inputph = 'Encuentra tu evento';
-		active = false;
+		active_class = 'searchbox';
+		eventosResult = [];
+	};
+
+	const oninput = (e: any) => {
+		const value = e.target.value;
+		if (value.length > 0) {
+			eventosResult = eventos;
+			active_class = 'searchbox searchbox-focus searchbox-searching';
+			eventosResult = eventos
+				.filter(
+					(evento: App.HomeEvento) =>
+						evento.nombre.toLowerCase().includes(value.toLowerCase()) ||
+						evento.artista.toLowerCase().includes(value.toLowerCase()) ||
+						evento.fechas.toLowerCase().includes(value.toLowerCase()) ||
+						evento.lugar.toLowerCase().includes(value.toLowerCase())
+				)
+				.slice(0, 3);
+		} else {
+			eventosResult = [];
+			active_class = 'searchbox searchbox-focus';
+		}
+		console.log('e', e.target.value, eventos);
 	};
 </script>
 
@@ -40,11 +61,27 @@
 				placeholder={inputph}
 				onfocusin={handleInputer}
 				onfocusout={handleOutInputer}
+				oninput={(e) => oninput(e)}
 			/>
 			<div class="boton">
 				<Lupa />
 			</div>
 		</div>
+		{#if eventosResult.length > 0}
+			<div class="results">
+				{#each eventosResult as evento}
+					<a href="/{evento.slug}" class="result">
+						<div>
+							<img src={evento.card} alt={evento.nombre} />
+						</div>
+						<div>
+							<h5>{evento.nombre} - <small>{evento.artista}</small></h5>
+							<p>{evento.fechas}</p>
+						</div>
+					</a>
+				{/each}
+			</div>
+		{/if}
 	</div>
 	<div class="hamburger">
 		<Nav toggleMenu={toggle} />
@@ -135,16 +172,47 @@
 	}
 
 	.searchbox {
+		position: relative;
 		grid-area: sb;
 		padding-left: 24px;
 		padding-right: 24px;
 		text-align: center;
 		margin-top: 24px;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 
 		@include mixin.breakpoint(mixin.$md) {
 			margin-top: -12px;
+		}
+
+		.results {
+			position: absolute;
+			top: 100%;
+			z-index: 9999;
+			width: 94%;
+			display: flex;
+			flex-direction: column;
+			background-color: #fff;
+			box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.16);
+			gap: 12px;
+			padding: 12px;
+
+			.result {
+				text-align: left;
+				background-color: #eeeeee;
+				padding: 12px;
+				border-radius: 8px;
+				gap: 12px;
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+
+				img {
+					width: 100px;
+					height: 60px;
+				}
+			}
 		}
 
 		.box {
@@ -201,6 +269,12 @@
 
 			.input {
 				background-color: #fff;
+			}
+		}
+
+		&-searching {
+			.box {
+				border: none;
 			}
 		}
 	}
