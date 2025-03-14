@@ -1,13 +1,29 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { Google } from '$lib/icons';
-	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+	import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 	import { auth } from '../../../firebase';
 	import { invalidateAll } from '$app/navigation';
 	import { applyAction } from '$app/forms';
-	async function handleGoogleClick(
-		event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }
-	) {
+	import { onMount } from 'svelte';
+
+	onAuthStateChanged(auth, async (user) => {
+		if (user) {
+			const data = new FormData();
+			data.append('uid', user.uid);
+			const response = await fetch('?/revalidate', {
+				method: 'POST',
+				body: data
+			});
+			const result = await response.json();
+			if (result.type === 'success') {
+				await invalidateAll();
+			}
+			applyAction(result);
+		}
+	});
+
+	async function handleGoogleClick(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
 		event.preventDefault();
 		const data = new FormData();
 		const provider = new GoogleAuthProvider();

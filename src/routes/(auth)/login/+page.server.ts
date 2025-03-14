@@ -12,15 +12,29 @@ export const actions = {
 
 		if (user) {
 			if (user && user.dni && user.dni.length > 0) {
-				cookies.set('session', user.id!, {
-					path: '/',
-					httpOnly: true,
-					sameSite: 'strict',
-					secure: process.env.NODE_ENV === 'production',
-					maxAge: 60 * 60 * 24 * 30
-				});
 				redirect(302, redirectTo ? redirectTo : '/');
 			}
+		}
+	},
+	revalidate: async ({ locals, url, request, cookies }) => {
+		if (locals.user) {
+			if (url.searchParams.get('redirectTo')) {
+				redirect(302, url.searchParams.get('redirectTo')!);
+			}
+			redirect(302, '/');
+		}
+
+		const data = await request.formData();
+		const user = await locals.usuariosRepo.findByFb(data.get('uid')?.toString());
+		if (user) {
+			cookies.set('session', user.id!, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'strict',
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 60 * 60 * 24 * 30
+			});
+			redirect(302, '/');
 		}
 	}
 } satisfies Actions;

@@ -44,7 +44,6 @@
 			eventosResult = [];
 			active_class = 'searchbox searchbox-focus';
 		}
-		console.log('e', e.target.value, eventos);
 	};
 </script>
 

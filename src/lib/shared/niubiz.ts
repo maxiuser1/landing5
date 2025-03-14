@@ -81,9 +81,6 @@ export class NiubizHandler {
 				}
 			);
 			return resultado.data;
-		} catch (err: any) {
-			console.log('errm', err);
-			console.log('midumi', err.response.data);
-		}
+		} catch (err: any) {}
 	}
 }

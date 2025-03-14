@@ -6,6 +6,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	return {
 		eventos,
 		banners,
-		categorias
+		categorias,
+		user: locals.user
 	};
 };

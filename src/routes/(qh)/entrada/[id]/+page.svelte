@@ -25,7 +25,6 @@
 		const resp = await fetch('/api/tickets', { method: 'POST', body: payload });
 		const response = await resp.json();
 		loading = false;
-		console.log('datapago', response);
 	};
 </script>
 

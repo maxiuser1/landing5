@@ -91,7 +91,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 			tickets.push({ ...cadaEntrada.paraMi, tipo: 'paraMi' });
 		}
 
-		console.log('OPEN', ticketSet.id, tickets);
 		await container.item(ticketSet.id, ticketSet.id).patch([
 			{
 				op: 'add',
