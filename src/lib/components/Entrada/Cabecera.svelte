@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { Impresora } from '$lib/icons';
 	import { formatDate } from '$lib/shared/formatos';
+	import Boton from '../Shared/ui/Boton.svelte';
 
-	let { evento, imprimir } = $props();
+	let { evento, imprimir, loading } = $props();
 </script>
 
 <section class="principal">
@@ -11,8 +13,9 @@
 		<strong>{evento.ubicacion.nombre} </strong>
 		<div>{formatDate(new Date(evento.fechas.fechaUnica))}</div>
 	</div>
-	<div class="centrado mt-20">
-		<button class="btn--outline" onclick={imprimir}>Imprimir constancia <Impresora /></button>
+	<div class="centrado mt-20 flexed">
+		<Boton class="btn--outline" onclick={imprimir} {loading}>Confirmar entradas</Boton>
+		<a class="btn" href={page.url + '/mine'}>Imprimir <Impresora /></a>
 	</div>
 </section>
 

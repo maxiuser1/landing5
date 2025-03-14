@@ -5,7 +5,7 @@
 
 <button type="button" class="btn" {...others}>
 	{#if loading}
-		<Spinner size="24" color="#fff" />
+		<Spinner size="24" color="red" />
 	{:else}
 		{@render children()}
 	{/if}
