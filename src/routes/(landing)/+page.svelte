@@ -7,10 +7,9 @@
 	let { data }: PageProps = $props();
 	let eventos = $state(data.eventos);
 	$effect(() => {
-		if (page.url.hash) {
-			console.log(page.url.hash);
-			eventos = data.eventos?.filter((evento) => evento.categoria == page.url.hash.slice(1));
-		} else eventos = data.eventos;
+		eventos = page.url.hash
+			? data.eventos?.filter((evento) => evento.categoria == page.url.hash.slice(1))
+			: data.eventos;
 	});
 </script>
 
