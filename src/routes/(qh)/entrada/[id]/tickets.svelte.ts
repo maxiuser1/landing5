@@ -33,9 +33,13 @@ class TicketsState {
 
 	constructor(compra: App.ItemCompra, tickets: App.Ticket[]) {
 		this.compra = compra;
-		this.tickets = tickets;
-		this.paraMi.cantidad = compra.cantidad;
-		this.paraMi.compraId = compra.id;
+		this.tickets = tickets.filter((t) => t.tipo == 'invitado');
+		this.reventas = tickets.filter((t) => t.tipo == 'reventa');
+		this.traspasos = tickets.filter((t) => t.tipo == 'traspaso');
+		if (tickets.some((t) => t.tipo == 'paraMi')) {
+			const paraMiVal = tickets.find((t) => t.tipo == 'paraMi')!;
+			this.paraMi = paraMiVal;
+		}
 	}
 
 	addInvitado() {

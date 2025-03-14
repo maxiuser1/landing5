@@ -11,10 +11,8 @@
 
 	const volver = () => goto('/');
 	const imprimir = async () => {
-		const payload = JSON.stringify({
+		const ticketSet: App.TicketsSet = {
 			id: entrada.id,
-			slug: evento.id,
-			productos: productos,
 			entradas: entradas.map((t) => {
 				return {
 					tickets: t.ticketing.tickets,
@@ -23,10 +21,11 @@
 					paraMi: t.ticketing.paraMi
 				};
 			})
-		});
+		};
+		const payload = JSON.stringify(ticketSet);
 		const resp = await fetch('/api/tickets', { method: 'POST', body: payload });
-		const datapago = await resp.json();
-		console.log('datapago', datapago);
+		const response = await resp.json();
+		console.log('datapago', response);
 	};
 </script>
 

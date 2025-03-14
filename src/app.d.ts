@@ -77,7 +77,6 @@ declare global {
 			disponibles: number;
 			descuentos: Descuento[];
 			filas: Fila[];
-			// precios: ParrillaPrecio
 		};
 
 		type Fila = {
@@ -104,24 +103,6 @@ declare global {
 			fechaInicio: string;
 			fechaLimite: string;
 			habilitado: boolean;
-		};
-
-		type ParrillaPrecio = {
-			titulos: Array<{
-				desde: string;
-				hasta: string;
-				label: string;
-			}>;
-			items: ItemParrillaPrecio[];
-		};
-
-		type ItemParrillaPrecio = {
-			zona: string;
-
-			items: Array<{
-				habilitado: boolean;
-				precio: number | null;
-			}>;
 		};
 
 		type Turno = IntencionCompra & {
@@ -171,6 +152,7 @@ declare global {
 			invitado: User | null;
 			estado: string;
 			compraId: string;
+			tipo?: string;
 		};
 
 		type NiubizConfig = {
@@ -191,9 +173,31 @@ declare global {
 		};
 
 		type TicketsSet = {
-			entradaId:string;
-			tickets:[]
-		}
+			id: string;
+			entradas: Array<{
+				tickets: App.Ticket[];
+				reventas: App.Ticket[];
+				traspasos: App.Ticket[];
+				paraMi: App.Ticket;
+			}>;
+		};
+
+		type ParrillaPrecio = {
+			titulos: Array<{
+				desde: string;
+				hasta: string;
+				label: string;
+			}>;
+			items: ItemParrillaPrecio[];
+		};
+
+		type ItemParrillaPrecio = {
+			zona: string;
+			items: Array<{
+				habilitado: boolean;
+				precio: number | null;
+			}>;
+		};
 
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
@@ -203,6 +207,7 @@ declare global {
 			confirmar(turno: App.Turno, authorization: any): Promise<string>;
 			getEntrada(id: string): Promise<App.Entrada>;
 			getComercios(comerciosIds: string[]): Promise<App.Comercio[]>;
+			ticketear(ticketSet: App.TicketsSet): Promise<void>;
 		}
 
 		interface UsuariosRepoInterface {

@@ -70,6 +70,37 @@ export class EventosRepo implements App.EventosRepoInterface {
 		return { ...turno, id: createdItem!.id };
 	};
 
+	ticketear = async (ticketSet: App.TicketsSet): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('entradas');
+
+		let tickets = [];
+		for (let cadaEntrada of ticketSet.entradas) {
+			for (let cadaTicket of cadaEntrada.tickets) {
+				tickets.push({ ...cadaTicket, tipo: 'invitado' });
+			}
+
+			for (let cadaTicket of cadaEntrada.reventas) {
+				tickets.push({ ...cadaTicket, tipo: 'reventa' });
+			}
+
+			for (let cadaTicket of cadaEntrada.traspasos) {
+				tickets.push({ ...cadaTicket, tipo: 'traspaso' });
+			}
+			tickets.push({ ...cadaEntrada.paraMi, tipo: 'paraMi' });
+		}
+
+		console.log('OPEN', ticketSet.id, tickets);
+		await container.item(ticketSet.id, ticketSet.id).patch([
+			{
+				op: 'add',
+				path: '/tickets',
+				value: tickets
+			}
+		]);
+	};
+
 	confirmar = async (turno: App.Turno, authorization: any): Promise<string> => {
 		const client = new CosmosClient(this.cn);
 		const database = client.database('quehaydb');
