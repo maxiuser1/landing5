@@ -35,6 +35,8 @@ declare global {
 			nombre: string;
 			lugar: string;
 			fechas: string;
+			categoria: string;
+			subCategoria: string;
 			id: string;
 		};
 

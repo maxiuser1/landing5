@@ -1,18 +1,26 @@
 <script lang="ts">
 	import Cards from '$lib/components/Home/Cards.svelte';
 	import Carousel from '$lib/components/Home/Carousel.svelte';
+	import { page } from '$app/state';
 	import Destacados from '$lib/components/Home/Destacados.svelte';
 	import type { PageProps } from './$types';
-	import { getEventosState } from './eventos.svelte';
 	let { data }: PageProps = $props();
+	let eventos = $state(data.eventos);
+	$effect(() => {
+		if (page.url.hash) {
+			console.log(page.url.hash);
+			eventos = data.eventos?.filter((evento) => evento.categoria == page.url.hash.slice(1));
+		} else eventos = data.eventos;
+	});
 </script>
 
-<Carousel eventos={data.banners} />
-
+{#if !page.url.hash}
+	<Carousel eventos={data.banners} />
+{/if}
 <div class="container">
 	<div class="eventos">
 		<section class="destacados" id="destacados">
-			<Cards eventos={data.eventos ?? []} />
+			<Cards eventos={eventos ?? []} />
 		</section>
 	</div>
 	<div class="side">

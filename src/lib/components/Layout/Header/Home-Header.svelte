@@ -6,7 +6,7 @@
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
 
-	let { eventos } = $props();
+	let { eventos, categorias } = $props();
 	let visible = $state(false);
 	let inputph = $state('Encuentra tu evento');
 	let eventosResult = $state<App.HomeEvento[]>([]);
@@ -113,30 +113,15 @@
 					</li>
 				{/if}
 
-				<li class:active={page.url.hash.includes('destacados')}>
-					<a href="#destacados">Conciertos</a>
+				<li>
+					<a data-sveltekit-preload-data="tap" href="/" onclick={() => toggle()}>Todos</a>
 				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Teatro</a>
-				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Deportes</a>
-				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Festivales</a>
-				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Arte y Cultura</a>
-				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Niños</a>
-				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Viajes y aventuras</a>
-				</li>
-				<li class:active={page.url.hash.includes('conciertos')}>
-					<a href="#conciertos">Salud y bienestar</a>
-				</li>
+
+				{#each categorias as categoria}
+					<li class:active={page.url.hash.includes(categoria)}>
+						<a data-sveltekit-preload-data="tap" href="/#{categoria}" onclick={() => toggle()}>{categoria}</a>
+					</li>
+				{/each}
 			</ul>
 		</nav>
 	</header>

@@ -3,9 +3,9 @@
 	import HomeHeader from '$lib/components/Layout/Header/Home-Header.svelte';
 
 	let { data, children } = $props();
-	const { eventos } = data;
+	const { eventos, categorias } = data;
 </script>
 
-<HomeHeader {eventos} />
+<HomeHeader {eventos} {categorias} />
 <main>{@render children()}</main>
 <HomeFooter />
