@@ -14,6 +14,11 @@ export const actions = {
 		if (data.get('dni')) {
 			locals.user.dni = data.get('dni') as string;
 		}
+		locals.user.nombre = data.get('nombre') as string;
+		locals.user.apellido = data.get('apellido') as string;
+		locals.user.ciudad = data.get('ciudad') as string;
+		locals.user.telefono = data.get('telefono') as string;
+
 		return { success: true };
 	}
 } satisfies Actions;

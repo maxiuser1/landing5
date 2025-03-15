@@ -21,3 +21,4 @@ export { default as Qrcode } from './Qrcode.svelte';
 export { default as Impresora } from './Impresora.svelte';
 export { default as Redem } from './Redem.svelte';
 export { default as Listo } from './Listo.svelte';
+export { default as Check } from './Check.svelte';

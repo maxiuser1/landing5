@@ -1,4 +1,8 @@
-<svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+<script lang="ts">
+	let { width = '108', height = '108' } = $props();
+</script>
+
+<svg {width} {height} viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<g id="9004773_tick_check_mark_accept_icon 1">
 		<path
 			id="Vector"

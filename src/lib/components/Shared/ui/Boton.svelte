@@ -3,7 +3,7 @@
 	let { children, loading = false, ...others } = $props();
 </script>
 
-<button type="button" class="btn" {...others}>
+<button type="button" class="btn" disabled={loading} {...others}>
 	{#if loading}
 		<Spinner size="24" color="black" />
 	{:else}
