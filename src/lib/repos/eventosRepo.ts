@@ -34,7 +34,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const container = await database.container('comercios');
 
 		const querySpec: SqlQuerySpec = {
-			query: `SELECT c.id, c.productos, c.tipo FROM c WHERE  c.id in (${comerciosIds.map((id) => `'${id}'`).join(',')})`
+			query: `SELECT c.id, c.tenant, c.productos, c.tipo FROM c WHERE  c.id in (${comerciosIds.map((id) => `'${id}'`).join(',')})`
 		};
 		const { resources: items } = await container.items.query<App.Comercio>(querySpec).fetchAll();
 		return items;
@@ -105,11 +105,72 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const database = client.database('quehaydb');
 		const container = database.container('entradas');
 		const querySpec: SqlQuerySpec = {
-			query: `SELECT  c.id, c.slug, q.precio, q.cantidad, q.compraId, q.codigo, q.id as itemId  FROM c join q in c.tickets where q.tipo = 'reventa' and q.estado='Pendiente'`
+			query: `SELECT  c.id as entradaId, c.slug, q.precio, q.cantidad, q.compra, q.codigo, q.id as ticketId  FROM c join q in c.tickets where q.tipo = 'reventa' and q.estado='Pendiente'`
 		};
 		const { resources: items } = await container.items.query<App.Reventa>(querySpec).fetchAll();
 		console.log('items', items);
 		return items;
+	};
+
+	confirmarReventa = async (turno: App.Turno, authorization: any): Promise<string> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const entradas = database.container('entradas');
+
+		let compras: App.ItemCompra[] = turno.compras
+			.filter((t) => t.tipoPrecio != 'General')
+			.map((c) => {
+				return {
+					...c,
+					total: c.precio * c.cantidad,
+					refEntradaId: c.refEntradaId,
+					refTicketId: c.refTicketId
+				};
+			});
+
+		const generalUnicas = new Set(turno.compras.filter((t) => t.tipoPrecio == 'General').map((c) => c.codigo));
+		for (let cadaGeneralUnica of generalUnicas) {
+			const generales = turno.compras.filter((t) => t.codigo == cadaGeneralUnica);
+			const cantidad = generales.length;
+			const total = generales.reduce((acc, c) => acc + c.total, 0);
+			const precio = total / cantidad;
+			compras.push({ ...generales[0], cantidad, total, precio });
+		}
+
+		const cleanTurno = removeCosmosFields<App.Turno>(turno);
+		const entrada: App.Entrada = {
+			...cleanTurno,
+			compras,
+			authorization,
+			tipoPago: 'niubiz',
+			fecha: new Date().toISOString(),
+			canal: 'web',
+			tickets: []
+		};
+
+		const { resource: createdItem } = await entradas.items.create<App.Entrada>(entrada);
+
+		const entradasUnicas = new Set(turno.compras.map((c) => c.refEntradaId));
+		for (let cadaEntrada of entradasUnicas) {
+			const { resource: entrada } = await entradas
+				.item(cadaEntrada as string, cadaEntrada as string)
+				.read<App.Entrada>();
+
+			const comprasEntrada = turno.compras.filter((t) => t.refEntradaId == cadaEntrada);
+
+			for (let cadaCompraEntrada of comprasEntrada) {
+				const indexTicket = entrada!.tickets.findIndex((t) => t.id == cadaCompraEntrada.refTicketId);
+				entrada!.tickets[indexTicket].estado = 'Vendido';
+
+				const indexCompra = entrada!.compras.findIndex((t) => t.id == cadaCompraEntrada.id);
+				entrada!.compras[indexCompra].cantidad--;
+				entrada!.compras[indexCompra].total -= entrada!.compras[indexCompra].precio;
+			}
+
+			await entradas.item(cadaEntrada as string, cadaEntrada as string).replace(entrada!);
+		}
+
+		return createdItem!.id;
 	};
 
 	confirmar = async (turno: App.Turno, authorization: any): Promise<string> => {

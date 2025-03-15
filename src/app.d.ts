@@ -113,6 +113,7 @@ declare global {
 			user: User;
 			fecha: string;
 			clientIpAddress: string;
+			tipo: string;
 		};
 
 		type IntencionCompra = {
@@ -121,21 +122,32 @@ declare global {
 			compras: ItemCompra[];
 		};
 
+		type IntencionReventa = {
+			slug: string;
+			total: number;
+			compras: Reventa[];
+		};
+
 		type ItemCompra = {
 			nombre: string;
 			codigo: string;
 			cantidad: number;
 			precio: number;
 			total: number;
+			tipoPrecio: string;
 			tipo: string;
 			id: string;
 			fila?: string;
 			sit?: string;
+
+			refEntradaId?: string;
+			refTicketId?: number;
 		};
 
 		type Comercio = {
 			id: string;
 			tipo: string;
+			tenant: string;
 			productos: Producto[];
 		};
 
@@ -153,7 +165,7 @@ declare global {
 			cantidad: number;
 			invitado: User | null;
 			estado: string;
-			compraId: string;
+			compra?: ItemCompra;
 			tipo?: string;
 			precio?: number;
 		};
@@ -203,12 +215,12 @@ declare global {
 		};
 
 		type Reventa = {
-			id: string;
+			entradaId: string;
 			slug: string;
 			precio: number;
 			cantidad: number;
-			compraId: string;
-			itemId: number;
+			compra: ItemCompra;
+			ticketId: number;
 		};
 
 		interface EventosRepoInterface {
@@ -217,6 +229,7 @@ declare global {
 			postTurno(turno: App.IntencionCompra): Promise<App.Turno>;
 			getTurno(id: string): Promise<App.Turno>;
 			confirmar(turno: App.Turno, authorization: any): Promise<string>;
+			confirmarReventa(turno: App.Turno, authorization: any): Promise<string>;
 			getEntrada(id: string): Promise<App.Entrada>;
 			getComercios(comerciosIds: string[]): Promise<App.Comercio[]>;
 			ticketear(ticketSet: App.TicketsSet): Promise<void>;

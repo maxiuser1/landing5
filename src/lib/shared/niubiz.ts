@@ -11,7 +11,7 @@ export class NiubizHandler {
 		return token;
 	}
 
-	async getSession(turno: App.Turno, user: App.User): Promise<App.NiubizConfig> {
+	async getSession(turno: App.Turno, user: App.User, redirect: string): Promise<App.NiubizConfig> {
 		const token = await this.getToken();
 		const { data: session } = await axios.post(
 			`${SECRET_NIUBIZ_NIUBIZAPI}/api.ecommerce/v2/ecommerce/token/session/${SECRET_NIUBIZ_MERCHANTID}`,
@@ -51,7 +51,7 @@ export class NiubizHandler {
 			timeouturl: 'about:blank',
 			merchantlogo: 'https://www.quehay.pe/img/logo.png',
 			formbuttoncolor: '#000000',
-			action: `/compra/${turno.id}`
+			action: `/${redirect}/${turno.id}`
 		};
 
 		return config;

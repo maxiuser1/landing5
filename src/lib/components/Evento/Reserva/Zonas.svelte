@@ -15,6 +15,8 @@
 			<img src={evento.caratula.mapa} alt="mapa" />
 		</div>
 
+		<a href="./marketplace">Marketplace</a>
+
 		<Tickets {evento} {reserva} />
 
 		<div class="botonera">

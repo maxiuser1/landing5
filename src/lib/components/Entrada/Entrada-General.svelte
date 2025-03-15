@@ -12,9 +12,9 @@
 
 <div class="titulos">
 	<div>
-		{compra.nombre}
+		{compra.nombre}: <small>{soles(compra.precio)}</small>
 		{#if compra.cantidad > 1}
-			<small>x{compra.cantidad}</small>
+			<small>x {compra.cantidad}</small>
 		{/if}
 	</div>
 	<div class="derecha">{soles(compra.total)}</div>
@@ -107,16 +107,7 @@
 				</div>
 
 				<div class="botonera">
-					{#if compra.cantidad > 1}
-						<Contador
-							cantidad={ticket.cantidad}
-							inc={() => ticketing.incReventa(ticket)}
-							dec={() => ticketing.decReventa(ticket)}
-							disabledInc={ticketing.disabled}
-						/>
-					{:else}
-						<button class="btn--icon" onclick={() => ticketing.delReventa(ticket.id)}><Trash /></button>
-					{/if}
+					<button class="btn--icon" onclick={() => ticketing.delReventa(ticket.id)}><Trash /></button>
 				</div>
 			</div>
 		{/each}

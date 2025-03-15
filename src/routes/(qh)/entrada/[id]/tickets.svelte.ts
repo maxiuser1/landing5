@@ -11,7 +11,7 @@ class TicketsState {
 		cantidad: 0,
 		invitado: null,
 		estado: 'listo',
-		compraId: ''
+		compra: this.compra ?? undefined
 	});
 
 	invitados = $derived.by(() => this.tickets.filter((t) => !t.paraMi));
@@ -33,6 +33,11 @@ class TicketsState {
 
 	constructor(compra: App.ItemCompra, tickets: App.Ticket[]) {
 		this.compra = compra;
+
+		if (tickets.length == 0) {
+			this.paraMi.cantidad = compra.cantidad;
+		}
+
 		this.tickets = tickets.filter((t) => t.tipo == 'invitado');
 		this.reventas = tickets.filter((t) => t.tipo == 'reventa');
 		this.traspasos = tickets.filter((t) => t.tipo == 'traspaso');
@@ -49,7 +54,7 @@ class TicketsState {
 			cantidad: 1,
 			invitado: null,
 			estado: 'Pendiente',
-			compraId: this.compra?.id || ''
+			compra: this.compra ?? undefined
 		});
 
 		if (this.compra?.cantidad == 1) {
@@ -95,7 +100,7 @@ class TicketsState {
 			cantidad: 1,
 			invitado: null,
 			estado: 'Pendiente',
-			compraId: this.compra?.id || ''
+			compra: this.compra ?? undefined
 		});
 
 		if (this.compra?.cantidad == 1) {
@@ -141,7 +146,7 @@ class TicketsState {
 			cantidad: 1,
 			invitado: null,
 			estado: 'Pendiente',
-			compraId: this.compra?.id || ''
+			compra: this.compra ?? undefined
 		});
 
 		if (this.compra?.cantidad == 1) {
@@ -183,7 +188,7 @@ export function configureEntradas(entrada: App.Entrada): Array<{ ticketing: Tick
 	const entradas = entrada.compras
 		.filter((t) => t.tipo == 'entrada')
 		.map((compra) => {
-			const tickets = entrada.tickets.filter((t: App.Ticket) => t.compraId === compra.id);
+			const tickets = entrada.tickets.filter((t: App.Ticket) => t.compra?.id === compra.id);
 			return {
 				ticketing: new TicketsState(compra, tickets),
 				compra

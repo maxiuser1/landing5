@@ -5,6 +5,7 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 	const intencion = (await request.json()) as App.IntencionCompra;
 	const turno: App.Turno = {
 		...intencion,
+		tipo: 'Entrada',
 		id: '',
 		numeroCompra: '',
 		user: {
@@ -19,6 +20,6 @@ export const POST: RequestHandler = async ({ locals, request, getClientAddress }
 		clientIpAddress: getClientAddress()
 	};
 	const newTurno = await locals.eventosRepo.postTurno(turno);
-	const niubizConfig = await new NiubizHandler().getSession(newTurno, locals.user);
+	const niubizConfig = await new NiubizHandler().getSession(newTurno, locals.user, 'compra');
 	return json(niubizConfig);
 };

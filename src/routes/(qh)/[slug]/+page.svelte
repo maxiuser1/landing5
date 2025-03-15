@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Precios from '$lib/components/Evento/Portada/Precios.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
+	import Sell from '$lib/icons/Sell.svelte';
 	import Ticket from '$lib/icons/Ticket.svelte';
 	import * as prismicH from '@prismicio/helpers';
 	let { data } = $props();
@@ -31,6 +32,9 @@
 					<a class="continuar" href="./{data.evento.id}/reserva">
 						Regular <Ticket />
 					</a>
+					<a class="continuar" href="./{data.evento.id}/marketplace">
+						Marketplace <Sell />
+					</a>
 				</div>
 			</div>
 		</div>
@@ -52,6 +56,8 @@
 	.botonera {
 		display: flex;
 		justify-content: center;
+		flex-direction: column;
+		gap: 24px;
 		margin-top: 20px;
 	}
 

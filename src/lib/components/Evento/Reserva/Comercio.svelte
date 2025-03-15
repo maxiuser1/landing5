@@ -23,7 +23,11 @@
 					{/if}
 				</div>
 
-				<Contador {cantidad} inc={() => reserva.incProducto(producto)} dec={() => reserva.decProducto(producto.id)} />
+				<Contador
+					{cantidad}
+					inc={() => reserva.incProducto(producto, comercio)}
+					dec={() => reserva.decProducto(producto.id)}
+				/>
 			</div>
 		</div>
 	{/each}

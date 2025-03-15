@@ -7,7 +7,7 @@ export const formatDate = (date: Date | null | undefined): string => {
 };
 
 export const soles = (n: number | null | undefined): string => {
-	if (!n) return '';
+	if (!n) return 'S/.0';
 	const currencyFormatter = new Intl.NumberFormat('es-PE', {
 		style: 'currency',
 		currency: 'PEN'

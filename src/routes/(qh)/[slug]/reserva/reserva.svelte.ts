@@ -26,6 +26,7 @@ class ReservaState {
 		this.compras.push({
 			id: `${precio.codigo}-${tagFila}-${tagSit}`,
 			codigo: precio.codigo,
+			tipoPrecio: precio.tipo,
 			tipo: 'entrada',
 			nombre: `${precio.nombre}, box ${tagFila}-${tagSit}`,
 			precio: precio.online,
@@ -45,6 +46,7 @@ class ReservaState {
 		this.compras.push({
 			id: `${precio.codigo}-${tagFila}-${tagSit}`,
 			codigo: precio.codigo,
+			tipoPrecio: precio.tipo,
 			tipo: 'entrada',
 			nombre: `${precio.nombre}, asiento ${tagFila}-${tagSit}`,
 			precio: precio.online,
@@ -93,7 +95,7 @@ class ReservaState {
 		return 0;
 	}
 
-	inc({ codigo, nombre, online }: App.Precio) {
+	inc({ codigo, nombre, online, tipo }: App.Precio) {
 		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
 			compra.cantidad++;
@@ -102,6 +104,7 @@ class ReservaState {
 			this.compras.push({
 				id: codigo,
 				tipo: 'entrada',
+				tipoPrecio: tipo,
 				codigo,
 				nombre,
 				precio: online,
@@ -123,7 +126,7 @@ class ReservaState {
 		}
 	}
 
-	incProducto(producto: App.Producto) {
+	incProducto(producto: App.Producto, comercio: App.Comercio) {
 		const compra = this.compras.find((t) => t.id === producto.id);
 		if (compra) {
 			compra.cantidad++;
@@ -132,7 +135,8 @@ class ReservaState {
 			this.compras.push({
 				id: producto.id,
 				tipo: 'producto',
-				codigo: producto.id,
+				tipoPrecio: `${comercio.tipo}`,
+				codigo: `${comercio.id}_${comercio.tenant}`,
 				nombre: producto.nombre,
 				precio: producto.precio,
 				cantidad: 1,
