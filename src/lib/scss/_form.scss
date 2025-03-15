@@ -29,11 +29,10 @@
 
 		&.error {
 			border-color: #ff0036 !important;
-			color: #ff0036;
 		}
 	}
 
-	.error {
+	span.error {
 		margin-top: 10px;
 		color: #ff0036;
 	}

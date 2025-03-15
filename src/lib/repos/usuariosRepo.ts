@@ -97,4 +97,27 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		await userItem.replace(updatedUser);
 		return userItem.id;
 	};
+
+	edit = async (
+		id: string,
+		user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string }
+	): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('personas');
+
+		const userItem = await container.item(id, id);
+		const { resource: currentUser } = await userItem.read<App.User>();
+
+		const updatedUser = {
+			...currentUser,
+			dni: currentUser?.dni ? currentUser.dni : user.dni,
+			nombre: user.nombre,
+			apellido: user.apellido,
+			telefono: user.telefono,
+			ciudad: user.ciudad
+		};
+
+		await userItem.replace(updatedUser);
+	};
 }

@@ -2,6 +2,7 @@ import { redirect, type Actions } from '@sveltejs/kit';
 
 export const actions = {
 	login: async ({ cookies, request, locals }) => {
+		console.log('login called');
 		const data = await request.formData();
 		const fbtoken: string = data.get('token')?.toString() ?? '';
 		const displayName: string = data.get('displayName')?.toString() ?? '';
@@ -17,6 +18,7 @@ export const actions = {
 		}
 	},
 	revalidate: async ({ locals, url, request, cookies }) => {
+		console.log('revalidte called');
 		if (locals.user) {
 			if (url.searchParams.get('redirectTo')) {
 				redirect(302, url.searchParams.get('redirectTo')!);

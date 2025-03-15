@@ -12,6 +12,7 @@ declare global {
 			avatar?: string;
 			correo: string;
 			telefono?: string;
+			ciudad?: string;
 		};
 
 		interface Locals {
@@ -243,6 +244,10 @@ declare global {
 			create(user: User): Promise<string>;
 			complete(id: string, user: User): Promise<string>;
 			log(event, error): Promise<void>;
+			edit(
+				id: string,
+				user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string }
+			): Promise<void>;
 		}
 		// interface Error {}
 		// interface Locals {}

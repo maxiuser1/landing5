@@ -20,3 +20,4 @@ export { default as Sillon } from './Sillon.svelte';
 export { default as Qrcode } from './Qrcode.svelte';
 export { default as Impresora } from './Impresora.svelte';
 export { default as Redem } from './Redem.svelte';
+export { default as Listo } from './Listo.svelte';

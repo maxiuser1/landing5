@@ -120,7 +120,7 @@ h6 {
 	touch-action: manipulation;
 }
 
-.error {
+div.error {
 	background-color: #ffdadb;
 	padding: 12px;
 	color: #ff888f;
@@ -188,6 +188,10 @@ h6 {
 
 .mt-40 {
 	margin-top: 40px;
+}
+
+.mt-90 {
+	margin-top: 90px;
 }
 
 .mb-40 {

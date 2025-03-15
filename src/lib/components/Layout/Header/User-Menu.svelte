@@ -1,9 +1,9 @@
 <ul role="menu">
 	<li role="none">
-		<a role="menuitem" href="/">Perfil</a>
+		<a role="menuitem" href="/perfil">Perfil</a>
 	</li>
 	<li role="none">
-		<a role="menuitem" href="/">Mis entradas</a>
+		<a role="menuitem" href="/entradas">Mis entradas</a>
 	</li>
 	<li role="none">
 		<a role="menuitem" data-sveltekit-preload-data="tap" href="/logout">Salir</a>
