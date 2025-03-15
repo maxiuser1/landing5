@@ -1,39 +1,49 @@
 <script lang="ts">
 	import { Fecha } from '$lib/icons';
-
-	let { evento = null }: { evento: App.HomeEvento | null } = $props();
+	import More from '$lib/icons/More.svelte';
+	let { evento, more } = $props();
 </script>
 
-{#if evento}
-	<a href="/{evento.slug}">
-		<div class="card">
-			<div
-				class="imagen"
-				style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;"
-			></div>
-			<div class="content">
-				<div class="info">
-					<div class="encabezado">
-						<div class="titulo--suprayado">
-							{evento.artista}
-						</div>
+<a href="/{evento.slug}">
+	<div class="card">
+		<div
+			class="imagen"
+			style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;"
+		></div>
+		<div class="content">
+			<div class="info">
+				<div class="encabezado">
+					<div class="titulo--suprayado">
+						{evento.artista}
 					</div>
-					<div class="h3">
-						{@html evento.nombre}
-					</div>
-					<div class="h3">
-						<div class="fechas">
-							<div class="date-info">
-								<Fecha />
-								<h4>{evento.fechas}</h4>
-							</div>
+				</div>
+				<div class="h3">
+					{@html evento.nombre}
+				</div>
+				<div class="h3">
+					<div class="fechas">
+						<div class="date-info">
+							<Fecha />
+							<h4>{evento.fechas}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div>
+				<button
+					class="btn--icon mt-20"
+					onclick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						more();
+					}}
+				>
+					<More />
+				</button>
+			</div>
 		</div>
-	</a>
-{/if}
+	</div>
+</a>
 
 <style lang="scss">
 	@use '../../../../static/style.scss' as mixin;

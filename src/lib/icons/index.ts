@@ -22,3 +22,4 @@ export { default as Impresora } from './Impresora.svelte';
 export { default as Redem } from './Redem.svelte';
 export { default as Listo } from './Listo.svelte';
 export { default as Check } from './Check.svelte';
+export { default as More } from './More.svelte';
