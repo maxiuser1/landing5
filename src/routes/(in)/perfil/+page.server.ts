@@ -1,7 +1,10 @@
-import type { Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ url, request, locals }) => {};
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, locals, url }) => {
 		const data = await request.formData();
 		await locals.usuariosRepo.edit(locals.user!.id!, {
 			nombre: data.get('nombre') as string,
@@ -18,6 +21,10 @@ export const actions = {
 		locals.user.apellido = data.get('apellido') as string;
 		locals.user.ciudad = data.get('ciudad') as string;
 		locals.user.telefono = data.get('telefono') as string;
+
+		if (url.searchParams.has('redirectTo')) {
+			redirect(303, url.searchParams.get('redirectTo')!);
+		}
 
 		return { success: true };
 	}
