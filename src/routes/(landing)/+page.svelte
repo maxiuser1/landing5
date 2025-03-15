@@ -5,11 +5,11 @@
 	import Destacados from '$lib/components/Home/Destacados.svelte';
 	let { data } = $props();
 	let eventos = $state(data.eventos);
-	// $effect(() => {
-	// 	eventos = page.url.hash
-	// 		? data.eventos?.filter((evento) => evento.categoria == page.url.hash.slice(1))
-	// 		: data.eventos;
-	// });
+	$effect(() => {
+		eventos = page.url.hash
+			? data.eventos?.filter((evento) => evento.categoria == page.url.hash.slice(1))
+			: data.eventos;
+	});
 </script>
 
 <svelte:head>
