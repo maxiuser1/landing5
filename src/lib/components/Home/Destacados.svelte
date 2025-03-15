@@ -1,6 +1,3 @@
-<a class="btn" href="/marketplace">Marketplace</a>
-
-<div class="titulo--suprayado">Destacados</div>
 <div class="tarjetas">
 	<div>
 		<a href="/">
