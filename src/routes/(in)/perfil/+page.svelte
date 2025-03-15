@@ -51,7 +51,7 @@
 			</div>
 		</div>
 		<div class="mt-20 flexed">
-			<Boton type="submit" {loading}>
+			<Boton type="submit" {loading} class="btn--outline">
 				{#if form?.success}
 					<Check />
 				{/if}

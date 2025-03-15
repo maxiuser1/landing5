@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { color = '#FF3E00', unit = 'px', duration = '0.6s', size = '60', pause = false } = $props();
+	let { color = '#ffffff', unit = 'px', duration = '0.6s', size = '60', pause = false } = $props();
 	let moonSize: number = +size / 7;
 	let top: number = +size / 2 - moonSize / 2;
 </script>

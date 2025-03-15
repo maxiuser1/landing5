@@ -137,6 +137,10 @@ div.error {
 	font-size: 16px;
 	font-weight: 350;
 	line-height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
 }
 
 .btn--lessline {
