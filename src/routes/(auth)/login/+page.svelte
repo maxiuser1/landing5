@@ -90,7 +90,7 @@
 		</div>
 	</form>
 
-	<div class="socials">
+	<div class="socials mt-20">
 		<form method="POST" onsubmit={handleGoogleClick}>
 			<button class="btn-social" type="submit"> <Google /> </button>
 		</form>
@@ -99,6 +99,7 @@
 
 <style lang="scss">
 	@use '$lib/scss/form' as form;
+	@use '$lib/scss/breakpoints' as mixin;
 
 	.checkboxes {
 		display: flex;
@@ -128,12 +129,14 @@
 
 	.login {
 		margin: 0 auto;
-		max-width: 95wh;
+		max-width: 95vw;
 		padding-top: 12px;
+		@include mixin.breakpoint(mixin.$sm) {
+			max-width: 380px;
+		}
 	}
 
 	.socials {
-		margin-top: 24px;
 		margin-bottom: 24px;
 		display: flex;
 		gap: 10px;
