@@ -98,9 +98,17 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		return userItem.id;
 	};
 
+	getCategories = async (): Promise<App.Categorizacion[]> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('parametros');
+		const { resource } = await container.item('categorias', 'categorias').read();
+		return resource.values;
+	};
+
 	edit = async (
 		id: string,
-		user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string }
+		user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }
 	): Promise<void> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
@@ -115,7 +123,8 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 			nombre: user.nombre,
 			apellido: user.apellido,
 			telefono: user.telefono,
-			ciudad: user.ciudad
+			ciudad: user.ciudad,
+			favoritos: user.favoritos
 		};
 
 		await userItem.replace(updatedUser);

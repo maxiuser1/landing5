@@ -13,6 +13,7 @@ declare global {
 			correo: string;
 			telefono?: string;
 			ciudad?: string;
+			favoritos?: string[];
 		};
 
 		interface Locals {
@@ -224,6 +225,11 @@ declare global {
 			ticketId: number;
 		};
 
+		type Categorizacion = {
+			tipo: string;
+			categorias: string[];
+		};
+
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;
@@ -246,8 +252,9 @@ declare global {
 			log(event, error): Promise<void>;
 			edit(
 				id: string,
-				user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string }
+				user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }
 			): Promise<void>;
+			getCategories(): Promise<any>;
 		}
 		// interface Error {}
 		// interface Locals {}

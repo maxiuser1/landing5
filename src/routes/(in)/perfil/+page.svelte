@@ -4,8 +4,9 @@
 	import Check from '$lib/icons/Check.svelte';
 
 	let { data, form } = $props();
-	let { user } = data;
+	let { user, categorias } = data;
 	let loading = $state(false);
+	let favoritos = $state<string[]>(user.favoritos ?? []);
 </script>
 
 <section class="minicontainer mt-90">
@@ -50,6 +51,26 @@
 				<input type="text" name="ciudad" bind:value={user.ciudad} />
 			</div>
 		</div>
+
+		<h4 class="mt-40">Favoritos</h4>
+
+		<div class="favoritos mt-20">
+			{#each categorias as categorizacion}
+				<div>
+					<h6>{categorizacion.tipo}</h6>
+					<div class="option-grid">
+						{#each categorizacion.categorias as categoria}
+							<label class="option-chip" class:option-chip--selected={favoritos.includes(categoria)}>
+								<input type="checkbox" name="categories" value={categoria} bind:group={favoritos} />
+								<span class="name">{categoria}</span>
+							</label>
+						{/each}
+					</div>
+				</div>
+			{/each}
+			<input type="hidden" name="categoriesval" bind:value={favoritos} />
+		</div>
+
 		<div class="mt-20 flexed">
 			<Boton type="submit" {loading} class="btn--outline">
 				{#if form?.success}
@@ -64,6 +85,47 @@
 <style lang="scss">
 	@use '$lib/scss/form' as form;
 	@use '$lib/scss/breakpoints' as mixin;
+
+	.favoritos {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
+
+	.option-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+		grid-gap: 0.5rem;
+	}
+
+	.option-chip {
+		position: relative;
+		display: flex;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 0.75rem;
+		background-color: #fff;
+		border-radius: 1rem;
+		cursor: pointer;
+		font-size: 0.85rem;
+		height: auto;
+		min-height: 32px;
+
+		input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			height: 0;
+			width: 0;
+		}
+
+		&--selected {
+			background-color: var(--pink);
+			color: #fff;
+		}
+	}
+
 	.form {
 		display: grid;
 		grid-template-columns: 1fr;
