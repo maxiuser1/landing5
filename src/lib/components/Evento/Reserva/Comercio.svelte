@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { soles } from '$lib/shared/formatos';
-	import CompraGeneral from './Compra-General.svelte';
+	import Contador from './Contador.svelte';
 
 	let { reserva, comercio } = $props();
 </script>
@@ -23,11 +23,7 @@
 					{/if}
 				</div>
 
-				<CompraGeneral
-					{cantidad}
-					inc={() => reserva.incProducto(producto)}
-					dec={() => reserva.decProducto(producto.id)}
-				/>
+				<Contador {cantidad} inc={() => reserva.incProducto(producto)} dec={() => reserva.decProducto(producto.id)} />
 			</div>
 		</div>
 	{/each}

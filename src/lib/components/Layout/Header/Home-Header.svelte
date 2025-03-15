@@ -104,10 +104,10 @@
 					{/if}
 				</li>
 				{#if page.data.user}
-					<li>
+					<li class="hidden-xs">
 						<a href="https://quehay.pe/entradas">Mis entradas</a>
 					</li>
-					<li>
+					<li class="hidden-xs">
 						<a class="anchormenu" href="../../logout"> Salir</a>
 					</li>
 				{/if}

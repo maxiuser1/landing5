@@ -2,7 +2,7 @@
 	import { Redem, Trash } from '$lib/icons';
 	import { page } from '$app/state';
 	import { soles } from '$lib/shared/formatos';
-	import CompraGeneral from '../Evento/Reserva/Compra-General.svelte';
+	import Contador from '../Evento/Reserva/Contador.svelte';
 	import Copier from '../Shared/ui/Copier.svelte';
 	import Share from '$lib/icons/Share.svelte';
 	import Sell from '$lib/icons/Sell.svelte';
@@ -28,14 +28,14 @@
 			<div></div>
 			<div class="botonera">
 				{#if compra.cantidad > 1}
-					<CompraGeneral
+					<Contador
 						cantidad={ticketing.paraMi?.cantidad}
 						inc={() => ticketing.paraMi!.cantidad++}
 						dec={() => ticketing.paraMi!.cantidad--}
 						disabledInc={ticketing.disabled}
 					/>
 				{:else}
-					<CompraGeneral
+					<Contador
 						cantidad={ticketing.paraMi?.cantidad}
 						inc={() => ticketing.paraMi!.cantidad++}
 						dec={() => ticketing.paraMi!.cantidad--}
@@ -57,7 +57,7 @@
 				<div></div>
 				<div class="botonera">
 					{#if compra.cantidad > 1}
-						<CompraGeneral
+						<Contador
 							cantidad={ticket.cantidad}
 							inc={() => ticketing.incInvitado(ticket)}
 							dec={() => ticketing.decInvitado(ticket)}
@@ -82,7 +82,7 @@
 
 				<div class="botonera">
 					{#if compra.cantidad > 1}
-						<CompraGeneral
+						<Contador
 							cantidad={ticket.cantidad}
 							inc={() => ticketing.incTraspaso(ticket)}
 							dec={() => ticketing.decTraspaso(ticket)}
@@ -100,13 +100,15 @@
 		{#each ticketing.reventas as ticket, idx}
 			<div class="fila">
 				<div class="flexed">
-					<Sell />
+					<Sell /> Reventa
 				</div>
-				<div></div>
+				<div>
+					<input type="number" bind:value={ticket.precio} placeholder="Precio unitario" class="form-input" />
+				</div>
 
 				<div class="botonera">
 					{#if compra.cantidad > 1}
-						<CompraGeneral
+						<Contador
 							cantidad={ticket.cantidad}
 							inc={() => ticketing.incReventa(ticket)}
 							dec={() => ticketing.decReventa(ticket)}

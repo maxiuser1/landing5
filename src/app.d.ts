@@ -155,6 +155,7 @@ declare global {
 			estado: string;
 			compraId: string;
 			tipo?: string;
+			precio?: number;
 		};
 
 		type NiubizConfig = {
@@ -201,6 +202,15 @@ declare global {
 			}>;
 		};
 
+		type Reventa = {
+			id: string;
+			slug: string;
+			precio: number;
+			cantidad: number;
+			compraId: string;
+			itemId: number;
+		};
+
 		interface EventosRepoInterface {
 			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;
@@ -210,6 +220,7 @@ declare global {
 			getEntrada(id: string): Promise<App.Entrada>;
 			getComercios(comerciosIds: string[]): Promise<App.Comercio[]>;
 			ticketear(ticketSet: App.TicketsSet): Promise<void>;
+			getReventas(): Promise<App.Reventa[]>;
 		}
 
 		interface UsuariosRepoInterface {

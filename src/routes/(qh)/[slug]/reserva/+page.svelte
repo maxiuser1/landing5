@@ -48,15 +48,3 @@
 		<Resumen {evento} {reserva} />
 	</section>
 {/if}
-
-{reserva.tab}
-{reserva.mapa}
-
-<style lang="scss">
-	@use '../../../../../static/style.scss' as mixin;
-
-	.pagar {
-		display: flex;
-		justify-content: center;
-	}
-</style>

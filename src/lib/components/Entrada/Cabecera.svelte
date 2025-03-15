@@ -25,10 +25,4 @@
 		margin-bottom: 32px;
 		text-align: center;
 	}
-
-	.btn--outline {
-		display: flex;
-		gap: 8px;
-		align-items: center;
-	}
 </style>

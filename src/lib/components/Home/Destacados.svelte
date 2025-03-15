@@ -1,3 +1,5 @@
+<a class="btn" href="/marketplace">Marketplace</a>
+
 <div class="titulo--suprayado">Destacados</div>
 <div class="tarjetas">
 	<div>
@@ -57,6 +59,7 @@
 		height: auto;
 	}
 	.titulo--suprayado {
+		margin-top: 24px;
 		font-size: 1.25rem;
 		margin-bottom: 16px;
 	}

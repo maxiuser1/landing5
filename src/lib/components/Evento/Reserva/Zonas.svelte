@@ -12,7 +12,7 @@
 		<h4>Entrada</h4>
 		<p>Selecciona sus entradas:</p>
 		<div class="mapa">
-			<!-- <img src={evento.caratula.mapa} alt="mapa" /> -->
+			<img src={evento.caratula.mapa} alt="mapa" />
 		</div>
 
 		<Tickets {evento} {reserva} />

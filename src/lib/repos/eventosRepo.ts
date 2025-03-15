@@ -100,6 +100,18 @@ export class EventosRepo implements App.EventosRepoInterface {
 		]);
 	};
 
+	getReventas = async (): Promise<App.Reventa[]> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('entradas');
+		const querySpec: SqlQuerySpec = {
+			query: `SELECT  c.id, c.slug, q.precio, q.cantidad, q.compraId, q.codigo, q.id as itemId  FROM c join q in c.tickets where q.tipo = 'reventa' and q.estado='Pendiente'`
+		};
+		const { resources: items } = await container.items.query<App.Reventa>(querySpec).fetchAll();
+		console.log('items', items);
+		return items;
+	};
+
 	confirmar = async (turno: App.Turno, authorization: any): Promise<string> => {
 		const client = new CosmosClient(this.cn);
 		const database = client.database('quehaydb');
