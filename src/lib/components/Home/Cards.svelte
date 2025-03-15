@@ -1,26 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Card from './Card.svelte';
+	import Modal from '../Shared/ui/Modal.svelte';
+	import Retro from './Retro.svelte';
 	let { eventos = [] }: { eventos: App.HomeEvento[] } = $props();
-
-	let showDialog = $state(false);
-	let dialogRef = $state<HTMLDialogElement>();
+	let showModal = $state(false);
 	const openDialog = (evento: App.HomeEvento) => {
-		console.log('lee', evento);
-		if (dialogRef) {
-			dialogRef.showModal();
-			showDialog = true;
-		}
+		showModal = true;
 	};
 
 	onMount(() => {
-		if (dialogRef) dialogRef.showModal();
+		showModal = true;
 	});
-
-	const closeDialog = () => {
-		if (dialogRef) dialogRef.close();
-		showDialog = false;
-	};
 </script>
 
 <div class="cards">
@@ -29,24 +20,13 @@
 	{/each}
 </div>
 
-<dialog oncancel={closeDialog} bind:this={dialogRef}>
-	<div class="dialog">
-		<h1>Dialog 2</h1>
-		<button>Close</button>
-	</div>
-</dialog>
+<Modal bind:showModal>
+	{#snippet header()}{/snippet}
+	<Retro />
+</Modal>
 
 <style lang="scss">
 	@use '../../../../static/style.scss' as mixin;
-
-	dialog {
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 9999;
-		border: none;
-	}
 
 	.cards {
 		display: grid;
