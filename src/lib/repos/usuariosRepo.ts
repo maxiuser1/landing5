@@ -106,6 +106,27 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		return resource.values;
 	};
 
+	getEntradas = async (userId: string, correo: string): Promise<App.Entrada[]> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('entradas');
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where STRINGEQUALS(c.user.correo , @correo, true) or c.user.id = @id',
+			parameters: [
+				{
+					name: '@id',
+					value: userId
+				},
+				{
+					name: '@correo',
+					value: correo.toLowerCase()
+				}
+			]
+		};
+		const { resources: items } = await container.items.query<App.Entrada>(querySpec).fetchAll();
+		return items;
+	};
+
 	edit = async (
 		id: string,
 		user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }

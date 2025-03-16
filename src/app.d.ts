@@ -120,6 +120,7 @@ declare global {
 
 		type IntencionCompra = {
 			slug: string;
+			card: string;
 			total: number;
 			compras: ItemCompra[];
 		};
@@ -255,6 +256,7 @@ declare global {
 				user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }
 			): Promise<void>;
 			getCategories(): Promise<any>;
+			getEntradas(userId: string, correo: string): Promise<App.Entrada[]>;
 		}
 		// interface Error {}
 		// interface Locals {}

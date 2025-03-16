@@ -9,8 +9,7 @@
 
 {#if reserva.tab == 'inicio'}
 	<section class="minicontainer">
-		<h4>Entrada</h4>
-		<p>Selecciona sus entradas:</p>
+		<p>Seleccione sus entradas:</p>
 		<div class="mapa">
 			<img src={evento.caratula.mapa} alt="mapa" />
 		</div>
@@ -27,6 +26,7 @@
 	<section class="minicontainer">
 		<h4>Lugar</h4>
 		<p>Seleccione su lugar:</p>
+
 		{#each evento.precios as precio}
 			{#if precio.tipo == 'BOX' && reserva.mapa == precio.codigo}
 				<BoxPicker {reserva} {precio} confirmar={() => reserva.goInicio()} />
@@ -51,7 +51,6 @@
 		justify-content: center;
 		img {
 			max-width: 250px;
-			display: none;
 		}
 	}
 </style>

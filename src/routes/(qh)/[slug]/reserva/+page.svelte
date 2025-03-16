@@ -19,7 +19,8 @@
 		loading = true;
 		const { total, compras } = reserva;
 		const { id: slug } = evento;
-		const payload = JSON.stringify({ total, slug, compras });
+		const card = evento.caratula.card;
+		const payload = JSON.stringify({ total, slug, card, compras });
 		const resp = await fetch('/api/miturno', { method: 'POST', body: payload });
 		const datapago = await resp.json();
 		VisanetCheckout.configure({
@@ -39,6 +40,17 @@
 </svelte:head>
 <Header {volver} />
 
+<div class="mt-90"></div>
+<div class="centrado mb-20">
+	<div class="tabs">
+		<ul>
+			<li class:active={reserva.tab == 'inicio'}>Entradas</li>
+			<li class:active={reserva.tab == 'comercios'}>Adicionales</li>
+			<li class:active={reserva.tab == 'pago'}>Pagar</li>
+		</ul>
+	</div>
+</div>
+
 <Zonas {evento} {reserva} />
 <Comercios {reserva} {comercios} />
 <Pago {reserva} {pagar} {loading} />
@@ -48,3 +60,31 @@
 		<Resumen {evento} {reserva} />
 	</section>
 {/if}
+
+<style lang="scss">
+	.tabs {
+		max-width: 380px;
+		background-color: #ededed;
+		border-radius: 60px;
+		padding: 8px;
+		margin: 0px;
+		ul {
+			display: flex;
+			gap: 10px;
+			li {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				color: #000;
+			}
+
+			.active {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				background-color: #e700d8;
+				color: #ffffff;
+			}
+		}
+	}
+</style>
