@@ -9,9 +9,9 @@
 		showModal = true;
 	};
 
-	onMount(() => {
-		showModal = true;
-	});
+	const comprometer = (accion: string, valor: string) => {
+		showModal = false;
+	};
 </script>
 
 <div class="cards">
@@ -22,7 +22,7 @@
 
 <Modal bind:showModal>
 	{#snippet header()}{/snippet}
-	<Retro />
+	<Retro {comprometer} />
 </Modal>
 
 <style lang="scss">

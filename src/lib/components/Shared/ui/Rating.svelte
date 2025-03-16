@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Star } from '$lib/icons';
 
+	let { califcado } = $props();
+
 	let estrellas = $state<Array<{ id: number; on: boolean }>>([
 		{ id: 1, on: false },
 		{ id: 2, on: false },
@@ -20,8 +22,7 @@
 	};
 
 	const onclick = (val: number) => {
-		setted = true;
-		currentStar = val;
+		califcado(val);
 	};
 </script>
 

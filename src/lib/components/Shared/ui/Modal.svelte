@@ -5,6 +5,7 @@
 
 	$effect(() => {
 		if (showModal) dialog.showModal();
+		else dialog.close();
 	});
 </script>
 
@@ -23,8 +24,7 @@
 		</div>
 		<!-- svelte-ignore a11y_autofocus -->
 		<div class="flexed mt-40">
-			<button class="btn" onclick={() => dialog.close()}>Aceptar</button>
-			<button class="btn--outline" onclick={() => dialog.close()}>Cancelar</button>
+			<button class="btn--outline" onclick={() => dialog.close()}>Cerrar</button>
 		</div>
 	</div>
 </dialog>

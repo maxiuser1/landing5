@@ -1,29 +1,53 @@
 <script lang="ts">
-	import Star from '$lib/icons/Star.svelte';
-	import { number } from 'zod';
 	import Rating from '../Shared/ui/Rating.svelte';
-	let panel = $state('calificar');
+	let { comprometer } = $props();
+	let panel = $state('');
+	let motivos = $state([
+		'Cancelación o Cambio de Fecha',
+		'Sospecha de Fraude',
+		'Falta de Información',
+		'Problemas con la Compra de Entradas',
+		'Preocupaciones de Seguridad o Logística'
+	]);
+
+	function califcado(val: number) {
+		panel = '';
+		comprometer('calificar', val.toString());
+	}
 </script>
 
 <div class="botonera">
 	{#if panel == ''}
 		<button class="btn" onclick={() => (panel = 'calificar')}>Calificar</button>
-		<button class="btn--outline" onclick={() => (panel = 'interesa')}>No me interesa</button>
-		<button class="btn--outline" onclick={() => (panel = 'reportar')}>Reportar</button>
+		<button
+			class="btn--outline"
+			onclick={() => {
+				panel = '';
+				comprometer('nomeinteresa', '');
+			}}>💔 No me interesa</button
+		>
+		<button class="btn--outline" onclick={() => (panel = 'reportar')}>🚩Reportar</button>
 	{/if}
 </div>
 {#if panel == 'calificar'}
+	<div class="flexed centrado">Calificar</div>
 	<div class="flexed centrado">
-		<Rating />
+		<Rating {califcado} />
 	</div>
 {/if}
 
-{#if panel == 'interesa'}
-	<button class="btn--outline" onclick={() => (panel = '')}>No me interesa</button>
-{/if}
-
 {#if panel == 'reportar'}
-	<button class="btn--outline" onclick={() => (panel = '')}>Reportar</button>
+	<div class="botonera">
+		{#each motivos as motivo}
+			<button
+				class="btn--outline"
+				onclick={() => {
+					panel = '';
+					comprometer('reportar', motivo);
+				}}>{motivo}</button
+			>
+		{/each}
+	</div>
 {/if}
 
 <style lang="scss">
