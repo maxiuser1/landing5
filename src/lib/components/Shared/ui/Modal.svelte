@@ -24,6 +24,7 @@
 		<!-- svelte-ignore a11y_autofocus -->
 		<div class="flexed mt-40">
 			<button class="btn" onclick={() => dialog.close()}>Aceptar</button>
+			<button class="btn--outline" onclick={() => dialog.close()}>Cancelar</button>
 		</div>
 	</div>
 </dialog>

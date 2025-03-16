@@ -23,3 +23,4 @@ export { default as Redem } from './Redem.svelte';
 export { default as Listo } from './Listo.svelte';
 export { default as Check } from './Check.svelte';
 export { default as More } from './More.svelte';
+export { default as Star } from './Star.svelte';

@@ -24,33 +24,30 @@
 		<section class="destacados" id="destacados">
 			<Cards eventos={eventos ?? []} />
 		</section>
-		<section>
-			<div class="container">
-				<blockquote
-					class="tiktok-embed"
-					cite="https://www.tiktok.com/@quehayeventos.pe/video/7451646578198187270"
-					data-video-id="7451646578198187270"
-					style="max-width: 325px;min-width: 325px;"
-				>
-					<section>
-						<a target="_blank" title="@quehayeventos.pe" href="https://www.tiktok.com/@quehayeventos.pe?refer=embed"
-							>@quehayeventos.pe</a
-						>
-						<a
-							target="_blank"
-							title="♬ sonido original - quehayeventos.pe"
-							href="https://www.tiktok.com/music/sonido-original-7451646626266548998?refer=embed"
-							>♬ sonido original - quehayeventos.pe</a
-						>
-					</section>
-				</blockquote>
-			</div>
-		</section>
 	</div>
 	<div class="side">
 		<Destacados />
 	</div>
 </div>
+
+<blockquote
+	class="tiktok-embed"
+	cite="https://www.tiktok.com/@quehayeventos.pe/video/7451646578198187270"
+	data-video-id="7451646578198187270"
+	style="max-width: 325px;min-width: 325px;"
+>
+	<section>
+		<a target="_blank" title="@quehayeventos.pe" href="https://www.tiktok.com/@quehayeventos.pe?refer=embed"
+			>@quehayeventos.pe</a
+		>
+		<a
+			target="_blank"
+			title="♬ sonido original - quehayeventos.pe"
+			href="https://www.tiktok.com/music/sonido-original-7451646626266548998?refer=embed"
+			>♬ sonido original - quehayeventos.pe</a
+		>
+	</section>
+</blockquote>
 
 <style lang="scss">
 	@use '../../../static/style.scss' as mixin;
