@@ -1,125 +1,90 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { PUBLIC_NIUBIZ_LIBRE } from '$env/static/public';
-	import { Resumen, Steps } from '$lib/components/Evento';
-	import { navigating, page } from '$app/stores';
-	import Compras from '$lib/components/Evento/Compras.svelte';
-	import Mediospago from '$lib/components/Evento/Mediospago.svelte';
-	import { compraData } from '$lib/components/Evento/esto.js';
-	import { Spinner } from '$lib/components/Shared/ui/Spinner';
-	import { Tarjeta } from '$lib/icons/index.js';
+	import Comercios from '$lib/components/Evento/Reserva/Comercios.svelte';
+	import Pago from '$lib/components/Evento/Reserva/Pago.svelte';
+	import Resumen from '$lib/components/Evento/Reserva/Resumen.svelte';
+	import Zonas from '$lib/components/Evento/Reserva/Zonas.svelte';
+	import Header from '$lib/components/Layout/Header/Header.svelte';
+	import { getReserva } from './reserva.svelte.js';
 
-	export let data;
-	let { evento } = data;
-	let posting = false;
-	const pagarClick = async () => {
-		posting = true;
-		const resp = await fetch('/api/miturno', {
-			method: 'POST',
-			body: JSON.stringify({ ...$compraData }),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
+	let { data } = $props();
+	const { evento, comercios }: { evento: App.Evento; comercios: App.Comercio[] } = data;
+	let loading = $state(false);
+	const reserva = getReserva(evento, comercios);
+	const volver = () => goto(`/${evento.id}`);
+
+	const pagar = async () => {
+		reserva.tab = 'pago';
+		loading = true;
+		const { total, compras } = reserva;
+		const { id: slug } = evento;
+		const card = evento.caratula.card;
+		const payload = JSON.stringify({ total, slug, card, compras });
+		const resp = await fetch('/api/miturno', { method: 'POST', body: payload });
 		const datapago = await resp.json();
-
 		VisanetCheckout.configure({
-			sessiontoken: datapago.sessiontoken,
-			channel: 'web',
-			merchantid: datapago.merchantid,
-			purchasenumber: datapago.purchasenumber,
-			amount: datapago.amount,
-			cardholdername: $page.data.user.nombre,
-			cardholderlastname: $page.data.user.apellido,
-			cardholderemail: $page.data.user.correo,
-			usertoken: $page.data.user.id,
-			expirationminutes: '20',
-			timeouturl: 'about:blank',
-			merchantlogo: 'https://www.quehay.pe/img/logo.png',
-			formbuttoncolor: '#000000',
-			action: `compra/${datapago.id}${$page.url.search ?? ''}`,
-			complete: function (params: any) {
-				console.info('p', params);
+			...datapago,
+			complete: (params: any) => (loading = false),
+			cancel: () => {
+				loading = false;
+				reserva.tab = 'inicio';
 			}
 		});
 		VisanetCheckout.open();
-		posting = false;
 	};
 </script>
 
 <svelte:head>
 	<script type="text/javascript" src={PUBLIC_NIUBIZ_LIBRE}></script>
 </svelte:head>
+<Header {volver} />
 
-<section class="container">
-	<div>
-		<div class="principal">
-			<div class="steps">
-				<Steps paso={4} />
-			</div>
-			<div class="lugar">
-				<Mediospago />
-			</div>
+<div class="mt-90"></div>
+<div class="centrado mb-20">
+	<div class="tabs">
+		<ul>
+			<li class:active={reserva.tab == 'inicio'}>Entradas</li>
+			<li class:active={reserva.tab == 'comercios'}>Adicionales</li>
+			<li class:active={reserva.tab == 'pago'}>Pagar</li>
+		</ul>
+	</div>
+</div>
 
-			<div class="lugar">
-				<Compras />
-			</div>
-		</div>
-	</div>
-	<div class="detalles">
-		<Resumen {evento} />
-		<button class="btn" on:click={pagarClick} disabled={posting || $navigating != null}>
-			{#if posting || $navigating}
-				<Spinner size="20" color="#fff" unit="px" />
-			{:else}
-				Pagar <Tarjeta />
-			{/if}
-		</button>
-	</div>
-</section>
+<Zonas {evento} {reserva} />
+<Comercios {reserva} {comercios} />
+<Pago {reserva} {pagar} {loading} />
+
+{#if reserva.total > 0 && !loading}
+	<section class="minicontainer">
+		<Resumen {evento} {reserva} />
+	</section>
+{/if}
 
 <style lang="scss">
-	@import './static/style.scss';
+	.tabs {
+		max-width: 380px;
+		background-color: #ededed;
+		border-radius: 60px;
+		padding: 8px;
+		margin: 0px;
+		ul {
+			display: flex;
+			gap: 10px;
+			li {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				color: #000;
+			}
 
-	.steps {
-		padding: 40px 16px 31px;
-	}
-
-	.lugar {
-		border-radius: 8px;
-		background: #f9f9f9;
-
-		margin-bottom: 20px;
-		padding: 40px 32px;
-		h4 {
-			font-weight: 100;
-			margin-bottom: 10px;
-		}
-
-		@include breakpoint($md) {
-			margin-right: 24px;
-		}
-	}
-
-	.container {
-		display: grid;
-		grid-template-columns: 1fr;
-		@include breakpoint($md) {
-			grid-template-columns: 728px 352px;
-		}
-	}
-
-	.detalles {
-		padding: 40px 24px;
-		min-width: 100%;
-		border: 1px solid #fff;
-		background: var(--White-White_98, #f9f9f9);
-		box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
-
-		.btn {
-			width: 100%;
-			margin-top: 40px;
-			font-size: 16px;
-			font-weight: 700;
+			.active {
+				display: block;
+				border-radius: 60px;
+				padding: 10px;
+				background-color: #e700d8;
+				color: #ffffff;
+			}
 		}
 	}
 </style>

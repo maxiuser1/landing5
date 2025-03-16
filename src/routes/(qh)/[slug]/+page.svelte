@@ -1,116 +1,121 @@
 <script lang="ts">
-	import { Entradas, Info } from '$lib/components/Evento';
-	import { page } from '$app/stores';
-	import Entrada from '$lib/components/Evento/Entrada.svelte';
-	import { clearCompradata, compraData } from '$lib/components/Evento/esto.js';
-	import { Arrow } from '$lib/icons/index.js';
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-
-	export let data;
-	let { evento } = data;
-	const urlZonas = `${evento.general?.slug}/zonas${$page.url.search ?? ''}`;
-	const urlLogin = `./login?redirectTo=${encodeURIComponent($page.url.href)}`;
-	let redirectUrl = $page.data?.user?.nombre?.length > 0 ? urlZonas : urlLogin;
-
-	onMount(async () => {
-		if ($page.data?.user?.nombre?.length > 0) {
-		} else {
-			goto(urlLogin);
-		}
-
-		if ($compraData.evento?.id != evento.id) {
-			console.log('reiniciara');
-			clearCompradata();
-			compraData.update((current) => {
-				return {
-					...current,
-					evento: {
-						id: evento.id,
-						slug: evento.general.slug,
-						nombre: evento.general.nombre,
-						artista: evento.general.artista,
-						lugar: evento.ubicacion.nombre,
-						fecha: evento.fechas[0].fecha
-					},
-					entradas: evento.precios.map((t: any) => {
-						return {
-							tipo: t.tipo,
-							nombre: t.nombre,
-							cantidad: 0,
-							final: 0,
-							total: 0,
-							precio: t.onlinei,
-							lugares: [],
-							numerado: t.numerado ? true : false
-						};
-					}),
-					total: 0
-				};
-			});
-		}
-	});
+	import Precios from '$lib/components/Evento/Portada/Precios.svelte';
+	import Header from '$lib/components/Layout/Header/Header.svelte';
+	import Sell from '$lib/icons/Sell.svelte';
+	import Ticket from '$lib/icons/Ticket.svelte';
+	import * as prismicH from '@prismicio/helpers';
+	let { data } = $props();
+	const { parrilla } = data;
+	const { general, caratula } = data.evento;
+	function volver() {
+		goto('/');
+	}
 </script>
 
-<svelte:head>
-	<title>{evento.general?.nombre}</title>
-</svelte:head>
-
-{#if evento.caratula.portada}
-	<section class="portada">
-		<a href={redirectUrl}>
-			<img width="100%" src={evento.caratula.portada} alt="portada" />
-		</a>
+<Header {volver}>
+	<ul class="socials" role="menu">
+		<li role="none"><a role="menuitem" href="#inicio">Inicio</a></li>
+		<li role="none"><a role="menuitem" href="#Precios">Precios</a></li>
+		<li role="none"><a role="menuitem" href="#legal">Legal</a></li>
+	</ul>
+</Header>
+<span style="--theme-principal: {caratula.colorPrincipal}; --theme-contraste: {caratula.colorContrastePrincipal}">
+	<section id="inicio">
+		<img class="portada" src={caratula.portada} alt="Portada" />
 	</section>
-{:else}
-	<section class="banner">
-		<img src={evento.caratula?.banner} alt="banner" />
+	<section id="Precios" style="background-image:url({caratula.textura})">
+		<div class="container legal">
+			<div class="center-box">
+				<Precios {parrilla} {caratula} />
+				<div class="botonera">
+					<a class="continuar" href="./{data.evento.id}/reserva">
+						Regular <Ticket />
+					</a>
+					<a class="continuar" href="./{data.evento.id}/marketplace">
+						Marketplace <Sell />
+					</a>
+				</div>
+			</div>
+		</div>
 	</section>
 
-	<Entrada {evento} />
-
-	<section class="continuar">
-		<a class="btn" href="{evento.general.slug}/consideracion">Continuar <Arrow /></a>
+	<section id="legal" style="background-image:url({data.evento.caratula.textura})">
+		<div class="container legal">
+			<div class="center-box">
+				{@html prismicH.asHTML(data.document.data.legal)}
+			</div>
+		</div>
 	</section>
-{/if}
+</span>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use '$lib/scss/breakpoints' as mixin;
+	@use '$lib/scss/container';
+
+	.botonera {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		gap: 24px;
+		margin-top: 20px;
+	}
 
 	.continuar {
-		margin: 48px auto;
-		height: 90px;
-		padding-top: 40px;
-		border-top-left-radius: 8px;
-		border-top-right-radius: 8px;
-		background: #f9f9f9;
-		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 32px 24px;
+		border-radius: 8px;
+		min-width: 300px;
+		background-color: var(--theme-contraste);
+		color: var(--theme-principal);
+		stroke: var(--theme-principal);
 
-		@include breakpoint($md) {
-			max-width: 728px;
-			width: 728px;
+		&:hover {
+			filter: brightness(85%);
 		}
 	}
 
-	.portada {
-		img {
-			width: 100%;
-			height: auto;
-		}
+	:global(strong) {
+		color: var(--theme-contraste) !important;
 	}
 
-	.banner {
-		img {
-			width: 100%;
-			max-height: 358px;
+	section {
+		color: var(--theme-principal);
+	}
 
-			@include breakpoint($md) {
-				max-height: 420px;
+	.socials {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		li {
+			a {
+				color: white;
 			}
 		}
+	}
 
-		@include breakpoint($md) {
-			height: 420px;
+	img {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+	.portada {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.legal {
+		display: flex;
+		justify-content: center;
+		.center-box {
+			width: 100%;
+			@include mixin.breakpoint(mixin.$md) {
+				margin: 50px 0;
+				width: 50%;
+			}
 		}
 	}
 </style>

@@ -65,30 +65,89 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		return createdItem?.id ?? '';
 	};
 
-	log = async (event : any, error:any): Promise<void> => {
+	log = async (event: any, error: any): Promise<void> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('logeos');
 		const entrada = {
-			tenant:'quehay',
-			fecha:new Date(),
+			tenant: 'quehay',
+			fecha: new Date(),
 			event,
-			error,
-		}
-		 await container.items.create(entrada);
+			error
+		};
+		await container.items.create(entrada);
 	};
 
-	complete = async (id:string, user: App.User) : Promise<string> => {
+	complete = async (id: string, user: App.User): Promise<string> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('personas');
 
-		const userItem =  await container.item(id, id);
+		const userItem = await container.item(id, id);
 		const { resource: currentUser } = await userItem.read<App.User>();
 
-		const updatedUser =  {...currentUser, dni: user.dni, nombre: user.nombre, apellido: user.apellido, telefono: user.telefono};
-		
+		const updatedUser = {
+			...currentUser,
+			dni: user.dni,
+			nombre: user.nombre,
+			apellido: user.apellido,
+			telefono: user.telefono
+		};
+
 		await userItem.replace(updatedUser);
 		return userItem.id;
-	}
+	};
+
+	getCategories = async (): Promise<App.Categorizacion[]> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('parametros');
+		const { resource } = await container.item('categorias', 'categorias').read();
+		return resource.values;
+	};
+
+	getEntradas = async (userId: string, correo: string): Promise<App.Entrada[]> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('entradas');
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT * from c where STRINGEQUALS(c.user.correo , @correo, true) or c.user.id = @id',
+			parameters: [
+				{
+					name: '@id',
+					value: userId
+				},
+				{
+					name: '@correo',
+					value: correo.toLowerCase()
+				}
+			]
+		};
+		const { resources: items } = await container.items.query<App.Entrada>(querySpec).fetchAll();
+		return items;
+	};
+
+	edit = async (
+		id: string,
+		user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }
+	): Promise<void> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('personas');
+
+		const userItem = await container.item(id, id);
+		const { resource: currentUser } = await userItem.read<App.User>();
+
+		const updatedUser = {
+			...currentUser,
+			dni: currentUser?.dni ? currentUser.dni : user.dni,
+			nombre: user.nombre,
+			apellido: user.apellido,
+			telefono: user.telefono,
+			ciudad: user.ciudad,
+			favoritos: user.favoritos
+		};
+
+		await userItem.replace(updatedUser);
+	};
 }

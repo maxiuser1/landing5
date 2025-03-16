@@ -1,32 +1,39 @@
 <script lang="ts">
-	import Supevento from './Supevento.svelte';
+	import { Arrow } from '$lib/icons';
+	import Logo from './Logo.svelte';
 
-	export let slug: string;
-
-	let visible = false;
-	let inputph = 'Encuentra tu evento';
-	let active = false;
-	$: active_class = active ? 'searchbox searchbox-focus' : 'searchbox';
-
-	const toggle = () => {
-		visible = !visible;
-	};
-
-	const handleInputer = () => {
-		inputph = '';
-		active = true;
-	};
-
-	const handleOutInputer = () => {
-		inputph = 'Encuentra tu evento';
-		active = false;
-	};
+	let { volver, children }: { volver: () => void; children?: any | undefined } = $props();
 </script>
 
-<Supevento {slug} />
+<header class="header">
+	<nav class="container">
+		<div class="backlogo">
+			<button type="button" onclick={volver}>
+				<Arrow left={true} />
+			</button>
+			<Logo />
+		</div>
+		<div></div>
+		{@render children?.()}
+	</nav>
+</header>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use '$lib/scss/breakpoints' as mixin;
+	@use '$lib/scss/container';
+
+	.backlogo {
+		display: flex;
+		gap: 20px;
+		align-items: center;
+		button {
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+		}
+	}
+
 	.header {
 		width: 100%;
 		position: fixed;

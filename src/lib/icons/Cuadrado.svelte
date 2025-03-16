@@ -1,25 +1,18 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	export let numero: number;
-	export let tomado = false;
-	export let disabled = false;
-	// let height: number = width * 0.7;
-
-	const dispatch = createEventDispatcher();
+	let { numero, tomado, disabled = false, clicked } = $$props;
 	function handleClick() {
 		if (!disabled) {
 			tomado = !tomado;
-			dispatch('clickeado', { state: tomado });
+			clicked(tomado);
 		}
 	}
 </script>
 
-<button on:click={handleClick} type="button" class="caja" class:caja--disabled={disabled} class:caja--tomado={tomado}>{numero}</button>
+<button onclick={handleClick} type="button" class="caja" class:caja--disabled={disabled} class:caja--tomado={tomado}>
+	{numero}
+</button>
 
 <style lang="scss">
-	@import './static/style.scss';
-
 	.caja {
 		border: none;
 		width: 24px;

@@ -1,31 +1,17 @@
 <script lang="ts">
 	import Autenticable from './Autenticable.svelte';
-	let visible = false;
-
-	const toggle = () => {
-		visible = !visible;
-	};
 </script>
 
 <header class="header">
 	<nav class="container">
-		<div />
+		<div></div>
 		<Autenticable />
 	</nav>
 </header>
 
 <style lang="scss">
-	@import './static/style.scss';
-
-	.backlogo {
-		display: flex;
-		gap: 20px;
-		align-items: center;
-	}
-
-	.anchormenu {
-		color: #fff;
-	}
+	@use '$lib/scss/breakpoints' as mixin;
+	@use '$lib/scss/container';
 
 	.header {
 		width: 100%;
@@ -37,7 +23,7 @@
 
 		display: none;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: initial;
 		}
 

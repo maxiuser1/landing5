@@ -1,24 +1,16 @@
 <script>
-	import Socials from '$lib/components/Layout/Footer/Socials.svelte';
 	import Logo from '$lib/components/Layout/Header/Logo.svelte';
+	let { children } = $props();
 </script>
-
-<svelte:head>
-	<style>
-		body {
-			margin-top: 0 !important;
-		}
-	</style>
-</svelte:head>
 
 <div class="principal">
 	<div class="banner">
 		<div class="overlay">
-			<div />
+			<div></div>
 			<div class="logos">
 				<Logo size={'120px'} />
 			</div>
-			<div />
+			<div></div>
 		</div>
 	</div>
 	<div class="forms">
@@ -28,16 +20,14 @@
 			</nav>
 		</div>
 		<div class="contenido">
-			<slot />
+			{@render children()}
 		</div>
 	</div>
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
-	.logo--nav {
-		height: 20px;
-	}
+	@use '$lib/scss/breakpoints' as mixin;
+
 	.principal {
 		background-color: #ffffff !important;
 		display: flex;
@@ -51,7 +41,7 @@
 		min-width: 37%;
 		height: 100vh;
 		background: #d30ed1;
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			display: initial;
 		}
 	}
@@ -60,7 +50,7 @@
 		width: 100%;
 		height: 100vh;
 
-		background: url('https://mlhmwdnd0t7t.i.optimole.com/co-ZpyQ-3YYAqoz6/w:auto/h:auto/q:auto/id:009cc655fc2549a3e9ebaae7fc2e9bf0/directUpload/overl.png');
+		background: url('https://epcdnqhprd.azureedge.net/images/site/overl.png');
 		background-size: cover;
 		background-position: center center;
 		display: flex;
@@ -69,23 +59,6 @@
 		justify-content: space-between;
 		.logos {
 			margin: 0 auto;
-		}
-
-		.socials {
-			text-align: center;
-			display: flex;
-			flex-direction: column;
-			margin-bottom: 42px;
-			gap: 12px;
-			.visita {
-				width: 100%;
-				text-align: center;
-				color: white;
-			}
-
-			.icons {
-				margin: 0 auto;
-			}
 		}
 	}
 
@@ -97,7 +70,7 @@
 		left: 0;
 		background: linear-gradient(270deg, var(--red) 0%, var(--pink) 100%);
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			display: none;
 		}
 
@@ -116,13 +89,13 @@
 		margin-right: auto;
 		margin-left: auto;
 
-		@include breakpoint($sm) {
+		@include mixin.breakpoint(mixin.$sm) {
 			margin-top: initial;
 		}
 
 		.contenido {
 			margin-top: 32px;
-			@include breakpoint($sm) {
+			@include mixin.breakpoint(mixin.$sm) {
 				margin-top: 102px;
 				margin-top: initial;
 				max-height: 100vh;

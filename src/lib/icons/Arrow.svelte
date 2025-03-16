@@ -1,6 +1,5 @@
-<script>
-	export let color = 'white';
-	export let left = false;
+<script lang="ts">
+	let { left = false, color = 'white' } = $props();
 </script>
 
 {#if !left}

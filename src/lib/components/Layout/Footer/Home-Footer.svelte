@@ -1,7 +1,7 @@
 <script>
 	import Logo from '../Header/Logo.svelte';
 	import Socials from './Socials.svelte';
-	const anio = new Date().getFullYear();
+	let anio = new Date().getFullYear();
 </script>
 
 <section class="footer no-print">
@@ -11,20 +11,19 @@
 		</div>
 		<div>
 			<ul class="links">
-				<li><a href="/contenido/acerca-de-nosotros">Acerca de nosotros</a></li>
-				<li><a href="/contenido/preguntas-frecuentes">Preguntas frecuentes</a></li>
-				<li><a href="/contenido/terminos_y_condiciones">Términos y condiciones</a></li>
-				<li><a href="/contenido/politicas-de-privacidad">Políticas de privacidad</a></li>
-				<li><a href="/contenido/politicas-de-cookies">Políticas de Cookies</a></li>
-				<li><a href="/contenido/contacto">Contacto</a></li>
+				<li><a href="/i/acerca-de-nosotros">Acerca de nosotros</a></li>
+				<li><a href="/i/preguntas-frecuentes">Preguntas frecuentes</a></li>
+				<li><a href="/i/terminos_y_condiciones">Términos y condiciones</a></li>
+				<li><a href="/i/politicas-de-privacidad">Políticas de privacidad</a></li>
+				<li><a href="/i/politicas-de-cookies">Políticas de Cookies</a></li>
 			</ul>
 		</div>
 		<div>
 			<h1 class="sigue">Sigue a QueHay</h1>
 			<Socials />
 			<div class="libro">
-				<a href="/contenido/libro-de-reclamaciones">
-					<img src="https://i.postimg.cc/HLTtb0cw/image-7.png" alt="libro" />
+				<a href="/">
+					<img src="https://epcdnqhprd.azureedge.net/images/site/image-7.png" alt="libro" />
 				</a>
 			</div>
 		</div>
@@ -34,16 +33,18 @@
 <section class="infrafooter">
 	<div class="container">
 		<div class="derechos">
-			Derechos reservados © {anio}, Que Hay
+			Derechos reservados © {anio}, QueHay
 		</div>
 	</div>
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use '$lib/scss/container';
+	@use '$lib/scss/breakpoints' as mixin;
+
 	.derechos {
 		font-size: 16px;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			font-size: 12px;
 		}
 	}
@@ -70,7 +71,7 @@
 		flex-direction: column;
 		text-align: center;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			text-align: initial;
 			flex-direction: row;
 			justify-content: space-between;
@@ -86,7 +87,7 @@
 			font-size: 18px;
 			font-weight: normal;
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				font-size: 14px;
 			}
 		}

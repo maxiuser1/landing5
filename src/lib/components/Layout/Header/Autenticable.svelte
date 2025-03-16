@@ -1,87 +1,74 @@
 <script lang="ts">
-	import { Close, Menu, User } from '$lib/icons';
-	import { createEventDispatcher } from 'svelte';
-	import { page } from '$app/stores';
-	import type { TooltipConifg } from '$lib/components/Shared/ui/Tooltip/types';
-	import Popover from '$lib/components/Shared/ui/Popover';
-	export let closable = false;
-	const dispatch = createEventDispatcher();
-	const toggleMenu = () => dispatch('togglemenu');
-
-	let config: TooltipConifg = {
-		body: 'MiniMenu',
-		bodyAsHTML: true,
-		effect: 'float',
-		place: 'bottom',
-		type: 'dark',
-		style: ''
-	};
+	import { page } from '$app/state';
+	import UserMenu from './User-Menu.svelte';
 </script>
 
+<dialog popover id="profile" class="profile-menu">
+	<UserMenu />
+</dialog>
+
 <ul class="socials">
-	{#if $page.data.user}
-		<li class="item" use:Popover={config}>
-			<div class="circle">{$page.data.user.nombre[0]}</div>
-			Hola, {$page.data.user.nombre}
+	{#if page.data.user}
+		<li class="item">
+			<button popovertarget="profile" class="user-button">
+				{page.data.user.nombre[0]}
+			</button>
 		</li>
 	{:else}
 		<li>
 			<a class="ingresa" href="../login"> Ingresa </a>
 		</li>
-		<li>/</li>
-		<li>
-			<a class="ingresa" href="../registro"> Regístrate </a>
-		</li>
 	{/if}
 </ul>
 
 <style lang="scss">
-	@import './static/style.scss';
-	.circle {
-		cursor: pointer;
-		border-radius: 50%;
+	@use '$lib/scss/breakpoints' as mixin;
+	.profile-menu {
+		position: absolute;
+		position-anchor: --profile-button;
+		margin: 28px 0 0 0;
+		inset: auto;
+		top: anchor(top);
+		right: anchor(right);
+		border: none;
+		background: #80057f;
+	}
+
+	.user-button {
+		position-try-fallbacks: --right;
+		padding: 0;
+		border-radius: 100vw;
+		aspect-ratio: 1;
 		width: 24px;
 		height: 24px;
 		padding: 5px;
-		margin-right: 5px;
-		background: white;
-		font-weight: 900;
-		color: #000;
+		background: #5b025a;
+		color: white;
 		text-transform: uppercase;
 		text-align: center;
 		font-size: 12px;
+		border: none;
+		cursor: pointer;
+		anchor-name: --profile-button;
 	}
+
 	.ingresa {
 		color: white;
 		display: flex;
 		align-items: center;
 	}
 	.socials {
-		display: none;
+		display: flex;
 		align-items: center;
 		gap: 14px;
 		color: white;
-		@include breakpoint($md) {
-			display: flex;
-		}
 	}
 
 	.item {
 		display: none;
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			display: flex;
 			align-items: center;
-		}
-	}
-
-	.last {
-		display: none;
-
-		@include breakpoint($md) {
-			display: initial;
-			cursor: pointer;
-			border-left: 2px solid #ff888f;
-			padding-left: 24px;
 		}
 	}
 </style>

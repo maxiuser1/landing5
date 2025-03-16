@@ -1,15 +1,20 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	import { onMount } from 'svelte';
 
-	export let eventos: Array<App.Evento>;
+	let { eventos = [] }: { eventos: App.HomeEvento[] } = $props();
+	let cantidad = $state(0);
+	let ancho = $state(0);
+	let mini = $state(0);
+	let translate = $state(0);
+	let selectedidx = $state(0);
 
-	let cantidad = 0;
-	let ancho = 0;
-	let mini = 0;
-	let translate = 0;
-	let selectedidx = 0;
+	onMount(() => {
+		cantidad = eventos.length;
+		ancho = 100 * cantidad;
+		mini = 100 / cantidad;
+		translate = 0;
+		selectedidx = 0;
+	});
 
 	const handleClick = (idx: number) => {
 		selectedidx = idx;
@@ -36,51 +41,25 @@
 		}
 	};
 
-	onMount(async () => {
-		cantidad = eventos.length;
-		ancho = 100 * cantidad;
-		mini = 100 / cantidad;
-		translate = 0;
-		selectedidx = 0;
-	});
-
-	const start = () => {
-		let current = 0;
-		return new Promise((resolve) => {
-			setIntervalImmediate(() => {
-				handleClick(current);
-				current++;
-				if (current == eventos.length) {
-					current = 0;
-				}
-			}, 3000);
-		});
-	};
-
-	const setIntervalImmediate = (fn: Function, ms: number) => {
-		fn();
-		return setInterval(fn, ms);
-	};
-
-	const redirigir = (slug: string) => {
-		goto(`/${slug}`);
-	};
+	const redirigir = (slug: string) => {};
 </script>
 
 <section class="carousel" aria-label="carousel">
 	<div class="grande" style:width="{ancho}%" style:transform="translateX({translate}%)">
 		{#each eventos as evento, idx}
 			<div class="slide-container" style="width: {mini}%">
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="slide" on:click={() => redirigir(evento.slug)} style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;">
+				<div
+					class="slide"
+					style="background-image: url('{evento.banner}'); background-position: center top;background-size: 100% 100%;"
+				>
 					<div class="gradiente">
-						<button class="ver-mas"> Ver más </button>
+						<button onclick={() => redirigir(evento.slug)} class="ver-mas"> Ver más </button>
 
 						<div class="bnav">
-							<button type="button" class="previo" on:click={() => handlePrevClick(idx)}>
+							<button type="button" class="previo" onclick={() => handlePrevClick(idx)}>
 								<span aria-label="previo"> ‹ </span>
 							</button>
-							<button type="button" class="siguiente" on:click={() => handleNextClick(idx)}>
+							<button type="button" class="siguiente" onclick={() => handleNextClick(idx)}>
 								<span aria-label="siguiente">›</span>
 							</button>
 						</div>
@@ -90,18 +69,18 @@
 		{/each}
 	</div>
 	<div class="botonera">
-		<ul class="puntos">
+		<ul class="puntos" role="menu">
 			{#each eventos as item, idx}
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<li class="punto" on:click={() => handleClick(idx)} class:selected={selectedidx === idx} />
+				<li class="punto" role="none" class:selected={selectedidx === idx}>
+					<button role="menuitem" type="button" onclick={() => handleClick(idx)} aria-label="siguiente"></button>
+				</li>
 			{/each}
 		</ul>
 	</div>
 </section>
 
 <style lang="scss">
-	@import './static/style.scss';
-
+	@use '$lib/scss/breakpoints' as mixin;
 	.ver-mas {
 		position: absolute;
 		top: 50%;
@@ -142,12 +121,12 @@
 			min-height: 109px;
 			max-height: 109px;
 
-			@include breakpoint($sm) {
+			@include mixin.breakpoint(mixin.$sm) {
 				min-height: 200px;
 				max-height: 200px;
 			}
 
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				min-height: 22.5rem;
 				max-height: 22.5rem;
 			}
@@ -179,7 +158,6 @@
 				margin-left: 20px;
 				position: absolute;
 				cursor: pointer;
-				z-index: 999;
 			}
 
 			.siguiente {
@@ -193,7 +171,6 @@
 				margin-right: 20px;
 				position: absolute;
 				cursor: pointer;
-				z-index: 999;
 			}
 		}
 
@@ -201,7 +178,7 @@
 			padding-top: 20px;
 			width: 100%;
 			display: none;
-			@include breakpoint($md) {
+			@include mixin.breakpoint(mixin.$md) {
 				display: flex;
 				justify-content: center;
 			}
@@ -220,6 +197,14 @@
 			background-color: white;
 			border: 1px solid #a809a6;
 			border-radius: 50%;
+
+			button {
+				width: 100%;
+				height: 100%;
+				background: transparent;
+				border: none;
+				cursor: pointer;
+			}
 		}
 
 		.selected {

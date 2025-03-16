@@ -1,42 +1,56 @@
-import type { Action, Actions, PageServerLoad } from './$types';
+import { redirect, type Actions } from '@sveltejs/kit';
 
-import { invalid, redirect } from '@sveltejs/kit';
+export const actions = {
+	login: async ({ cookies, request, locals }) => {
+		console.log('login called');
+		const data = await request.formData();
+		const fbtoken: string = data.get('token')?.toString() ?? '';
+		const nombre: string = data.get('displayName')?.toString() ?? '';
+		const correo: string = data.get('email')?.toString() ?? '';
+		const avatar: string = data.get('photoURL')?.toString() ?? '';
+		const redirectTo: string = data.get('redirectTo')?.toString() ?? '';
+		const user = await locals.usuariosRepo.findByFb(fbtoken);
 
-export const load: PageServerLoad = async ({ locals }) => {};
-
-const login: Action = async ({ cookies, request, locals, url }) => {
-	const data = await request.formData();
-	const fbtoken: string = data.get('token')?.toString() ?? '';
-	const displayName: string = data.get('displayName')?.toString() ?? '';
-	const email: string = data.get('email')?.toString() ?? '';
-	const photoURL: string = data.get('photoURL')?.toString() ?? '';
-	const redirectTo: string = data.get('redirectTo')?.toString() ?? '';
-	const user = await locals.usuariosRepo.findByFb(fbtoken);
-	let userToken = '';
-
-	if (user) {
-		if (user.dni && user.dni.length > 0) {
-			cookies.set('session', user.id, {
+		const redirigir = (userId: string, goPerfil: boolean, redirectTo: string) => {
+			cookies.set('session', userId, {
 				path: '/',
 				httpOnly: true,
 				sameSite: 'strict',
 				secure: process.env.NODE_ENV === 'production',
 				maxAge: 60 * 60 * 24 * 30
 			});
-			throw redirect(302, redirectTo ? redirectTo : '/');
-		} else {
-			throw redirect(302, `/completar/${user.id}?redirectTo=${encodeURIComponent(redirectTo)}`);
-		}
-	} else {
-		const newUser: App.User = {
-			fbtoken,
-			nombre: displayName,
-			correo: email
+			if (goPerfil) redirect(302, `/perfil?redirectTo=${encodeURIComponent(redirectTo)}`);
+			else redirect(302, redirectTo ? redirectTo : '/');
 		};
-		userToken = await locals.usuariosRepo.create(newUser);
 
-		throw redirect(302, `/completar/${userToken}?redirectTo=${encodeURIComponent(redirectTo)}`);
+		if (user) {
+			redirigir(user.id!, !user.dni, redirectTo);
+		} else {
+			const userId = await locals.usuariosRepo.create({ fbtoken, nombre, correo, avatar });
+			redirigir(userId, true, redirectTo);
+		}
+	},
+
+	revalidate: async ({ locals, url, request, cookies }) => {
+		console.log('revalidte called');
+		if (locals.user) {
+			if (url.searchParams.has('redirectTo')) {
+				redirect(303, url.searchParams.get('redirectTo')!);
+			}
+			redirect(303, '/');
+		}
+
+		const data = await request.formData();
+		const user = await locals.usuariosRepo.findByFb(data.get('uid')?.toString());
+		if (user) {
+			cookies.set('session', user.id!, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'strict',
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 60 * 60 * 24 * 30
+			});
+			redirect(302, '/');
+		}
 	}
-};
-
-export const actions: Actions = { default: login };
+} satisfies Actions;

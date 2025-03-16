@@ -1,79 +1,53 @@
 <script lang="ts">
-	import Dolar from '$lib/icons/Dolar.svelte';
-	import * as prismicH from '@prismicio/helpers';
-	import Pin from '$lib/icons/Pin.svelte';
-	import Fecha from '$lib/icons/Fecha.svelte';
-
-	export let evento: App.Evento;
+	import { Fecha } from '$lib/icons';
+	import More from '$lib/icons/More.svelte';
+	let { evento, more } = $props();
 </script>
 
-{#if evento.redireccion}
-	<a href={evento.redireccion}>
-		<div class="card">
-			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
-			<div class="content">
-				<div class="info">
-					<div class="encabezado">
-						<div class="titulo--suprayadoalt">
-							<span class="elipsable">{evento.nombre}</span>
-						</div>
+<a href="/{evento.slug}">
+	<div class="card">
+		<div
+			class="imagen"
+			style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;"
+		></div>
+		<div class="content">
+			<div class="info">
+				<div class="encabezado">
+					<div class="titulo--suprayado">
+						{evento.artista}
 					</div>
-					<div class="h3">
-						<span class="elipsable"> {@html evento.lugar}</span>
-					</div>
-					<div class="h3">
-						<div class="fechas">
-							{#each evento.fechas as fecha}
-								<div class="date-info">
-									<Fecha />
-									<h4>{fecha}</h4>
-								</div>
-							{/each}
+				</div>
+				<div class="h3">
+					{@html evento.nombre}
+				</div>
+				<div class="h3">
+					<div class="fechas">
+						<div class="date-info">
+							<Fecha />
+							<h4>{evento.fechas}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</a>
-{:else}
-	<a href="/{evento.slug}">
-		<div class="card">
-			<div class="imagen" style="background-image: url('{evento.card}'); background-position: center top;background-size: 100% 100%;" />
-			<div class="content">
-				<div class="info">
-					<div class="encabezado">
-						<div class="titulo--suprayado">
-							<span class="elipsable">{evento.artista}</span>
-						</div>
-					</div>
-					<div class="h3">
-						<span class="elipsable"> {@html evento.nombre}</span>
-					</div>
-					<div class="h3">
-						<div class="fechas">
-							{#each evento.fechas as fecha}
-								<div class="date-info">
-									<Fecha />
-									<h4>{fecha}</h4>
-								</div>
-							{/each}
-						</div>
-					</div>
-				</div>
+			<div>
+				<button
+					class="btn--icon mt-20"
+					onclick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						more();
+					}}
+				>
+					<More />
+				</button>
 			</div>
 		</div>
-	</a>
-{/if}
+	</div>
+</a>
 
 <style lang="scss">
-	@import './static/style.scss';
-	.elipsable {
-		display: block;
-		max-width: 380px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-	}
+	@use '$lib/scss/breakpoints' as mixin;
+
 	.date-info {
 		display: flex;
 		align-items: center;
@@ -84,22 +58,18 @@
 		font-size: 1rem;
 	}
 
-	.titulo--suprayadoalt {
-		font-size: 1rem;
-	}
-
 	a {
 		z-index: 2;
 	}
 	.card {
-		max-width: 398px;
-		width: 398px;
+		max-width: 100%;
+		width: 100%;
 		overflow: hidden;
 		border-radius: 0.5rem;
 		border: 1px solid #f1f1f1;
 		background: #f9f9f9;
 
-		@include breakpoint($md) {
+		@include mixin.breakpoint(mixin.$md) {
 			width: 24.8rem;
 			max-width: 24.8rem;
 		}
@@ -116,19 +86,6 @@
 
 		.info {
 			padding: 1.45rem 1rem;
-			.h2 {
-				font-weight: 900;
-				font-size: 18px;
-				line-height: 22px;
-				color: #3b3b3b;
-
-				span {
-					font-weight: 500;
-					font-size: 12px;
-					line-height: 14px;
-					color: #e4e6eb;
-				}
-			}
 
 			.h3 {
 				color: #3b3b3b;

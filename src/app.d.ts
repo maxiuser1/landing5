@@ -1,4 +1,4 @@
-// See https://kit.svelte.dev/docs/types#app
+// See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -12,74 +12,90 @@ declare global {
 			avatar?: string;
 			correo: string;
 			telefono?: string;
+			ciudad?: string;
+			favoritos?: string[];
 		};
 
 		interface Locals {
-			eventosRepo;
+			eventosRepo: EventosRepoInterface;
 			usuariosRepo: UsuariosRepoInterface;
-			contactosRepo;
-			entradasRepo: EntradasRepoInterface;
-			tiendaRepo: TiendaRepoInterface;
 			user: User;
 		}
-		// interface PageData {}
-		// interface Platform {}
 
-		type Fila = {
-			id: number;
-			sits: Array<Asiento>;
+		type Entrada = Turno & {
+			canal: string;
+			tipoPago: string;
+			tickets: Ticket[];
+			authorization?: any;
 		};
 
-		type Producto = {
-			id: string;
+		type HomeEvento = {
+			slug: string;
+			banner: string;
+			card: string;
+			artista: string;
 			nombre: string;
-			stock: number;
-			precio: number;
-			img: string;
+			lugar: string;
+			fechas: string;
+			categoria: string;
+			subCategoria: string;
+			id: string;
 		};
 
-		type ProductoComprado = {
+		type Evento = {
 			id: string;
-			cantidad: number;
-			total: number;
+			general: {
+				categoria: string;
+				nombre: string;
+				artista: string;
+				slug: string;
+				destacado: boolean;
+			};
+			fechas: {
+				fechaUnica: string;
+			};
+			ubicacion: {
+				nombre: string;
+			};
+			caratula: {
+				banner: string;
+				card: string;
+				portada: string;
+				textura: string;
+				mapa: string;
+				legalHeader: string;
+				legalFooter: string;
+				colorPrincipal: string;
+				colorContrastePrincipal: string;
+			};
+			precios: Precio[];
 		};
 
 		type Precio = {
+			nombre: string;
+			color: string;
+			codigo: string;
 			tipo: string;
-			color?: string;
-			nombre?: string;
-			base: number;
 			online: number;
-			promotor: number;
-
-			basei?: number;
-			onlinei?: number;
-			promotori?: number;
-
-			final?: number;
-			finali?: number;
-
-			tope?: number;
-			c?: number;
-			disponibles?: number;
-			regalo?: string;
-			regaloIndividual?: {
-				una: string;
-				varias: string;
-			};
-			promo?: string;
-			numerado: boolean;
-			filas: Array<Fila>;
-			total: number;
-			descuento?: {
-				nombre: string;
-				descuento: number;
-			};
-			descuentos?: Array<Descuento>;
-			qrcode?: boolean;
+			onlinei: number;
+			disponibles: number;
+			descuentos: Descuento[];
+			filas: Fila[];
 		};
 
-		type TipoCanal = 'WEB' | 'PROMOTOR';
+		type Fila = {
+			id: string;
+			sits: Sit[];
+			tag: string;
+		};
+
+		type Sit = {
+			id: string;
+			s: number; //status -1: no disponible, 0: disponible
+			c: number; //cantidad
+			l: number; //limite
+			o: any;
+		};
 
 		type Descuento = {
 			nombre: string;
@@ -88,216 +104,144 @@ declare global {
 			online: number;
 			promotor: number;
 			tipo: string;
+			fechaInicio: string;
+			fechaLimite: string;
+			habilitado: boolean;
 		};
 
-		type Entrada = {
+		type Turno = IntencionCompra & {
+			id: '';
+			numeroCompra: string;
+			user: User;
+			fecha: string;
+			clientIpAddress: string;
+			tipo: string;
+		};
+
+		type IntencionCompra = {
+			slug: string;
+			card: string;
+			total: number;
+			compras: ItemCompra[];
+		};
+
+		type IntencionReventa = {
+			slug: string;
+			total: number;
+			compras: Reventa[];
+		};
+
+		type ItemCompra = {
+			nombre: string;
+			codigo: string;
+			cantidad: number;
+			precio: number;
+			total: number;
+			tipoPrecio: string;
+			tipo: string;
+			id: string;
+			fila?: string;
+			sit?: string;
+
+			refEntradaId?: string;
+			refTicketId?: number;
+		};
+
+		type Comercio = {
+			id: string;
+			tipo: string;
 			tenant: string;
-			slug?: string;
-			id?: string;
-			entradas?: Array<Sentado>;
-			fecha: Date;
-			evento: {
-				id?: string;
-				slug?: string;
-				artista?: string;
-				nombre?: string;
-				fecha?: string;
-				lugar?: string;
-			};
-			qrcode?: string;
-			user?: User;
-			monto: number;
-			cliente?: {
-				id: string;
-				nombre: string;
-				apellido: string;
-				correo: string;
-				dni: string;
-				tipo?: string;
-			};
-			picados?: number;
-			montoBase?: number;
-			canal: TipoCanal;
-			formaPago?: string;
-			tipoDscto?: string;
-			codigoDescto?: string;
-			numero: number;
-			pago?: {
-				dataMap?: {
-					AUTHORIZATION_CODE: string;
-					TRACE_NUMBER: string;
-					ACTION_DESCRIPTION: string;
-					CARD: string;
-					TRANSACTION_DATE: string;
-				};
-			};
-			impresos?: Array<{
-				n: string;
-				p: number;
-			}>;
+			productos: Producto[];
 		};
 
-		type Baneable = {
-			banner: string;
-		};
-
-		type Evento = {
+		type Producto = {
 			id: string;
 			nombre: string;
-			artista: string;
-			banner: string;
-			card?: string;
-			lugar: string;
-			ciudad: string;
-			desde?: number;
-			descuento?: number;
-			descontado?: number;
-			slug: string;
-			fechas?: any;
-			precios: Array<Precio>;
-			mapa?: string;
-			locacion?: string;
-			externo?: boolean;
-			redireccion?: string;
-			ubicacion?: {
-				nombre?: string;
-				seccionamiento?: any;
-				ciudad?: string;
-			};
-			caratula?: {
-				thumb?: string;
-				detalles?: string;
-				card?: string;
-			};
-			general?: {
-				categoria: string;
-				nombre: string;
-				artista: string;
-				slug: string;
-				destacado: boolean;
-			};
-			searchTerms?: string;
-			publicado?: boolean;
-		};
-
-		type Sentado = {
-			base?: number;
-			online?: number;
-			total?: number;
-			promotor?: number;
-			descuento?: {
-				nombre?: string;
-				valor?: number;
-			} | null;
-			tipo?: string;
-			nombre?: string;
-			regalo?: string;
-			fila?: number;
-			asiento?: number;
-			cantidad: number;
-			numerado?: boolean;
-			tickets?: Array<{
-				c?: string;
-				v?: string;
-			}>;
-		};
-
-		type Contado = {
-			cantidad: number;
-			tipo: string;
-		};
-
-		type Tickete = {
-			c: string;
-			v?: string;
-		};
-
-		type Esto = {
-			evento: {
-				id?: string;
-				slug?: string;
-				nombre?: string;
-				artista?: string;
-				fecha?: string;
-				lugar?: string;
-			};
-			entradas: Array<Zoneado>;
-			total: number;
-		};
-
-		type Zoneado = {
-			tipo: string;
-			nombre: string;
-			cantidad: number;
-			total: number;
 			precio: number;
-			lugares: Array<Lugareado>;
-			numerado: boolean;
+			img: string;
+			stock: number;
 		};
 
-		type Lugareado = {
-			fila: number;
-			sit: number;
+		type Ticket = {
+			id: number;
+			paraMi: boolean;
+			cantidad: number;
+			invitado: User | null;
+			estado: string;
+			compra?: ItemCompra;
+			tipo?: string;
+			precio?: number;
 		};
 
-		type Compra = {
-			evento: {
-				id?: string;
-				slug?: string;
-				nombre?: string;
-				artista?: string;
-				fecha?: string;
-				lugar?: string;
-			};
-			zona?: {
-				tipo: string;
-				nombre?: string;
-			};
-			user?: any;
-			monto?: number;
-			cantidad?: number;
-			entradas?: Array<Sentado>;
-			invitado?: any;
+		type NiubizConfig = {
+			sessiontoken: string;
+			channel: string;
+			merchantid: string;
+			purchasenumber: string;
+			amount: number;
+			cardholdername: string;
+			cardholderlastname: string;
+			cardholderemail: string;
+			usertoken: string;
+			expirationminutes: string;
+			timeouturl: string;
+			merchantlogo: string;
+			formbuttoncolor: string;
+			action: string;
 		};
 
-		type CompraTienda = {
-			productos: Array<{
-				id: string;
-				cantidad: number;
-				total: number;
+		type TicketsSet = {
+			id: string;
+			entradas: Array<{
+				tickets: App.Ticket[];
+				reventas: App.Ticket[];
+				traspasos: App.Ticket[];
+				paraMi: App.Ticket;
 			}>;
-			evento: {
-				slug?: string;
-			};
-			total: number;
+		};
+
+		type ParrillaPrecio = {
+			titulos: Array<{
+				desde: string;
+				hasta: string;
+				label: string;
+			}>;
+			items: ItemParrillaPrecio[];
+		};
+
+		type ItemParrillaPrecio = {
+			zona: string;
+			items: Array<{
+				habilitado: boolean;
+				precio: number | null;
+			}>;
+		};
+
+		type Reventa = {
+			entradaId: string;
+			slug: string;
+			precio: number;
+			cantidad: number;
+			compra: ItemCompra;
+			ticketId: number;
+		};
+
+		type Categorizacion = {
+			tipo: string;
+			categorias: string[];
 		};
 
 		interface EventosRepoInterface {
-			getEventosDestacados(): Promise<Array<Evento> | undefined>;
-			getEventosPasados(): Promise<Array<Evento> | undefined>;
+			getEventosDestacados(): Promise<Array<HomeEvento> | undefined>;
 			getEvento(slug): Promise<Evento>;
-			getEventoConLocacion(slug): Promise<Evento>;
-			postTurno(turno): Promise<void>;
-			getTurno(id): Promise<any>;
-			findEvento(id): Promoise<Evento>;
-			confirmarEntrada(evento, compra): Promise<void>;
-			ventaManual(slug, compra, vendedor): Promise<void>;
-			guardarEntrada(entrada): Promise<void>;
-			getEntrada(id): Promise<Entrada>;
-			picarEntrada(id, cantidad): Promise<void>;
-			getEntradasPorNumero(slug, tipo, numero): Promise<Entrada | null>;
-			picarEntradaFisica(ticket, numero): Promise<void>;
-			guardarIngreso(ingreso): Promise<void>;
-		}
-
-		interface TiendaRepoInterface {
-			getProductos(slug): Promise<Array<Producto>>;
-			postPedido(turno): Promise<void>;
-			getPedido(id): Promise<void>;
-			guardarCompra(compra): Promise<void>;
-			getCompras(slug): Promise<Array<any>>;
-			getNewId(): Promise<string>;
-			cerrarCompra(slug, id): Promise<void>;
+			postTurno(turno: App.IntencionCompra): Promise<App.Turno>;
+			getTurno(id: string): Promise<App.Turno>;
+			confirmar(turno: App.Turno, authorization: any): Promise<string>;
+			confirmarReventa(turno: App.Turno, authorization: any): Promise<string>;
+			getEntrada(id: string): Promise<App.Entrada>;
+			getComercios(comerciosIds: string[]): Promise<App.Comercio[]>;
+			ticketear(ticketSet: App.TicketsSet): Promise<void>;
+			getReventas(): Promise<App.Reventa[]>;
 		}
 
 		interface UsuariosRepoInterface {
@@ -307,16 +251,18 @@ declare global {
 			create(user: User): Promise<string>;
 			complete(id: string, user: User): Promise<string>;
 			log(event, error): Promise<void>;
+			edit(
+				id: string,
+				user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }
+			): Promise<void>;
+			getCategories(): Promise<any>;
+			getEntradas(userId: string, correo: string): Promise<App.Entrada[]>;
 		}
-
-		interface ContactosRepoInterface {
-			create(contacto): Promise<void>;
-		}
-
-		interface EntradasRepoInterface {
-			getEntradas(userId, correo): Promise<Array<Entrada>>;
-			traspasar(entradaId: string, transfereableId: string): Promise<void>;
-		}
+		// interface Error {}
+		// interface Locals {}
+		// interface PageData {}
+		// interface PageState {}
+		// interface Platform {}
 	}
 }
 

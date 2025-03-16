@@ -1,5 +1,5 @@
 <script>
-	import { Face, Instagram, Tiktok, Twitter } from '$lib/icons';
+	import { Face, Instagram, Twitter, Tiktok } from '$lib/icons';
 </script>
 
 <div class="ulcontainer">
@@ -29,7 +29,7 @@
 </div>
 
 <style lang="scss">
-	@import './static/style.scss';
+	@use '$lib/scss/breakpoints' as mixin;
 
 	ul {
 		display: flex;
