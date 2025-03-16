@@ -46,7 +46,7 @@
 </a>
 
 <style lang="scss">
-	@use '../../../../static/style.scss' as mixin;
+	@use '$lib/scss/breakpoints' as mixin;
 
 	.date-info {
 		display: flex;

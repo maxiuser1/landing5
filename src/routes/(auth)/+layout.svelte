@@ -26,7 +26,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../../static/style.scss' as mixin;
+	@use '$lib/scss/breakpoints' as mixin;
 
 	.principal {
 		background-color: #ffffff !important;

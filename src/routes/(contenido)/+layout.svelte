@@ -26,7 +26,7 @@
 <Footer />
 
 <style lang="scss">
-	@forward '../../../static/container.scss';
+	@use '$lib/scss/container';
 	.backlogo {
 		display: flex;
 		gap: 20px;

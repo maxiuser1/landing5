@@ -10,11 +10,7 @@
 			</a>
 		</li>
 		<li>
-			<a
-				target="_blank"
-				rel="noreferrer"
-				href="https://instagram.com/quehay.eventos?igshid=YmMyMTA2M2Y="
-			>
+			<a target="_blank" rel="noreferrer" href="https://instagram.com/quehay.eventos?igshid=YmMyMTA2M2Y=">
 				<Instagram />
 			</a>
 		</li>
@@ -33,7 +29,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../../../../static/style.scss' as mixin;
+	@use '$lib/scss/breakpoints' as mixin;
 
 	ul {
 		display: flex;

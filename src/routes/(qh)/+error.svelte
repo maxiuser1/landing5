@@ -66,7 +66,7 @@
 </div>
 
 <style lang="scss">
-	@forward '../../../static/container.scss';
+	@use '$lib/scss/container';
 
 	.container {
 		text-align: center;

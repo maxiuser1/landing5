@@ -39,8 +39,8 @@
 </section>
 
 <style lang="scss">
-	@use '../../../../../static/style.scss' as mixin;
-	@forward '../../../../../static/container.scss';
+	@use '$lib/scss/container';
+	@use '$lib/scss/breakpoints' as mixin;
 
 	.derechos {
 		font-size: 16px;

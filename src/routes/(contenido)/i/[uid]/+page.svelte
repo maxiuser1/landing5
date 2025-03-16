@@ -13,5 +13,5 @@
 </section>
 
 <style lang="scss">
-	@forward '../../../../../static/container.scss';
+	@use '$lib/scss/container';
 </style>

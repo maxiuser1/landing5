@@ -32,7 +32,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../../../static/style.scss' as mixin;
+	@use '$lib/scss/breakpoints' as mixin;
 
 	.tarjetas {
 		display: flex;
@@ -54,10 +54,5 @@
 	img {
 		width: 100%;
 		height: auto;
-	}
-	.titulo--suprayado {
-		margin-top: 24px;
-		font-size: 1.25rem;
-		margin-bottom: 16px;
 	}
 </style>

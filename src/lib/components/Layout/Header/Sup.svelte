@@ -10,8 +10,8 @@
 </header>
 
 <style lang="scss">
-	@use '../../../../../static/style.scss' as mixin;
-	@forward '../../../../../static/container.scss';
+	@use '$lib/scss/breakpoints' as mixin;
+	@use '$lib/scss/container';
 
 	.header {
 		width: 100%;

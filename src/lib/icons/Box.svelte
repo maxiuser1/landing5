@@ -173,7 +173,7 @@
 {/if}
 
 <style lang="scss">
-	@use '../../../static/style.scss' as mixin;
+	@use '$lib/scss/breakpoints' as mixin;
 	.ocupado rect {
 		fill: #d4d4d4;
 	}
