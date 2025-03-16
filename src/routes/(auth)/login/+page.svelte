@@ -84,6 +84,8 @@
 
 		try {
 			const res = await signInWithEmailAndPassword(auth, username, password);
+			auth.languageCode = 'es';
+
 			const guser = res.user;
 			const data = new FormData();
 			data.append('provider', 'google');
@@ -100,7 +102,6 @@
 			if (result.type === 'success') {
 				await invalidateAll();
 			}
-
 			applyAction(result);
 		} catch (error: any) {
 			mensaje = error.message;
@@ -169,6 +170,12 @@
 			</div>
 		</div>
 	</form>
+
+	<div class="mt-20 alcentro">
+		<p>
+			Si no tienes una cuenta <a href="registro" class="link">Regístrate</a>
+		</p>
+	</div>
 </div>
 
 <style lang="scss">
@@ -194,11 +201,11 @@
 	.opciones {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+	}
 
-		.link {
-			margin-top: 12px;
-			color: #d30ed1;
-		}
+	.link {
+		color: #d30ed1;
 	}
 
 	.login {

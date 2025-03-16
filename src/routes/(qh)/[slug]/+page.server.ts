@@ -12,6 +12,6 @@ export const load: PageServerLoad = async ({ locals, params, fetch, request }) =
 		let parrilla: App.ParrillaPrecio = getParrilla(evento);
 		return { evento, document, parrilla };
 	} else {
-		error(404, 'Evento no encontrado');
+		error(404, 'Página no encontrada');
 	}
 };
