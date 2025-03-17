@@ -14,6 +14,12 @@ declare global {
 			telefono?: string;
 			ciudad?: string;
 			favoritos?: string[];
+			descuentos?: {
+				descuento: number;
+				meta: number;
+				premio: number;
+				cta: string;
+			};
 		};
 
 		interface Locals {
@@ -257,6 +263,7 @@ declare global {
 			): Promise<void>;
 			getCategories(): Promise<any>;
 			getEntradas(userId: string, correo: string): Promise<App.Entrada[]>;
+			getPromo(cta: string): Promise<App.User | null>;
 		}
 		// interface Error {}
 		// interface Locals {}

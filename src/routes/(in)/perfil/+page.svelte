@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
+	import { page } from '$app/state';
 	import Boton from '$lib/components/Shared/ui/Boton.svelte';
+	import Copier from '$lib/components/Shared/ui/Copier.svelte';
 	import Check from '$lib/icons/Check.svelte';
 
 	let { data, form } = $props();
@@ -11,6 +13,14 @@
 
 <section class="minicontainer mt-90">
 	<h1 class="titulo--suprayado">Perfil</h1>
+
+	{#if page.data.user?.descuentos}
+		<div class="mt-40">
+			<label>Link de invitación</label>
+			<Copier texto={`${page.url.protocol}${page.url.host}/promo/${page.data.user.descuentos.cta}`} />
+		</div>
+	{/if}
+
 	<form
 		method="POST"
 		use:enhance={({ formElement, formData, action, cancel }) => {

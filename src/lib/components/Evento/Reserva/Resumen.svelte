@@ -2,7 +2,7 @@
 	import Trash from '$lib/icons/Trash.svelte';
 	import { soles } from '$lib/shared/formatos';
 
-	let { evento, reserva } = $props();
+	let { evento, reserva, descuento } = $props();
 </script>
 
 <h4>Resumen</h4>
@@ -24,13 +24,57 @@
 		</div>
 	</div>
 {/each}
+
 <div class="compra">
 	<div></div>
-	<div class="precio">Total: <strong>{soles(reserva.total)}</strong></div>
+	<div class="precio">
+		<div>
+			<strong>
+				Total:
+				<span class="total" class:total--dscto={!!reserva.descuento} data-descuento="{reserva.descuento}%"
+					>{soles(reserva.total)}
+				</span>
+			</strong>
+		</div>
+		{#if reserva.descontable}
+			<small class="descontable">{soles(reserva.descontable)}</small>
+		{/if}
+	</div>
 	<div></div>
 </div>
 
 <style lang="scss">
+	.total {
+		position: relative;
+		font-size: 1.5em;
+		&--dscto {
+			&:after {
+				content: attr(data-descuento);
+				position: absolute;
+				top: -12px;
+				right: -24px;
+				display: inline-block;
+				transform: rotate(-25deg);
+				background-color: red;
+				color: #fff;
+				padding: 4px;
+				font-size: 10px;
+				border-radius: 4px;
+				margin-left: 4px;
+			}
+		}
+	}
+
+	.descuento {
+		background-color: red;
+		color: #fff;
+		padding: 4px;
+		font-size: 10px;
+	}
+	.descontable {
+		text-decoration: line-through;
+	}
+
 	.precio {
 		text-align: right;
 	}

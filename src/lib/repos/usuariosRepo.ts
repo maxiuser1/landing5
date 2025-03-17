@@ -106,6 +106,23 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		return resource.values;
 	};
 
+	getPromo = async (cta: string): Promise<App.User | null> => {
+		const client = new CosmosClient(this.cn);
+		const database = client.database('quehaydb');
+		const container = database.container('personas');
+		const querySpec: SqlQuerySpec = {
+			query: 'SELECT c.id, c.descuentos from c where c.descuentos.cta = @cta',
+			parameters: [
+				{
+					name: '@cta',
+					value: cta
+				}
+			]
+		};
+		const { resources: items } = await container.items.query<App.User>(querySpec).fetchAll();
+		return items?.length > 0 ? items[0] : null;
+	};
+
 	getEntradas = async (userId: string, correo: string): Promise<App.Entrada[]> => {
 		const client = new CosmosClient(this.cn);
 		const database = client.database('quehaydb');
@@ -132,8 +149,8 @@ export class UsuariosRepo implements App.UsuariosRepoInterface {
 		user: { dni: string; nombre: string; apellido: string; ciudad: string; telefono: string; favoritos: string[] }
 	): Promise<void> => {
 		const client = new CosmosClient(this.cn);
-		const database = await client.database('quehaydb');
-		const container = await database.container('personas');
+		const database = client.database('quehaydb');
+		const container = database.container('personas');
 
 		const userItem = await container.item(id, id);
 		const { resource: currentUser } = await userItem.read<App.User>();

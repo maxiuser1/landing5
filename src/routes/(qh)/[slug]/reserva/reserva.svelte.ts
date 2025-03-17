@@ -4,11 +4,23 @@ class ReservaState {
 	comercio = $state('');
 	mapa = $state('');
 	compras = $state<App.ItemCompra[]>([]);
+	descuento = $state<number>(0);
+
+	descontable = $derived.by(() => {
+		let total = 0;
+		for (const n of this.compras) {
+			total += n.total;
+		}
+		return total;
+	});
 
 	total = $derived.by(() => {
 		let total = 0;
 		for (const n of this.compras) {
 			total += n.total;
+		}
+		if (this.descuento > 0) {
+			return total - (total * this.descuento) / 100;
 		}
 		return total;
 	});
@@ -162,13 +174,15 @@ class ReservaState {
 		this.tab = 'mapa';
 	}
 
-	constructor(evento: App.Evento, comercios: App.Comercio[]) {
+	constructor(evento: App.Evento, comercios: App.Comercio[], descuento: App.User | null) {
+		console.log('dc', descuento);
 		this.slug = evento.id;
 		this.comercio = comercios[0].id;
 		this.compras = [];
+		this.descuento = descuento?.descuentos?.descuento ?? 0;
 	}
 }
 
-export function getReserva(evento: App.Evento, comercios: App.Comercio[]) {
-	return new ReservaState(evento, comercios);
+export function getReserva(evento: App.Evento, comercios: App.Comercio[], descuento: App.User | null) {
+	return new ReservaState(evento, comercios, descuento);
 }

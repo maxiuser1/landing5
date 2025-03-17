@@ -9,9 +9,13 @@
 	import { getReserva } from './reserva.svelte.js';
 
 	let { data } = $props();
-	const { evento, comercios }: { evento: App.Evento; comercios: App.Comercio[] } = data;
+	const {
+		evento,
+		comercios,
+		descuento
+	}: { evento: App.Evento; comercios: App.Comercio[]; descuento: App.User | null } = data;
 	let loading = $state(false);
-	const reserva = getReserva(evento, comercios);
+	const reserva = getReserva(evento, comercios, descuento);
 	const volver = () => goto(`/${evento.id}`);
 
 	const pagar = async () => {
@@ -57,7 +61,7 @@
 
 {#if reserva.total > 0 && !loading}
 	<section class="minicontainer">
-		<Resumen {evento} {reserva} />
+		<Resumen {evento} {reserva} {descuento} />
 	</section>
 {/if}
 

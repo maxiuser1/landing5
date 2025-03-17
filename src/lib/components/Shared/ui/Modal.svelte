@@ -38,9 +38,8 @@
 
 	dialog {
 		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
+		inset: 0;
+		margin: auto;
 		max-width: 32em;
 		border-radius: 0.2em;
 		border: none;

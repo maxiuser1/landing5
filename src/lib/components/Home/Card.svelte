@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { Fecha } from '$lib/icons';
+	import { page } from '$app/state';
 	import More from '$lib/icons/More.svelte';
 	let { evento, more } = $props();
+	let parameters = page.url.searchParams ? `?${page.url.searchParams}` : '';
 </script>
 
-<a href="/{evento.slug}">
+<a href="/{evento.slug}{parameters}">
 	<div class="card">
 		<div
 			class="imagen"

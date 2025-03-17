@@ -3,11 +3,14 @@
 	import Precios from '$lib/components/Evento/Portada/Precios.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
 	import Sell from '$lib/icons/Sell.svelte';
+	import { page } from '$app/state';
 	import Ticket from '$lib/icons/Ticket.svelte';
 	import * as prismicH from '@prismicio/helpers';
 	let { data } = $props();
 	const { parrilla } = data;
 	const { general, caratula } = data.evento;
+	let parameters = page.url.searchParams ? `?${page.url.searchParams}` : '';
+
 	function volver() {
 		goto('/');
 	}
@@ -29,7 +32,7 @@
 			<div class="center-box">
 				<Precios {parrilla} {caratula} />
 				<div class="botonera">
-					<a class="continuar" href="./{data.evento.id}/reserva">
+					<a class="continuar" href="./{data.evento.id}/reserva{parameters}">
 						Regular <Ticket />
 					</a>
 					<a class="continuar" href="./{data.evento.id}/marketplace">
