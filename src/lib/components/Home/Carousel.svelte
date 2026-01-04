@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	let { eventos = [] }: { eventos: App.HomeEvento[] } = $props();
@@ -41,7 +42,9 @@
 		}
 	};
 
-	const redirigir = (slug: string) => {};
+	const redirigir = (slug: string) => {
+		goto(`/${slug}`);		
+	};
 </script>
 
 <section class="carousel" aria-label="carousel">

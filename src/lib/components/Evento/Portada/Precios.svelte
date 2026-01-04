@@ -12,7 +12,7 @@
 				{#each parrilla.titulos as titulo, idx}
 					<th
 						>{titulo.label}
-						<span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span>
+						<!-- <span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span> -->
 					</th>
 				{/each}
 				<th>Regular</th>

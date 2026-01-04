@@ -33,11 +33,11 @@
 				<Precios {parrilla} {caratula} />
 				<div class="botonera">
 					<a class="continuar" href="./{data.evento.id}/reserva{parameters}">
-						Regular <Ticket />
+						Pre-venta <Ticket />
 					</a>
-					<a class="continuar" href="./{data.evento.id}/marketplace">
+					<!-- <a class="continuar" href="./{data.evento.id}/marketplace">
 						Marketplace <Sell />
-					</a>
+					</a> -->
 				</div>
 			</div>
 		</div>
