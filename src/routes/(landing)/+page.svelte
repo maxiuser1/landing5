@@ -40,7 +40,7 @@
 
 		@include mixin.breakpoint(mixin.$md) {
 			border-radius: 0.5rem;
-			border: 1px solid #fff;
+			border: 1px solid #ffffff;
 			background: #f9f9f9;
 			padding: 20px 10px;
 			margin-left: 24px;
