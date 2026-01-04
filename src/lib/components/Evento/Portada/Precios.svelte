@@ -9,12 +9,13 @@
 		<thead>
 			<tr>
 				<th class="nada"></th>
-				{#each parrilla.titulos as titulo, idx}
+				<!-- {#each parrilla.titulos as titulo, idx}
 					<th
 						>{titulo.label}
-						<!-- <span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span> -->
+						<span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span>
 					</th>
-				{/each}
+				{/each} -->
+				<th>Pre-venta</th>
 				<th>Regular</th>
 			</tr>
 		</thead>
@@ -31,10 +32,13 @@
 						{#each precio.items as item, idy}
 							<td>
 								{#if item.precio && item.precio > 0}
-									{item.precio}
+									S/ {item.precio} 
 								{/if}
 							</td>
 						{/each}
+						<td>
+							S/ 89
+						</td>
 					</tr>
 				{/each}
 			{/if}
