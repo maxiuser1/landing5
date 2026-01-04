@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ locals, params, url }) => {
 		const urlLogin = `/login?redirectTo=${encodeURIComponent(url.href)}`;
 		redirect(302, urlLogin);
 	}
-	const comercios = await locals.eventosRepo.getComercios(['anima1', 'losportales1', 'lalucha1']);
+	const comercios = await locals.eventosRepo.getComercios(['anima1', 'lalucha1', 'losportales1']);
 	const evento = await locals.eventosRepo.getEvento(params.slug);
 
 	let descuento: App.User | null = null;
