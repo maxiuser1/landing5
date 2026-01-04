@@ -56,12 +56,16 @@
 	@use '$lib/scss/breakpoints' as mixin;
 	@use '$lib/scss/container';
 
+	
 	.botonera {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
 		gap: 24px;
 		margin-top: 20px;
+	}
+	#Precios,  #legal {
+		background-color: #000;
 	}
 
 	.continuar {

@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ locals, params, fetch, request }) =
 	const evento = await locals.eventosRepo.getEvento(params.slug);
 	if (evento) {
 		const client = createClient({ fetch, request });
-		const document = await client.getByUID('legal', params.slug.toLowerCase());
+		const document = await client.getByUID('portada', params.slug.toLowerCase());
 		let parrilla: App.ParrillaPrecio = getParrilla(evento);
 		return { evento, document, parrilla };
 	} else {

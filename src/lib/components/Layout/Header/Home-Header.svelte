@@ -105,7 +105,7 @@
 				</li>
 				{#if page.data.user}
 					<li class="hidden-xs">
-						<a href="https://quehay.pe/entradas">Mis entradas</a>
+						<a href="https://quehay.com.pe/entradas">Mis entradas</a>
 					</li>
 					<li class="hidden-xs">
 						<a class="anchormenu" href="../../logout"> Salir</a>

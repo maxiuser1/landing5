@@ -49,7 +49,7 @@ export class NiubizHandler {
 			usertoken: user.id ?? '',
 			expirationminutes: '20',
 			timeouturl: 'about:blank',
-			merchantlogo: 'https://www.quehay.pe/img/logo.png',
+			merchantlogo: 'https://www.quehay.com.pe/img/logo.png',
 			formbuttoncolor: '#000000',
 			action: `/${redirect}/${turno.id}`
 		};

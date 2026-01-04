@@ -7,7 +7,7 @@
 		<div>
 			<h1>Nosotros</h1>
 			<p>
-				<span style="color:#d30ed1">Quehay.pe</span> nace con la iniciativa de difundir el arte y cultura en todas sus formas
+				<span style="color:#d30ed1">Quehay.com.pe</span> nace con la iniciativa de difundir el arte y cultura en todas sus formas
 				de expresión, consolidando en una ventana, variadas alternativas de entretenimiento para todo público.
 			</p>
 			<p>
