@@ -11,26 +11,26 @@
 			<h6>Consideraciones</h6>
 			<ul class="mt-20">
 				<li>
-					El ticket es un comprobante válido de tu compra, por lo que no será canjeado por una entrada tradicional en el
+					El código QR dinámico es un comprobante válido de tu compra, por lo que no será canjeado por una entrada tradicional en el
 					punto de venta o boletería.
 				</li>
 				<li>
-					Para descargar el ticket deberás ingresar con tu usuario a "MI CUENTA", ahí encontrarás el detalle de tu
-					compra y tus tickets para descarga.
+					Para descargar el código QR dinámico deberás ingresar con tu usuario a "MI CUENTA", ahí encontrarás el detalle de tu
+					compra y tus qrs para descarga.
 				</li>
 				<li>Descárgalo al menos un día antes del evento.</li>
 				<li>
-					Con el ticket puedes acercarte directamente al evento presentándolo de manera virtual o puedes llevarlo
+					Con el código QR dinámico puedes acercarte directamente al evento presentándolo de manera virtual o puedes llevarlo
 					impreso.
 				</li>
 				<li>
-					Al elegir ticket, estas aceptando no divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu
+					Al elegir código QR dinámico, estas aceptando no divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu
 					ingreso al evento.
 				</li>
 				<li>
-					Al igual que una entrada tradicional, el ticket tendrá un sistema de control y seguridad para el acceso al
+					Al igual que una entrada tradicional, el código QR dinámico tendrá un sistema de control y seguridad para el acceso al
 					evento, el cual también impedirá que en caso de generarse duplicados ingrese más de una persona con el mismo
-					ticket, permitiendo el ingreso solo a la primera persona registrada.
+					código QR dinámico, permitiendo el ingreso solo a la primera persona registrada.
 				</li>
 			</ul>
 		</div>

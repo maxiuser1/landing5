@@ -20,10 +20,8 @@
 
 			auth.languageCode = 'es';
 
-			data.append('provider', 'email');
 			data.append('fbtoken', guser.uid);
-
-			const response = await fetch(event.currentTarget.action, {
+			const response = await fetch('?/registro', {
 				method: 'POST',
 				body: data
 			});
@@ -33,12 +31,13 @@
 			}
 			applyAction(result);
 		} catch (error: any) {
+			console.log('error', error);
 			mensaje = error.message;
-			if (error.code == 'auth/email-already-in-use') {
+			if (error?.code == 'auth/email-already-in-use') {
 				mensaje = 'Correo ya registrado';
 			}
 
-			if (error.code.includes('auth/weak-password')) {
+			if (error?.code.includes('auth/weak-password')) {
 				mensaje = 'Mejora un poco la contraseña';
 			}
 		}

@@ -15,7 +15,7 @@
 	</div>
 	<div class="centrado mt-20 flexed">
 		<Boton class="btn--outline" onclick={imprimir} {loading}>Confirmar entradas</Boton>
-		<a class="btn" href={page.url + '/mine'}>Imprimir <Impresora /></a>
+		<a class="btn" href={page.url + '/mine'}>Mostrar <Impresora /></a>
 	</div>
 </section>
 
