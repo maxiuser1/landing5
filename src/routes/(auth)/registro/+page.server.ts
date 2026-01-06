@@ -4,7 +4,6 @@ import type { Actions } from './$types';
 export const actions = {
 	registro: async ({ cookies, request, locals }) => {
 		const data = await request.formData();
-		console.log('data', data);
 		const fbtoken: string = data.get('fbtoken')?.toString() ?? '';
 		const redirectTo: string = data.get('redirectTo')?.toString() ?? '';
 		const nombres: string = data.get('nombre')?.toString() ?? '';
@@ -16,7 +15,6 @@ export const actions = {
 		const avatar: string = data.get('avatar')?.toString() ?? '';
 
 		const user = await locals.usuariosRepo.findByFb(fbtoken);
-		console.log('user', user);
 		
 		const redirigir = (userId: string, goPerfil: boolean, redirectTo: string) => {
 			cookies.set('session', userId, {

@@ -18,7 +18,6 @@
 	let mensaje = $state('');
 	onAuthStateChanged(auth, async (user) => {
 		if (user) {
-			console.log('user', user);
 			const data = new FormData();
 			data.append('uid', user.uid);
 			const response = await fetch('?/revalidate', {
@@ -94,8 +93,8 @@
 			data.append('email', guser.email ?? '');
 			data.append('photoURL', guser.photoURL ?? '');
 			data.append('redirectTo', page.url.searchParams.get('redirectTo')?.toString() ?? '');
-			const response = await fetch('/login', {
-				method: 'POST',
+			const response = await fetch('?/login', {
+				method: 'POST',	
 				body: data
 			});
 			const result = await response.json();

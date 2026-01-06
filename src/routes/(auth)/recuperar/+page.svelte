@@ -13,7 +13,6 @@
 		try {
 			let data = new FormData(event.currentTarget);
 			const email = data.get('correo')?.toString() ?? '';
-			console.log('email',email);
 			const res = await sendPasswordResetEmail(auth, email);
 			mensaje = 'Hemos enviado un correo a la casilla ingresada, porfavor siga ahí las instrucciones.';
 		} catch (error: any) {

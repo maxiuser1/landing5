@@ -108,7 +108,6 @@ export class EventosRepo implements App.EventosRepoInterface {
 			query: `SELECT  c.id as entradaId, c.slug, q.precio, q.cantidad, q.compra, q.codigo, q.id as ticketId  FROM c join q in c.tickets where q.tipo = 'reventa' and q.estado='Pendiente'`
 		};
 		const { resources: items } = await container.items.query<App.Reventa>(querySpec).fetchAll();
-		console.log('items', items);
 		return items;
 	};
 

@@ -31,7 +31,6 @@
 			}
 			applyAction(result);
 		} catch (error: any) {
-			console.log('error', error);
 			mensaje = error.message;
 			if (error?.code == 'auth/email-already-in-use') {
 				mensaje = 'Correo ya registrado';
