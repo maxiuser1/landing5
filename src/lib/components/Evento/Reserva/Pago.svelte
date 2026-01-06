@@ -14,10 +14,7 @@
 					El código QR dinámico es un comprobante válido de tu compra, por lo que no será canjeado por una entrada tradicional en el
 					punto de venta o boletería.
 				</li>
-				<li>
-					Para descargar el código QR dinámico deberás ingresar con tu usuario a "MI CUENTA", ahí encontrarás el detalle de tu
-					compra y tus qrs para descarga.
-				</li>
+			
 				<li>Descárgalo al menos un día antes del evento.</li>
 				<li>
 					Con el código QR dinámico puedes acercarte directamente al evento presentándolo de manera virtual o puedes llevarlo
@@ -27,11 +24,7 @@
 					Al elegir código QR dinámico, estas aceptando no divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu
 					ingreso al evento.
 				</li>
-				<li>
-					Al igual que una entrada tradicional, el código QR dinámico tendrá un sistema de control y seguridad para el acceso al
-					evento, el cual también impedirá que en caso de generarse duplicados ingrese más de una persona con el mismo
-					código QR dinámico, permitiendo el ingreso solo a la primera persona registrada.
-				</li>
+				
 			</ul>
 		</div>
 
