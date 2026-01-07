@@ -24,7 +24,6 @@
 					Al elegir código QR dinámico, estas aceptando no divulgarlo, ni compartirlo con terceros, ya que esto podría afectar tu
 					ingreso al evento.
 				</li>
-				
 			</ul>
 		</div>
 

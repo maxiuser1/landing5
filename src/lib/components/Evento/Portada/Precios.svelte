@@ -15,7 +15,6 @@
 						<span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span>
 					</th>
 				{/each} -->
-				<th>Pre-venta</th>
 				<th>Regular</th>
 			</tr>
 		</thead>
@@ -36,9 +35,6 @@
 								{/if}
 							</td>
 						{/each}
-						<td>
-							S/ 89
-						</td>
 					</tr>
 				{/each}
 			{/if}
