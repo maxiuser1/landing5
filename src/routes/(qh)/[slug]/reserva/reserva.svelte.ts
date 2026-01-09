@@ -170,6 +170,7 @@ class ReservaState {
 	}
 
 	setMapa(mapa: string) {
+		console.log('setMapa', mapa);
 		this.mapa = mapa;
 		this.tab = 'mapa';
 	}

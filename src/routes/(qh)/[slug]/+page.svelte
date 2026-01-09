@@ -33,7 +33,7 @@
 				<Precios {parrilla} {caratula} />
 				<div class="botonera">
 					<a class="continuar" href="./{data.evento.id}/reserva{parameters}">
-						Regular <Ticket />
+						Comprar <Ticket />
 					</a>
 					<!-- <a class="continuar" href="./{data.evento.id}/marketplace">
 						Marketplace <Sell />
@@ -43,9 +43,15 @@
 		</div>
 	</section>
 
+
+
 	<section id="legal" style="background-image:url({data.evento.caratula.textura})">
+		
 		<div class="container legal">
 			<div class="center-box">
+				{#if caratula.legalFooter && caratula.legalFooter.includes('http')}
+					<img src={caratula.legalFooter} alt="Portada" />
+				{/if}
 				{@html prismicH.asHTML(data.document.data.legal)}
 			</div>
 		</div>

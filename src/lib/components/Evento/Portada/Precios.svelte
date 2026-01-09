@@ -15,7 +15,7 @@
 						<span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span>
 					</th>
 				{/each} -->
-				<th>Regular</th>
+				<th>Precio</th>
 			</tr>
 		</thead>
 		<tbody>
