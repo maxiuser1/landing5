@@ -62,6 +62,7 @@ declare global {
 			};
 			ubicacion: {
 				nombre: string;
+				direccion:string;
 			};
 			caratula: {
 				banner: string;
