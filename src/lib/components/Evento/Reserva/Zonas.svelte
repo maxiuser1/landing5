@@ -15,7 +15,6 @@
 		</div>
 
 		<Tickets {evento} {reserva} />
-
 		<div class="botonera">
 			<button class="btn mt-40" onclick={() => (reserva.tab = 'comercios')}>Continuar <Arrow /></button>
 		</div>

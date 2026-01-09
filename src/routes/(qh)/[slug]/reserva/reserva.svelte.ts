@@ -1,9 +1,11 @@
 class ReservaState {
 	slug = $state();
 	tab = $state('inicio');
+	codigoDescuento = $state('');
 	comercio = $state('');
 	mapa = $state('');
 	compras = $state<App.ItemCompra[]>([]);
+	descuentos = $state<App.ItemDescuento[]>([]);
 	descuento = $state<number>(0);
 
 	descontable = $derived.by(() => {
@@ -169,8 +171,20 @@ class ReservaState {
 		}
 	}
 
+	setDescuentos(precios: App.Precio[], codigo: string) {
+		for(let cadaCompra of this.compras){
+			const precio = precios.find(t => t.codigo == cadaCompra.codigo);
+			if(precio?.descuentos?.some(d => d.tipo == "Codigo" && d.nombre.toLocaleLowerCase() == codigo.toLocaleLowerCase())){
+				const descuentoEncontrado = precio.descuentos.find(d => d.tipo == "Codigo" && d.nombre.toLocaleLowerCase() == codigo.toLocaleLowerCase());
+				if(descuentoEncontrado){
+					cadaCompra.precio = descuentoEncontrado.online;
+					cadaCompra.total = cadaCompra.cantidad * cadaCompra.precio;
+				}
+			}
+		}
+	}
+
 	setMapa(mapa: string) {
-		console.log('setMapa', mapa);
 		this.mapa = mapa;
 		this.tab = 'mapa';
 	}
@@ -180,6 +194,7 @@ class ReservaState {
 		this.comercio = comercios[0].id;
 		this.compras = [];
 		this.descuento = descuento?.descuentos?.descuento ?? 0;
+		this.codigoDescuento = '';
 	}
 }
 

@@ -137,6 +137,11 @@ declare global {
 			compras: Reventa[];
 		};
 
+		type ItemDescuento = {
+			precio:number;
+			nombre:string;
+		}
+
 		type ItemCompra = {
 			nombre: string;
 			codigo: string;

@@ -6,6 +6,7 @@
 	import Resumen from '$lib/components/Evento/Reserva/Resumen.svelte';
 	import Zonas from '$lib/components/Evento/Reserva/Zonas.svelte';
 	import Header from '$lib/components/Layout/Header/Header.svelte';
+	import { EventosRepo } from '$lib/repos/eventosRepo.js';
 	import { getReserva } from './reserva.svelte.js';
 
 	let { data } = $props();
@@ -14,6 +15,8 @@
 		comercios,
 		descuento
 	}: { evento: App.Evento; comercios: App.Comercio[]; descuento: App.User | null } = data;
+	let codigoDescto = $state('');
+
 	let loading = $state(false);
 	const reserva = getReserva(evento, comercios, descuento);
 	const volver = () => goto(`/${evento.id}`);
@@ -37,6 +40,8 @@
 		});
 		VisanetCheckout.open();
 	};
+
+	
 </script>
 
 <svelte:head>
@@ -61,11 +66,23 @@
 
 {#if reserva.total > 0 && !loading}
 	<section class="minicontainer">
+		<div class="input-group">
+			<input type="text" name="codigo" bind:value={codigoDescto} placeholder="Código de descuento" class="form-control" />
+			<button type="button" onclick={() => reserva.setDescuentos(evento.precios, codigoDescto)} class="btn">Aplicar</button>
+		</div>
 		<Resumen {evento} {reserva} {descuento} />
+		
 	</section>
 {/if}
 
 <style lang="scss">
+	.input-group {
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+		display:flex;
+		justify-content: right;
+		flex-direction: row;
+	}
 	.tabs {
 		max-width: 380px;
 		background-color: #ededed;

@@ -25,6 +25,7 @@
 	</div>
 {/each}
 
+
 <div class="compra">
 	<div></div>
 	<div class="precio">
@@ -36,6 +37,7 @@
 				</span>
 			</strong>
 		</div>
+		
 		{#if reserva.descontable}
 			<small class="descontable">{soles(reserva.descontable)}</small>
 		{/if}
@@ -44,6 +46,8 @@
 </div>
 
 <style lang="scss">
+	
+
 	.total {
 		position: relative;
 		font-size: 1.5em;
