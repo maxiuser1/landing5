@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Trash from '$lib/icons/Trash.svelte';
 	import { soles } from '$lib/shared/formatos';
+	import Contador from './Contador.svelte';
 
 	let { evento, reserva, descuento } = $props();
 </script>
@@ -9,6 +10,7 @@
 {#each reserva.compras as compra, idx}
 	<div class="compra" class:compra--odd={idx % 2 == 0}>
 		<div>
+		
 			{compra.nombre}
 			{#if compra.cantidad > 1}
 				<small>x{compra.cantidad}</small>
@@ -16,6 +18,10 @@
 		</div>
 		<div class="precio">
 			{soles(compra.total)}
+
+			{#if compra.tipoPrecio == 'BOX' && compra.parcializada}
+			<Contador cantidad={compra.cantidad} inc={() => reserva.incBox(compra)} dec={() => reserva.decBox(compra)} />
+			{/if}	
 		</div>
 		<div class="botonera">
 			<button onclick={() => reserva.del(compra)} class="btn--icon">

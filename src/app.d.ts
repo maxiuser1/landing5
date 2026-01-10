@@ -147,7 +147,9 @@ declare global {
 			nombre: string;
 			codigo: string;
 			cantidad: number;
+			limite?: number;
 			precio: number;
+			precioi?:number;
 			total: number;
 			tipoPrecio: string;
 			tipo: string;
@@ -157,6 +159,8 @@ declare global {
 
 			refEntradaId?: string;
 			refTicketId?: number;
+			parcializada:boolean;
+			restantes?:number;
 		};
 
 		type Comercio = {

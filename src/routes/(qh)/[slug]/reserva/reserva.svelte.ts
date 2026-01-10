@@ -36,19 +36,52 @@ class ReservaState {
 		this.mapa = '';
 	}
 
+	decBox(compra: App.ItemCompra) {
+		if(compra.cantidad == 1){
+			this.del(compra);
+		}
+		else {
+			compra.cantidad--;
+		 	compra.precio = compra.precioi! * compra.cantidad;
+		 	compra.total = compra.precio;
+		}
+	}
+
+	incBox(compra: App.ItemCompra) {
+		if(compra.cantidad  < compra.restantes!){ 
+			compra.cantidad++;
+			compra.precio = compra.precioi! * compra.cantidad;
+			compra.total = compra.precio;
+		}
+	}
+
 	addBox(precio: App.Precio, fila: App.Fila, sit: App.Sit, tagFila: string, tagSit: string) {
-		this.compras.push({
+		const permiteCompraParcial = sit.l != sit.c;
+		const hayComprasParciales = sit.c > 0 && sit.c < sit.l;
+		let compraBox = {
 			id: `${precio.codigo}-${tagFila}-${tagSit}`,
 			codigo: precio.codigo,
 			tipoPrecio: precio.tipo,
 			tipo: 'entrada',
 			nombre: `${precio.nombre}, box ${tagFila}-${tagSit}`,
-			precio: precio.online,
-			cantidad: 1,
-			total: precio.online,
+			precio:  precio.online,
+			precioi: precio.onlinei,
+			limite: sit.l,
+			cantidad: sit.l,
+			total:  precio.online,
 			fila: fila.id,
-			sit: sit.id
-		});
+			sit: sit.id,
+			parcializada: permiteCompraParcial,
+			restantes: sit.l - sit.c
+		};
+
+		if(permiteCompraParcial && hayComprasParciales)
+		{
+			compraBox.cantidad = compraBox.restantes!;
+			compraBox.precio =  precio.onlinei! * compraBox.restantes;
+		 	compraBox.total = compraBox.precio;
+		}
+		this.compras.push(compraBox);
 	}
 
 	delBox(precio: App.Precio, tagFila: string, tagSit: string) {
@@ -67,7 +100,8 @@ class ReservaState {
 			cantidad: 1,
 			total: precio.online,
 			fila: fila.id,
-			sit: sit.id
+			sit: sit.id,
+			parcializada:false
 		});
 	}
 
@@ -109,6 +143,8 @@ class ReservaState {
 		return 0;
 	}
 
+
+
 	inc({ codigo, nombre, online, tipo }: App.Precio) {
 		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
@@ -123,7 +159,8 @@ class ReservaState {
 				nombre,
 				precio: online,
 				cantidad: 1,
-				total: online
+				total: online,
+				parcializada:false
 			});
 		}
 	}
@@ -154,7 +191,8 @@ class ReservaState {
 				nombre: producto.nombre,
 				precio: producto.precio,
 				cantidad: 1,
-				total: producto.precio
+				total: producto.precio,
+				parcializada:false
 			});
 		}
 	}

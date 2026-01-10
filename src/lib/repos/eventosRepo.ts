@@ -193,7 +193,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 					value: compra.cantidad
 				});
 
-				if (zona!.tipo == 'Asientos' || zona!.tipo == 'BOX') {
+				if (zona!.tipo == 'Asientos') {
 					const indexFila = zona!.filas.findIndex((t: any) => t.id == compra.fila);
 					const fila = zona!.filas.find((t: any) => t.id == compra.fila);
 					const indexAsiento = fila!.sits.findIndex((t: any) => t.id == compra.sit);
@@ -204,6 +204,33 @@ export class EventosRepo implements App.EventosRepoInterface {
 						path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
 						value: 3
 					});
+				}
+
+				if(zona!.tipo == 'BOX') {
+					const indexFila = zona!.filas.findIndex((t: any) => t.id == compra.fila);
+					const fila = zona!.filas.find((t: any) => t.id == compra.fila);
+					const indexAsiento = fila!.sits.findIndex((t: any) => t.id == compra.sit);
+					const sit = fila!.sits.find((t: any) => t.id == compra.sit);
+					const currentCantidad = sit!.c != undefined ? Number(sit!.c) : 0;
+					if (compra.cantidad + currentCantidad == sit!.l) {	
+						replaceOperation.push({
+							op: 'replace',
+							path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/s`,
+							value: 3
+						});
+						replaceOperation.push({
+							op: 'incr',
+							path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
+							value: compra.cantidad
+						});
+					}
+					else {
+						replaceOperation.push({
+							op: 'incr',
+							path: `/precios/${indexPrecio}/filas/${indexFila}/sits/${indexAsiento}/c`,
+							value: compra.cantidad
+						});
+					}
 				}
 			}
 		}
