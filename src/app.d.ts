@@ -230,6 +230,8 @@ declare global {
 			items: Array<{
 				habilitado: boolean;
 				precio: number | null;
+				precioi?: number | null;
+				esBox?: boolean;
 			}>;
 		};
 

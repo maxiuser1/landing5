@@ -76,7 +76,7 @@
 			<div class="fila">
 				<div class="flexed">
 					<Share />
-					<Copier texto={`${page.url.href}/invitados/${compra.id}`} />
+					<Copier texto={`${page.url.href}/invitados/${entrada.id}`} />
 				</div>
 				<div></div>
 

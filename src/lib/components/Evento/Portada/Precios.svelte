@@ -15,7 +15,7 @@
 						<span class="fecha-valido">Válido desde {titulo.desde} hasta {titulo.hasta}</span>
 					</th>
 				{/each} -->
-				<th>Precio</th>
+				<th>Precio / Pre-venta</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,8 +30,13 @@
 						</td>
 						{#each precio.items as item, idy}
 							<td>
-								{#if item.precio && item.precio > 0}
-									S/ {item.precio} 
+								{#if item.esBox}
+									Individual S/ {item.precioi} <br />
+									Box completo S/ {item.precio}
+								{:else}
+									{#if item.precio && item.precio > 0}
+										S/ {item.precio} 
+									{/if}
 								{/if}
 							</td>
 						{/each}

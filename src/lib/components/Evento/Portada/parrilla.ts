@@ -51,7 +51,9 @@ export function getParrilla(evento: App.Evento) {
 
 			itemParrilla.items.push({
 				habilitado: true,
-				precio: zona.online
+				precio: zona.online,
+				precioi: zona.onlinei,
+				esBox: zona.tipo == "BOX"
 			});
 
 			parrilla.items.push(itemParrilla);
