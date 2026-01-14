@@ -31,7 +31,9 @@
 </div>
 
 <style lang="scss">
+	@use '$lib/scss/breakpoints' as mixin;
 	.filas {
+		margin-top:24px;
 		display: flex;
 		flex-direction: column;
 		gap: 24px;
@@ -42,13 +44,20 @@
 			border-radius: 8px;
 			align-items: center;
 			display: flex;
-			justify-content: space-between;
-			&--activo {
-				border: 1px solid #d30ed1;
+		    flex-direction: column;
+			gap: 16px;
+			border: 1px solid #848282;
+
+			@include mixin.breakpoint(mixin.$md) {
+				justify-content: space-between;
+				flex-direction: row;
 			}
 
 			img {
-				width: 200px;
+				width:100%;
+				@include mixin.breakpoint(mixin.$md) {
+					width: 200px;
+				}
 			}
 		}
 	}

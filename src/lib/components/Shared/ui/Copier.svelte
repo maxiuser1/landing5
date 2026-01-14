@@ -14,7 +14,7 @@
 
 <div class="input-group">
 	<input type="text" value={texto} class="form-control" />
-	<button type="button" class="btn--outline" onclick={copyToClipboard}>{copiado ? 'Copiado' : 'Copiar'}</button>
+	<button type="button" class="btn--outline" onclick={copyToClipboard}>{copiado ? 'Copiado' : 'Copiar link'}</button>
 </div>
 
 <style lang="scss">

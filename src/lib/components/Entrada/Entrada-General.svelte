@@ -14,17 +14,22 @@
 	<div>
 		{compra.nombre}: <small>{soles(compra.precio)}</small>
 		{#if compra.cantidad > 1}
-			<small>x {compra.cantidad}</small>
+			<small></small>
 		{/if}
 	</div>
-	<div class="derecha">{soles(compra.total)}</div>
-	<div class="botonera"></div>
+	<div class="derecha"></div>
+	<div class="botonera">{compra.cantidad}</div>
 </div>
 
 <div class="filas">
 	{#if ticketing.paraMi!.cantidad > 0 || ticketing.total != compra.cantidad}
 		<div class="fila">
-			<div>Mis entradas</div>
+			<div>Entradas
+				<p class="nota">
+					Para ingresar juntos	
+				</p>
+			</div>
+
 			<div></div>
 			<div class="botonera">
 				{#if compra.cantidad > 1}
@@ -50,21 +55,30 @@
 	{#if ticketing.invitados.length > 0}
 		{#each ticketing.invitados as ticket, idx}
 			<div class="fila">
-				<div class="flexed">
+				<div>
+					<div  class="flexed">
 					<Redem />
-					<Copier texto={`${page.url.href}/invitados/${compra.id}`} />
+					<Copier texto={`${page.url.href}/invitados/${ticket.id}`} />
+					</div>
+					<p class="nota">
+						Link para
+						{#if ticket.cantidad == 1}
+							una persona.
+						{:else}
+							{ticket.cantidad} personas.
+						{/if}
+					</p>
 				</div>
 				<div></div>
 				<div class="botonera">
 					{#if compra.cantidad > 1}
+						<button class="btn--icon" onclick={() => ticketing.delInvitado(ticket.id)}><Trash /></button>
 						<Contador
 							cantidad={ticket.cantidad}
 							inc={() => ticketing.incInvitado(ticket)}
 							dec={() => ticketing.decInvitado(ticket)}
-							disabledInc={ticketing.disabled}
+							disabledInc={ticketing.disabledIncInvitados}
 						/>
-					{:else}
-						<button class="btn--icon" onclick={() => ticketing.delInvitado(ticket.id)}><Trash /></button>
 					{/if}
 				</div>
 			</div>
@@ -115,10 +129,15 @@
 </div>
 {#if ticketing.invitados.length < compra.cantidad}
 	<div class="acciones mt-20">
-		<button class="btn--outline" onclick={() => ticketing.addInvitado()}><Redem /> Invitar</button>
-		<button class="btn--outline" onclick={() => ticketing.addTraspaso()}><Share /> Traspasar</button>
-		<button class="btn--outline" onclick={() => ticketing.addReventa()}><Sell /> Revender</button>
+		{#if !ticketing.disabledIncInvitados}
+			<button class="btn--outline"  onclick={() => ticketing.addInvitado()}><Redem />Crear link de acceso</button>
+		{/if}
+		<!-- <button class="btn--outline" onclick={() => ticketing.addTraspaso()}><Share /> Traspasar</button>
+		<button class="btn--outline" onclick={() => ticketing.addReventa()}><Sell /> Revender</button> -->
 	</div>
+	<p class="nota">
+		Crea un link para alguien que llegará por separado, cada link generará su propio QR de acceso al evento.
+	</p>
 {/if}
 
 {#if ticketing.total !== compra.cantidad}
@@ -128,6 +147,11 @@
 {/if}
 
 <style lang="scss">
+	.nota {
+		font-size:0.8rem;
+		color: gray;
+		margin-top: 8px;
+	}
 	.filas {
 		display: flex;
 		flex-direction: column;

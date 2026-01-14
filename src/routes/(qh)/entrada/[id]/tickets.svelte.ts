@@ -29,13 +29,19 @@ class TicketsState {
 		}
 		return total;
 	});
+
 	disabled = $derived(this.total >= this.compra!.cantidad);
+
+	disabledIncInvitados = $derived.by(() => {
+		return this.total >= this.compra!.cantidad && this.paraMi.cantidad == 0; 
+	});
 
 	constructor(compra: App.ItemCompra, tickets: App.Ticket[]) {
 		this.compra = compra;
 
 		if (tickets.length == 0) {
 			this.paraMi.cantidad = compra.cantidad;
+			this.paraMi.compra = compra;
 		}
 
 		this.tickets = tickets.filter((t) => t.tipo == 'invitado');

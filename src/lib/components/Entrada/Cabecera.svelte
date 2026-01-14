@@ -14,12 +14,19 @@
 		<div>{formatDate(new Date(evento.fechas.fechaUnica))}</div>
 	</div>
 	<div class="centrado mt-20 flexed">
-		<Boton class="btn--outline" onclick={imprimir} {loading}>Confirmar entradas</Boton>
-		<a class="btn" href={page.url + '/mine'}>Mostrar <Impresora /></a>
+		<Boton class="btn--outline" onclick={imprimir} {loading}>Guardar distribución</Boton>
+		<a class="btn" href={page.url + '/mine'}>Mi QR de ingreso <Impresora /></a>
 	</div>
+	<p class="importante">
+		Debe guardar la distribución para confimar los links de acceso y las entradas propias.
+	</p>
 </section>
 
 <style lang="scss">
+	.importante {
+		margin-top:1rem;
+		font-weight: bold;
+	}
 	.principal {
 		margin-top: 99px;
 		margin-bottom: 32px;

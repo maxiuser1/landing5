@@ -7,7 +7,7 @@
 
 	let validoHasta = $state(Date.now());
 
-	const { entrada, evento, qrcode, paraMi } = data;
+	const { entrada, evento, qrcode } = data;
 
 	const volver = () => goto('./');
 	let count = $state(4);
@@ -46,10 +46,6 @@
 <div class="minicontainer centrado mt-40 mb-40">
 	<img src={qrcode} alt="QR" />
 </div>
-<div>
-	Vàlido para {paraMi?.cantidad} entradas
-	
-</div>
 <div class="minicontainer centrado">
 	<p>QR válido por: {formatTime(count)} minutos</p>
 </div>
@@ -61,4 +57,3 @@
 		text-align: center;
 	}
 </style>
- 

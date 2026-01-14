@@ -4,6 +4,7 @@ import QRCode from 'qrcode';
 export const load: PageServerLoad = async ({ params, locals, request }) => {
 	const entrada = await locals.eventosRepo.getEntrada(params.id);
 	const evento = await locals.eventosRepo.getEvento(entrada.slug);
+    const paraMi = entrada.tickets.find(t => t.paraMi == true);
 
 	var opts: any = {
 		errorCorrectionLevel: 'H',
@@ -26,6 +27,7 @@ export const load: PageServerLoad = async ({ params, locals, request }) => {
 	return {
 		entrada,
 		evento,
-		qrcode
+		qrcode,
+		paraMi,
 	};
 };

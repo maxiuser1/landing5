@@ -29,7 +29,7 @@
 </script>
 
 <Header {volver}></Header>
-
 <Cabecera {evento} {imprimir} {loading} />
-
 <Resumen {entradas} {productos}></Resumen>
+
+
