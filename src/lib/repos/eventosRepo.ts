@@ -8,6 +8,17 @@ export class EventosRepo implements App.EventosRepoInterface {
 		this.cn = cn;
 	}
 
+	getEntradas = async() : Promise<any> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+		const querySpec: SqlQuerySpec = {
+			query: `SELECT * FROM c WHERE c.canal = 'web' and c.slug = 'teponerock2026'`
+		};
+		const { resources: items } = await container.items.query(querySpec).fetchAll();
+		return items;
+	}
+
 	getEventosDestacados = async (): Promise<Array<App.HomeEvento> | undefined> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');

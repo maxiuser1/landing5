@@ -5,11 +5,7 @@
 </script>
 
 <div class="mt-20">
-	<div class="titulos">
-		<div>Entrada</div>
-		<div class="derecha"></div>
-		<div class="derecha mr-12">#</div>
-	</div>
+	
 	{#each entradas as entrada}
 		<div class="compra">
 			<EntradaGeneral {entrada} />

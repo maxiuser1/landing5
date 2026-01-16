@@ -10,21 +10,11 @@
 	let { compra, ticketing } = entrada;
 </script>
 
-<div class="titulos">
-	<div>
-		{compra.nombre}: <small>{soles(compra.precio)}</small>
-		{#if compra.cantidad > 1}
-			<small></small>
-		{/if}
-	</div>
-	<div class="derecha"></div>
-	<div class="botonera">{compra.cantidad}</div>
-</div>
 
 <div class="filas">
 	{#if ticketing.paraMi!.cantidad > 0 || ticketing.total != compra.cantidad}
 		<div class="fila">
-			<div>Entradas
+			<div>Entradas {compra.nombre}  <small>{soles(compra.precio)}</small>
 				<p class="nota">
 					Para ingresar juntos	
 				</p>
@@ -32,22 +22,7 @@
 
 			<div></div>
 			<div class="botonera">
-				{#if compra.cantidad > 1}
-					<Contador
-						cantidad={ticketing.paraMi?.cantidad}
-						inc={() => ticketing.paraMi!.cantidad++}
-						dec={() => ticketing.paraMi!.cantidad--}
-						disabledInc={ticketing.disabled}
-					/>
-				{:else}
-					<Contador
-						cantidad={ticketing.paraMi?.cantidad}
-						inc={() => ticketing.paraMi!.cantidad++}
-						dec={() => ticketing.paraMi!.cantidad--}
-						disabledInc={true}
-						disabledDec={true}
-					/>
-				{/if}
+				{ticketing.paraMi?.cantidad}
 			</div>
 		</div>
 	{/if}
@@ -72,7 +47,6 @@
 				<div></div>
 				<div class="botonera">
 					{#if compra.cantidad > 1}
-						<button class="btn--icon" onclick={() => ticketing.delInvitado(ticket.id)}><Trash /></button>
 						<Contador
 							cantidad={ticket.cantidad}
 							inc={() => ticketing.incInvitado(ticket)}
@@ -140,7 +114,8 @@
 	</p>
 {/if}
 
-{#if ticketing.total !== compra.cantidad}
+
+{#if Number(ticketing.total) !== Number(compra.cantidad)}
 	<div class="error">
 		{ticketing.total > compra.cantidad ? 'Los tickets superan la cantidad comprada' : 'Faltan distribuír tickets'}
 	</div>

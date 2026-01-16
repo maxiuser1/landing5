@@ -260,6 +260,7 @@ declare global {
 			getComercios(comerciosIds: string[]): Promise<App.Comercio[]>;
 			ticketear(ticketSet: App.TicketsSet): Promise<void>;
 			getReventas(): Promise<App.Reventa[]>;
+			getEntradas() : Promise<any>;
 		}
 
 		interface UsuariosRepoInterface {
