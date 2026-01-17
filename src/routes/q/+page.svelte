@@ -34,7 +34,26 @@
 <section>
     
     {#if invitado}
-        Invitado: {JSON.stringify(invitado)}
+        
+       <h4>Invitado</h4>
+       <div>
+         <table>
+            <tbody>
+                <tr>
+                    <td>Cantidad: {invitado.cantidad}</td>
+                    <td>
+                        {#if invitado.estado == 'picado'}
+                          <span style="color:red">YA FUE PICADO</span>
+                        {:else}
+                            <button class="btn" 
+                                onclick={() => picarInvitado(invitado)}
+                            >Picar</button>
+                        {/if}
+                    </td>
+                </tr>
+            </tbody>
+         </table>
+       </div>
     {:else}
        <h4>
         Compras

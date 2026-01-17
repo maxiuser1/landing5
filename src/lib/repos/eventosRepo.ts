@@ -63,9 +63,10 @@ export class EventosRepo implements App.EventosRepoInterface {
 		}
 
 		if(tipo == 'invitado') {
-
+			console.log('invitado', compra);
 			const tickets = entrada.tickets.map((c:any) => {
 				if (c.id == compra.id) {
+					console.log('encontro el picado');
 					c.estado = 'picado';
 				}
 				return c;
