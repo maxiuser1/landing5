@@ -1,6 +1,27 @@
 <script lang="ts">
     const { data } = $props();
     const { entrada, invitado } = data;
+    const picarCompra = async (compra: any) => {
+       const payload = JSON.stringify({
+        id: entrada.id,
+        compra,
+        tipo:'compra'
+       });
+		const resp = await fetch('/api/picado', { method: 'POST', body: payload });
+		const response = await resp.json();
+        window.location.reload();
+    };
+
+    const picarInvitado = async(ticket:any) => {
+         const payload = JSON.stringify({
+        id: entrada.id,
+        compra:ticket,
+        tipo:'invitado'
+       });
+		const resp = await fetch('/api/picado', { method: 'POST', body: payload });
+		const response = await resp.json();
+        window.location.reload();
+    }
 </script>
 
 
@@ -20,11 +41,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                      {#each entrada.compras as compra}
+                        {#each entrada.compras as compra}
                 <tr>
                     <td>{compra.nombre} x {compra.cantidad}</td>
                     <td>
-                        <button class="btn">Picar</button>
+                        {#if compra.estado == 'picado'}
+                    <span style="color:red">YA FUE PICADO</span>
+                        {:else}
+                          <button class="btn" 
+                        onclick={() => picarCompra(compra)}
+                        >Picar</button>
+                        {/if}
+                      
                     </td>
                 </tr>
             {/each}
@@ -43,11 +71,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                      {#each entrada.tickets as ticket}
+                            {#each entrada.tickets as ticket}
                 <tr>
                     <td>{ticket.nombre}</td>
                     <td>
-                        <button class="btn">Picar</button>
+                        <button class="btn" 
+                        onclick={() => picarInvitado(ticket)}
+                        >Picar</button>
                     </td>
                 </tr>
             {/each}

@@ -8,6 +8,66 @@ export class EventosRepo implements App.EventosRepoInterface {
 		this.cn = cn;
 	}
 
+	picarEntrada = async(id:string, compra:any, tipo:string) : Promise<any> => {
+		const client = new CosmosClient(this.cn);
+		const database = await client.database('quehaydb');
+		const container = await database.container('entradas');
+		let entrada = await this.getEntrada(id);
+
+		if(tipo == 'compra') {
+
+			const compras = entrada.compras.map((c:any) => {
+				if (c.id == compra.id) {
+					c.estado = 'picado';
+				}
+				return c;
+			});
+			
+			await container.item(id, id).patch([
+				{
+					op: 'replace',
+					path: '/compras',
+					value: compras
+				}
+			]);
+
+			if(entrada.tickets.some(t => t.tipo == 'paraMi')){
+				const tickets = entrada.tickets.map((c:any) => {
+					if (c.tipo == 'paraMi') {
+						c.estado = 'picado';
+					}
+					return c;
+				});
+			
+				await container.item(id, id).patch([
+					{
+						op: 'replace',
+						path: '/tickets',
+						value: tickets
+					}
+				]);
+			}
+		}
+
+		if(tipo == 'invitado') {
+
+			const tickets = entrada.tickets.map((c:any) => {
+				if (c.id == compra.id) {
+					c.estado = 'picado';
+				}
+				return c;
+			});
+			
+			await container.item(id, id).patch([
+				{
+					op: 'replace',
+					path: '/tickets',
+					value: tickets
+				}
+			]);
+		}
+	}
+
 	getEntradas = async() : Promise<any> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
