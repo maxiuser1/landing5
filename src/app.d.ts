@@ -261,7 +261,7 @@ declare global {
 			ticketear(ticketSet: App.TicketsSet): Promise<void>;
 			getReventas(): Promise<App.Reventa[]>;
 			getEntradas() : Promise<any>;
-			picarEntrada(id:string, compra:any, tipo:string): Promise<any>;
+			picarEntrada(id:string, compra:any, tipo:string, cantidad:number): Promise<any>;
 		}
 
 		interface UsuariosRepoInterface {

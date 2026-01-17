@@ -8,7 +8,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		this.cn = cn;
 	}
 
-	picarEntrada = async(id:string, compra:any, tipo:string) : Promise<any> => {
+	picarEntrada = async(id:string, compra:any, tipo:string, cantidad:number = 0) : Promise<any> => {
 		const client = new CosmosClient(this.cn);
 		const database = await client.database('quehaydb');
 		const container = await database.container('entradas');
@@ -18,7 +18,20 @@ export class EventosRepo implements App.EventosRepoInterface {
 
 			const compras = entrada.compras.map((c:any) => {
 				if (c.id == compra.id) {
-					c.estado = 'picado';
+					if(c.tipo == 'entrada'){
+						if(c.picados) {
+							c.picados = c.picados + cantidad;
+							if(c.picados >= c.cantidad) {
+								c.estado = 'picado';
+							}
+						}
+						else {
+							c.picados = cantidad;
+						}
+					}
+					else {
+						c.estado = 'picado';
+					}
 				}
 				return c;
 			});

@@ -1,11 +1,16 @@
 <script lang="ts">
+	import Contador from '$lib/components/Evento/Reserva/Contador.svelte';
+
     const { data } = $props();
     const { entrada, invitado } = data;
+    let picados = $state(1);
+
     const picarCompra = async (compra: any) => {
        const payload = JSON.stringify({
         id: entrada.id,
         compra,
-        tipo:'compra'
+        tipo:'compra',
+        picados:picados
        });
 		const resp = await fetch('/api/picado', { method: 'POST', body: payload });
 		const response = await resp.json();
@@ -16,7 +21,8 @@
          const payload = JSON.stringify({
         id: entrada.id,
         compra:ticket,
-        tipo:'invitado'
+        tipo:'invitado',
+        picados:0
        });
 		const resp = await fetch('/api/picado', { method: 'POST', body: payload });
 		const response = await resp.json();
@@ -26,6 +32,7 @@
 
 
 <section>
+    
     {#if invitado}
         Invitado: {JSON.stringify(invitado)}
     {:else}
@@ -41,10 +48,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <Contador cantidad={picados}
+					inc={() => picados++}
+					dec={() => picados--}
+        />
+                        </td>
+                    </tr>
                         {#each entrada.compras as compra}
                 <tr>
                     <td>{compra.nombre} x {compra.cantidad}</td>
                     <td>
+                        {#if compra.picados}
+                            {compra.picados} picados
+                        {/if}
                         {#if compra.estado == 'picado'}
                     <span style="color:red">YA FUE PICADO</span>
                         {:else}
