@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ params, locals, request }) => {
 	};
 
 	const now = Date.now();
-	const qrcode = await generateQR(`id=${params.id}&ts=${now}`);
+	const qrcode = await generateQR(`https://quehay.com.pe/q?e=${entrada.id}`);
 
 	return {
 		entrada,

@@ -20,8 +20,7 @@ export const load: PageServerLoad = async ({ params, locals, request }) => {
         return await QRCode.toDataURL(text, opts);
     };
 
-    const now = Date.now();
-    const qrcode = await generateQR(`id=${params.id}&ts=${now}`);
+    const qrcode = await generateQR(`https://quehay.com.pe/q?e=${entrada.id}&i=${params.codigo}`);
 
     return {
         entrada,
