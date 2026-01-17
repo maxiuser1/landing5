@@ -118,6 +118,7 @@ export class EventosRepo implements App.EventosRepoInterface {
 		const database = await client.database('quehaydb');
 		const container = await database.container('comercios');
 
+		if(!comerciosIds || comerciosIds.length == 0) return [];
 		const querySpec: SqlQuerySpec = {
 			query: `SELECT c.id, c.tenant, c.productos, c.tipo FROM c WHERE  c.id in (${comerciosIds.map((id) => `'${id}'`).join(',')})`
 		};

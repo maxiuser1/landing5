@@ -50,6 +50,7 @@ declare global {
 
 		type Evento = {
 			id: string;
+			tiendas: string[];
 			general: {
 				categoria: string;
 				nombre: string;

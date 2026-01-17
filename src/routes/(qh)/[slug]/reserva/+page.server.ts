@@ -6,8 +6,9 @@ export const load: PageServerLoad = async ({ locals, params, url }) => {
 		const urlLogin = `/login?redirectTo=${encodeURIComponent(url.href)}`;
 		redirect(302, urlLogin);
 	}
-	const comercios = await locals.eventosRepo.getComercios(['anima1', 'lalucha1', 'losportales1']);
+
 	const evento = await locals.eventosRepo.getEvento(params.slug);
+	const comercios = (await locals.eventosRepo.getComercios(evento.tiendas ?? [])) ?? [];
 
 	let descuento: App.User | null = null;
 	if (url.searchParams.has('promo') && url.searchParams.get('promo')) {
@@ -15,6 +16,7 @@ export const load: PageServerLoad = async ({ locals, params, url }) => {
 		descuento = await locals.usuariosRepo.getPromo(promo!);
 	}
 
+	console.log(comercios);
 	return { evento, comercios, descuento };
 };
 

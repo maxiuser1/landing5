@@ -229,6 +229,7 @@ class ReservaState {
 
 	constructor(evento: App.Evento, comercios: App.Comercio[], descuento: App.User | null) {
 		this.slug = evento.id;
+		if(comercios?.length > 0)
 		this.comercio = comercios[0].id;
 		this.compras = [];
 		this.descuento = descuento?.descuentos?.descuento ?? 0;
