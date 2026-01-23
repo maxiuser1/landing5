@@ -102,7 +102,8 @@ declare global {
 			s: number; //status -1: no disponible, 0: disponible
 			c: number; //cantidad
 			l: number; //limite
-			o: any;
+			o: any; //objeto apoyo
+			cmin: number;//compra minima
 		};
 
 		type Descuento = {
@@ -110,6 +111,7 @@ declare global {
 			codigo: string;
 			descuento: number;
 			online: number;
+			onlinei: number;
 			promotor: number;
 			tipo: string;
 			fechaInicio: string;
@@ -157,11 +159,16 @@ declare global {
 			id: string;
 			fila?: string;
 			sit?: string;
+			online:number;
+			onlinei:number;
 
 			refEntradaId?: string;
 			refTicketId?: number;
 			parcializada:boolean;
 			restantes?:number;
+			sitCantidad?:number;
+			sitLimite?: number;
+			sitCompraMinima?: number;
 		};
 
 		type Comercio = {

@@ -48,39 +48,47 @@ class ReservaState {
 	}
 
 	incBox(compra: App.ItemCompra) {
-		if(compra.cantidad  < compra.restantes!){ 
-			compra.cantidad++;
-			compra.precio = compra.precioi! * compra.cantidad;
-			compra.total = compra.precio;
+		compra.cantidad++;
+
+		if(compra.cantidad > compra.restantes!){
+			compra.cantidad--;
+			return;
 		}
+
+		const compraFull = compra.cantidad == compra.sitLimite;
+		console.log('compraFull', compraFull, compra.cantidad);
+		if(compraFull) {
+			console.log('compraFull',compra.cantidad, compra.online, compra.total);
+			compra.precio = compra.online;
+			compra.total = compra.online;
+		}
+		else {
+			compra.precio = compra.onlinei;
+			compra.total = compra.onlinei * compra.cantidad;
+		}
+
 	}
 
 	addBox(precio: App.Precio, fila: App.Fila, sit: App.Sit, tagFila: string, tagSit: string) {
-		const permiteCompraParcial = sit.l != sit.c;
-		const hayComprasParciales = sit.c > 0 && sit.c < sit.l;
+		const permiteCompraParcial = sit.l != sit.cmin;
 		let compraBox = {
 			id: `${precio.codigo}-${tagFila}-${tagSit}`,
 			codigo: precio.codigo,
 			tipoPrecio: precio.tipo,
 			tipo: 'entrada',
 			nombre: `${precio.nombre}, box ${tagFila}-${tagSit}`,
-			precio:  precio.online,
-			precioi: precio.onlinei,
-			limite: sit.l,
-			cantidad: sit.l,
-			total:  precio.online,
+			online :  precio.online,
+			onlinei: precio.onlinei,
+			sitLimite: sit.l,
+			sitCantidad: sit.c,
 			fila: fila.id,
 			sit: sit.id,
 			parcializada: permiteCompraParcial,
-			restantes: sit.l - sit.c
+			restantes: permiteCompraParcial ? sit.l - sit.c : sit.l,
+			cantidad: permiteCompraParcial ? 1 : sit.l,
+			precio: permiteCompraParcial ? precio.onlinei : precio.online,
+			total: permiteCompraParcial ? precio.onlinei : precio.online,
 		};
-
-		if(permiteCompraParcial && hayComprasParciales)
-		{
-			compraBox.cantidad = compraBox.restantes!;
-			compraBox.precio =  precio.onlinei! * compraBox.restantes;
-		 	compraBox.total = compraBox.precio;
-		}
 		this.compras.push(compraBox);
 	}
 
@@ -101,7 +109,12 @@ class ReservaState {
 			total: precio.online,
 			fila: fila.id,
 			sit: sit.id,
-			parcializada:false
+			parcializada:false,
+			online: precio.online,
+			onlinei: precio.onlinei,
+			sitLimite: sit.l,
+			sitCantidad: sit.c,
+			restantes: sit.l - sit.c,
 		});
 	}
 
@@ -143,8 +156,6 @@ class ReservaState {
 		return 0;
 	}
 
-
-
 	inc({ codigo, nombre, online, tipo }: App.Precio) {
 		const compra = this.compras.find((t) => t.id === codigo);
 		if (compra) {
@@ -160,7 +171,12 @@ class ReservaState {
 				precio: online,
 				cantidad: 1,
 				total: online,
-				parcializada:false
+				parcializada:false,
+				online: online,
+				onlinei: online,
+				sitLimite: 0,
+				sitCantidad: 0,
+				restantes: 0,
 			});
 		}
 	}
@@ -192,7 +208,12 @@ class ReservaState {
 				precio: producto.precio,
 				cantidad: 1,
 				total: producto.precio,
-				parcializada:false
+				parcializada:false,
+				online: producto.precio,
+				onlinei: producto.precio,
+				sitLimite: 0,
+				sitCantidad: 0,
+				restantes: 0,
 			});
 		}
 	}
@@ -215,8 +236,15 @@ class ReservaState {
 			if(precio?.descuentos?.some(d => d.tipo == "Codigo" && d.nombre.toLocaleLowerCase() == codigo.toLocaleLowerCase())){
 				const descuentoEncontrado = precio.descuentos.find(d => d.tipo == "Codigo" && d.nombre.toLocaleLowerCase() == codigo.toLocaleLowerCase());
 				if(descuentoEncontrado){
-					cadaCompra.precio = descuentoEncontrado.online;
-					cadaCompra.total = cadaCompra.cantidad * cadaCompra.precio;
+					if(cadaCompra.tipoPrecio == 'BOX') {
+						cadaCompra.precio = cadaCompra.cantidad == cadaCompra.sitLimite ? descuentoEncontrado.online : descuentoEncontrado.onlinei;
+						cadaCompra.total = cadaCompra.cantidad == cadaCompra.sitLimite ? descuentoEncontrado.online: (cadaCompra.cantidad * descuentoEncontrado.onlinei);
+					}
+					else {
+						cadaCompra.precio =  descuentoEncontrado.online;
+						cadaCompra.total = cadaCompra.cantidad * cadaCompra.precio;
+					}
+					
 				}
 			}
 		}
