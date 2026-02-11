@@ -80,7 +80,14 @@ export class NiubizHandler {
 					}
 				}
 			);
-			return resultado.data;
-		} catch (err: any) {}
+			return {...resultado.data, ok: true  };
+		} catch (err: any) {
+			const fracaso = err.response.data;
+			return {
+				ok: false,
+				purchaseNumber: turno.numeroCompra,
+				ACTION_DESCRIPTION: fracaso.data.ACTION_DESCRIPTION
+			};
+		}
 	}
 }
