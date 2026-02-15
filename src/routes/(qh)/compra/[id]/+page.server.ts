@@ -1,7 +1,7 @@
 import { NiubizHandler } from '$lib/shared/niubiz';
 import { redirect, type Actions } from '@sveltejs/kit';
 import { SECRET_SENDGRID_KEY, SECRET_SENDGRID_TICKET } from '$env/static/private';
-import sgMail from "@sendgrid/mail";
+import sgMail from '@sendgrid/mail';
 
 export const actions = {
 	default: async ({ request, locals, params, url }) => {
@@ -10,18 +10,17 @@ export const actions = {
 		const turno = await locals.eventosRepo.getTurno(params.id!);
 		const evento = await locals.eventosRepo.getEvento(turno.slug);
 		const authorization = await new NiubizHandler().authorize(transaction.transactionToken, turno);
-		if(authorization.ok){
+		if (authorization.ok) {
 			const entradaId = await locals.eventosRepo.confirmar(turno, authorization);
 			const fecha = new Date(evento.fechas.fechaUnica);
 
-			const dia = String(fecha.getUTCDate()).padStart(2, "0");
-			const mes = String(fecha.getUTCMonth() + 1).padStart(2, "0");
+			const dia = String(fecha.getUTCDate()).padStart(2, '0');
+			const mes = String(fecha.getUTCMonth() + 1).padStart(2, '0');
 			const anio = fecha.getUTCFullYear();
-
-			const compraTicket = turno.compras.find(c => c.tipo === 'entrada');
+			const compraTicket = turno.compras.find((c) => c.tipo === 'entrada');
 
 			sgMail.setApiKey(SECRET_SENDGRID_KEY);
-			const msg  = {
+			const msg = {
 				to: turno.user.correo,
 				from: 'contacto@eventop.pe',
 				templateId: SECRET_SENDGRID_TICKET,
@@ -29,25 +28,22 @@ export const actions = {
 					evento: evento.general.nombre,
 					artista: evento.general.artista,
 					fecha: `${dia}-${mes}-${anio}`,
-					direccion:`${evento.ubicacion.nombre} - ${evento.ubicacion.direccion}`,
+					direccion: `${evento.ubicacion.nombre} - ${evento.ubicacion.direccion}`,
 					zona: compraTicket?.nombre,
-					cantidad:compraTicket?.cantidad,
+					cantidad: compraTicket?.cantidad,
+					url: `https://quehay.com.pe/${evento.general.slug}/entrada/${entradaId}`
 				}
-			}
+			};
 			try {
 				sgMail
-				.send(msg)
-				.then((response) => {
-				})
-				.catch((error) => {
-					console.error(error)
-				});
-			}
-			catch (error) {
-			}
+					.send(msg)
+					.then((response) => {})
+					.catch((error) => {
+						console.error(error);
+					});
+			} catch (error) {}
 			redirect(303, `/entrada/${entradaId}`);
-		}
-		else {
+		} else {
 			const motivo = authorization.ACTION_DESCRIPTION || 'Error desconocido';
 			return { error: `La transacción ha sido rechazada. Motivo: ${motivo}` };
 		}
